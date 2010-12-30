@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome to Reddit Game Jam!</h1>
+    <p>
+    This is the site where we try to keep track of the game
+    jams, all your awesome submissions and the feedback after
+    the game jams. If you have no clue what this "game jam"
+    thing is, you should consider looking at the <a
+        href="#">FAQ</a>. If you have never heard of reddit, it
+    is time to <a href="http://reddit.com/" target="_blank"
+        class="external">go there</a> and sign up for an account. If you have
+    any other questions, feel free to ask on <a
+        href="http://reddit.com/r/redditgamejam"
+    target="_blank" class="external">r/redditgamejam</a> or
+    <a href="#">here</a>.
+    </p>
+    <h1>Jams</h1>
+    {% if object_list %}
+    {% for jam in object_list %}
+    <div class="_jam">
+        <h2>{{ jam.title }}</h2>
+        <p>{{ jam.description }}</p>
+        <p>{{ jam.rules }}</p>
+        <p class="_date">{{ jam.date_start }} - {{ jam.date_end }}</p>
+        <i>posted {{ jam.date_announced }}</i>
+        <a href="{{ jam.redditpost }}" target="_blank" class="external">{{ jam.redditpost }}</a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>Sorry, there aren't any jams available :(</p>
+    {% endif %}
+{% endblock %}
