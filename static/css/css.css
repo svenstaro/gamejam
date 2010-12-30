@@ -105,9 +105,12 @@ div#HEADER div#MINI_SEARCH form input#MINI_SEARCH_Q {
     border-right: 0;
     background: #666;
     border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
     color: #ccc;
     padding: 4px 6px;
     margin:0;
+    height:26px;
+    vertical-align: top;
 }
 
 div#HEADER div#MINI_SEARCH form input#MINI_SEARCH_S {
@@ -115,10 +118,14 @@ div#HEADER div#MINI_SEARCH form input#MINI_SEARCH_S {
     background: #ccc url("/static/img/find.png") center center no-repeat;
     background-position:0px 0px;
     border-radius: 0 5px 5px 0; 
+    -moz-border-radius: 0 5px 5px 0; 
     padding: 4px 6px;
     margin:0;
     width:32px;
+    height:26px;
+    vertical-align: top;
 }
+
 
 div#HEADER div#MINI_SEARCH form input#MINI_SEARCH_S:hover {
     background-position:-30px 0px;
@@ -198,6 +205,7 @@ div#CONTENT {
 
 div#FOOTER {
     margin-top: 3px;
+    border-top: 2px solid #FFF;
 }
 
 div#FOOTER div#FOOTER_NAVBAR {
