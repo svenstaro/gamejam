@@ -8,6 +8,7 @@
 World::World() {
 	mEditorMouseAction = EMA_NONE;
 	mEditorPolygonFinished = true;
+	mEditorRailFinished = true;
 	mEditorLayer = 1;
 }
 
@@ -194,6 +195,11 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	// draw the rest
 	for(; entity_iter != mEntities.end(); ++entity_iter) {
 		entity_iter->Draw(target, shader, GameApp::get_mutable_instance().IsEditorMode() && mEditorLayer == entity_iter->GetLayer());
+	}
+
+	// draw the rails
+	BOOST_FOREACH(Rail& r, mRails) {
+		r.Draw(target, sf::Color(128,128,128));
 	}
 
 	if(mEditorMouseAction == EMA_ROTATE && mEditorMouseActionEntity != NULL) {
@@ -417,6 +423,33 @@ void World::HandleEvent(const sf::Event& event) {
 					// Cancel polygon
 					mEditorPolygonFinished = true;
 				}
+			} else if (mEditorLayer == 9) {
+				if(event.MouseButton.Button == sf::Mouse::Left) {
+					// SetNextPoint
+					if(mEditorRailFinished) {
+						// create new Rail
+						mRails.push_back(new Rail());
+					}
+					Coordinates tmp;
+					tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+					mRails.back().SetNextPoint(tmp.GetWorldPixel());
+					mEditorRailFinished = mRails.back().IsFinished();
+				} else if(event.MouseButton.Button == sf::Mouse::Right) {
+					if (mEditorPolygonFinished) {
+						// delete polygon
+						Rail* r = GetClosestRail();
+						if (r != NULL) {
+							for(auto iter = mRails.begin(); iter != mRails.end(); ++iter) {
+								if (r->GetCenter() == iter->GetCenter()) {
+									mRails.erase(iter);
+									break;
+								}
+							}
+						}
+					}
+					// Cancel polygon
+					mEditorRailFinished = true;
+				}
 			} else {
 				SetRenameMode(false);
 				if(event.MouseButton.Button == sf::Mouse::Left) {
@@ -624,6 +657,11 @@ void World::Save() {
 			colpol.Save(&pt, i);
 			++i;
 		}
+		i = 0;
+		BOOST_FOREACH(Rail& rail, mRails) {
+			rail.Save(&pt, i);
+			++i;
+		}
 		FILE* file = fopen("../data/levels.info","w");
 		fclose(file);
 		write_info("../data/levels.info", pt);
@@ -635,8 +673,8 @@ void World::Load() {
 		mDynamicsWorld->removeRigidBody(entity.GetBody().get());
 	}
 	mEntities.clear();
-	
 	mCollisionPolygons.clear();
+	mRails.clear();
 
 	using boost::property_tree::ptree;
 	ptree pt;
@@ -653,6 +691,10 @@ void World::Load() {
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("polygons")) {
 				mCollisionPolygons.push_back(new CollisionPolygon());
 				mCollisionPolygons.back().Load(&pt, boost::lexical_cast<int>(v.first.data()));
+			}
+			BOOST_FOREACH(ptree::value_type &v, pt.get_child("rails")) {
+				mRails.push_back(new Rail());
+				mRails.back().Load(&pt, boost::lexical_cast<int>(v.first.data()));
 			}
 		}
 	} else {
@@ -708,14 +750,7 @@ void World::TickCallback(btScalar timestep) {
 				if (obA->getUserPointer()!=NULL && obB->getUserPointer()!=NULL) {
 					Entity* a = (Entity*)obA->getUserPointer();
 					Entity* b = (Entity*)obB->getUserPointer();
-					GameApp& app = GameApp::get_mutable_instance();
-					if ( a->GetUID().substr(0,5)=="heart" && b->GetUID()=="player") {
-						app.SetWorldHearts(app.GetWorldHearts()+1);
-						DeleteEntityByUID(a->GetUID());
-					} else if (b->GetUID().substr(0,5)=="heart" && a->GetUID()=="player") {
-						app.SetWorldHearts(app.GetWorldHearts()+1);
-						DeleteEntityByUID(b->GetUID());
-					}
+					// do something!
 				}
 			}
 		}
@@ -739,6 +774,24 @@ CollisionPolygon* World::GetClosestCollisionPolygon() {
 		float d = (p.GetCenter() - tmp.GetWorldFloat()).Magnitude();
 		if (d < min_d) {
 			closest = &p;
+			min_d = d;
+		}
+	}
+	return closest;
+}
+
+Rail* World::GetClosestRail() {
+	Rail* closest = NULL;
+	Coordinates tmp;
+	tmp.SetWorldPixel(Vector2D(20,0));
+	float min_d = tmp.GetWorldFloat().x;
+
+	tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+
+	BOOST_FOREACH(Rail& r, mRails) {
+		float d = (r.GetCenter() - tmp.GetWorldPixel()).Magnitude();
+		if (d < min_d) {
+			closest = &r;
 			min_d = d;
 		}
 	}

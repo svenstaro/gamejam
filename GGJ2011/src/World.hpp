@@ -25,6 +25,7 @@
 #include "CollisionPolygon.hpp"
 #include "Coordinates.hpp"
 #include "DebugDraw.hpp"
+#include "Rail.hpp"
 
 enum EditorMouseAction {
 	EMA_GRAB,
@@ -53,6 +54,7 @@ public:
 	std::vector<Entity*> GetEntitiesByLayer(int layer);
 	Entity* GetClosestEntityOnLayer(const Vector2D pos, int layer=0);
 	CollisionPolygon* GetClosestCollisionPolygon();
+	Rail* GetClosestRail();
 	
 	Entity* GetEntityByUID(const std::string& uid);
 
@@ -82,6 +84,7 @@ public:
 private:
 	boost::ptr_vector<Entity> mEntities;
 	boost::ptr_list<CollisionPolygon> mCollisionPolygons;
+	boost::ptr_list<Rail> mRails;
 
 	boost::shared_ptr<btDefaultCollisionConfiguration> mCollisionConfiguration;
 	boost::shared_ptr<btCollisionDispatcher> mCollisionDispatcher;
@@ -115,6 +118,7 @@ private:
 	bool mEditorEnabledRenameThisFrame;
 
 	bool mEditorPolygonFinished;
+	bool mEditorRailFinished;
 
 	Entity* mEditorSelectedEntity;
 	int mLocalLayerCount;
