@@ -214,7 +214,12 @@ void World::AddEntity(Entity* entity) {
 
 void World::HandleEvent(const sf::Event& event) {
 	if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Tab) {
-		GameApp::get_mutable_instance().ToggleEditorMode();
+		GameApp& app = GameApp::get_mutable_instance();
+		if(app.IsEditorMode()) {
+			app.SetAppMode(AM_PUZZLE);
+		} else {
+			app.SetAppMode(AM_EDITOR);
+		}
 		ToggleSetMouseAction(EMA_NONE); // stop grabbing etc.
 	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Escape && !mEditorRenameMode) {
 		// menu or quit or so

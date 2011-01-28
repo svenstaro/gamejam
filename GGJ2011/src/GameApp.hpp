@@ -15,6 +15,12 @@
 #include "Entity.hpp"
 #include "World.hpp"
 
+enum AppMode {
+	AM_EDITOR,
+	AM_PUZZLE,
+	AM_PLAY
+};
+
 class GameApp : public boost::serialization::singleton<GameApp> {
 public:
 	GameApp();
@@ -26,8 +32,10 @@ public:
 
 	void LoadWorld();
 
-	void ToggleEditorMode();
-	bool IsEditorMode();
+	void SetAppMode(AppMode mode);
+	bool IsEditorMode() const;
+	AppMode GetAppMode() const;
+
     const Vector2D GetWindowSize() const;
 	sf::View& GetView();
 	void SetGuiPaintingMode(bool guipaint);
@@ -57,7 +65,7 @@ private:
 	sf::Clock mClock;
 	sf::Text mSubtext;
 
-	bool mIsInEditorMode;
+	AppMode mAppMode;
 
 	int mNextId;
 

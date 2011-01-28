@@ -25,43 +25,16 @@ void GameApp::Init() {
 
 	// load resources
 	boost::filesystem::path gfx("../gfx/");
-	mResourceManager.AddImage(gfx, "loverobot.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "heart.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "box.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal2.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal3.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal4.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "grass2.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "grass1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "tree1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "flare.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray1.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray2.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray3.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray4.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray5.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray6.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "platform.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock1.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock2.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock3.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock4.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock5.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock6.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock7.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock8.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock9.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "spaceship.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "box.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	// -- add new images here
 
 	mViewBorder.LoadFromFile("../gfx/view_border.png");
 
 	SetSubtext("Hint: <Tab> for the editor!");
 
-	mMusic.OpenFromFile("../data/music.ogg");
-	mMusic.SetLoop(true);
-	mMusic.Play();
+	//mMusic.OpenFromFile("../data/music.ogg");
+	//mMusic.SetLoop(true);
+	//mMusic.Play();
 
 	// Load The World
 	LoadWorld();
@@ -104,7 +77,7 @@ void GameApp::Run() {
 		mWorld.Draw(mRenderWin.get(), mShader);
 
 
-		if (!mIsInEditorMode) {
+		if (!IsEditorMode()) {
 
 			SetGuiPaintingMode(true);
 			// Draw view border
@@ -160,7 +133,7 @@ void GameApp::Run() {
 
 		SetGuiPaintingMode(true);
 		std::string mode = "Game Mode";
-		if (mIsInEditorMode) mode = "Editor Mode - Layer "+boost::lexical_cast<std::string>(mWorld.GetEditorLayer());
+		if (IsEditorMode()) mode = "Editor Mode - Layer "+boost::lexical_cast<std::string>(mWorld.GetEditorLayer());
 		sf::Text fps_text(boost::lexical_cast<std::string>(round(1/frameTime)) + " ("+mode+")");
 		fps_text.SetCharacterSize(12);
 		fps_text.SetStyle(sf::Text::Regular);
@@ -194,14 +167,18 @@ void GameApp::LoadWorld() {
 	mWorld.Load();
 }
 
-void GameApp::ToggleEditorMode() {
-	if (mIsInEditorMode)
-		mWorld.Save();
-	mIsInEditorMode = !mIsInEditorMode;
+void GameApp::SetAppMode(AppMode mode) {
+	mAppMode = mode;
 }
-bool GameApp::IsEditorMode() {
-	return mIsInEditorMode;
+
+bool GameApp::IsEditorMode() const {
+	return mAppMode == AM_EDITOR;
 }
+
+AppMode GameApp::GetAppMode() const {
+	return mAppMode;
+}
+
 
 sf::View& GameApp::GetView() {
 	return *mView.get();
