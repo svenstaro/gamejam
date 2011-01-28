@@ -44,12 +44,8 @@ public:
 
 	int GetNextId();
 	void SetNextId(int id);
-	sf::Color GetSpriteColor(const float alpha) const;
 
 	void SetSubtext(const std::string& subtext);
-
-	void SetWorldHearts(int h);
-	int GetWorldHearts() const;
 
 	World* const GetWorldPtr();
 	ResourceManager* const GetResourceManagerPtr();
@@ -69,11 +65,7 @@ private:
 
 	int mNextId;
 
-	int mWorldNumber;
-	int mWorldHearts;
-
 	bool mDebugGrid;
-	sf::Image mViewBorder;
 	sf::Music mMusic;
 };
 

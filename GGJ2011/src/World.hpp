@@ -122,6 +122,8 @@ private:
 
 	Entity* mEditorSelectedEntity;
 	int mLocalLayerCount;
+
+	sf::Shape mClosestMarker;
 };
 
 #endif

@@ -11,6 +11,10 @@ Entity::Entity() {
 }
 Entity::~Entity() {}
 
+void Entity::Initialize(World& world) {
+	SetUsePhysics(world, false);
+}
+
 void Entity::Initialize(World& world, const std::string& imagefile, int layer, bool use_physics) {
 	mImageFile = imagefile;
 	mLayer = layer;
@@ -130,7 +134,6 @@ void Entity::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode
 	s.SetPosition(p.x, p.y);
 	s.SetRotation(Vector2D::rad2Deg(mRotation));
 	s.SetScale(mScale, mScale);
-	s.SetColor(GameApp::get_const_instance().GetSpriteColor(mAlpha));
 	target->Draw(s, shader);
 
 	if (editor_mode) {

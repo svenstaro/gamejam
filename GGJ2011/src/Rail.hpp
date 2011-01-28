@@ -10,9 +10,11 @@
 #include "SFML/Graphics.hpp"
 #include "Coordinates.hpp"
 
+#include "TiledSprite.hpp"
+
 class Rail {
 public:
-    Rail();
+	Rail();
 
 	void Draw(sf::RenderTarget* target, sf::Color bordercolor = sf::Color::Black);
 
@@ -24,10 +26,15 @@ public:
 	Vector2D GetCenter();
 
 	bool IsFinished() const;
+
+	float ClosestPositionOnLine(Vector2D pixel_pos);
+	Vector2D GetPointFromFloat(float f) const;
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;
 	int mLastPointSet;
+	TiledSprite mTiledSprite;
 };
 
 #endif // RAIL_HPP

@@ -10,6 +10,7 @@ GameApp::~GameApp() {}
 void GameApp::Init() {
 	mRenderWin = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow);
 	mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "Love Robot From Space.");
+	mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
 	mRenderWin->EnableVerticalSync(true);
 
 	mView = boost::shared_ptr<sf::View>(new sf::View(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)));
@@ -26,9 +27,8 @@ void GameApp::Init() {
 	// load resources
 	boost::filesystem::path gfx("../gfx/");
 	mResourceManager.AddImage(gfx, "box.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "rail.svg", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
 	// -- add new images here
-
-	mViewBorder.LoadFromFile("../gfx/view_border.png");
 
 	SetSubtext("Hint: <Tab> for the editor!");
 
@@ -50,7 +50,7 @@ void GameApp::Run() {
 		while(mRenderWin->GetEvent(event)) {
 			if(event.Type == sf::Event::Closed)
 				Quit();
-			if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Quote) {
+			if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Comma) {
 				mDebugGrid = !mDebugGrid;
 			}
 			mWorld.HandleEvent(event);
@@ -70,25 +70,11 @@ void GameApp::Run() {
 			time_budget -= dt;
 		}
 
-		mRenderWin->Clear(sf::Color(0,0,0));
+		mRenderWin->Clear(sf::Color(80,80,80));
 		SetGuiPaintingMode(false);
 
 		// Draw World
 		mWorld.Draw(mRenderWin.get(), mShader);
-
-
-		if (!IsEditorMode()) {
-
-			SetGuiPaintingMode(true);
-			// Draw view border
-			sf::Sprite vb(mViewBorder);
-			mRenderWin->Draw(vb);
-			// Draw darkness shape
-			sf::Shape s = sf::Shape::Rectangle(0,0, WIDTH, HEIGHT,sf::Color(0,0,0,255*1.f/3.f - 255*mWorldHearts*2/9.f));
-			mRenderWin->Draw(s);
-
-			SetGuiPaintingMode(false);
-		}
 
 		// Draw debug grid
 		if (mDebugGrid) {
@@ -131,26 +117,35 @@ void GameApp::Run() {
 			}
 		}
 
+
 		SetGuiPaintingMode(true);
-		std::string mode = "Game Mode";
-		if (IsEditorMode()) mode = "Editor Mode - Layer "+boost::lexical_cast<std::string>(mWorld.GetEditorLayer());
-		sf::Text fps_text(boost::lexical_cast<std::string>(round(1/frameTime)) + " ("+mode+")");
-		fps_text.SetCharacterSize(12);
-		fps_text.SetStyle(sf::Text::Regular);
-		fps_text.SetPosition(10,10);
-		mRenderWin->Draw(fps_text);
+		if(IsEditorMode()) {
+			sf::Text fps_text("Layer "+boost::lexical_cast<std::string>(mWorld.GetEditorLayer()) +
+							  " / " + boost::lexical_cast<std::string>(round(1/frameTime)) + " FPS");
+			fps_text.SetCharacterSize(10);
+			fps_text.SetStyle(sf::Text::Regular);
+			fps_text.SetPosition(10,10);
+			mRenderWin->Draw(fps_text);
 
-		sf::Text ec_text(boost::lexical_cast<std::string>(mWorld.GetEntityCount())); // entitiycount
-		ec_text.SetCharacterSize(12);
-		ec_text.SetStyle(sf::Text::Regular);
-		ec_text.SetPosition(10,30);
-		mRenderWin->Draw(ec_text);
+			sf::Text ec_text(boost::lexical_cast<std::string>(mWorld.GetEntityCount())); // entitiycount
+			ec_text.SetCharacterSize(12);
+			ec_text.SetStyle(sf::Text::Regular);
+			ec_text.SetPosition(10,30);
+			mRenderWin->Draw(ec_text);
 
-		mSubtext.SetCharacterSize(14);
-		mSubtext.SetStyle(sf::Text::Bold);
-		mSubtext.SetPosition(round(mRenderWin->GetWidth() / 2 - mSubtext.GetRect().Width / 2), mRenderWin->GetHeight() - 20);
-		mRenderWin->Draw(mSubtext);
+			mSubtext.SetCharacterSize(14);
+			mSubtext.SetStyle(sf::Text::Bold);
+			mSubtext.SetPosition(round(mRenderWin->GetWidth() / 2 - mSubtext.GetRect().Width / 2), mRenderWin->GetHeight() - 20);
+			mRenderWin->Draw(mSubtext);
+		} else if(mAppMode == AM_PUZZLE) {
+			// Puzzle information
+			sf::Text t("Place a Mover by clicking on the rail.");
+			t.SetCharacterSize(10);
+			t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 20);
+			mRenderWin->Draw(t);
 
+			//GUI!!!
+		}
 		mRenderWin->Display();
 	}
 }
@@ -161,8 +156,6 @@ void GameApp::Quit() {
 
 void GameApp::LoadWorld() {
 	mWorld.Initialize();
-
-	SetWorldHearts(0);
 
 	mWorld.Load();
 }
@@ -211,14 +204,6 @@ void GameApp::SetNextId(int id) {
 	mNextId = id+1;
 }
 
-sf::Color GameApp::GetSpriteColor(const float alpha) const {
-
-	//TODO: We need a shader.
-//	float v = mWorldHearts/3.f * 255; // from 0 to 255, depending on mWorldHearts
-	float v = 255;
-	return sf::Color(v,v,v, alpha * 255);
-}
-
 World* const GameApp::GetWorldPtr() {
 	return &mWorld;
 }
@@ -229,14 +214,6 @@ ResourceManager* const GameApp::GetResourceManagerPtr() {
 
 void GameApp::SetSubtext(const std::string& subtext) {
 	mSubtext.SetString(subtext);
-}
-
-void GameApp::SetWorldHearts(int h) {
-	mWorldHearts = h;
-	//mShader.SetParameter("new_sat", mWorldHearts / 6.f + 0.5f);
-}
-int GameApp::GetWorldHearts() const {
-	return mWorldHearts;
 }
 
 boost::shared_ptr<sf::RenderWindow> GameApp::GetRenderWindowPtr() {
