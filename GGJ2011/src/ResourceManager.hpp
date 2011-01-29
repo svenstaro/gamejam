@@ -6,7 +6,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include <ImageMagick/Magick++.h>
+#include <Magick++.h>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
