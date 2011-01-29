@@ -9,6 +9,7 @@ World::World() {
 	mEditorMouseAction = EMA_NONE;
 	mEditorPolygonFinished = true;
 	mEditorRailFinished = true;
+	mClosestRailPoint = NULL;
 	mEditorLayer = 1;
 }
 
@@ -94,19 +95,17 @@ void World::Update(const float time_delta) {
 		}
 	} else if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
 		// draw point on closest rail
-
-		std::cout << "Lol" << std::endl;
 		Rail* r = GetClosestRail();
 		if(r != NULL) {
 			Coordinates tmp;
 			tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
 			float d = r->ClosestPositionOnLine(tmp.GetWorldPixel());
-			std::cout << d << std::endl;
 			if(d <= 20) {
-				Vector2D p = r->GetPointFromFloat(d);
-				mClosestMarker = sf::Shape::Circle(p.x,p.y,5,sf::Color(255,255,255,128));
+				mClosestRailPoint = r->GetPointFromFloat(d);
 			}
 		}
+		mClosestRail = r;
+
 	}
 
 	//mDynamicsWorld->stepSimulation(time_delta, 10);
@@ -169,7 +168,10 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	BOOST_FOREACH(Rail& r, mRails) {
 		r.Draw(target, sf::Color(128,128,128));
 	}
-	target->Draw(mClosestMarker);
+
+	if(mClosestRail != NULL) {
+		target->Draw(sf::Shape::Circle(mClosestRailPoint.x, mClosestRailPoint.y, 5, sf::Color(255,255,255,128)));
+	}
 
 	if(mEditorMouseAction == EMA_ROTATE && mEditorMouseActionEntity != NULL) {
 		Coordinates start, end;

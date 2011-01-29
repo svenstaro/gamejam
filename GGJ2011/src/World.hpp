@@ -123,7 +123,8 @@ private:
 	Entity* mEditorSelectedEntity;
 	int mLocalLayerCount;
 
-	sf::Shape mClosestMarker;
+	Rail* mClosestRail;
+	Vector2D mClosestRailPoint;
 };
 
 #endif
