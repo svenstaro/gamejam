@@ -10,32 +10,36 @@ Rail::Rail() {
 void Rail::Initialize(World& world) {
 	InitializePhysics();
 	world.GetDynamicsWorld()->addConstraint(mConstraint.get());
+	world.GetDynamicsWorld()->addRigidBody(mBody.get());
 }
 
 void Rail::InitializePhysics() {
 	btTransform tr;
 	tr.setIdentity();
-	Vector2D p = Coordinates::ScreenPixelToWorldFloat(GetPointFromFloat(mStartPosition));
-	tr.setOrigin(btVector3(p.x, 0, p.y));
+	Coordinates tmp;
+	tmp.SetWorldPixel(GetPointFromFloat(mStartPosition));
+	Vector2D p = tmp.GetWorldFloat();
+	tr.setOrigin(btVector3(p.x, p.y, 0));
 
-	btScalar mass(10.f);
+	btScalar mass(1.f);
 	btVector3 local_inertia(0, 0, 0);
-	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.f,1.f,1.f)));
+	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(.5f,.5f,.5f)));
 	mCollisionShape->calculateLocalInertia(mass, local_inertia);
 
 	mMotionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(tr));
 	btRigidBody::btRigidBodyConstructionInfo rb_info(mass, mMotionState.get(), mCollisionShape.get(), local_inertia);
 
 	mBody = boost::shared_ptr<btRigidBody>(new btRigidBody(rb_info));
-	//mBody->setDamping(0.2f, 0.2f);
-	mBody->setLinearFactor(btVector3(1,1,0));
-	mBody->setAngularFactor(btVector3(0,0,1));
+	mBody->setDamping(0.2f, 0.2f);
+	//mBody->setLinearFactor(btVector3(1,1,0));
+	//mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
 	mBody->setActivationState(DISABLE_DEACTIVATION);
 
 	btTransform frameB;
 	frameB.setIdentity();
-	frameB.setRotation(btQuaternion(0,0,(mPoint2 - mPoint1).Rotation() * 180 / PI, 90));
+	//frameB.setOrigin(btVector3(p.x, p.y, 0));
+	frameB.setRotation(btQuaternion(0,0,(mPoint2 - mPoint1).Rotation()));
 	mConstraint = boost::shared_ptr<btGeneric6DofConstraint>(new btGeneric6DofConstraint( *mBody, frameB, true ));
 
 	mConstraint->setAngularLowerLimit(btVector3(0,0,0));
@@ -44,11 +48,11 @@ void Rail::InitializePhysics() {
 	mConstraint->setLinearLowerLimit(btVector3(-l/2.f,0,0));
 	mConstraint->setLinearUpperLimit(btVector3(l/2.f,0,0));
 
-	mConstraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
+	/*mConstraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
 	mConstraint->getTranslationalLimitMotor()->m_targetVelocity[0] = 5.0f;
-	mConstraint->getTranslationalLimitMotor()->m_maxMotorForce[0] = 0.1f;
+	mConstraint->getTranslationalLimitMotor()->m_maxMotorForce[0] = 0.1f;*/
 
-	mConstraint->setDbgDrawSize(btScalar(1.f));
+	mConstraint->setDbgDrawSize(btScalar(5.f));
 }
 
 void Rail::Update(float time_delta) {
@@ -104,6 +108,10 @@ void Rail::Load(boost::property_tree::ptree* pt, int id) {
 
 Vector2D Rail::GetCenter() {
 	return (mPoint1 + mPoint2) / 2;
+}
+
+float Rail::GetRotation() {
+	return (mPoint2 - mPoint1).Rotation();
 }
 
 bool Rail::IsFinished() const {

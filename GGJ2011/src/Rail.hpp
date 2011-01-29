@@ -31,6 +31,7 @@ public:
 	void Load(boost::property_tree::ptree* pt, int id);
 
 	Vector2D GetCenter();
+	float GetRotation();
 
 	bool IsFinished() const;
 
