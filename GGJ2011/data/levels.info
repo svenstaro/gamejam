@@ -1,9 +1,97 @@
 entities
 {
+    entity-1301
+    {
+        x 8.65625
+        y 4.5
+        img box
+        rot -0.8085665
+        a 0.3666667
+        s 0.7210861
+        l 4
+        ll 0
+        phy false
+    }
+    entity-1302
+    {
+        x 10.45312
+        y 5.375
+        img box
+        rot -0.8085665
+        a 0.3666667
+        s 0.7210861
+        l 4
+        ll 1
+        phy false
+    }
+    entity-1303
+    {
+        x 14.10938
+        y 4.078125
+        img box
+        rot -0.8085665
+        a 0.3666667
+        s 0.7210861
+        l 4
+        ll 2
+        phy false
+    }
+    entity-1304
+    {
+        x 10.17188
+        y 1.671875
+        img box
+        rot -2.679046
+        a 0
+        s 0.3925605
+        l 4
+        ll 3
+        phy false
+    }
+    entity-1300
+    {
+        x 7
+        y 3.46875
+        img box
+        rot -0.8085665
+        a 0.3666667
+        s 0.7210861
+        l 4
+        ll 100
+        phy false
+    }
+    entity-1305
+    {
+        x 6.8125
+        y 4.96875
+        img box
+        rot 0
+        a 1
+        s 2.45876
+        l 6
+        ll 116
+        phy false
+    }
 }
 polygons
 {
+    0
+    {
+        0
+        {
+            x 0.921875
+            y 1.375
+        }
+        1
+        {
+            x 0.96875
+            y 2.59375
+        }
+        2
+        {
+            x 2.84375
+            y 2.0625
+        }
+    }
 }
-rails
-{
-}
+rails {}

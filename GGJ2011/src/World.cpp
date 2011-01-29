@@ -9,6 +9,7 @@ World::World() {
 	mEditorMouseAction = EMA_NONE;
 	mEditorPolygonFinished = true;
 	mEditorRailFinished = true;
+	mClosestRailPoint = NULL;
 	mEditorLayer = 1;
 }
 
@@ -92,53 +93,19 @@ void World::Update(const float time_delta) {
 					-(mp.GetWorldFloat()-ep.GetWorldFloat()).Rotation()
 					+ mEditorMouseActionStartEntityRotation );
 		}
-	} else {
-		// GAME !!!
-		Entity* p = GetEntityByUID("player");
-		if (p != NULL) {
-			p->SetUsePhysics(*this, true);
-			if(in.IsKeyDown(sf::Key::Left)) {
-				btVector3 relativeForce = btVector3(10, 0, 0);
-				btMatrix3x3& boxRot = p->GetBody()->getWorldTransform().getBasis();
-				btVector3 correctedForce = boxRot * relativeForce;
-				p->GetBody()->applyCentralForce(correctedForce);
-				//p->GetDrawable()->FlipX(true);
-			} else if(in.IsKeyDown(sf::Key::Right)) {
-				btVector3 relativeForce = btVector3(-10, 0, 0);
-				btMatrix3x3& boxRot = p->GetBody()->getWorldTransform().getBasis();
-				btVector3 correctedForce = boxRot * relativeForce;
-				p->GetBody()->applyCentralForce(correctedForce);
-				//p->GetDrawable()->FlipX(false);
-			} else if(in.IsKeyDown(sf::Key::Up)) {
-				btVector3 relativeForce = btVector3(0, 10, 0);
-				btMatrix3x3& boxRot = p->GetBody()->getWorldTransform().getBasis();
-				btVector3 correctedForce = boxRot * relativeForce;
-				p->GetBody()->applyCentralForce(correctedForce);
+	} else if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
+		// draw point on closest rail
+		Rail* r = GetClosestRail();
+		if(r != NULL) {
+			Coordinates tmp;
+			tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+			float d = r->ClosestPositionOnLine(tmp.GetWorldPixel());
+			if(d <= 20) {
+				mClosestRailPoint = r->GetPointFromFloat(d);
 			}
-
-			// Move view
-			sf::View& v = GameApp::get_mutable_instance().GetView();
-			Coordinates vc;
-			vc.SetWorldPixel(Vector2D(v.GetCenter().x,v.GetCenter().y));
-			Coordinates pc;
-			pc.SetWorldFloat(p->GetPosition());
-			Vector2D sfd = pc.GetScreenFloat() - vc.GetScreenFloat();
-			float b = 0.1;
-			if (sfd.x < -b) {
-				sfd.x = -b;
-			} else if (sfd.x > b) {
-				sfd.x = b;
-			}
-			if (sfd.y < -b) {
-				sfd.y = -b;
-			} else if (sfd.y > b) {
-				sfd.y = b;
-			}
-			vc.SetScreenFloat(pc.GetScreenFloat() - sfd);
-			v.SetCenter( vc.GetWorldPixel().x, vc.GetWorldPixel().y );
-		} else {
-			std::cerr << "There is no player entity. Name one of them 'player'!" << std::endl;
 		}
+		mClosestRail = r;
+
 	}
 
 	//mDynamicsWorld->stepSimulation(time_delta, 10);
@@ -200,6 +167,10 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	// draw the rails
 	BOOST_FOREACH(Rail& r, mRails) {
 		r.Draw(target, sf::Color(128,128,128));
+	}
+
+	if(mClosestRail != NULL) {
+		target->Draw(sf::Shape::Circle(mClosestRailPoint.x, mClosestRailPoint.y, 5, sf::Color(255,255,255,128)));
 	}
 
 	if(mEditorMouseAction == EMA_ROTATE && mEditorMouseActionEntity != NULL) {
@@ -446,6 +417,11 @@ void World::HandleEvent(const sf::Event& event) {
 								}
 							}
 						}
+					} else if(mRails.size() > 0) {
+						auto iter = mRails.end();
+						--iter;
+						mRails.erase(iter);
+						// TODO: Make it work ;)
 					}
 					// Cancel polygon
 					mEditorRailFinished = true;
@@ -485,6 +461,7 @@ void World::HandleEvent(const sf::Event& event) {
 		}
 	} else {
 		//GAME!!!
+		/*
 		if (event.Type == sf::Event::KeyPressed) {
 			Entity* p = GetEntityByUID("player");
 			if (p != NULL) {
@@ -514,6 +491,7 @@ void World::HandleEvent(const sf::Event& event) {
 			}
 
 		}
+		*/
 	}
 }
 
@@ -701,10 +679,12 @@ void World::Load() {
 		FILE* file = fopen("../data/levels.info","w");
 		fclose(file);
 	}
-	std::string lastuid = mEntities.back().GetUID();
-	std::vector<std::string> strs;
-	boost::split(strs, lastuid, boost::is_any_of("-"));
-	GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));
+	if(mEntities.size() > 0) {
+		std::string lastuid = mEntities.back().GetUID();
+		std::vector<std::string> strs;
+		boost::split(strs, lastuid, boost::is_any_of("-"));
+		GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));
+	}
 	ReloadTriMeshBody();
 
 }
@@ -784,12 +764,13 @@ Rail* World::GetClosestRail() {
 	Rail* closest = NULL;
 	Coordinates tmp;
 	tmp.SetWorldPixel(Vector2D(20,0));
-	float min_d = tmp.GetWorldFloat().x;
+	float min_d = tmp.GetWorldPixel().x;
 
 	tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
 
 	BOOST_FOREACH(Rail& r, mRails) {
-		float d = (r.GetCenter() - tmp.GetWorldPixel()).Magnitude();
+		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldPixel()));
+		float d = (pol - tmp.GetWorldPixel()).Magnitude();
 		if (d < min_d) {
 			closest = &r;
 			min_d = d;

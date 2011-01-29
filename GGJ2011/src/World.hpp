@@ -122,6 +122,9 @@ private:
 
 	Entity* mEditorSelectedEntity;
 	int mLocalLayerCount;
+
+	Rail* mClosestRail;
+	Vector2D mClosestRailPoint;
 };
 
 #endif

@@ -19,10 +19,12 @@
 #include "Vector2D.hpp"
 #include "EntityAttachment.hpp"
 
+#include "GameObject.hpp"
+
 // ARRGH Forward declaration
 class World;
 
-class Entity {
+class Entity : public GameObject {
 public:
 
 	enum PositionType {
@@ -36,6 +38,7 @@ public:
 	Entity();
 	~Entity();
 
+	virtual void Initialize(World& world);
 	virtual void Initialize(World& world, const std::string& imagefile, int layer=1, bool use_physics = false);
 	virtual void Initialize(World& world, boost::property_tree::ptree* pt, std::string uid);
 	virtual void InitializePhysics();
@@ -118,10 +121,6 @@ protected:
 	boost::ptr_list<EntityAttachment> mAttachments;
 
 	boost::shared_ptr<sf::Sprite> mDrawable;
-
-	boost::shared_ptr<btCollisionShape> mCollisionShape;
-	boost::shared_ptr<btDefaultMotionState> mMotionState;
-	boost::shared_ptr<btRigidBody> mBody;
 
 	/*
 	boost::shared_ptr<btCollisionShape> mPlayerWeightCollisionShape;
