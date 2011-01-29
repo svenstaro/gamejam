@@ -24,8 +24,8 @@ bool ResourceManager::AddImage(const boost::filesystem::path& path,
 	std::string image_key = boost::filesystem::basename(originalFile);
 
     // Create Cache Paths
-	boost::filesystem::path cacheDir = (path / "cached").string();
-    std::string cacheFile = (cacheDir / image_key ).string()+".png";
+	//boost::filesystem::path cacheDir = (path / "cached").string();
+	//std::string cacheFile = (cacheDir / image_key ).string()+".png";
 
     // if an image with that key already exists in the dictionary, return
     if(mImages.count(image_key) != 0) {
@@ -33,7 +33,12 @@ bool ResourceManager::AddImage(const boost::filesystem::path& path,
     }
 
 	sf::Image sfimage;
-	bool cache = true;
+	bool success = sfimage.LoadFromFile(originalFile);
+	if(!success) {
+		std::cerr << "Image " << originalFile << " does not exists. Exit. "<< std::endl;
+		exit(1);
+	}
+	/*bool cache = true;
 
 	if(boost::filesystem::is_regular_file(cacheFile)) {
 		// Load cached file
@@ -67,7 +72,7 @@ bool ResourceManager::AddImage(const boost::filesystem::path& path,
 		// Load cached file
 		sfimage.LoadFromFile(cacheFile);
 	}
-
+*/
 
 	sfimage.SetSmooth(true);
 
