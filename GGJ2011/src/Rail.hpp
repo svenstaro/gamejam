@@ -11,12 +11,19 @@
 #include "Coordinates.hpp"
 
 #include "TiledSprite.hpp"
+#include "GameObject.hpp"
 
-class Rail {
+#include "Mover.hpp"
+
+class Rail : public GameObject {
 public:
 	Rail();
 
-	void Draw(sf::RenderTarget* target, sf::Color bordercolor = sf::Color::Black);
+	virtual void Initialize(World& world);
+	virtual void InitializePhysics();
+
+	virtual void Update(float time_delta);
+	virtual void Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode = false) const;
 
 	void SetNextPoint(Vector2D point);
 
@@ -24,17 +31,28 @@ public:
 	void Load(boost::property_tree::ptree* pt, int id);
 
 	Vector2D GetCenter();
+	float GetRotation();
 
 	bool IsFinished() const;
 
 	float ClosestPositionOnLine(Vector2D pixel_pos);
 	Vector2D GetPointFromFloat(float f) const;
 
+	btRigidBody* GetRigidBody();
+	btTypedConstraint* GetConstraint();
+
+	virtual void OnCollide(GameObject* other);
+
+	bool IsCurrentRail() const;
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;
 	int mLastPointSet;
 	TiledSprite mTiledSprite;
+
+	boost::shared_ptr<btGeneric6DofConstraint> mConstraint;
+	Mover mMover;
 };
 
 #endif // RAIL_HPP

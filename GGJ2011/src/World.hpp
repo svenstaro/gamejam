@@ -78,8 +78,14 @@ public:
 	void AddRigidBody(btRigidBody* body);
 	void RemoveRigidBody(btRigidBody* body);
 
+	btDynamicsWorld* GetDynamicsWorld();
+
 	void ReloadTriMeshBody();
 	Entity* GetEntityByLocalLayerId(int ll);
+
+	Entity* GetBoxEntity();
+	Rail* GetCurrentRail();
+	void SetCurrentRail(Rail* rail);
 
 private:
 	boost::ptr_vector<Entity> mEntities;
@@ -125,6 +131,8 @@ private:
 
 	Rail* mClosestRail;
 	Vector2D mClosestRailPoint;
+
+	Rail* mCurrentRail;
 };
 
 #endif

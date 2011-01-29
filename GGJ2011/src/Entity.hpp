@@ -102,6 +102,8 @@ public:
 
 	static bool SortHelper(const Entity& l, const Entity& r);
 
+	virtual void OnCollide(GameObject* other);
+
 protected:
 	std::string mUID;
 	std::string mImageFile;

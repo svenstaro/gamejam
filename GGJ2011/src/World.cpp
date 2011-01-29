@@ -32,7 +32,7 @@ void World::Initialize() {
 	//mCollisionDispatcher->registerCollisionCreateFunc(BOX_2D_SHAPE_PROXYTYPE,BOX_2D_SHAPE_PROXYTYPE, new btBox2dBox2dCollisionAlgorithm::CreateFunc());
 	mCollisionDispatcher->registerCollisionCreateFunc(BOX_2D_SHAPE_PROXYTYPE,BOX_2D_SHAPE_PROXYTYPE, mBox2dAlgo2d.get());
 
-	mDynamicsWorld->setGravity(btVector3(0, 10, 0));
+	mDynamicsWorld->setGravity(btVector3(0, 0.3, 0));
 
 	mDebugDraw = boost::shared_ptr<DebugDraw> (new DebugDraw(GameApp::get_mutable_instance().GetRenderWindowPtr()));
 
@@ -124,6 +124,10 @@ void World::Update(const float time_delta) {
 			mEntities.erase_if(boost::bind(&Entity::GetUID, _1) == entity.GetEntityUniqueId());
 		}*/
 	}
+	// draw the rails
+	BOOST_FOREACH(Rail& r, mRails) {
+		r.Update(time_delta);
+	}
 	if(mEntityListNeedsSorting) {
 		mEntities.sort(Entity::SortHelper);
 		mEntityListNeedsSorting = false;
@@ -165,8 +169,9 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	}
 
 	// draw the rails
+	Rail* cr = GetClosestRail();
 	BOOST_FOREACH(Rail& r, mRails) {
-		r.Draw(target, sf::Color(128,128,128));
+		r.Draw(target, shader, cr == &r && mEditorLayer == 9);
 	}
 
 	if(mClosestRail != NULL) {
@@ -405,13 +410,18 @@ void World::HandleEvent(const sf::Event& event) {
 					tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
 					mRails.back().SetNextPoint(tmp.GetWorldPixel());
 					mEditorRailFinished = mRails.back().IsFinished();
+					if(mEditorRailFinished) {
+						mRails.back().Initialize(*this);
+					}
 				} else if(event.MouseButton.Button == sf::Mouse::Right) {
-					if (mEditorPolygonFinished) {
+					if (mEditorRailFinished) {
 						// delete polygon
 						Rail* r = GetClosestRail();
 						if (r != NULL) {
 							for(auto iter = mRails.begin(); iter != mRails.end(); ++iter) {
 								if (r->GetCenter() == iter->GetCenter()) {
+									RemoveRigidBody(r->GetRigidBody());
+									mDynamicsWorld->removeConstraint(r->GetConstraint());
 									mRails.erase(iter);
 									break;
 								}
@@ -662,17 +672,21 @@ void World::Load() {
 		if(!boost::filesystem::is_empty("../data/levels.info")) {
 			read_info("../data/levels.info", pt);
 
+			pt.put("entities", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("entities")) {
 				mEntities.push_back(new Entity());
 				mEntities.back().Initialize(*this, &pt, v.first.data());
 			}
+			pt.put("polygons", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("polygons")) {
 				mCollisionPolygons.push_back(new CollisionPolygon());
 				mCollisionPolygons.back().Load(&pt, boost::lexical_cast<int>(v.first.data()));
 			}
+			pt.put("rails", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("rails")) {
 				mRails.push_back(new Rail());
 				mRails.back().Load(&pt, boost::lexical_cast<int>(v.first.data()));
+				mRails.back().Initialize(*this);
 			}
 		}
 	} else {
@@ -680,10 +694,10 @@ void World::Load() {
 		fclose(file);
 	}
 	if(mEntities.size() > 0) {
-		std::string lastuid = mEntities.back().GetUID();
+		/*std::string lastuid = mEntities.back().GetUID();
 		std::vector<std::string> strs;
 		boost::split(strs, lastuid, boost::is_any_of("-"));
-		GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));
+		GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));*/
 	}
 	ReloadTriMeshBody();
 
@@ -728,9 +742,11 @@ void World::TickCallback(btScalar timestep) {
 				const btVector3& normalOnB = pt.m_normalWorldOnB;
 
 				if (obA->getUserPointer()!=NULL && obB->getUserPointer()!=NULL) {
-					Entity* a = (Entity*)obA->getUserPointer();
-					Entity* b = (Entity*)obB->getUserPointer();
+					GameObject* a = (GameObject*)obA->getUserPointer();
+					GameObject* b = (GameObject*)obB->getUserPointer();
 					// do something!
+					a->OnCollide(b);
+					b->OnCollide(a);
 				}
 			}
 		}
@@ -784,6 +800,10 @@ void World::AddRigidBody(btRigidBody* body) {
 	mDynamicsWorld->addRigidBody(body);
 }
 
+btDynamicsWorld* World::GetDynamicsWorld() {
+	return mDynamicsWorld.get();
+}
+
 void World::RemoveRigidBody(btRigidBody* body) {
 	mDynamicsWorld->removeRigidBody(body);
 }
@@ -818,4 +838,20 @@ Entity* World::GetEntityByLocalLayerId(int ll) {
 		}
 	}
 	return NULL;
+}
+
+
+Entity* World::GetBoxEntity() {
+	Entity* e = GetEntityByUID("box");
+	if(e == NULL)
+		std::cout << "No box entity specified. Name one entity 'box'." << std::endl;
+	return e;
+}
+
+Rail* World::GetCurrentRail() {
+	return mCurrentRail;
+}
+
+void World::SetCurrentRail(Rail* rail) {
+	mCurrentRail = rail;
 }
