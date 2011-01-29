@@ -18,9 +18,11 @@ void Rail::Deinitialize(World& world) {
 }
 
 void Rail::Initialize(World& world) {
-	InitializePhysics();
-	world.GetDynamicsWorld()->addConstraint(mConstraint.get());
-	world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
+	if(mInitialMoverMounted) {
+		InitializePhysics();
+		world.GetDynamicsWorld()->addConstraint(mConstraint.get());
+		world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
+	}
 }
 
 void Rail::InitializePhysics() {

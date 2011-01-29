@@ -10,7 +10,7 @@ set(Boost_USE_MULTITHREADED ON)
 find_package(SFML 2 COMPONENTS audio graphics system window REQUIRED)
 find_package(Bullet REQUIRED)
 find_package(Boost COMPONENTS system filesystem REQUIRED)
-find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
+#find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
 
 add_definitions(-Wall -Wextra -g -pedantic -fPIC -std=c++0x -DBOOST_FILESYSTEM_VERSION=3)
 set(CMAKE_BUILD_TYPE "Debug")
@@ -22,7 +22,7 @@ include_directories(
 	${Boost_INCLUDE_DIRS}
 	${BULLET_INCLUDE_DIRS}
 	${SFML_INCLUDE_DIR}
-	${ImageMagick_INCLUDE_DIRS}
+	#	${ImageMagick_INCLUDE_DIRS}
 )
 
 aux_source_directory(src/ sources)
@@ -37,5 +37,5 @@ target_link_libraries(ai-and-the-bomb
     ${Boost_LIBRARIES}
 	${SFML_LIBRARIES}
     ${BULLET_LIBRARIES}
-	${ImageMagick_LIBRARIES}
+	#${ImageMagick_LIBRARIES}
 )
