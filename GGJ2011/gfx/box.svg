@@ -50,16 +50,7 @@
        fy="200"
        r="200.5"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(0,652.36217)" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3834"
-       id="linearGradient3908"
-       gradientUnits="userSpaceOnUse"
-       x1="175"
-       y1="150"
-       x2="25"
-       y2="50" />
+       gradientTransform="matrix(0.87499989,0,0,0.87499989,25.000023,677.36219)" />
     <filter
        inkscape:collect="always"
        id="filter4027"
@@ -93,7 +84,7 @@
        x2="200"
        y2="275"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1,0,0,0.69267667,0,744.55918)" />
+       gradientTransform="matrix(0.93101397,0,0,0.64489166,13.797205,751.99608)" />
     <filter
        inkscape:collect="always"
        id="filter4223"
@@ -106,6 +97,35 @@
          stdDeviation="5.6018829"
          id="feGaussianBlur4225" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3834"
+       id="linearGradient3006"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.69267667,0,744.55918)"
+       x1="200"
+       y1="350"
+       x2="200"
+       y2="275" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3834"
+       id="linearGradient3008"
+       gradientUnits="userSpaceOnUse"
+       x1="175"
+       y1="150"
+       x2="25"
+       y2="50" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3834"
+       id="linearGradient3012"
+       gradientUnits="userSpaceOnUse"
+       x1="175"
+       y1="150"
+       x2="25"
+       y2="50"
+       gradientTransform="matrix(0.93101397,0,0,0.93101397,13.797205,666.15939)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -114,17 +134,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.12374369"
-     inkscape:cx="164.74979"
-     inkscape:cy="177.14286"
+     inkscape:zoom="0.98994952"
+     inkscape:cx="469.55717"
+     inkscape:cy="179.0479"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:window-width="1198"
-     inkscape:window-height="743"
-     inkscape:window-x="74"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     showgrid="true"
+     inkscape:window-width="1280"
+     inkscape:window-height="753"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true">
     <inkscape:grid
@@ -149,7 +169,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -159,26 +179,25 @@
      id="layer1"
      transform="translate(0,-652.36218)">
     <rect
-       style="fill:url(#radialGradient3775);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:url(#radialGradient3775);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:8.74999905;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2997"
-       width="400"
-       height="400"
-       x="0"
-       y="652.36218" />
+       width="349.99994"
+       height="349.99994"
+       x="25.000023"
+       y="677.36218" />
     <path
-       style="fill:url(#linearGradient3908);fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 50,50 150,150 75,125 z"
+       style="fill:url(#linearGradient3012);fill-opacity:1;stroke:#000000;stroke-width:0.931014px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 60.347904,712.71008 153.4493,805.81148 83.623253,782.53613 z"
        id="path3832"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccc"
-       transform="translate(0,652.36218)" />
+       sodipodi:nodetypes="cccc" />
     <path
-       transform="translate(0,652.36218)"
+       transform="matrix(0.93101397,0,0,0.93101397,13.797205,666.15939)"
        sodipodi:nodetypes="cccc"
        inkscape:connector-curvature="0"
        id="path3959"
        d="M 50,50 150,150 75,125 z"
-       style="fill:url(#linearGradient3908);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4027)" />
+       style="fill:url(#linearGradient3008);fill-opacity:1;stroke:none;filter:url(#filter4027)" />
     <use
        x="0"
        y="0"
@@ -195,10 +214,10 @@
        xlink:href="#path3832"
        y="0"
        x="0"
-       style="filter:url(#filter4031);stroke:none;stroke-opacity:1" />
+       style="stroke:none;filter:url(#filter4031)" />
     <path
-       style="fill:url(#linearGradient4079);fill-opacity:1;stroke:#000000;stroke-width:0.83227199px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 150,952.36218 100,0 0,17.31692 -100,0 z"
+       style="fill:url(#linearGradient4079);fill-opacity:1;stroke:#000000;stroke-width:0.77485687px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 153.4493,945.46358 93.1014,0 0,16.12229 -93.1014,0 z"
        id="path4071"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
@@ -207,6 +226,7 @@
        inkscape:connector-curvature="0"
        id="path4085"
        d="m 150,952.36218 100,0 0,17.31692 -100,0 z"
-       style="fill:url(#linearGradient4079);fill-opacity:1;stroke:#000000;stroke-width:0.83227198999999985px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4223)" />
+       style="fill:url(#linearGradient3006);fill-opacity:1;stroke:#000000;stroke-width:0.83227199px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4223)"
+       transform="matrix(0.93101397,0,0,0.93101397,13.797205,58.801079)" />
   </g>
 </svg>

@@ -9,7 +9,7 @@ GameApp::~GameApp() {}
 
 void GameApp::Init() {
 	mRenderWin = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow);
-	mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb");
+	mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb", sf::Style::Default, sf::ContextSettings(24, 8, 4));
 	mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
 	mRenderWin->EnableVerticalSync(true);
 
