@@ -37,7 +37,7 @@ void Rail::InitializePhysics() {
 	btRigidBody::btRigidBodyConstructionInfo rb_info(mass, mMotionState.get(), mCollisionShape.get(), local_inertia);
 
 	mBody = boost::shared_ptr<btRigidBody>(new btRigidBody(rb_info));
-	mBody->setDamping(0.1f, 0.1f);
+	mBody->setDamping(.99f, .99f);
 	mBody->setLinearFactor(btVector3(1,1,0));
 	mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
@@ -73,17 +73,20 @@ void Rail::Update(float time_delta) {
 	mMover.Update(time_delta);
 
 	// push / pull box
+	bool current_and_down = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && IsCurrentRail();
+
 	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
-	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && IsCurrentRail()) {
+	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL) {
 		//btVector3 force = (mPoint2 - mPoint1);
 		box->GetBody()->activate();
+		box->GetBody()->setFriction(btScalar(100.f));
 		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
 		float d = 1 - force.length() / 5.f;
 		if (d > 0.f) {
 			//force *= 1 / d*d;
 			force *= d*d*10;
 
-			if(GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left))
+			if(current_and_down)
 				force *= -1;
 			box->GetBody()->applyCentralForce(force);
 		}
