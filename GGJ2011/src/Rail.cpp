@@ -80,6 +80,12 @@ void Rail::Update(float time_delta) {
 		//btVector3 force = (mPoint2 - mPoint1);
 		box->GetBody()->activate();
 		box->GetBody()->setFriction(btScalar(100.f));
+		/*Coordinates tmp;
+		tmp.SetWorldPixel(mPoint2-mPoint1);
+		Vector2D v = tmp.GetWorldFloat();
+		v.Normalize();
+		v.Rotate(-PI / 2);
+		v *= 0.5;*/
 		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
 		float d = 1 - force.length() / 3.f;
 		if (d > 0.f) {

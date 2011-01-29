@@ -107,6 +107,9 @@ void World::Update(const float time_delta) {
 		mClosestRail = r;
 
 	}
+	if(GetBoxEntity() != NULL && GetBoxEntity()->UsesPhysics()) {
+		mCurrentRail = GetClosestRail(true, GetBoxEntity()->GetBody()->getWorldTransform().getOrigin());
+	}
 
 	//mDynamicsWorld->stepSimulation(time_delta, 10);
 	mDynamicsWorld->stepSimulation(1 / 60.f, 10);
@@ -776,13 +779,19 @@ CollisionPolygon* World::GetClosestCollisionPolygon() {
 	return closest;
 }
 
-Rail* World::GetClosestRail() {
+Rail* World::GetClosestRail(bool all, btVector3 pos) {
 	Rail* closest = NULL;
 	Coordinates tmp;
 	tmp.SetWorldPixel(Vector2D(20,0));
 	float min_d = tmp.GetWorldPixel().x;
+	if(all) min_d = 1000000000000;
 
-	tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+	if(all) {
+		tmp.SetWorldFloat(Vector2D(pos.x(),pos.y()));
+	}
+	else
+		tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+
 
 	BOOST_FOREACH(Rail& r, mRails) {
 		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldPixel()));
