@@ -169,8 +169,9 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	}
 
 	// draw the rails
+	Rail* cr = GetClosestRail();
 	BOOST_FOREACH(Rail& r, mRails) {
-		r.Draw(target, shader, GameApp::get_mutable_instance().IsEditorMode());
+		r.Draw(target, shader, cr == &r && mEditorLayer == 9);
 	}
 
 	if(mClosestRail != NULL) {
@@ -413,12 +414,14 @@ void World::HandleEvent(const sf::Event& event) {
 						mRails.back().Initialize(*this);
 					}
 				} else if(event.MouseButton.Button == sf::Mouse::Right) {
-					if (mEditorPolygonFinished) {
+					if (mEditorRailFinished) {
 						// delete polygon
 						Rail* r = GetClosestRail();
 						if (r != NULL) {
 							for(auto iter = mRails.begin(); iter != mRails.end(); ++iter) {
 								if (r->GetCenter() == iter->GetCenter()) {
+									RemoveRigidBody(r->GetRigidBody());
+									mDynamicsWorld->removeConstraint(r->GetConstraint());
 									mRails.erase(iter);
 									break;
 								}
@@ -691,10 +694,10 @@ void World::Load() {
 		fclose(file);
 	}
 	if(mEntities.size() > 0) {
-		std::string lastuid = mEntities.back().GetUID();
+		/*std::string lastuid = mEntities.back().GetUID();
 		std::vector<std::string> strs;
 		boost::split(strs, lastuid, boost::is_any_of("-"));
-		GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));
+		GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));*/
 	}
 	ReloadTriMeshBody();
 
@@ -739,9 +742,11 @@ void World::TickCallback(btScalar timestep) {
 				const btVector3& normalOnB = pt.m_normalWorldOnB;
 
 				if (obA->getUserPointer()!=NULL && obB->getUserPointer()!=NULL) {
-					Entity* a = (Entity*)obA->getUserPointer();
-					Entity* b = (Entity*)obB->getUserPointer();
+					GameObject* a = (GameObject*)obA->getUserPointer();
+					GameObject* b = (GameObject*)obB->getUserPointer();
 					// do something!
+					a->OnCollide(b);
+					b->OnCollide(a);
 				}
 			}
 		}
@@ -833,4 +838,20 @@ Entity* World::GetEntityByLocalLayerId(int ll) {
 		}
 	}
 	return NULL;
+}
+
+
+Entity* World::GetBoxEntity() {
+	Entity* e = GetEntityByUID("box");
+	if(e == NULL)
+		std::cout << "No box entity specified. Name one entity 'box'." << std::endl;
+	return e;
+}
+
+Rail* World::GetCurrentRail() {
+	return mCurrentRail;
+}
+
+void World::SetCurrentRail(Rail* rail) {
+	mCurrentRail = rail;
 }

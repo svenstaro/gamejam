@@ -26,6 +26,8 @@ public:
 	virtual void Update(float time_delta) = 0;
 	virtual void Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode = false) const = 0;
 
+	virtual void OnCollide(GameObject* other) = 0;
+
 protected:
 	boost::shared_ptr<btCollisionShape> mCollisionShape;
 	boost::shared_ptr<btDefaultMotionState> mMotionState;

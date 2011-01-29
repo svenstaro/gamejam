@@ -73,7 +73,7 @@ void Entity::InitializePhysics() {
 	mBody->setDamping(0.2f, 0.2f);
 	//mBody->setActivationState(DISABLE_DEACTIVATION);
 	mBody->setLinearFactor(btVector3(1,1,0));
-	mBody->setAngularFactor(btVector3(0,0,0));
+	mBody->setAngularFactor(btVector3(0,0,1));
 	//mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
 
@@ -310,3 +310,6 @@ void Entity::SetUsePhysics(World& world, bool use) {
 		mUsePhysics = use;
 	}
 }
+
+
+void Entity::OnCollide(GameObject* other) {}

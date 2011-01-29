@@ -37,9 +37,9 @@ void Rail::InitializePhysics() {
 	btRigidBody::btRigidBodyConstructionInfo rb_info(mass, mMotionState.get(), mCollisionShape.get(), local_inertia);
 
 	mBody = boost::shared_ptr<btRigidBody>(new btRigidBody(rb_info));
-	mBody->setDamping(0.2f, 0.2f);
-	//mBody->setLinearFactor(btVector3(1,1,0));
-	//mBody->setAngularFactor(btVector3(0,0,1));
+	mBody->setDamping(.99f, .99f);
+	mBody->setLinearFactor(btVector3(1,1,0));
+	mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
 	mBody->setActivationState(DISABLE_DEACTIVATION);
 
@@ -52,8 +52,8 @@ void Rail::InitializePhysics() {
 	mConstraint->setAngularLowerLimit(btVector3(0,0,0));
 	mConstraint->setAngularUpperLimit(btVector3(0,0,0));
 	float l = Coordinates::ScreenPixelToWorldFloat(mPoint2 - mPoint1).Magnitude();
-	mConstraint->setLinearLowerLimit(btVector3(-l/2.f,0,0));
-	mConstraint->setLinearUpperLimit(btVector3(l/2.f,0,0));
+	mConstraint->setLinearLowerLimit(btVector3(-l/2+0.3, 0,0));
+	mConstraint->setLinearUpperLimit(btVector3(l/2,0,0));
 
 	/*mConstraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
 	mConstraint->getTranslationalLimitMotor()->m_targetVelocity[0] = 5.0f;
@@ -71,12 +71,35 @@ void Rail::Update(float time_delta) {
 
 	mMover.SetRail(this);
 	mMover.Update(time_delta);
+
+	// push / pull box
+	bool current_and_down = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && IsCurrentRail();
+
+	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
+	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL) {
+		//btVector3 force = (mPoint2 - mPoint1);
+		box->GetBody()->activate();
+		box->GetBody()->setFriction(btScalar(100.f));
+		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
+		float d = 1 - force.length() / 5.f;
+		if (d > 0.f) {
+			//force *= 1 / d*d;
+			force *= d*d*10;
+
+			if(current_and_down)
+				force *= -1;
+			box->GetBody()->applyCentralForce(force);
+		}
+	}
 }
 
 void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {
 	if(IsFinished()) {
 		// debug: line
-		target->Draw(mTiledSprite);
+		TiledSprite s(mTiledSprite);
+		if(editor_mode)
+			s.SetColor(sf::Color(255,255,255,128));
+		target->Draw(s);
 	} else {
 		// draw p1
 		sf::Shape shape = sf::Shape::Circle(mPoint1.x, mPoint1.y, 3.f, sf::Color(255,255,255));
@@ -181,4 +204,19 @@ Vector2D Rail::GetPointFromFloat(float f) const {
 
 btRigidBody* Rail::GetRigidBody() {
 	return mBody.get();
+}
+
+btTypedConstraint* Rail::GetConstraint() {
+	return mConstraint.get();
+}
+
+
+void Rail::OnCollide(GameObject* other) {
+	if(other == GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity()) {
+		GameApp::get_mutable_instance().GetWorldPtr()->SetCurrentRail(this);
+	}
+}
+
+bool Rail::IsCurrentRail() const {
+	return (this == GameApp::get_mutable_instance().GetWorldPtr()->GetCurrentRail());
 }
