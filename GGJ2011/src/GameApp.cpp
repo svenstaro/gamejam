@@ -32,6 +32,9 @@ void GameApp::Init() {
 	mResourceManager.AddImage(gfx, "magnet_push.svg", 1.f, 1.f);
 	// -- add new images here
 
+	boost::filesystem::path snd("../snd/");
+	mResourceManager.AddSoundBuffer(snd, "collide.ogg", "collide");
+
 	SetSubtext("Hint: <Tab> for the editor!");
 
 	//mMusic.OpenFromFile("../data/music.ogg");
@@ -221,3 +224,4 @@ void GameApp::SetSubtext(const std::string& subtext) {
 boost::shared_ptr<sf::RenderWindow> GameApp::GetRenderWindowPtr() {
 	return mRenderWin;
 }
+

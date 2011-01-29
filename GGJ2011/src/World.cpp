@@ -32,7 +32,7 @@ void World::Initialize() {
 	//mCollisionDispatcher->registerCollisionCreateFunc(BOX_2D_SHAPE_PROXYTYPE,BOX_2D_SHAPE_PROXYTYPE, new btBox2dBox2dCollisionAlgorithm::CreateFunc());
 	mCollisionDispatcher->registerCollisionCreateFunc(BOX_2D_SHAPE_PROXYTYPE,BOX_2D_SHAPE_PROXYTYPE, mBox2dAlgo2d.get());
 
-	mDynamicsWorld->setGravity(btVector3(0, 0.3, 0));
+	mDynamicsWorld->setGravity(btVector3(0, 1, 0));
 
 	mDebugDraw = boost::shared_ptr<DebugDraw> (new DebugDraw(GameApp::get_mutable_instance().GetRenderWindowPtr()));
 
@@ -797,10 +797,11 @@ Rail* World::GetClosestRail() {
 
 
 void World::AddRigidBody(btRigidBody* body) {
-	mDynamicsWorld->addRigidBody(body);
+	assert(false);
+	//mDynamicsWorld->addRigidBody(body);
 }
 
-btDynamicsWorld* World::GetDynamicsWorld() {
+btDiscreteDynamicsWorld* World::GetDynamicsWorld() {
 	return mDynamicsWorld.get();
 }
 
@@ -827,7 +828,7 @@ void World::ReloadTriMeshBody() {
 
 		mTriMeshBody = boost::shared_ptr<btRigidBody>(new btRigidBody(tm_info));
 
-		mDynamicsWorld->addRigidBody(mTriMeshBody.get());
+		mDynamicsWorld->addRigidBody(mTriMeshBody.get(), COL_WALL, COL_BOX);
 	}
 }
 

@@ -61,7 +61,7 @@ void Entity::InitializePhysics() {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btCapsuleShape(1*mScale, 0.3*mScale));
 		mass = 1.f;
 	} else {
-		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1*mScale, 1*mScale, 1)));
+		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.5*mScale, 1.5*mScale, 1)));
 	}
 	mCollisionShape->calculateLocalInertia(mass, local_inertia);
 	transform.setOrigin(btVector3(mPosition.x, mPosition.y, 0));
@@ -303,7 +303,7 @@ void Entity::SetUsePhysics(World& world, bool use) {
 	if (use != mUsePhysics) {
 		if (use) {
 			InitializePhysics();
-			world.AddRigidBody(mBody.get());
+			world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_BOX, COL_WALL | COL_MOVER);
 		} else {
 			world.RemoveRigidBody(mBody.get());
 		}
@@ -312,4 +312,8 @@ void Entity::SetUsePhysics(World& world, bool use) {
 }
 
 
-void Entity::OnCollide(GameObject* other) {}
+void Entity::OnCollide(GameObject* other) {
+	if(mUID == "box") {
+		GameApp::get_mutable_instance().GetResourceManagerPtr()->PlaySound("collide");
+	}
+}

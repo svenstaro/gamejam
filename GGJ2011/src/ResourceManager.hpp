@@ -29,10 +29,13 @@ public:
 
     void AddFont(sf::Font& font, std::string key);
     const sf::Font& GetFont(const std::string& key);
+
+	void PlaySound(std::string key);
 private:
 	boost::ptr_map<std::string, sf::Image> mImages;
 	boost::ptr_map<std::string, sf::Font> mFonts;
 	boost::ptr_map<std::string, sf::SoundBuffer> mSoundBuffers;
+	boost::ptr_map<std::string, sf::Sound> mSounds;
 };
 
 #endif

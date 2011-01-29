@@ -1,5 +1,7 @@
 #include "CollisionPolygon.hpp"
 
+#include "GameApp.hpp"
+
 CollisionPolygon::CollisionPolygon() {}
 
 
@@ -13,6 +15,9 @@ sf::Shape CollisionPolygon::GetShape(sf::Color bordercolor) {
 	BOOST_FOREACH(Vector2D& v, mPoints) {
 		Coordinates tmp;
 		tmp.SetWorldFloat(v);
+		sf::Color c = sf::Color(0,0,0,0);
+		if(GameApp::get_mutable_instance().GetAppMode() == AM_EDITOR )
+			c.a = 255;
 		s.AddPoint( tmp.GetWorldPixel().x, tmp.GetWorldPixel().y, sf::Color::Black, bordercolor);
 	}
 	return s;

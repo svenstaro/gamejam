@@ -10,7 +10,7 @@ Rail::Rail() {
 void Rail::Initialize(World& world) {
 	InitializePhysics();
 	world.GetDynamicsWorld()->addConstraint(mConstraint.get());
-	world.GetDynamicsWorld()->addRigidBody(mBody.get());
+	world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
 }
 
 void Rail::InitializePhysics() {
@@ -81,14 +81,14 @@ void Rail::Update(float time_delta) {
 		box->GetBody()->activate();
 		box->GetBody()->setFriction(btScalar(100.f));
 		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
-		float d = 1 - force.length() / 5.f;
+		float d = 1 - force.length() / 3.f;
 		if (d > 0.f) {
 			//force *= 1 / d*d;
 			force *= d*d*10;
 
 			if(current_and_down)
-				force *= -1;
-			box->GetBody()->applyCentralForce(force);
+				force *= -2;
+			box->GetBody()->applyCentralForce(force * 1.5);
 		}
 	}
 }

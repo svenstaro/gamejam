@@ -150,3 +150,12 @@ void ResourceManager::AddFont(sf::Font& font, std::string key) {
 const sf::Font& ResourceManager::GetFont(const std::string& key) {
     return mFonts[key];
 }
+
+void ResourceManager::PlaySound(std::string key) {
+	sf::Sound& s = mSounds[key];
+	if(s.GetStatus() != sf::Sound::Playing) {
+		std::cout << "playing sound" << std::endl;
+		s.SetBuffer(GetSoundBuffer(key));
+		s.Play();
+	}
+}
