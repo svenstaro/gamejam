@@ -26,13 +26,13 @@ void GameApp::Init() {
 
 	// load resources
 	boost::filesystem::path gfx("../gfx/");
-	mResourceManager.AddImage(gfx, "box.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rail.svg", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "magnet_pull.svg", 1.f, 1.f);
-	mResourceManager.AddImage(gfx, "magnet_push.svg", 1.f, 1.f);
-	mResourceManager.AddImage(gfx, "target.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "cursor_pull.svg", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "cursor_push.svg", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "box.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "rail.png", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "magnet_pull.png", 1.f, 1.f);
+	mResourceManager.AddImage(gfx, "magnet_push.png", 1.f, 1.f);
+	mResourceManager.AddImage(gfx, "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
 	mResourceManager.AddImage(gfx / "maps", "1_lvl.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
 
