@@ -11,12 +11,17 @@
 #include "Coordinates.hpp"
 
 #include "TiledSprite.hpp"
+#include "GameObject.hpp"
 
-class Rail {
+class Rail : public GameObject {
 public:
 	Rail();
 
-	void Draw(sf::RenderTarget* target, sf::Color bordercolor = sf::Color::Black);
+	virtual void Initialize(World& world);
+	virtual void InitializePhysics();
+
+	virtual void Update(float time_delta);
+	virtual void Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode = false) const;
 
 	void SetNextPoint(Vector2D point);
 
@@ -35,6 +40,8 @@ private:
 	float mStartPosition;
 	int mLastPointSet;
 	TiledSprite mTiledSprite;
+
+	boost::shared_ptr<btGeneric6DofConstraint> mConstraint;
 };
 
 #endif // RAIL_HPP

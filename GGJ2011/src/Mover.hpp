@@ -1,9 +1,10 @@
 #ifndef MOVER_HPP
 #define MOVER_HPP
 
-#include "Entity.hpp"
+#include "GameObject.hpp"
+#include "World.hpp"
 
-class Mover : public Entity {
+class Mover : public GameObject {
 public:
 	Mover();
 

@@ -7,18 +7,65 @@ Rail::Rail() {
 
 }
 
-void Rail::Draw(sf::RenderTarget* target, sf::Color bordercolor) {
+void Rail::Initialize(World& world) {
+	InitializePhysics();
+	world.GetDynamicsWorld()->addConstraint(mConstraint.get());
+}
+
+void Rail::InitializePhysics() {
+	btTransform tr;
+	tr.setIdentity();
+	tr.setOrigin(btVector3(GetPointFromFloat(mStartPosition).x, 0, GetPointFromFloat(mStartPosition).y));
+
+	btScalar mass(10.f);
+	btVector3 local_inertia(0, 0, 0);
+	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.f,1.f,1.f)));
+	mCollisionShape->calculateLocalInertia(mass, local_inertia);
+
+	mMotionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(tr));
+	btRigidBody::btRigidBodyConstructionInfo rb_info(mass, mMotionState.get(), mCollisionShape.get(), local_inertia);
+
+	mBody = boost::shared_ptr<btRigidBody>(new btRigidBody(rb_info));
+	//mBody->setDamping(0.2f, 0.2f);
+	mBody->setLinearFactor(btVector3(1,1,0));
+	mBody->setAngularFactor(btVector3(0,0,1));
+	mBody->setUserPointer(this);
+	mBody->setActivationState(DISABLE_DEACTIVATION);
+
+
+	btTransform frameB;
+	frameB.setIdentity();
+	frameB.setRotation(btQuaternion(0,0,(mPoint2 - mPoint1).Rotation() * 180 / PI, 90));
+	mConstraint = boost::shared_ptr<btGeneric6DofConstraint>(new btGeneric6DofConstraint( *mBody, frameB, true ));
+
+	mConstraint->setAngularLowerLimit(btVector3(0,0,0));
+	mConstraint->setAngularUpperLimit(btVector3(0,0,0));
+	float l = Coordinates::ScreenPixelToWorldFloat(mPoint2 - mPoint1).Magnitude();
+	mConstraint->setLinearLowerLimit(btVector3(-l/2.f,0,0));
+	mConstraint->setLinearUpperLimit(btVector3(l/2.f,0,0));
+
+	mConstraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
+	mConstraint->getTranslationalLimitMotor()->m_targetVelocity[0] = 5.0f;
+	mConstraint->getTranslationalLimitMotor()->m_maxMotorForce[0] = 0.1f;
+
+	mConstraint->setDbgDrawSize(btScalar(1.f));
+}
+
+void Rail::Update(float time_delta) {
+	mTiledSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("rail"));
+	Vector2D diff = mPoint2 - mPoint1;
+	mTiledSprite.SetPosition(mPoint1.x, mPoint1.y);
+	mTiledSprite.SetScale(diff.Magnitude(), 20);
+	mTiledSprite.SetRotation(- diff.Rotation() / PI * 180.f);
+}
+
+void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {
 	if(IsFinished()) {
 		// debug: line
-		mTiledSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("rail"));
-		Vector2D diff = mPoint2 - mPoint1;
-		mTiledSprite.SetPosition(mPoint1.x, mPoint1.y);
-		mTiledSprite.SetScale(diff.Magnitude(), 20);
-		mTiledSprite.SetRotation(- diff.Rotation() / PI * 180.f);
 		target->Draw(mTiledSprite);
 	} else {
 		// draw p1
-		sf::Shape shape = sf::Shape::Circle(mPoint1.x, mPoint1.y, 10.f, sf::Color(255,128,0), 5.f, bordercolor);
+		sf::Shape shape = sf::Shape::Circle(mPoint1.x, mPoint1.y, 3.f, sf::Color(255,255,255));
 		target->Draw(shape);
 	}
 }
@@ -47,6 +94,7 @@ void Rail::Load(boost::property_tree::ptree* pt, int id) {
 	mPoint2.x = pt->get<float>("rails."+sid+".2.x");
 	mPoint2.y = pt->get<float>("rails."+sid+".2.y");
 	mLastPointSet = 2;
+
 }
 
 Vector2D Rail::GetCenter() {

@@ -124,6 +124,10 @@ void World::Update(const float time_delta) {
 			mEntities.erase_if(boost::bind(&Entity::GetUID, _1) == entity.GetEntityUniqueId());
 		}*/
 	}
+	// draw the rails
+	BOOST_FOREACH(Rail& r, mRails) {
+		r.Update(time_delta);
+	}
 	if(mEntityListNeedsSorting) {
 		mEntities.sort(Entity::SortHelper);
 		mEntityListNeedsSorting = false;
@@ -166,7 +170,7 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 
 	// draw the rails
 	BOOST_FOREACH(Rail& r, mRails) {
-		r.Draw(target, sf::Color(128,128,128));
+		r.Draw(target, shader, GameApp::get_mutable_instance().IsEditorMode());
 	}
 
 	if(mClosestRail != NULL) {
@@ -405,6 +409,9 @@ void World::HandleEvent(const sf::Event& event) {
 					tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
 					mRails.back().SetNextPoint(tmp.GetWorldPixel());
 					mEditorRailFinished = mRails.back().IsFinished();
+					if(mEditorRailFinished) {
+						mRails.back().Initialize(*this);
+					}
 				} else if(event.MouseButton.Button == sf::Mouse::Right) {
 					if (mEditorPolygonFinished) {
 						// delete polygon
@@ -662,17 +669,21 @@ void World::Load() {
 		if(!boost::filesystem::is_empty("../data/levels.info")) {
 			read_info("../data/levels.info", pt);
 
+			pt.put("entities", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("entities")) {
 				mEntities.push_back(new Entity());
 				mEntities.back().Initialize(*this, &pt, v.first.data());
 			}
+			pt.put("polygons", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("polygons")) {
 				mCollisionPolygons.push_back(new CollisionPolygon());
 				mCollisionPolygons.back().Load(&pt, boost::lexical_cast<int>(v.first.data()));
 			}
+			pt.put("rails", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("rails")) {
 				mRails.push_back(new Rail());
 				mRails.back().Load(&pt, boost::lexical_cast<int>(v.first.data()));
+				mRails.back().Initialize(*this);
 			}
 		}
 	} else {
@@ -782,6 +793,10 @@ Rail* World::GetClosestRail() {
 
 void World::AddRigidBody(btRigidBody* body) {
 	mDynamicsWorld->addRigidBody(body);
+}
+
+btDynamicsWorld* World::GetDynamicsWorld() {
+	return mDynamicsWorld.get();
 }
 
 void World::RemoveRigidBody(btRigidBody* body) {

@@ -78,6 +78,8 @@ public:
 	void AddRigidBody(btRigidBody* body);
 	void RemoveRigidBody(btRigidBody* body);
 
+	btDynamicsWorld* GetDynamicsWorld();
+
 	void ReloadTriMeshBody();
 	Entity* GetEntityByLocalLayerId(int ll);
 
