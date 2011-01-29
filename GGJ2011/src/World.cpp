@@ -94,12 +94,19 @@ void World::Update(const float time_delta) {
 		}
 	} else if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
 		// draw point on closest rail
-		Rail& r = mRails.back();
-		Coordinates tmp;
-		tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
-		float d = r.ClosestPositionOnLine(tmp.GetWorldPixel());
-		Vector2D p = r.GetPointFromFloat(d);
-		mClosestMarker = sf::Shape::Circle(p.x,p.y,5,sf::Color(255,255,255,128));
+
+		std::cout << "Lol" << std::endl;
+		Rail* r = GetClosestRail();
+		if(r != NULL) {
+			Coordinates tmp;
+			tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+			float d = r->ClosestPositionOnLine(tmp.GetWorldPixel());
+			std::cout << d << std::endl;
+			if(d <= 20) {
+				Vector2D p = r->GetPointFromFloat(d);
+				mClosestMarker = sf::Shape::Circle(p.x,p.y,5,sf::Color(255,255,255,128));
+			}
+		}
 	}
 
 	//mDynamicsWorld->stepSimulation(time_delta, 10);
@@ -755,12 +762,13 @@ Rail* World::GetClosestRail() {
 	Rail* closest = NULL;
 	Coordinates tmp;
 	tmp.SetWorldPixel(Vector2D(20,0));
-	float min_d = tmp.GetWorldFloat().x;
+	float min_d = tmp.GetWorldPixel().x;
 
 	tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
 
 	BOOST_FOREACH(Rail& r, mRails) {
-		float d = (r.GetCenter() - tmp.GetWorldPixel()).Magnitude();
+		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldPixel()));
+		float d = (pol - tmp.GetWorldPixel()).Magnitude();
 		if (d < min_d) {
 			closest = &r;
 			min_d = d;
