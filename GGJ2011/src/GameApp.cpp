@@ -30,6 +30,7 @@ void GameApp::Init() {
 	mResourceManager.AddImage(gfx, "rail.svg", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
 	mResourceManager.AddImage(gfx, "magnet_pull.svg", 1.f, 1.f);
 	mResourceManager.AddImage(gfx, "magnet_push.svg", 1.f, 1.f);
+	mResourceManager.AddImage(gfx, "target.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	// -- add new images here
 
 	boost::filesystem::path snd("../snd/");

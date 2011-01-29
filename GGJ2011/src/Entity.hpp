@@ -113,6 +113,8 @@ public:
 
 	virtual void OnCollide(GameObject* other);
 
+	virtual std::string ToString();
+
 protected:
 	std::string mUID;
 	std::string mImageFile;

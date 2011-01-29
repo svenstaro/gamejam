@@ -150,20 +150,22 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		entity_iter->Draw(target, shader, GameApp::get_mutable_instance().IsEditorMode() && mEditorLayer == entity_iter->GetLayer());
 	}
 
-	CollisionPolygon* cl = GetClosestCollisionPolygon();
-	int i = 0;
-	BOOST_FOREACH(CollisionPolygon& p, mCollisionPolygons) {
-		sf::Color b;
-		if (GameApp::get_mutable_instance().IsEditorMode() && mEditorLayer==0) {
-			if (i == mCollisionPolygons.size()-1 && !mEditorPolygonFinished)
-				b = sf::Color::Magenta;
-			else if (cl == &p)
-				b = sf::Color(255,129,0);
-			else
-				b = sf::Color::White;
-		} else b = sf::Color(0,0,0,0);
-		p.Draw(target, b);
-		++i;
+	if(GameApp::get_mutable_instance().IsEditorMode()) {
+		CollisionPolygon* cl = GetClosestCollisionPolygon();
+		int i = 0;
+		BOOST_FOREACH(CollisionPolygon& p, mCollisionPolygons) {
+			sf::Color b;
+			if (GameApp::get_mutable_instance().IsEditorMode() && mEditorLayer==0) {
+				if (i == mCollisionPolygons.size()-1 && !mEditorPolygonFinished)
+					b = sf::Color::Magenta;
+				else if (cl == &p)
+					b = sf::Color(255,129,0);
+				else
+					b = sf::Color::White;
+			} else b = sf::Color(0,0,0,0);
+			p.Draw(target, b);
+			++i;
+		}
 	}
 
 	// draw the rest

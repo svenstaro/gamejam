@@ -28,6 +28,8 @@ public:
 
 	virtual void OnCollide(GameObject* other) = 0;
 
+	virtual std::string ToString() = 0;
+
 protected:
 	boost::shared_ptr<btCollisionShape> mCollisionShape;
 	boost::shared_ptr<btDefaultMotionState> mMotionState;

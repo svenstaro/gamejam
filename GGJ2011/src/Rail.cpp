@@ -226,3 +226,7 @@ void Rail::OnCollide(GameObject* other) {
 bool Rail::IsCurrentRail() const {
 	return (this == GameApp::get_mutable_instance().GetWorldPtr()->GetCurrentRail());
 }
+
+std::string Rail::ToString() {
+	return "rail";
+}
