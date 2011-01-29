@@ -37,7 +37,7 @@ void Rail::InitializePhysics() {
 	btRigidBody::btRigidBodyConstructionInfo rb_info(mass, mMotionState.get(), mCollisionShape.get(), local_inertia);
 
 	mBody = boost::shared_ptr<btRigidBody>(new btRigidBody(rb_info));
-	mBody->setDamping(0.2f, 0.2f);
+	mBody->setDamping(0.1f, 0.1f);
 	mBody->setLinearFactor(btVector3(1,1,0));
 	mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
@@ -71,6 +71,23 @@ void Rail::Update(float time_delta) {
 
 	mMover.SetRail(this);
 	mMover.Update(time_delta);
+
+	// push / pull box
+	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
+	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && IsCurrentRail()) {
+		//btVector3 force = (mPoint2 - mPoint1);
+		box->GetBody()->activate();
+		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
+		float d = 1 - force.length() / 5.f;
+		if (d > 0.f) {
+			//force *= 1 / d*d;
+			force *= d*d*10;
+
+			if(GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left))
+				force *= -1;
+			box->GetBody()->applyCentralForce(force);
+		}
+	}
 }
 
 void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {
@@ -188,4 +205,15 @@ btRigidBody* Rail::GetRigidBody() {
 
 btTypedConstraint* Rail::GetConstraint() {
 	return mConstraint.get();
+}
+
+
+void Rail::OnCollide(GameObject* other) {
+	if(other == GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity()) {
+		GameApp::get_mutable_instance().GetWorldPtr()->SetCurrentRail(this);
+	}
+}
+
+bool Rail::IsCurrentRail() const {
+	return (this == GameApp::get_mutable_instance().GetWorldPtr()->GetCurrentRail());
 }

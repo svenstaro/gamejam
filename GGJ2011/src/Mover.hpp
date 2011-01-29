@@ -17,6 +17,8 @@ public:
 	virtual void Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode = false) const;
 
 	void SetRail(Rail* rail);
+
+	virtual void OnCollide(GameObject* other);
 private:
 	Rail* mRail;
 	sf::Sprite mSprite;

@@ -41,6 +41,10 @@ public:
 	btRigidBody* GetRigidBody();
 	btTypedConstraint* GetConstraint();
 
+	virtual void OnCollide(GameObject* other);
+
+	bool IsCurrentRail() const;
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;

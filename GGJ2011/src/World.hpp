@@ -83,6 +83,10 @@ public:
 	void ReloadTriMeshBody();
 	Entity* GetEntityByLocalLayerId(int ll);
 
+	Entity* GetBoxEntity();
+	Rail* GetCurrentRail();
+	void SetCurrentRail(Rail* rail);
+
 private:
 	boost::ptr_vector<Entity> mEntities;
 	boost::ptr_list<CollisionPolygon> mCollisionPolygons;
@@ -127,6 +131,8 @@ private:
 
 	Rail* mClosestRail;
 	Vector2D mClosestRailPoint;
+
+	Rail* mCurrentRail;
 };
 
 #endif

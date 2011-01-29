@@ -310,3 +310,6 @@ void Entity::SetUsePhysics(World& world, bool use) {
 		mUsePhysics = use;
 	}
 }
+
+
+void Entity::OnCollide(GameObject* other) {}
