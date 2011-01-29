@@ -13,6 +13,8 @@
 #include "TiledSprite.hpp"
 #include "GameObject.hpp"
 
+#include "Mover.hpp"
+
 class Rail : public GameObject {
 public:
 	Rail();
@@ -35,6 +37,8 @@ public:
 	float ClosestPositionOnLine(Vector2D pixel_pos);
 	Vector2D GetPointFromFloat(float f) const;
 
+	btRigidBody* GetRigidBody();
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;
@@ -42,6 +46,7 @@ private:
 	TiledSprite mTiledSprite;
 
 	boost::shared_ptr<btGeneric6DofConstraint> mConstraint;
+	Mover mMover;
 };
 
 #endif // RAIL_HPP

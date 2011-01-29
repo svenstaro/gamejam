@@ -134,6 +134,7 @@ void Entity::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode
 	s.SetPosition(p.x, p.y);
 	s.SetRotation(Vector2D::rad2Deg(mRotation));
 	s.SetScale(mScale, mScale);
+	s.SetColor(sf::Color(255,255,255,mAlpha * 255));
 	target->Draw(s, shader);
 
 	if (editor_mode) {

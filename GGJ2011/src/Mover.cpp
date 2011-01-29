@@ -1,10 +1,15 @@
 #include "Mover.hpp"
 
+#include "Rail.hpp"
+#include "World.hpp"
+#include "GameApp.hpp"
+
 Mover::Mover() {}
 
 void Mover::Initialize(World& world) {
 	InitializePhysics();
 	world.AddRigidBody(mBody.get());
+	mRail = NULL;
 }
 
 void Mover::InitializePhysics() {
@@ -31,19 +36,34 @@ void Mover::InitializePhysics() {
 }
 
 void Mover::Update(float time_delta) {
-	/*btTransform trans;
-	mBody->getMotionState()->getWorldTransform(trans);
+	if(mRail == NULL)
+		return;
+	if(!(mRail->IsFinished()))
+		return;
+
+	btTransform trans;
+	mRail->GetRigidBody()->getMotionState()->getWorldTransform(trans);
 	btVector3 origin = trans.getOrigin();
-	SetPosition(Vector2D(origin.x(), origin.y()));
+	Vector2D p = Coordinates::WorldFloatToWorldPixel(Vector2D(origin.x(), origin.z()));
+	mSprite.SetPosition(p.x, p.y);
 
 	btMatrix3x3 rot;
 	rot.setIdentity();
 	rot = trans.getBasis();
 	float fx,fy,fz;
 	rot.getEulerZYX(fz,fy,fx);
-	SetRotation(PI-fz);*/
+	mSprite.SetRotation(Vector2D::rad2Deg(PI-fz));
+
+	if(GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left))
+		mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_push"));
+	else
+		mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_pull"));
 }
 
 void Mover::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {
+	target->Draw(mSprite);
+}
 
+void Mover::SetRail(Rail* rail) {
+	mRail = rail;
 }

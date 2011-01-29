@@ -19,15 +19,17 @@ void GameApp::Init() {
 	// load shader
 	mRenderWin->SetActive(true);
 	// shader is broken ;( disabled
-	mShader.LoadFromFile("../data/SaturationShader.glsl");
+	/*mShader.LoadFromFile("../data/SaturationShader.glsl");
 	mShader.SetTexture("tex", sf::Shader::CurrentTexture);
-	mShader.SetParameter("new_sat", 0.8f);
+	mShader.SetParameter("new_sat", 0.8f);*/
 
 
 	// load resources
 	boost::filesystem::path gfx("../gfx/");
 	mResourceManager.AddImage(gfx, "box.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	mResourceManager.AddImage(gfx, "rail.svg", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "magnet_pull.svg", 1.f, 1.f);
+	mResourceManager.AddImage(gfx, "magnet_push.svg", 1.f, 1.f);
 	// -- add new images here
 
 	SetSubtext("Hint: <Tab> for the editor!");

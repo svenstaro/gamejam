@@ -4,7 +4,7 @@
 
 Rail::Rail() {
 	mLastPointSet = 0;
-
+	mStartPosition = 0.5f;
 }
 
 void Rail::Initialize(World& world) {
@@ -15,7 +15,8 @@ void Rail::Initialize(World& world) {
 void Rail::InitializePhysics() {
 	btTransform tr;
 	tr.setIdentity();
-	tr.setOrigin(btVector3(GetPointFromFloat(mStartPosition).x, 0, GetPointFromFloat(mStartPosition).y));
+	Vector2D p = Coordinates::ScreenPixelToWorldFloat(GetPointFromFloat(mStartPosition));
+	tr.setOrigin(btVector3(p.x, 0, p.y));
 
 	btScalar mass(10.f);
 	btVector3 local_inertia(0, 0, 0);
@@ -31,7 +32,6 @@ void Rail::InitializePhysics() {
 	mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
 	mBody->setActivationState(DISABLE_DEACTIVATION);
-
 
 	btTransform frameB;
 	frameB.setIdentity();
@@ -57,6 +57,9 @@ void Rail::Update(float time_delta) {
 	mTiledSprite.SetPosition(mPoint1.x, mPoint1.y);
 	mTiledSprite.SetScale(diff.Magnitude(), 20);
 	mTiledSprite.SetRotation(- diff.Rotation() / PI * 180.f);
+
+	mMover.SetRail(this);
+	mMover.Update(time_delta);
 }
 
 void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {
@@ -68,6 +71,8 @@ void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) 
 		sf::Shape shape = sf::Shape::Circle(mPoint1.x, mPoint1.y, 3.f, sf::Color(255,255,255));
 		target->Draw(shape);
 	}
+
+	mMover.Draw(target, shader, editor_mode);
 }
 
 void Rail::SetNextPoint(Vector2D point) {
@@ -157,4 +162,8 @@ float Rail::ClosestPositionOnLine(Vector2D pixel_pos) {
 
 Vector2D Rail::GetPointFromFloat(float f) const {
 	return mPoint1 + (mPoint2-mPoint1) * f;
+}
+
+btRigidBody* Rail::GetRigidBody() {
+	return mBody.get();
 }

@@ -2,7 +2,9 @@
 #define MOVER_HPP
 
 #include "GameObject.hpp"
-#include "World.hpp"
+
+class Rail;
+class World;
 
 class Mover : public GameObject {
 public:
@@ -13,6 +15,11 @@ public:
 
 	virtual void Update(float time_delta);
 	virtual void Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode = false) const;
+
+	void SetRail(Rail* rail);
+private:
+	Rail* mRail;
+	sf::Sprite mSprite;
 };
 
 #endif // MOVER_HPP
