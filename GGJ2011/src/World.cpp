@@ -32,7 +32,7 @@ void World::Initialize() {
 	//mCollisionDispatcher->registerCollisionCreateFunc(BOX_2D_SHAPE_PROXYTYPE,BOX_2D_SHAPE_PROXYTYPE, new btBox2dBox2dCollisionAlgorithm::CreateFunc());
 	mCollisionDispatcher->registerCollisionCreateFunc(BOX_2D_SHAPE_PROXYTYPE,BOX_2D_SHAPE_PROXYTYPE, mBox2dAlgo2d.get());
 
-	mDynamicsWorld->setGravity(btVector3(0, 0.3, 0));
+	mDynamicsWorld->setGravity(btVector3(0, 1, 0));
 
 	mDebugDraw = boost::shared_ptr<DebugDraw> (new DebugDraw(GameApp::get_mutable_instance().GetRenderWindowPtr()));
 
@@ -107,6 +107,9 @@ void World::Update(const float time_delta) {
 		mClosestRail = r;
 
 	}
+	if(GetBoxEntity() != NULL && GetBoxEntity()->UsesPhysics()) {
+		mCurrentRail = GetClosestRail(true, GetBoxEntity()->GetBody()->getWorldTransform().getOrigin());
+	}
 
 	//mDynamicsWorld->stepSimulation(time_delta, 10);
 	mDynamicsWorld->stepSimulation(1 / 60.f, 10);
@@ -147,20 +150,22 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		entity_iter->Draw(target, shader, GameApp::get_mutable_instance().IsEditorMode() && mEditorLayer == entity_iter->GetLayer());
 	}
 
-	CollisionPolygon* cl = GetClosestCollisionPolygon();
-	int i = 0;
-	BOOST_FOREACH(CollisionPolygon& p, mCollisionPolygons) {
-		sf::Color b;
-		if (GameApp::get_mutable_instance().IsEditorMode() && mEditorLayer==0) {
-			if (i == mCollisionPolygons.size()-1 && !mEditorPolygonFinished)
-				b = sf::Color::Magenta;
-			else if (cl == &p)
-				b = sf::Color(255,129,0);
-			else
-				b = sf::Color::White;
-		} else b = sf::Color(0,0,0,0);
-		p.Draw(target, b);
-		++i;
+	if(GameApp::get_mutable_instance().IsEditorMode()) {
+		CollisionPolygon* cl = GetClosestCollisionPolygon();
+		int i = 0;
+		BOOST_FOREACH(CollisionPolygon& p, mCollisionPolygons) {
+			sf::Color b;
+			if (GameApp::get_mutable_instance().IsEditorMode() && mEditorLayer==0) {
+				if (i == mCollisionPolygons.size()-1 && !mEditorPolygonFinished)
+					b = sf::Color::Magenta;
+				else if (cl == &p)
+					b = sf::Color(255,129,0);
+				else
+					b = sf::Color::White;
+			} else b = sf::Color(0,0,0,0);
+			p.Draw(target, b);
+			++i;
+		}
 	}
 
 	// draw the rest
@@ -776,13 +781,19 @@ CollisionPolygon* World::GetClosestCollisionPolygon() {
 	return closest;
 }
 
-Rail* World::GetClosestRail() {
+Rail* World::GetClosestRail(bool all, btVector3 pos) {
 	Rail* closest = NULL;
 	Coordinates tmp;
 	tmp.SetWorldPixel(Vector2D(20,0));
 	float min_d = tmp.GetWorldPixel().x;
+	if(all) min_d = 1000000000000;
 
-	tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+	if(all) {
+		tmp.SetWorldFloat(Vector2D(pos.x(),pos.y()));
+	}
+	else
+		tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
+
 
 	BOOST_FOREACH(Rail& r, mRails) {
 		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldPixel()));
@@ -797,10 +808,11 @@ Rail* World::GetClosestRail() {
 
 
 void World::AddRigidBody(btRigidBody* body) {
-	mDynamicsWorld->addRigidBody(body);
+	assert(false);
+	//mDynamicsWorld->addRigidBody(body);
 }
 
-btDynamicsWorld* World::GetDynamicsWorld() {
+btDiscreteDynamicsWorld* World::GetDynamicsWorld() {
 	return mDynamicsWorld.get();
 }
 
@@ -827,7 +839,7 @@ void World::ReloadTriMeshBody() {
 
 		mTriMeshBody = boost::shared_ptr<btRigidBody>(new btRigidBody(tm_info));
 
-		mDynamicsWorld->addRigidBody(mTriMeshBody.get());
+		mDynamicsWorld->addRigidBody(mTriMeshBody.get(), COL_WALL, COL_BOX);
 	}
 }
 

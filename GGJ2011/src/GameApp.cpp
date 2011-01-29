@@ -9,7 +9,7 @@ GameApp::~GameApp() {}
 
 void GameApp::Init() {
 	mRenderWin = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow);
-	mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb");
+	mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb", sf::Style::Default, sf::ContextSettings(24, 8, 4));
 	mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
 	mRenderWin->EnableVerticalSync(true);
 
@@ -30,7 +30,11 @@ void GameApp::Init() {
 	mResourceManager.AddImage(gfx, "rail.svg", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
 	mResourceManager.AddImage(gfx, "magnet_pull.svg", 1.f, 1.f);
 	mResourceManager.AddImage(gfx, "magnet_push.svg", 1.f, 1.f);
+	mResourceManager.AddImage(gfx, "target.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	// -- add new images here
+
+	boost::filesystem::path snd("../snd/");
+	mResourceManager.AddSoundBuffer(snd, "collide.ogg", "collide");
 
 	SetSubtext("Hint: <Tab> for the editor!");
 
@@ -221,3 +225,4 @@ void GameApp::SetSubtext(const std::string& subtext) {
 boost::shared_ptr<sf::RenderWindow> GameApp::GetRenderWindowPtr() {
 	return mRenderWin;
 }
+

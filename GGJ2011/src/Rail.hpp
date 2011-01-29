@@ -45,6 +45,8 @@ public:
 
 	bool IsCurrentRail() const;
 
+	std::string ToString();
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;

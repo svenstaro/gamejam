@@ -54,7 +54,7 @@ public:
 	std::vector<Entity*> GetEntitiesByLayer(int layer);
 	Entity* GetClosestEntityOnLayer(const Vector2D pos, int layer=0);
 	CollisionPolygon* GetClosestCollisionPolygon();
-	Rail* GetClosestRail();
+	Rail* GetClosestRail(bool all = false, btVector3 pos = btVector3(0,0,0));
 	
 	Entity* GetEntityByUID(const std::string& uid);
 
@@ -78,7 +78,7 @@ public:
 	void AddRigidBody(btRigidBody* body);
 	void RemoveRigidBody(btRigidBody* body);
 
-	btDynamicsWorld* GetDynamicsWorld();
+	btDiscreteDynamicsWorld* GetDynamicsWorld();
 
 	void ReloadTriMeshBody();
 	Entity* GetEntityByLocalLayerId(int ll);

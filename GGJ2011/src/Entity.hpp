@@ -24,6 +24,15 @@
 // ARRGH Forward declaration
 class World;
 
+#define BIT(x) (1<<(x))
+enum CollisionTypes {
+	COL_NOTHING = 0, //<Collide with nothing
+	COL_WALL = BIT(1), //<Collide with ships
+	COL_BOX = BIT(2), //<Collide with walls
+	COL_MOVER = BIT(3) //<Collide with powerups
+};
+
+
 class Entity : public GameObject {
 public:
 
@@ -103,6 +112,8 @@ public:
 	static bool SortHelper(const Entity& l, const Entity& r);
 
 	virtual void OnCollide(GameObject* other);
+
+	virtual std::string ToString();
 
 protected:
 	std::string mUID;

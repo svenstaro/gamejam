@@ -19,6 +19,8 @@ public:
 	void SetRail(Rail* rail);
 
 	virtual void OnCollide(GameObject* other);
+
+	std::string ToString();
 private:
 	Rail* mRail;
 	sf::Sprite mSprite;

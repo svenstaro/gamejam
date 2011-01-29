@@ -10,7 +10,7 @@ Rail::Rail() {
 void Rail::Initialize(World& world) {
 	InitializePhysics();
 	world.GetDynamicsWorld()->addConstraint(mConstraint.get());
-	world.GetDynamicsWorld()->addRigidBody(mBody.get());
+	world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
 }
 
 void Rail::InitializePhysics() {
@@ -80,15 +80,21 @@ void Rail::Update(float time_delta) {
 		//btVector3 force = (mPoint2 - mPoint1);
 		box->GetBody()->activate();
 		box->GetBody()->setFriction(btScalar(100.f));
+		/*Coordinates tmp;
+		tmp.SetWorldPixel(mPoint2-mPoint1);
+		Vector2D v = tmp.GetWorldFloat();
+		v.Normalize();
+		v.Rotate(-PI / 2);
+		v *= 0.5;*/
 		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
-		float d = 1 - force.length() / 5.f;
+		float d = 1 - force.length() / 3.f;
 		if (d > 0.f) {
 			//force *= 1 / d*d;
 			force *= d*d*10;
 
 			if(current_and_down)
-				force *= -1;
-			box->GetBody()->applyCentralForce(force);
+				force *= -2;
+			box->GetBody()->applyCentralForce(force * 1.5);
 		}
 	}
 }
@@ -219,4 +225,8 @@ void Rail::OnCollide(GameObject* other) {
 
 bool Rail::IsCurrentRail() const {
 	return (this == GameApp::get_mutable_instance().GetWorldPtr()->GetCurrentRail());
+}
+
+std::string Rail::ToString() {
+	return "rail";
 }

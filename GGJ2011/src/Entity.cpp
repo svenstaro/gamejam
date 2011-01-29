@@ -57,15 +57,11 @@ void Entity::InitializePhysics() {
 	btScalar mass(1.f);
 	btVector3 local_inertia(0, 0, 0);
 
-	if(mUID == "player") {
-		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btCapsuleShape(1*mScale, 0.3*mScale));
-		mass = 1.f;
-	} else {
-		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1*mScale, 1*mScale, 1)));
-	}
+	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.5*mScale, 1.5*mScale, 1)));
+
 	mCollisionShape->calculateLocalInertia(mass, local_inertia);
 	transform.setOrigin(btVector3(mPosition.x, mPosition.y, 0));
-	transform.setRotation(btQuaternion(0, 0, 1, mRotation));
+	transform.setRotation(btQuaternion(0, 0, PI - mRotation));
 
 	mMotionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(transform));
 	btRigidBody::btRigidBodyConstructionInfo rb_info(mass, mMotionState.get(), mCollisionShape.get(), local_inertia);
@@ -76,27 +72,6 @@ void Entity::InitializePhysics() {
 	mBody->setAngularFactor(btVector3(0,0,1));
 	//mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
-
-	/*
-	if(mUID == "player") {
-		btTransform t;
-		t.setIdentity();
-		btScalar playerweight_mass(10.f);
-		btVector3 playerweight_local_inertia(0, 0, 0);
-		mPlayerWeightCollisionShape = boost::shared_ptr<btCollisionShape>(new btSphereShape(1));
-		mPlayerWeightCollisionShape->calculateLocalInertia(playerweight_mass, playerweight_local_inertia);
-		t.setOrigin(btVector3(mPosition.x - 2, mPosition.y - 1, 0));
-		t.setRotation(btQuaternion(0, 0, 1, mRotation));
-
-		mPlayerWeightMotionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(t));
-		btRigidBody::btRigidBodyConstructionInfo player_weight_rb_info(playerweight_mass, mPlayerWeightMotionState.get(), mPlayerWeightCollisionShape.get(), playerweight_local_inertia);
-		mPlayerWeightBody = boost::shared_ptr<btRigidBody>(new btRigidBody(player_weight_rb_info));
-		mPlayerWeightBody->setDamping(0.2f, 0.2f);
-		mPlayerWeightBody->setLinearFactor(btVector3(1,1,0));
-		mPlayerWeightBody->setAngularFactor(btVector3(0,0,1));
-		mPlayerWeightBody->setUserPointer(this);
-		GameApp::get_mutable_instance().GetWorldPtr()->AddRigidBody(mPlayerWeightBody.get());
-	}*/
 }
 
 void Entity::Update(float time_delta) {
@@ -303,7 +278,7 @@ void Entity::SetUsePhysics(World& world, bool use) {
 	if (use != mUsePhysics) {
 		if (use) {
 			InitializePhysics();
-			world.AddRigidBody(mBody.get());
+			world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_BOX, COL_WALL | COL_MOVER | COL_BOX);
 		} else {
 			world.RemoveRigidBody(mBody.get());
 		}
@@ -312,4 +287,17 @@ void Entity::SetUsePhysics(World& world, bool use) {
 }
 
 
-void Entity::OnCollide(GameObject* other) {}
+void Entity::OnCollide(GameObject* other) {
+	if(mUID == "box") {
+		GameApp::get_mutable_instance().GetResourceManagerPtr()->PlaySound("collide");
+
+		if(other != NULL && other->ToString() == "entity" && ((Entity*)other)->GetUID() == "target") {
+			std::cout << "Done!" << std::endl;
+			exit(0);
+		}
+	}
+}
+
+std::string Entity::ToString() {
+	return "entity";
+}
