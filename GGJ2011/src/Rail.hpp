@@ -19,6 +19,9 @@ class Rail : public GameObject {
 public:
 	Rail();
 
+	virtual void Reinitialize(World& world);
+	virtual void Deinitialize(World& world);
+
 	virtual void Initialize(World& world);
 	virtual void InitializePhysics();
 
@@ -47,6 +50,8 @@ public:
 
 	std::string ToString();
 
+	void ToggleInitialState();
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;
@@ -55,6 +60,10 @@ private:
 
 	boost::shared_ptr<btGeneric6DofConstraint> mConstraint;
 	Mover mMover;
+
+	bool mInitialMoverMounted;
+
+	bool mMounted;
 };
 
 #endif // RAIL_HPP

@@ -7,6 +7,16 @@ Rail::Rail() {
 	mStartPosition = 0.5f;
 }
 
+void Rail::Reinitialize(World& world) {
+	Deinitialize(world);
+	Initialize(world);
+}
+
+void Rail::Deinitialize(World& world) {
+	world.GetDynamicsWorld()->removeConstraint(mConstraint.get());
+	world.GetDynamicsWorld()->removeRigidBody(mBody.get());
+}
+
 void Rail::Initialize(World& world) {
 	InitializePhysics();
 	world.GetDynamicsWorld()->addConstraint(mConstraint.get());
@@ -52,8 +62,8 @@ void Rail::InitializePhysics() {
 	mConstraint->setAngularLowerLimit(btVector3(0,0,0));
 	mConstraint->setAngularUpperLimit(btVector3(0,0,0));
 	float l = Coordinates::ScreenPixelToWorldFloat(mPoint2 - mPoint1).Magnitude();
-	mConstraint->setLinearLowerLimit(btVector3(-l/2+0.3, 0,0));
-	mConstraint->setLinearUpperLimit(btVector3(l/2,0,0));
+	mConstraint->setLinearLowerLimit(btVector3(-l*mStartPosition+0.3, 0,0));
+	mConstraint->setLinearUpperLimit(btVector3(l*(1-mStartPosition),0,0));
 
 	/*mConstraint->getTranslationalLimitMotor()->m_enableMotor[0] = true;
 	mConstraint->getTranslationalLimitMotor()->m_targetVelocity[0] = 5.0f;
@@ -76,7 +86,8 @@ void Rail::Update(float time_delta) {
 	bool current_and_down = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && IsCurrentRail();
 
 	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
-	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL) {
+	// TODO: make play
+	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
 		//btVector3 force = (mPoint2 - mPoint1);
 		box->GetBody()->activate();
 		box->GetBody()->setFriction(btScalar(100.f));
@@ -130,6 +141,7 @@ void Rail::Save(boost::property_tree::ptree* pt, int id) {
 	pt->add("rails."+sid+".1.y", mPoint1.y);
 	pt->add("rails."+sid+".2.x", mPoint2.x);
 	pt->add("rails."+sid+".2.y", mPoint2.y);
+	pt->add("rails."+sid+".init", mInitialMoverMounted);
 }
 
 void Rail::Load(boost::property_tree::ptree* pt, int id) {
@@ -139,7 +151,7 @@ void Rail::Load(boost::property_tree::ptree* pt, int id) {
 	mPoint2.x = pt->get<float>("rails."+sid+".2.x");
 	mPoint2.y = pt->get<float>("rails."+sid+".2.y");
 	mLastPointSet = 2;
-
+	mInitialMoverMounted = pt->get<bool>("rails."+sid+".init");
 }
 
 Vector2D Rail::GetCenter() {
@@ -229,4 +241,8 @@ bool Rail::IsCurrentRail() const {
 
 std::string Rail::ToString() {
 	return "rail";
+}
+
+void Rail::ToggleInitialState() {
+	mInitialMoverMounted =! mInitialMoverMounted;
 }

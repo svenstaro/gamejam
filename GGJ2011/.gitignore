@@ -3,4 +3,5 @@ bin/
 build/
 screenshots/
 gfx/cached/
+gfx/*/cached
 

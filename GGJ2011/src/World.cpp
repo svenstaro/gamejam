@@ -107,7 +107,7 @@ void World::Update(const float time_delta) {
 		mClosestRail = r;
 
 	}
-	if(GetBoxEntity() != NULL && GetBoxEntity()->UsesPhysics()) {
+	if(GetBoxEntity() != NULL && GetBoxEntity()->UsesPhysics() && !GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left)) {
 		mCurrentRail = GetClosestRail(true, GetBoxEntity()->GetBody()->getWorldTransform().getOrigin());
 	}
 
@@ -374,6 +374,15 @@ void World::HandleEvent(const sf::Event& event) {
 					SetEditorLayer(0);
 				}
 				// -- End layer selection
+
+				if(event.Key.Code == sf::Key::Space && mEditorLayer == 9) {
+					// toggle initial mover mounted
+					Rail* r = GetClosestRail();
+					if(r != NULL) {
+						r->ToggleInitialState();
+						r->Reinitialize(*this);
+					}
+				}
 			}
 
 		} else if (event.Type == sf::Event::MouseButtonPressed) {

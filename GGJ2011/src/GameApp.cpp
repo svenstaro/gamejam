@@ -34,6 +34,7 @@ void GameApp::Init() {
 	mResourceManager.AddImage(gfx, "cursor_pull.svg", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(gfx, "cursor_push.svg", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
+	mResourceManager.AddImage(gfx / "maps", "1_lvl.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
 
 	boost::filesystem::path snd("../snd/");
 	mResourceManager.AddSoundBuffer(snd, "collide.ogg", "collide");
