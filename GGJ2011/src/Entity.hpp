@@ -9,7 +9,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/property_tree/ptree.hpp>
 
-#include <bullet/btBulletDynamicsCommon.h>
+#include <btBulletDynamicsCommon.h>
 #include <BulletCollision/CollisionShapes/btBox2dShape.h>
 #include <BulletCollision/CollisionShapes/btConvex2dShape.h>
 

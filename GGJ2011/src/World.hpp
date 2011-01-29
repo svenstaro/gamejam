@@ -11,7 +11,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
 
-#include <bullet/btBulletDynamicsCommon.h>
+#include <btBulletDynamicsCommon.h>
 #include <BulletCollision/CollisionShapes/btBox2dShape.h>
 #include <BulletCollision/CollisionDispatch/btEmptyCollisionAlgorithm.h>
 #include <BulletCollision/CollisionDispatch/btBox2dBox2dCollisionAlgorithm.h>

@@ -21,7 +21,7 @@ include_directories(
 	"${CMAKE_SOURCE_DIR}/src/"
 	${Boost_INCLUDE_DIRS}
 	${BULLET_INCLUDE_DIRS}
-	${SFML_INCLUDE_DIRS}
+	${SFML_INCLUDE_DIR}
 	${ImageMagick_INCLUDE_DIRS}
 )
 

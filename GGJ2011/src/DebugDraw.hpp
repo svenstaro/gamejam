@@ -2,7 +2,7 @@
 #define DEBUGDRAW_HPP
 
 #include <SFML/Graphics.hpp>
-#include <bullet/btBulletDynamicsCommon.h>
+#include <btBulletDynamicsCommon.h>
 #include <boost/shared_ptr.hpp>
 #include <iostream>
 
