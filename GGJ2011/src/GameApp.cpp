@@ -31,6 +31,8 @@ void GameApp::Init() {
 	mResourceManager.AddImage(gfx, "magnet_pull.svg", 1.f, 1.f);
 	mResourceManager.AddImage(gfx, "magnet_push.svg", 1.f, 1.f);
 	mResourceManager.AddImage(gfx, "target.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "cursor_pull.svg", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(gfx, "cursor_push.svg", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
 
 	boost::filesystem::path snd("../snd/");
@@ -151,7 +153,16 @@ void GameApp::Run() {
 			mRenderWin->Draw(t);
 
 			//GUI!!!
+			if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+				mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
+			else
+				mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
+			mCursor.SetOrigin(mCursor.GetImage()->GetHeight() / 2, mCursor.GetImage()->GetWidth() / 2);
+
+			mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
+			mRenderWin->Draw(mCursor);
 		}
+		mRenderWin->ShowMouseCursor(IsEditorMode());
 		mRenderWin->Display();
 	}
 }

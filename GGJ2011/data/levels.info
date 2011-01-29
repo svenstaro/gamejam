@@ -2,10 +2,10 @@ entities
 {
     box
     {
-        x 3.798901
-        y 0.5375003
+        x 6.955413
+        y 5.259319
         img box
-        rot 3.871523
+        rot 1.564672
         a 1
         s 0.1723028
         l 1
@@ -14,24 +14,12 @@ entities
     }
     target
     {
-        x 4.091815
-        y 4.618121
+        x 2.405605
+        y 5.149548
         img target
-        rot 0.1544935
+        rot 6.267343
         a 1
         s 0.1988468
-        l 1
-        ll 0
-        phy true
-    }
-    entity-1300
-    {
-        x 11.04165
-        y 4.847841
-        img box
-        rot 3.107121
-        a 0.4833333
-        s 0.7025539
         l 1
         ll 0
         phy true

@@ -67,6 +67,7 @@ private:
 
 	bool mDebugGrid;
 	sf::Music mMusic;
+	sf::Sprite mCursor;
 };
 
 #endif
