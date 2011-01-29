@@ -19,11 +19,18 @@ void Rail::InitializePhysics() {
 	Coordinates tmp;
 	tmp.SetWorldPixel(GetPointFromFloat(mStartPosition));
 	Vector2D p = tmp.GetWorldFloat();
-	tr.setOrigin(btVector3(p.x, p.y, 0));
+
+	tmp.SetWorldPixel(mPoint2-mPoint1);
+	Vector2D o = tmp.GetWorldFloat();
+	o.Normalize();
+	o.Rotate(-90);
+	o *= 0.34;
+	tr.setOrigin(btVector3(p.x + o.x, p.y + o.y, 0));
+	tr.setRotation(btQuaternion(0,0,(mPoint2 - mPoint1).Rotation()));
 
 	btScalar mass(1.f);
 	btVector3 local_inertia(0, 0, 0);
-	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(.5f,.5f,.5f)));
+	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(.4f,.34f,.4f)));
 	mCollisionShape->calculateLocalInertia(mass, local_inertia);
 
 	mMotionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(tr));
@@ -39,7 +46,7 @@ void Rail::InitializePhysics() {
 	btTransform frameB;
 	frameB.setIdentity();
 	//frameB.setOrigin(btVector3(p.x, p.y, 0));
-	frameB.setRotation(btQuaternion(0,0,(mPoint2 - mPoint1).Rotation()));
+	//frameB.setRotation(btQuaternion(0,0,(mPoint2 - mPoint1).Rotation()));
 	mConstraint = boost::shared_ptr<btGeneric6DofConstraint>(new btGeneric6DofConstraint( *mBody, frameB, true ));
 
 	mConstraint->setAngularLowerLimit(btVector3(0,0,0));
