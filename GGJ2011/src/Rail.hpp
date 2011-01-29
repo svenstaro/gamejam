@@ -39,6 +39,7 @@ public:
 	Vector2D GetPointFromFloat(float f) const;
 
 	btRigidBody* GetRigidBody();
+	btTypedConstraint* GetConstraint();
 
 private:
 	Vector2D mPoint1, mPoint2;

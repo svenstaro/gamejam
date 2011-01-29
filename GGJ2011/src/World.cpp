@@ -169,8 +169,9 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	}
 
 	// draw the rails
+	Rail* cr = GetClosestRail();
 	BOOST_FOREACH(Rail& r, mRails) {
-		r.Draw(target, shader, GameApp::get_mutable_instance().IsEditorMode());
+		r.Draw(target, shader, cr == &r);
 	}
 
 	if(mClosestRail != NULL) {
@@ -413,12 +414,14 @@ void World::HandleEvent(const sf::Event& event) {
 						mRails.back().Initialize(*this);
 					}
 				} else if(event.MouseButton.Button == sf::Mouse::Right) {
-					if (mEditorPolygonFinished) {
+					if (mEditorRailFinished) {
 						// delete polygon
 						Rail* r = GetClosestRail();
 						if (r != NULL) {
 							for(auto iter = mRails.begin(); iter != mRails.end(); ++iter) {
 								if (r->GetCenter() == iter->GetCenter()) {
+									RemoveRigidBody(r->GetRigidBody());
+									mDynamicsWorld->removeConstraint(r->GetConstraint());
 									mRails.erase(iter);
 									break;
 								}
