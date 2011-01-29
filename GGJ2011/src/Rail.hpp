@@ -44,7 +44,7 @@ public:
 	btRigidBody* GetRigidBody();
 	btTypedConstraint* GetConstraint();
 
-	virtual void OnCollide(GameObject* other);
+	virtual bool OnCollide(GameObject* other);
 
 	bool IsCurrentRail() const;
 

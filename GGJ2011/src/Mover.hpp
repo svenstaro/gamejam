@@ -18,7 +18,7 @@ public:
 
 	void SetRail(Rail* rail);
 
-	virtual void OnCollide(GameObject* other);
+	virtual bool OnCollide(GameObject* other);
 
 	std::string ToString();
 private:

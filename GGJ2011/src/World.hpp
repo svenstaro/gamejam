@@ -87,6 +87,8 @@ public:
 	Rail* GetCurrentRail();
 	void SetCurrentRail(Rail* rail);
 
+	const std::string GetCurrentLevelFile();
+	void LoadNextLevel();
 private:
 	boost::ptr_vector<Entity> mEntities;
 	boost::ptr_list<CollisionPolygon> mCollisionPolygons;
@@ -133,6 +135,9 @@ private:
 	Vector2D mClosestRailPoint;
 
 	Rail* mCurrentRail;
+
+	int mCurrentLevel;
+	int mNumLevels;
 };
 
 #endif
