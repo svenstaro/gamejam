@@ -99,15 +99,34 @@ void Rail::Update(float time_delta) {
 		v.Normalize();
 		v.Rotate(-PI / 2);
 		v *= 0.5;*/
+
+		Vector2D o(mBody->getWorldTransform().getOrigin().x(),mBody->getWorldTransform().getOrigin().y());
+		Vector2D o2(box->GetBody()->getWorldTransform().getOrigin().x(), box->GetBody()->getWorldTransform().getOrigin().y());
+		Vector2D d1(mPoint2 - mPoint1);
+		Vector2D p = d1;
+		p.Normalize();
+		p.Rotate(Vector2D::deg2Rad(-90));
+		p *= 0.2f;
+		Vector2D d2 = o2 - o - p;
+		float angle = Vector2D::Angle(p, d2);
+
+
 		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
 		float d = 1 - force.length() / 3.f;
-		if (d > 0.f) {
+		if (d > 0.f && abs(angle) < Vector2D::deg2Rad(110)) {
 			//force *= 1 / d*d;
 			force *= d*d*10;
 
 			if(current_and_down)
 				force *= -2;
 			box->GetBody()->applyCentralForce(force * 1.5);
+		}
+
+		// TORQUE to push it up again
+
+		float threshold = 1.f;
+		if(abs(angle) > threshold && abs(angle) < Vector2D::deg2Rad(110)) {
+			box->GetBody()->applyTorque(btVector3(0,0,2*angle));
 		}
 	}
 }
