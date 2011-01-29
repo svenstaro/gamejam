@@ -11,6 +11,8 @@ World::World() {
 	mEditorRailFinished = true;
 	mClosestRailPoint = NULL;
 	mEditorLayer = 1;
+	mCurrentLevel = 1;
+	mNumLevels = 2;
 }
 
 World::~World() {}
@@ -664,16 +666,22 @@ void World::Save() {
 			rail.Save(&pt, i);
 			++i;
 		}
-		FILE* file = fopen("../data/levels.info","w");
+		FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
 		fclose(file);
-		write_info("../data/levels.info", pt);
+		write_info(GetCurrentLevelFile(), pt);
 	}
 }
 void World::Load() {
 	std::cout << "::Clearing all entities..." << std::endl;
 	BOOST_FOREACH(Entity& entity, mEntities) {
-		mDynamicsWorld->removeRigidBody(entity.GetBody().get());
+		if(entity.UsesPhysics()) {
+			mDynamicsWorld->removeRigidBody(entity.GetBody().get());
+		}
 	}
+	BOOST_FOREACH(Rail& r, mRails) {
+		r.Deinitialize(*this);
+	}
+
 	mEntities.clear();
 	mCollisionPolygons.clear();
 	mRails.clear();
@@ -682,9 +690,9 @@ void World::Load() {
 	ptree pt;
 	std::cout << ":: Loading entities and collision polygons..." << std::endl;
 
-	if(boost::filesystem::exists("../data/levels.info")) {
-		if(!boost::filesystem::is_empty("../data/levels.info")) {
-			read_info("../data/levels.info", pt);
+	if(boost::filesystem::exists(GetCurrentLevelFile())) {
+		if(!boost::filesystem::is_empty(GetCurrentLevelFile())) {
+			read_info(GetCurrentLevelFile(), pt);
 
 			pt.put("entities", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("entities")) {
@@ -704,7 +712,7 @@ void World::Load() {
 			}
 		}
 	} else {
-		FILE* file = fopen("../data/levels.info","w");
+		FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
 		fclose(file);
 	}
 	if(mEntities.size() > 0) {
@@ -759,8 +767,10 @@ void World::TickCallback(btScalar timestep) {
 					GameObject* a = (GameObject*)obA->getUserPointer();
 					GameObject* b = (GameObject*)obB->getUserPointer();
 					// do something!
-					a->OnCollide(b);
-					b->OnCollide(a);
+					if(!a->OnCollide(b))
+						return;
+					if(!b->OnCollide(a))
+						return;
 				}
 			}
 		}
@@ -875,4 +885,18 @@ Rail* World::GetCurrentRail() {
 
 void World::SetCurrentRail(Rail* rail) {
 	mCurrentRail = rail;
+}
+
+const std::string World::GetCurrentLevelFile() {
+	return "../data/level-"+boost::lexical_cast<std::string>(mCurrentLevel)+".info";
+}
+
+void World::LoadNextLevel() {
+	if(mCurrentLevel < mNumLevels) {
+		mCurrentLevel += 1;
+		Load();
+	} else {
+		std::cout << "Finished all levels." << std::endl;
+		exit(0);
+	}
 }

@@ -59,7 +59,9 @@ void Mover::SetRail(Rail* rail) {
 	mRail = rail;
 }
 
-void Mover::OnCollide(GameObject* other) {}
+bool Mover::OnCollide(GameObject* other) {
+	return true;
+}
 
 std::string Mover::ToString() {
 	return "mover";
