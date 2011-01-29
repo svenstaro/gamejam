@@ -380,7 +380,7 @@ void World::HandleEvent(const sf::Event& event) {
 					Rail* r = GetClosestRail();
 					if(r != NULL) {
 						r->ToggleInitialState();
-						r->Reinitialize(*this);
+						//r->Reinitialize(*this);
 					}
 				}
 			}
