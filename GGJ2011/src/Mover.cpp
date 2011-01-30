@@ -44,7 +44,9 @@ void Mover::Update(float time_delta) {
 	std::cout << fz << std::endl;*/
 	mSprite.SetRotation(-Vector2D::rad2Deg(mRail->GetRotation()));
 
-	if(GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && mRail != NULL && mRail->IsCurrentRail())
+	if(!mRail->IsCurrentRail())
+		mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_off"));
+	else if(GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && mRail != NULL && mRail->IsCurrentRail())
 		mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_push"));
 	else
 		mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_pull"));

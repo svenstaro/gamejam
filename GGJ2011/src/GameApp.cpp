@@ -42,6 +42,7 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "rail.png", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "magnet_pull.png", 1.f, 1.f);
 	mResourceManager.AddImage(data / "gfx", "magnet_push.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "magnet_off.png", 1.f, 1.f);
 	mResourceManager.AddImage(data / "gfx", "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
