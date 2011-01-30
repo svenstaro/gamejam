@@ -77,7 +77,7 @@ void Rail::InitializePhysics() {
 	mConstraint->getTranslationalLimitMotor()->m_targetVelocity[0] = 5.0f;
 	mConstraint->getTranslationalLimitMotor()->m_maxMotorForce[0] = 0.1f;*/
 
-	mConstraint->setDbgDrawSize(btScalar(5.f));
+	//mConstraint->setDbgDrawSize(btScalar(5.f));
 }
 
 void Rail::Update(float time_delta) {

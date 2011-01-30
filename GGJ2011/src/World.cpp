@@ -11,8 +11,9 @@ World::World() {
 	mEditorRailFinished = true;
 	mClosestRailPoint = NULL;
 	mEditorLayer = 1;
-	mCurrentLevel = 1;
+	mCurrentLevel = 0;
 	mNumLevels = 2;
+	mDrawDebugs = false;
 }
 
 World::~World() {}
@@ -195,7 +196,8 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		target->Draw(line);
 	}
 
-	mDynamicsWorld->debugDrawWorld();
+	if(mDrawDebugs)
+		mDynamicsWorld->debugDrawWorld();
 }
 
 void World::AddEntity(Entity* entity) {
@@ -246,14 +248,7 @@ void World::HandleEvent(const sf::Event& event) {
 				} else if(event.Key.Code == sf::Key::F2) {
 					ReloadTriMeshBody();
 				} else if(event.Key.Code == sf::Key::O) {
-					//mDebugDraw.setDebugMode(btIDebugDraw::DBG_DrawWireframe);
-					if(mDebugDraw->getDebugMode() == btIDebugDraw::DBG_NoDebug)
-						mDebugDraw->setDebugMode(btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE);
-					else if(mDebugDraw->getDebugMode() == btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE)
-						mDebugDraw->setDebugMode(btIDebugDraw::DBG_NoDebug);
-					else {
-						mDebugDraw->setDebugMode(btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE);
-					}
+					mDrawDebugs = !mDrawDebugs;
 				} else if(event.Key.Code == sf::Key::S) {
 					ToggleSetMouseAction(EMA_SCALE);
 				} else if(event.Key.Code == sf::Key::R) {

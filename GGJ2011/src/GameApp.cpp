@@ -2,9 +2,18 @@
 
 #include "boost/date_time/posix_time/posix_time.hpp"
 
+std::string leadingZeros(int i, int n) {
+	std::string s = boost::lexical_cast<std::string>(i);
+	while(s.length() < n) {
+		s = "0" + s;
+	}
+	return s;
+}
+
 GameApp::GameApp() {
 	mNextId = 1300;
 	mDebugGrid = false;
+	mAppMode = AM_PLAY;
 }
 
 GameApp::~GameApp() {}
@@ -65,6 +74,7 @@ void GameApp::Init() {
 	//mMusic.Play();
 
 	mRenderWin->ShowMouseCursor(false);
+	mRenderWin->SetCursorPosition(WIDTH / 2, HEIGHT / 2);
 
 	// Load The World
 	LoadWorld(data);
@@ -89,6 +99,9 @@ void GameApp::Run() {
 		float time_delta = mClock.GetElapsedTime();
 		mClock.Reset();
 
+		if(mAppMode == AM_PLAY)
+			mTotalTime += time_delta;
+
 		// SFML access class for real-time input
 		const sf::Input& input = mRenderWin->GetInput();
 		float frameTime = mRenderWin->GetFrameTime();
@@ -100,7 +113,7 @@ void GameApp::Run() {
 			time_budget -= dt;
 		}
 
-		mRenderWin->Clear(sf::Color(80,80,80));
+		mRenderWin->Clear(sf::Color(0,0,0));
 		SetGuiPaintingMode(false);
 
 		// Draw World
@@ -176,11 +189,9 @@ void GameApp::Run() {
 				t.SetFont(mResourceManager.GetFont("custom"));
 				mRenderWin->Draw(t);
 			} else {
-				float time = mTotalTimer.GetElapsedTime();
-
-				boost::posix_time::time_duration td = boost::posix_time::seconds(time);
-				sf::Text t("Time: " + boost::lexical_cast<std::string>(td.minutes()) + ":" + boost::lexical_cast<std::string>(td.seconds()) );
-				t.SetCharacterSize(26);
+				boost::posix_time::time_duration td = boost::posix_time::seconds(mTotalTime);
+				sf::Text t(boost::lexical_cast<std::string>(td.minutes()) + ":" + leadingZeros(td.seconds(), 2) );
+				t.SetCharacterSize(50);
 				t.SetPosition(WIDTH - t.GetRect().Width - 20, 20);
 				t.SetFont(mResourceManager.GetFont("custom"));
 				mRenderWin->Draw(t);
