@@ -89,7 +89,7 @@ public:
 
 	const std::string GetCurrentLevelFile();
 	int GetCurrentLevel() const;
-	void LoadNextLevel();
+	void LoadNextLevel(int level = -1);
 private:
 	boost::ptr_vector<Entity> mEntities;
 	boost::ptr_list<CollisionPolygon> mCollisionPolygons;
