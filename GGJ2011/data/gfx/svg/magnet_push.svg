@@ -778,9 +778,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="165.5748"
-     inkscape:cy="82.233528"
+     inkscape:zoom="1.34"
+     inkscape:cx="200"
+     inkscape:cy="200"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -824,14 +824,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-652.36218)">
-    <rect
-       y="1030.6344"
-       x="128.27225"
-       height="21.727755"
-       width="146.72775"
-       id="rect5223"
-       style="fill:url(#linearGradient5255);fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5261)"
-       transform="matrix(1.0003915,0,0,2.6892114,-1.7150642,-1777.9303)" />
     <path
        style="fill:#ff0000;stroke:#000000;stroke-width:0.86602544999999986px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4128);fill-opacity:1"
        d="m 50,802.36218 300,0 0,-75 -300,0 z"
@@ -1091,11 +1083,11 @@
        sodipodi:cy="207.5"
        sodipodi:rx="2.5"
        sodipodi:ry="2.5"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        transform="translate(-162.3954,769.86218)" />
     <path
        transform="translate(-162.3954,769.86218)"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        sodipodi:ry="2.5"
        sodipodi:rx="2.5"
        sodipodi:cy="207.5"
@@ -1105,7 +1097,7 @@
        sodipodi:type="arc" />
     <path
        transform="translate(-162.3954,769.86218)"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        sodipodi:ry="2.5"
        sodipodi:rx="2.5"
        sodipodi:cy="207.5"
@@ -1121,11 +1113,11 @@
        sodipodi:cy="207.5"
        sodipodi:rx="2.5"
        sodipodi:ry="2.5"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        transform="translate(-162.3954,769.86218)" />
     <path
        transform="translate(-72.491823,769.86218)"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        sodipodi:ry="2.5"
        sodipodi:rx="2.5"
        sodipodi:cy="207.5"
@@ -1141,7 +1133,7 @@
        sodipodi:cy="207.5"
        sodipodi:rx="2.5"
        sodipodi:ry="2.5"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        transform="translate(-72.491823,769.86218)" />
     <path
        sodipodi:type="arc"
@@ -1151,11 +1143,11 @@
        sodipodi:cy="207.5"
        sodipodi:rx="2.5"
        sodipodi:ry="2.5"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        transform="translate(-72.491823,769.86218)" />
     <path
        transform="translate(-72.491823,769.86218)"
-       d="m 320,207.5 a 2.5,2.5 0 1 1 -5,0 2.5,2.5 0 1 1 5,0 z"
+       d="m 320,207.5 c 0,1.38071 -1.11929,2.5 -2.5,2.5 -1.38071,0 -2.5,-1.11929 -2.5,-2.5 0,-1.38071 1.11929,-2.5 2.5,-2.5 1.38071,0 2.5,1.11929 2.5,2.5 z"
        sodipodi:ry="2.5"
        sodipodi:rx="2.5"
        sodipodi:cy="207.5"
@@ -1200,5 +1192,13 @@
        height="73.573105"
        x="127.08226"
        y="979.83783" />
+    <rect
+       y="1030.6344"
+       x="128.27225"
+       height="21.727755"
+       width="146.72775"
+       id="rect5223"
+       style="fill:url(#linearGradient5255);fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5261)"
+       transform="matrix(1.0003915,0,0,2.6892114,-1.7150642,-1777.9303)" />
   </g>
 </svg>
