@@ -15,6 +15,8 @@
 #include "Entity.hpp"
 #include "World.hpp"
 
+#include "AnimatedSprite.hpp"
+
 enum AppMode {
 	AM_EDITOR,
 	AM_PUZZLE,
@@ -69,6 +71,8 @@ private:
 	bool mDebugGrid;
 	sf::Music mMusic;
 	sf::Sprite mCursor;
+
+	AnimatedSprite mBusy;
 };
 
 #endif
