@@ -60,6 +60,8 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
 	mResourceManager.AddImage(data / "gfx" / "maps", "1_lvl.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
 
 	mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
 
@@ -99,7 +101,7 @@ void GameApp::Run() {
 		float time_delta = mClock.GetElapsedTime();
 		mClock.Reset();
 
-		if(mAppMode == AM_PLAY)
+		if(mAppMode == AM_PLAY && mWorld.GetCurrentLevel() != 0)
 			mTotalTime += time_delta;
 
 		// SFML access class for real-time input
@@ -188,7 +190,7 @@ void GameApp::Run() {
 				t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 80);
 				t.SetFont(mResourceManager.GetFont("custom"));
 				mRenderWin->Draw(t);
-			} else {
+			} else if(mWorld.GetCurrentLevel() != 0){
 				boost::posix_time::time_duration td = boost::posix_time::seconds(mTotalTime);
 				sf::Text t(boost::lexical_cast<std::string>(td.minutes()) + ":" + leadingZeros(td.seconds(), 2) );
 				t.SetCharacterSize(50);

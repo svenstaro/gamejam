@@ -57,7 +57,12 @@ void Entity::InitializePhysics() {
 	btScalar mass(1.f);
 	btVector3 local_inertia(0, 0, 0);
 
-	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.5*mScale, 1.5*mScale, 1)));
+	if(mUID.substr(0,5) == "empty") {
+		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(15*mScale, 1*mScale, 1)));
+	}
+	else {
+		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.5*mScale, 1.5*mScale, 1)));
+	}
 
 	mCollisionShape->calculateLocalInertia(mass, local_inertia);
 	transform.setOrigin(btVector3(mPosition.x, mPosition.y, 0));
@@ -291,10 +296,18 @@ bool Entity::OnCollide(GameObject* other) {
 	if(mUID == "box") {
 		GameApp::get_mutable_instance().GetResourceManagerPtr()->PlaySound("collide");
 
-		if(other != NULL && other->ToString() == "entity" && ((Entity*)other)->GetUID() == "target") {
-			std::cout << "Level complete!" << std::endl;
-			GameApp::get_mutable_instance().GetWorldPtr()->LoadNextLevel();
-			return false;
+		if(other != NULL && other->ToString() == "entity") {
+			std::string uid = ((Entity*)other)->GetUID();
+			if(uid == "target" || uid == "empty-target") {
+				std::cout << "Level complete!" << std::endl;
+				GameApp::get_mutable_instance().GetWorldPtr()->LoadNextLevel();
+				return false;
+			} else if(uid == "empty-quit") {
+				exit(0);
+			}  else if(uid == "empty-credits") {
+				std::cout << "IMPLEMENT CREDITS!" << std::endl;
+				exit(0);
+			}
 		}
 	}
 	return true;

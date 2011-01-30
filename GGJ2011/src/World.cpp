@@ -41,6 +41,8 @@ void World::Initialize(const boost::filesystem::path& data_path) {
 
 	mDebugDraw = boost::shared_ptr<DebugDraw> (new DebugDraw(GameApp::get_mutable_instance().GetRenderWindowPtr()));
 
+	mDebugDraw->setDebugMode(btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE);
+
 	mDynamicsWorld->setDebugDrawer(mDebugDraw.get());
 
 	mDynamicsWorld->setInternalTickCallback(myTickCallback, static_cast<void *>(this));
@@ -874,6 +876,10 @@ void World::SetCurrentRail(Rail* rail) {
 
 const std::string World::GetCurrentLevelFile() {
 	return mDataPath.string()+"level-"+boost::lexical_cast<std::string>(mCurrentLevel)+".info";
+}
+
+int World::GetCurrentLevel() const {
+	return mCurrentLevel;
 }
 
 void World::LoadNextLevel() {
