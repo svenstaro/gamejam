@@ -14,10 +14,10 @@ entities
     }
     box
     {
-        x 2.856589
+        x 2.869346
         y 8.588543
         img box
-        rot 1.570798
+        rot 1.570797
         a 1
         s 0.2430554
         l 5
@@ -26,10 +26,10 @@ entities
     }
     target
     {
-        x 13.74845
+        x 13.74764
         y 8.398295
         img target
-        rot 3.894144e-07
+        rot 1.509958e-07
         a 1
         s 0.3698872
         l 5
