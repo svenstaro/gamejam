@@ -52,6 +52,8 @@ public:
 	std::string ToString();
 
 	void ToggleInitialState();
+	void SetInitialState(bool s);
+	void ToggleForcedInitialState();
 
 	bool IsMounted();
 
@@ -71,6 +73,7 @@ private:
 	Mover mMover;
 
 	bool mInitialMoverMounted;
+	bool mForcedInitialMoverMounted;
 
 	bool mMounted;
 	bool mDownLastFrame;

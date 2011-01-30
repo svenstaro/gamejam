@@ -7,6 +7,8 @@ Rail::Rail() {
 	mStartPosition = 0.5f;
 	mMounted = false;
 	mDownLastFrame = false;
+	mInitialMoverMounted = false;
+	mForcedInitialMoverMounted = false;
 }
 
 void Rail::Reinitialize(World& world) {
@@ -23,8 +25,7 @@ void Rail::Deinitialize(World& world) {
 }
 
 void Rail::Initialize(World& world) {
-	std::cout << "inti.. " << mInitialMoverMounted << std::endl;
-	if(mInitialMoverMounted) {
+	if(mInitialMoverMounted || mForcedInitialMoverMounted) {
 		InitializePhysics();
 		world.GetDynamicsWorld()->addConstraint(mConstraint.get());
 		world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
@@ -181,7 +182,7 @@ void Rail::Save(boost::property_tree::ptree* pt, int id) {
 	pt->add("rails."+sid+".1.y", mPoint1.y);
 	pt->add("rails."+sid+".2.x", mPoint2.x);
 	pt->add("rails."+sid+".2.y", mPoint2.y);
-	pt->add("rails."+sid+".init", mInitialMoverMounted);
+	pt->add("rails."+sid+".init", mForcedInitialMoverMounted);
 	pt->add("rails."+sid+".type", mMover.GetMoverType());
 }
 
@@ -192,7 +193,7 @@ void Rail::Load(boost::property_tree::ptree* pt, int id) {
 	mPoint2.x = pt->get<float>("rails."+sid+".2.x");
 	mPoint2.y = pt->get<float>("rails."+sid+".2.y");
 	mLastPointSet = 2;
-	mInitialMoverMounted = pt->get<bool>("rails."+sid+".init");
+	mForcedInitialMoverMounted = pt->get<bool>("rails."+sid+".init");
 	mMover.SetMoverType( (MoverType)pt->get<int>("rails."+sid+".type") );
 }
 
@@ -290,6 +291,14 @@ void Rail::ToggleInitialState() {
 	mInitialMoverMounted =! mInitialMoverMounted;
 }
 
+void Rail::SetInitialState(bool s) {
+	mInitialMoverMounted = s;
+}
+
+void Rail::ToggleForcedInitialState() {
+	mForcedInitialMoverMounted = !mForcedInitialMoverMounted;
+}
+
 bool Rail::IsMounted() {
 	return mMounted;
 }
@@ -299,6 +308,8 @@ void Rail::SetStartPoint(Vector2D p) {
 }
 
 float Rail::GetAngleOfBox(Entity* box) {
+	if(mBody.get() == NULL) return PI;
+
 	Vector2D o(mBody->getWorldTransform().getOrigin().x(),mBody->getWorldTransform().getOrigin().y());
 	Vector2D o2(box->GetBody()->getWorldTransform().getOrigin().x(), box->GetBody()->getWorldTransform().getOrigin().y());
 	Vector2D d1(mPoint2 - mPoint1);

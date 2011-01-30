@@ -126,8 +126,10 @@ void World::Update(const float time_delta) {
 	}
 
 	//mDynamicsWorld->stepSimulation(time_delta, 10);
-	mDynamicsWorld->stepSimulation(1 / 60.f, 10);
-	mDynamicsWorld->clearForces();
+	if(GameApp::get_mutable_instance().GetAppMode() == AM_PLAY) {
+		mDynamicsWorld->stepSimulation(1 / 60.f, 10);
+		mDynamicsWorld->clearForces();
+	}
 
 	Entity* c = GetClosestEntityOnLayer(GameApp::get_mutable_instance().GetMousePosition(), mEditorLayer);
 	BOOST_FOREACH(Entity& entity, mEntities) {
@@ -221,6 +223,27 @@ void World::AddEntity(Entity* entity) {
 }
 
 void World::HandleEvent(const sf::Event& event) {
+	if(event.Type == sf::Event::MouseButtonPressed && event.MouseButton.Button == sf::Mouse::Left && !GameApp::get_mutable_instance().IsEditorMode()) {
+		Vector2D mp = GameApp::get_mutable_instance().GetMousePosition();
+
+		Vector2D b1(1000,252);
+		Vector2D b2(1000,322);
+
+		if( (b2-mp).Magnitude() < 32 ) {
+			// click on b2
+			if (GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE)
+				// go
+				GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
+			else
+				// build
+				GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
+		} else if( (b1-mp).Magnitude() < 32 ) {
+			// clicked b2
+			// retry
+			LoadNextLevel(mCurrentLevel);
+		}
+	}
+
 	if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Tab) {
 		GameApp& app = GameApp::get_mutable_instance();
 		if(app.IsEditorMode()) {
@@ -394,7 +417,8 @@ void World::HandleEvent(const sf::Event& event) {
 					// toggle initial mover mounted
 					Rail* r = GetClosestRail();
 					if(r != NULL) {
-						r->ToggleInitialState();
+						r->ToggleForcedInitialState();
+						r->SetInitialState(false);
 						r->Reinitialize(*this);
 					}
 				} else if(event.Key.Code == sf::Key::T && mEditorLayer == 9) {
@@ -456,8 +480,12 @@ void World::HandleEvent(const sf::Event& event) {
 						if (r != NULL) {
 							for(auto iter = mRails.begin(); iter != mRails.end(); ++iter) {
 								if (r->GetCenter() == iter->GetCenter()) {
-									RemoveRigidBody(r->GetRigidBody());
-									mDynamicsWorld->removeConstraint(r->GetConstraint());
+									if(r->GetRigidBody() != NULL) {
+										RemoveRigidBody(r->GetRigidBody());
+									}
+									if(r->GetConstraint() != NULL) {
+										mDynamicsWorld->removeConstraint(r->GetConstraint());
+									}
 									mRails.erase(iter);
 									break;
 								}
@@ -514,7 +542,6 @@ void World::HandleEvent(const sf::Event& event) {
 		}
 
 		if(event.Type == sf::Event::MouseButtonPressed) {
-			std::cout << "lol" << std::endl;
 			if(event.MouseButton.Button == sf::Mouse::Left) {
 				if(mClosestRail != NULL) {
 					mClosestRail->SetStartPoint(mClosestRailPoint);
