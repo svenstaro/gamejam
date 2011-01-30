@@ -244,6 +244,10 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		ss2.SetPosition(b2.x, b2.y);
 		ss3.SetPosition(b3.x, b3.y);
 
+		s1.SetScale(0.8,0.8);
+		s2.SetScale(0.8,0.8);
+		s3.SetScale(0.8,0.8);
+
 		if(mSelectedMoverType == 1)
 			ss1.SetColor(sf::Color(100,100,255));
 		if(mSelectedMoverType == 2)
