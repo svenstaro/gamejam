@@ -17,7 +17,9 @@ World::World() {
 
 World::~World() {}
 
-void World::Initialize() {
+void World::Initialize(const boost::filesystem::path& data_path) {
+    mDataPath = data_path;
+
 	mCollisionConfiguration = boost::shared_ptr<btDefaultCollisionConfiguration>(new btDefaultCollisionConfiguration());
 	mCollisionDispatcher = boost::shared_ptr<btCollisionDispatcher>(new btCollisionDispatcher(mCollisionConfiguration.get()));
 	mBroadphase = boost::shared_ptr<btDbvtBroadphase>(new btDbvtBroadphase());
@@ -888,7 +890,7 @@ void World::SetCurrentRail(Rail* rail) {
 }
 
 const std::string World::GetCurrentLevelFile() {
-	return "../data/level-"+boost::lexical_cast<std::string>(mCurrentLevel)+".info";
+	return mDataPath.string()+"level-"+boost::lexical_cast<std::string>(mCurrentLevel)+".info";
 }
 
 void World::LoadNextLevel() {
