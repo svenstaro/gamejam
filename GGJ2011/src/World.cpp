@@ -20,6 +20,7 @@ World::World() {
 	mEditorLayer = 1;
 	mCurrentLevel = 0;
 	mNumLevels = 10;
+	mSelectedMoverType = 1;
 	mDrawDebugs = false;
 }
 
@@ -215,6 +216,48 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 
 	if(mDrawDebugs)
 		mDynamicsWorld->debugDrawWorld();
+
+	if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
+		//GUI
+		Vector2D b1(64,200);
+		Vector2D b2(64,300);
+		Vector2D b3(64,400);
+
+		sf::Sprite s1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_off"));
+		sf::Sprite s2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("static_off"));
+		sf::Sprite s3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("spring_off"));
+		sf::Sprite ss1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
+		sf::Sprite ss2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
+		sf::Sprite ss3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
+
+		s1.SetOrigin(32,32);
+		s2.SetOrigin(32,32);
+		s3.SetOrigin(32,32);
+		ss1.SetOrigin(32,32);
+		ss2.SetOrigin(32,32);
+		ss3.SetOrigin(32,32);
+
+		s1.SetPosition(b1.x, b1.y);
+		s2.SetPosition(b2.x, b2.y);
+		s3.SetPosition(b3.x, b3.y);
+		ss1.SetPosition(b1.x, b1.y);
+		ss2.SetPosition(b2.x, b2.y);
+		ss3.SetPosition(b3.x, b3.y);
+
+		if(mSelectedMoverType == 1)
+			ss1.SetColor(sf::Color(100,100,255));
+		if(mSelectedMoverType == 2)
+			ss2.SetColor(sf::Color(100,100,255));
+		if(mSelectedMoverType == 3)
+			ss3.SetColor(sf::Color(100,100,255));
+
+		target->Draw(ss1);
+		target->Draw(ss2);
+		target->Draw(ss3);
+		target->Draw(s1);
+		target->Draw(s2);
+		target->Draw(s3);
+	}
 }
 
 void World::AddEntity(Entity* entity) {
@@ -539,12 +582,23 @@ void World::HandleEvent(const sf::Event& event) {
 			if(event.Key.Code == sf::Key::Return) {
 				GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
 			}
+
+			if(event.Key.Code == sf::Key::Num1) {
+				mSelectedMoverType = 1;
+			}
+			if(event.Key.Code == sf::Key::Num2) {
+				mSelectedMoverType = 2;
+			}
+			if(event.Key.Code == sf::Key::Num3) {
+				mSelectedMoverType = 3;
+			}
 		}
 
 		if(event.Type == sf::Event::MouseButtonPressed) {
 			if(event.MouseButton.Button == sf::Mouse::Left) {
-				if(mClosestRail != NULL) {
+				if(mClosestRail != NULL && mClosestRail->CanBeChanged()) {
 					mClosestRail->SetStartPoint(mClosestRailPoint);
+					mClosestRail->GetMover().SetMoverType((MoverType)mSelectedMoverType);
 					mClosestRail->ToggleInitialState();
 					mClosestRail->Reinitialize(*this);
 				}

@@ -90,6 +90,7 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "icon_build.png", 1.f,1.f);
 	mResourceManager.AddImage(data / "gfx", "icon_go.png", 1.f,1.f);
 	mResourceManager.AddImage(data / "gfx", "icon_retry.png", 1.f,1.f);
+	mResourceManager.AddImage(data / "gfx", "gui_blob.png", 1.f, 1.f);
 
 	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "teamlogo.png", WIDTH*METERS_PER_PIXEL, HEIGHT*METERS_PER_PIXEL);
@@ -309,7 +310,6 @@ void GameApp::Run() {
 
 			mRenderWin->Draw(s1);
 			mRenderWin->Draw(s2);
-
 		}
 
 		mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());

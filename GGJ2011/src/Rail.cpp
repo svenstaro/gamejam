@@ -299,6 +299,10 @@ void Rail::ToggleForcedInitialState() {
 	mForcedInitialMoverMounted = !mForcedInitialMoverMounted;
 }
 
+bool Rail::CanBeChanged() {
+	return !mForcedInitialMoverMounted;
+}
+
 bool Rail::IsMounted() {
 	return mMounted;
 }
