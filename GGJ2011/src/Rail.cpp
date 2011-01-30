@@ -98,7 +98,8 @@ void Rail::Update(float time_delta) {
 
 	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
 	// TODO: make play
-	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY) {
+	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY
+			&& mMounted) {
 
 		box->GetBody()->activate();
 		box->GetBody()->setFriction(btScalar(100.f));
@@ -120,7 +121,7 @@ void Rail::Update(float time_delta) {
 				force *= 0.5; // springs are weaker
 				if(mDownLastFrame == false && GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left)) {
 					btVector3 dist = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
-					if(dist.length() < 1) {
+					if(dist.length() < 2) {
 						force *= 0;
 						Vector2D mp = Coordinates::ScreenPixelToWorldFloat(GameApp::get_mutable_instance().GetMousePosition());
 						btVector3 dir(mp.x, mp.y, 0);

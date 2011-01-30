@@ -14,6 +14,7 @@ GameApp::GameApp() {
 	mNextId = 1300;
 	mDebugGrid = false;
 	mAppMode = AM_PLAY;
+	mCursorRotation = 0;
 }
 
 GameApp::~GameApp() {}
@@ -68,6 +69,8 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "cursor_spring_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "cursor_spring_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
 	mResourceManager.AddImage(data / "gfx" / "maps", "level09.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx" / "maps", "level10.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
@@ -230,14 +233,44 @@ void GameApp::Run() {
 			}
 
 		}
+
+		mCursorRotation += time_delta * 100;
+
 		// Cursor
+		mCursor.SetOrigin(16, 16);
+		mCursor.SetScale(1,1);
+		mCursor.SetRotation(0);
+		mCursor.SetColor(sf::Color(255,255,255,255));
+
 		if(mAppMode != AM_PLAY)
 			mCursor.SetImage(mResourceManager.GetImage("cursor_default"));
-		else if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
-			mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
-		else
-			mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
-		mCursor.SetOrigin(mCursor.GetImage()->GetHeight() / 2, mCursor.GetImage()->GetWidth() / 2);
+		else {
+			if(mWorld.GetCurrentRail()->GetMover().GetMoverType() == MT_SPRING && mWorld.GetBoxEntity() != NULL) {
+				if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+					mCursor.SetImage(mResourceManager.GetImage("cursor_spring_push"));
+				else
+					mCursor.SetImage(mResourceManager.GetImage("cursor_spring_pull"));
+
+				Vector2D mp = Coordinates::ScreenPixelToWorldFloat(GetMousePosition());
+				btVector3 dir(mp.x, mp.y, 0);
+				dir -= mWorld.GetBoxEntity()->GetBody()->getWorldTransform().getOrigin();
+				if (dir.length() > 4) {
+					dir.normalize();
+					dir *= 4;
+				}
+				float s = dir.length() / 4.f + 0.5f;
+				mCursor.SetScale(s, s);
+				mCursor.SetRotation(-Vector2D::rad2Deg(Vector2D(dir.x(), dir.y()).Rotation()));
+				float a = 255 - dir.length() * 50;
+				mCursor.SetColor(sf::Color(255,255,255,a));
+			} else {
+				if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+					mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
+				else
+					mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
+				mCursor.SetRotation(mCursorRotation);
+			}
+		}
 
 		mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
 		mRenderWin->Draw(mCursor);
