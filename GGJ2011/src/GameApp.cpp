@@ -51,7 +51,11 @@ void GameApp::Init() {
 
 	mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
 
-	SetSubtext("Hint: <Tab> for the editor!");
+	sf::Font f;
+	f.LoadFromFile("../data/Capture it.ttf");
+	mResourceManager.AddFont(f, "custom");
+
+	SetSubtext("");
 
 	//mMusic.OpenFromFile("../data/music.ogg");
 	//mMusic.SetLoop(true);
@@ -164,8 +168,9 @@ void GameApp::Run() {
 			// Puzzle information
 			if(mAppMode == AM_PUZZLE) {
 				sf::Text t("Place a Mover by clicking on the rail.");
-				t.SetCharacterSize(10);
-				t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 20);
+				t.SetCharacterSize(18);
+				t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 80);
+				t.SetFont(mResourceManager.GetFont("custom"));
 				mRenderWin->Draw(t);
 			}
 
