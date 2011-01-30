@@ -71,6 +71,7 @@ private:
 	bool mDebugGrid;
 	sf::Music mMusic;
 	sf::Sprite mCursor;
+	float mCursorRotation;
 
 	AnimatedSprite mBusy;
 };
