@@ -18,7 +18,7 @@ sf::Shape CollisionPolygon::GetShape(sf::Color bordercolor) {
 		sf::Color c = sf::Color(0,0,0,0);
 		if(GameApp::get_mutable_instance().GetAppMode() == AM_EDITOR )
 			c.a = 255;
-		s.AddPoint( tmp.GetWorldPixel().x, tmp.GetWorldPixel().y, sf::Color::Black, bordercolor);
+		s.AddPoint( tmp.GetWorldPixel().x, tmp.GetWorldPixel().y, sf::Color(0,255,0,80), bordercolor);
 	}
 	return s;
 }

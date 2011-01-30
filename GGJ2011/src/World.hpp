@@ -139,6 +139,8 @@ private:
     boost::filesystem::path mDataPath;
 	int mCurrentLevel;
 	int mNumLevels;
+
+	bool mDrawDebugs;
 };
 
 #endif
