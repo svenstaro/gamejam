@@ -384,6 +384,13 @@ void World::HandleEvent(const sf::Event& event) {
 						r->ToggleInitialState();
 						r->Reinitialize(*this);
 					}
+				} else if(event.Key.Code == sf::Key::T && mEditorLayer == 9) {
+					// toggle initial mover mounted
+					Rail* r = GetClosestRail();
+					if(r != NULL) {
+						r->GetMover().ToggleMoverType();
+						r->Reinitialize(*this);
+					}
 				}
 			}
 

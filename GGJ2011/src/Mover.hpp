@@ -6,6 +6,12 @@
 class Rail;
 class World;
 
+enum MoverType {
+	MT_MAGNET = 1,
+	MT_SPRING = 2,
+	MT_STATIC = 3
+};
+
 class Mover : public GameObject {
 public:
 	Mover();
@@ -21,9 +27,15 @@ public:
 	virtual bool OnCollide(GameObject* other);
 
 	std::string ToString();
+
+	void SetMoverType(MoverType type);
+	MoverType GetMoverType() const;
+
+	void ToggleMoverType();
 private:
 	Rail* mRail;
 	sf::Sprite mSprite;
+	MoverType mType;
 };
 
 #endif // MOVER_HPP

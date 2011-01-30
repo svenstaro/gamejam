@@ -6,6 +6,7 @@ Rail::Rail() {
 	mLastPointSet = 0;
 	mStartPosition = 0.5f;
 	mMounted = false;
+	mDownLastFrame = false;
 }
 
 void Rail::Reinitialize(World& world) {
@@ -98,18 +99,10 @@ void Rail::Update(float time_delta) {
 	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
 	// TODO: make play
 	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY) {
-		//btVector3 force = (mPoint2 - mPoint1);
+
 		box->GetBody()->activate();
 		box->GetBody()->setFriction(btScalar(100.f));
-		/*Coordinates tmp;
-		tmp.SetWorldPixel(mPoint2-mPoint1);
-		Vector2D v = tmp.GetWorldFloat();
-		v.Normalize();
-		v.Rotate(-PI / 2);
-		v *= 0.5;*/
-
 		float angle = GetAngleOfBox(box);
-
 
 		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
 		float d = 1 - force.length() / 3.f;
@@ -117,20 +110,42 @@ void Rail::Update(float time_delta) {
 			//force *= 1 / d*d;
 			force *= d*d*10;
 
-			if(current_and_down)
-				force *= -2;
-			else if(IsCurrentRail())
-				force *= 2;
+			if(current_and_down && mMover.GetMoverType() != MT_SPRING) {
+				force *= -2; // pushing is very strong and inversed
+			} else if(IsCurrentRail()) {
+				force *= 2; // current rail is stronger
+			}
+
+			if (mMover.GetMoverType() == MT_SPRING) {
+				force *= 0.5; // springs are weaker
+				if(mDownLastFrame == false && GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left)) {
+					btVector3 dist = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
+					if(dist.length() < 1) {
+						force *= 0;
+						Vector2D mp = Coordinates::ScreenPixelToWorldFloat(GameApp::get_mutable_instance().GetMousePosition());
+						btVector3 dir(mp.x, mp.y, 0);
+						dir -= box->GetBody()->getWorldTransform().getOrigin();
+						if (dir.length() > 4) {
+							dir.normalize();
+							dir *= 4;
+						}
+
+						box->GetBody()->applyCentralImpulse(dir * 2);
+					}
+				}
+			}
+
 			box->GetBody()->applyCentralForce(force * 1.5);
 		}
 
 		// TORQUE to push it up again
-
 		float threshold = 1.f;
 		if(abs(angle) > threshold && abs(angle) < Vector2D::deg2Rad(110)) {
 			box->GetBody()->applyTorque(btVector3(0,0,4*angle));
 		}
 	}
+
+	mDownLastFrame = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left);
 }
 
 void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {
@@ -166,6 +181,7 @@ void Rail::Save(boost::property_tree::ptree* pt, int id) {
 	pt->add("rails."+sid+".2.x", mPoint2.x);
 	pt->add("rails."+sid+".2.y", mPoint2.y);
 	pt->add("rails."+sid+".init", mInitialMoverMounted);
+	pt->add("rails."+sid+".type", mMover.GetMoverType());
 }
 
 void Rail::Load(boost::property_tree::ptree* pt, int id) {
@@ -176,6 +192,7 @@ void Rail::Load(boost::property_tree::ptree* pt, int id) {
 	mPoint2.y = pt->get<float>("rails."+sid+".2.y");
 	mLastPointSet = 2;
 	mInitialMoverMounted = pt->get<bool>("rails."+sid+".init");
+	mMover.SetMoverType( (MoverType)pt->get<int>("rails."+sid+".type") );
 }
 
 Vector2D Rail::GetCenter() {
@@ -290,4 +307,8 @@ float Rail::GetAngleOfBox(Entity* box) {
 	p *= 0.2f;
 	Vector2D d2 = o2 - o - p;
 	return Vector2D::Angle(p, d2);
+}
+
+Mover& Rail::GetMover() {
+	return mMover;
 }
