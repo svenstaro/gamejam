@@ -15,7 +15,10 @@
    id="svg3197"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="magnet_pull.svg">
+   sodipodi:docname="magnet_off.svg"
+   inkscape:export-filename="/home/svenstaro/prj/gamejam/GGJ2011/data/gfx/magnet_off.png"
+   inkscape:export-xdpi="14.4"
+   inkscape:export-ydpi="14.4">
   <defs
      id="defs3199">
     <linearGradient
@@ -135,18 +138,6 @@
          offset="1"
          id="stop4870" />
     </linearGradient>
-    <filter
-       inkscape:collect="always"
-       id="filter4128"
-       x="-0.15046296"
-       width="1.3009259"
-       y="-0.60185185"
-       height="2.2037037">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="18.80787"
-         id="feGaussianBlur4130" />
-    </filter>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4866"
@@ -728,10 +719,10 @@
      pagecolor="#323232"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="1"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.69999999"
-     inkscape:cx="412.86842"
+     inkscape:cx="241.43985"
      inkscape:cy="203.62944"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
