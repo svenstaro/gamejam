@@ -2,10 +2,10 @@ entities
 {
     box
     {
-        x 1.80155
-        y 8.656126
+        x 7.618878
+        y 3.980418
         img box
-        rot 6.28089
+        rot 1.450775
         a 1
         s 0.2611274
         l 5
@@ -14,10 +14,10 @@ entities
     }
     target
     {
-        x 13.94271
-        y 8.684002
+        x 13.94248
+        y 8.684004
         img target
-        rot 6.280889
+        rot 6.28089
         a 1
         s 0.2611274
         l 5
@@ -781,7 +781,7 @@ rails
             y 596
         }
         init false
-        type 1
+        type 2
     }
     1
     {
@@ -826,7 +826,7 @@ rails
             y 157
         }
         init false
-        type 1
+        type 3
     }
     4
     {
@@ -841,7 +841,7 @@ rails
             y 524
         }
         init false
-        type 1
+        type 3
     }
     5
     {
@@ -856,7 +856,7 @@ rails
             y 601
         }
         init false
-        type 1
+        type 2
     }
     6
     {

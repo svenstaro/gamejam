@@ -224,8 +224,8 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		Vector2D b3(64,400);
 
 		sf::Sprite s1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_off"));
-		sf::Sprite s2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("static_off"));
-		sf::Sprite s3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("spring_off"));
+		sf::Sprite s2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("spring_off"));
+		sf::Sprite s3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("static_off"));
 		sf::Sprite ss1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
 		sf::Sprite ss2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
 		sf::Sprite ss3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
