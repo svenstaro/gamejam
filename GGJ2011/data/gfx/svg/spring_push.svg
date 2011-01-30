@@ -15,8 +15,8 @@
    id="svg3197"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="spring_pull.svg"
-   inkscape:export-filename="/home/svenstaro/prj/gamejam/GGJ2011/data/gfx/static_push.png"
+   sodipodi:docname="spring_push.svg"
+   inkscape:export-filename="/home/svenstaro/prj/gamejam/GGJ2011/data/gfx/spring_push.png"
    inkscape:export-xdpi="14.4"
    inkscape:export-ydpi="14.4">
   <defs
@@ -1817,7 +1817,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.9475231"
-     inkscape:cx="175.05381"
+     inkscape:cx="217.26914"
      inkscape:cy="217.14668"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
