@@ -305,8 +305,8 @@ bool Entity::OnCollide(GameObject* other) {
 			} else if(uid == "empty-quit") {
 				exit(0);
 			}  else if(uid == "empty-credits") {
-				std::cout << "IMPLEMENT CREDITS!" << std::endl;
-				exit(0);
+				GameApp::get_mutable_instance().ShowCredits();
+				return false;
 			}
 		}
 	}
