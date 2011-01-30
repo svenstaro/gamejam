@@ -111,7 +111,7 @@ public:
 
 	static bool SortHelper(const Entity& l, const Entity& r);
 
-	virtual void OnCollide(GameObject* other);
+	virtual bool OnCollide(GameObject* other);
 
 	virtual std::string ToString();
 

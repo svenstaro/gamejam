@@ -250,10 +250,11 @@ btTypedConstraint* Rail::GetConstraint() {
 }
 
 
-void Rail::OnCollide(GameObject* other) {
+bool Rail::OnCollide(GameObject* other) {
 	if(other == GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity()) {
 		GameApp::get_mutable_instance().GetWorldPtr()->SetCurrentRail(this);
 	}
+	return true;
 }
 
 bool Rail::IsCurrentRail() const {

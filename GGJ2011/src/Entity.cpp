@@ -287,15 +287,17 @@ void Entity::SetUsePhysics(World& world, bool use) {
 }
 
 
-void Entity::OnCollide(GameObject* other) {
+bool Entity::OnCollide(GameObject* other) {
 	if(mUID == "box") {
 		GameApp::get_mutable_instance().GetResourceManagerPtr()->PlaySound("collide");
 
 		if(other != NULL && other->ToString() == "entity" && ((Entity*)other)->GetUID() == "target") {
-			std::cout << "Done!" << std::endl;
-			exit(0);
+			std::cout << "Level complete!" << std::endl;
+			GameApp::get_mutable_instance().GetWorldPtr()->LoadNextLevel();
+			return false;
 		}
 	}
+	return true;
 }
 
 std::string Entity::ToString() {
