@@ -95,6 +95,7 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "cursors.png", 256*METERS_PER_PIXEL, 256*METERS_PER_PIXEL);
 
 	mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
+	mResourceManager.AddSoundBuffer(data / "snd", "push.ogg", "push");
 
 	sf::Font f;
 	f.LoadFromFile((data / "Capture it.ttf").string());
@@ -276,11 +277,13 @@ void GameApp::Run() {
 				float a = 255 - dir.length() * 50;
 				mCursor.SetColor(sf::Color(255,255,255,a));
 			} else {
-				if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+				if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left)) {
 					mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
-				else
+                    mResourceManager.PlaySound("push");
+                } else {
 					mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
-				mCursor.SetRotation(mCursorRotation);
+                    mResourceManager.StopSounds();
+                } mCursor.SetRotation(mCursorRotation);
 			}
 		}
 
