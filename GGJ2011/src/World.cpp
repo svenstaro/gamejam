@@ -394,7 +394,8 @@ void World::HandleEvent(const sf::Event& event) {
 					// toggle initial mover mounted
 					Rail* r = GetClosestRail();
 					if(r != NULL) {
-						r->ToggleInitialState();
+						r->ToggleForcedInitialState();
+						r->SetInitialState(false);
 						r->Reinitialize(*this);
 					}
 				} else if(event.Key.Code == sf::Key::T && mEditorLayer == 9) {
@@ -514,7 +515,6 @@ void World::HandleEvent(const sf::Event& event) {
 		}
 
 		if(event.Type == sf::Event::MouseButtonPressed) {
-			std::cout << "lol" << std::endl;
 			if(event.MouseButton.Button == sf::Mouse::Left) {
 				if(mClosestRail != NULL) {
 					mClosestRail->SetStartPoint(mClosestRailPoint);

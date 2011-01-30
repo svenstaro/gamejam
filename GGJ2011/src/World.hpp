@@ -142,6 +142,8 @@ private:
 	int mNumLevels;
 
 	bool mDrawDebugs;
+
+	bool mGuiOpen;
 };
 
 #endif
