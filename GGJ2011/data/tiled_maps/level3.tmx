@@ -8,17 +8,22 @@
  </tileset>
  <layer name="background" width="22" height="13">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NmYGBgJhKz4GCjiw1lmolKGD1cqGkurdw7ai7CPBYamTtUaWphmHkA6E35y3gEAAA=
+   H4sIAAAAAAAAA2NmYGBgJhKz4GCjiyHTTFTCQ9FcZhqZO9TCYSiay0Ijc4daOKCHB6UYZh4ACnbEF3gEAAA=
   </data>
  </layer>
  <layer name="shadows" width="22" height="13">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAX0Arw0MpeDRubyMNDGzSBzCbmZHHt5GAi7mVZhNQpIAwAawQqheAQAAA==
+   H4sIAAAAAAAAA2NgGLqAl0bmcgAxJw3M5WGgjZtB5tLCzTwMtHEzzFwOGplLbTcjm0tNN/Mw0MbNMPMGMwAAH0e62XgEAAA=
+  </data>
+ </layer>
+ <layer name="shadows2" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGAWjYOAAOxDzkIiJAdw0MpccNxMLSHXzUAYAJq93w3gEAAA=
   </data>
  </layer>
  <layer name="walls" width="22" height="13">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAXIgJFKGJu51HDbcDcXV/gRYy4rDvVsSOYSUoPLPdRODyMdAADf+ZpAeAQAAA==
+   H4sIAAAAAAAAA2NgoC1gpBLGZi413DbSzWUj0tzReKO+uawUmIkv3miR36gNAGTrk9x4BAAA
   </data>
  </layer>
 </map>
