@@ -223,6 +223,27 @@ void World::AddEntity(Entity* entity) {
 }
 
 void World::HandleEvent(const sf::Event& event) {
+	if(event.Type == sf::Event::MouseButtonPressed && event.MouseButton.Button == sf::Mouse::Left && !GameApp::get_mutable_instance().IsEditorMode()) {
+		Vector2D mp = GameApp::get_mutable_instance().GetMousePosition();
+
+		Vector2D b1(1000,232);
+		Vector2D b2(1000,342);
+
+		if( (b2-mp).Magnitude() < 32 ) {
+			// click on b2
+			if (GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE)
+				// go
+				GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
+			else
+				// build
+				GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
+		} else if( (b1-mp).Magnitude() < 32 ) {
+			// clicked b2
+			// retry
+			LoadNextLevel(mCurrentLevel);
+		}
+	}
+
 	if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Tab) {
 		GameApp& app = GameApp::get_mutable_instance();
 		if(app.IsEditorMode()) {

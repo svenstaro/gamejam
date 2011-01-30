@@ -87,6 +87,10 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx" / "maps", "level09.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx" / "maps", "level10.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
 
+	mResourceManager.AddImage(data / "gfx", "icon_build.png", 1.f,1.f);
+	mResourceManager.AddImage(data / "gfx", "icon_go.png", 1.f,1.f);
+	mResourceManager.AddImage(data / "gfx", "icon_retry.png", 1.f,1.f);
+
 	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "teamlogo.png", WIDTH*METERS_PER_PIXEL, HEIGHT*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
@@ -285,6 +289,27 @@ void GameApp::Run() {
                     mResourceManager.StopSounds();
                 } mCursor.SetRotation(mCursorRotation);
 			}
+		}
+
+		if (!IsEditorMode()) {
+			Vector2D b1(1000,252);
+			Vector2D b2(1000,322);
+
+			sf::Sprite s1(mResourceManager.GetImage("icon_retry"));
+			sf::Sprite s2;
+			if(mAppMode == AM_PLAY)
+				s2.SetImage(mResourceManager.GetImage("icon_build"));
+			else
+				s2.SetImage(mResourceManager.GetImage("icon_go"));
+
+			s1.SetOrigin(32,32);
+			s2.SetOrigin(32,32);
+			s1.SetPosition(b1.x, b1.y);
+			s2.SetPosition(b2.x, b2.y);
+
+			mRenderWin->Draw(s1);
+			mRenderWin->Draw(s2);
+
 		}
 
 		mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
