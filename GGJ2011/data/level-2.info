@@ -1,3 +1,30 @@
+entities
+{
+    target
+    {
+        x 12.93958
+        y 6.416483
+        img target
+        rot 0.008899124
+        a 1
+        s 0.3137966
+        l 5
+        ll 0
+        phy true
+    }
+    box
+    {
+        x 8.183516
+        y 4.935943
+        img box
+        rot 2.296763e-06
+        a 1
+        s 0.3137966
+        l 5
+        ll 3
+        phy true
+    }
+}
 polygons
 {
     0
