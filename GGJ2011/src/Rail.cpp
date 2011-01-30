@@ -47,7 +47,7 @@ void Rail::InitializePhysics() {
 	tr.setOrigin(btVector3(p.x + o.x, p.y + o.y, 0));
 	tr.setRotation(btQuaternion(0,0,(mPoint2 - mPoint1).Rotation()));
 
-	btScalar mass(1.f);
+	btScalar mass(1000.f);
 	btVector3 local_inertia(0, 0, 0);
 	mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(.4f,.34f,.4f)));
 	mCollisionShape->calculateLocalInertia(mass, local_inertia);

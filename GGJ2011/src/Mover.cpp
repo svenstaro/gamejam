@@ -34,7 +34,7 @@ void Mover::Update(float time_delta) {
 		btVector3 body_pos = mRail->GetRigidBody()->getCenterOfMassPosition();
 		Vector2D mp = Coordinates::ScreenPixelToWorldFloat(GameApp::get_mutable_instance().GetMousePosition());
 		btVector3 to_mouse = btVector3(mp.x, mp.y, 0) - body_pos;
-		mRail->GetRigidBody()->applyCentralForce( to_mouse * 4);
+		mRail->GetRigidBody()->applyCentralForce( to_mouse * 4 * 1000);
 	}
 
 	mSprite.SetRotation(-Vector2D::rad2Deg(mRail->GetRotation()));
