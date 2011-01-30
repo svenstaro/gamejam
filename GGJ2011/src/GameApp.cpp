@@ -78,6 +78,7 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx" / "maps", "level09.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx" / "maps", "level10.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "teamlogo.png", WIDTH*METERS_PER_PIXEL, HEIGHT*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
 
 	// animation test
@@ -151,8 +152,6 @@ void GameApp::Run() {
 		// Animation test
 		mBusy.Update(frameTime);
 		mRenderWin->Draw(mBusy);
-
-
 
 		// Draw World
 		mWorld.Draw(mRenderWin.get(), mShader);
@@ -278,6 +277,21 @@ void GameApp::Run() {
 		mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
 		mRenderWin->Draw(mCursor);
 
+
+        // Draw crdits
+        if(mCreditsActive) {
+            sf::Sprite credits(mResourceManager.GetImage("teamlogo"));
+            credits.Move(0, mTimeSinceCreditsActive * -100);
+            mRenderWin->Draw(credits);
+
+            if(mTimeSinceCreditsActive < 10.f) {
+                mTimeSinceCreditsActive += time_delta;
+            } else {
+                mCreditsActive = false;
+                mWorld.LoadNextLevel(0);
+            }
+        }
+
 		mRenderWin->Display();
 	}
 }
@@ -351,3 +365,10 @@ boost::shared_ptr<sf::RenderWindow> GameApp::GetRenderWindowPtr() {
 	return mRenderWin;
 }
 
+void GameApp::ShowCredits() {
+    if(!mCreditsActive) {
+        mCreditsActive = true;
+        mTimeSinceCreditsActive = 0.f;
+    }
+
+}

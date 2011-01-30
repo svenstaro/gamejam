@@ -18,7 +18,10 @@
    inkscape:version="0.48.0 r9654"
    sodipodi:docname="icon_go.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   sodipodi:modified="true"
+   inkscape:export-filename="/home/svenstaro/prj/gamejam/GGJ2011/data/gfx/icon_go.png"
+   inkscape:export-xdpi="28.799999"
+   inkscape:export-ydpi="28.799999">
   <metadata
      id="metadata77">
     <rdf:RDF>
@@ -45,7 +48,7 @@
      id="base"
      inkscape:zoom="2.093699"
      inkscape:cx="80.886544"
-     inkscape:cy="82.257205"
+     inkscape:cy="101.36215"
      inkscape:window-x="-4"
      inkscape:window-y="-3"
      inkscape:current-layer="svg4895"

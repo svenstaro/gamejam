@@ -18,7 +18,10 @@
    inkscape:version="0.48.0 r9654"
    sodipodi:docname="icon_build.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   sodipodi:modified="true"
+   inkscape:export-filename="/home/svenstaro/prj/gamejam/GGJ2011/data/gfx/icon_build.png"
+   inkscape:export-xdpi="28.799999"
+   inkscape:export-ydpi="28.799999">
   <metadata
      id="metadata77">
     <rdf:RDF>
@@ -27,6 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -43,8 +47,8 @@
      pagecolor="#ffffff"
      id="base"
      inkscape:zoom="2.0936991"
-     inkscape:cx="42.199035"
-     inkscape:cy="82.257204"
+     inkscape:cx="61.303978"
+     inkscape:cy="101.36215"
      inkscape:window-x="-4"
      inkscape:window-y="-3"
      inkscape:current-layer="svg4895"

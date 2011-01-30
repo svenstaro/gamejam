@@ -18,7 +18,10 @@
    inkscape:version="0.48.0 r9654"
    sodipodi:docname="icon_retry.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   sodipodi:modified="true">
+   sodipodi:modified="true"
+   inkscape:export-filename="/home/svenstaro/prj/gamejam/GGJ2011/data/gfx/icon_retry.png"
+   inkscape:export-xdpi="28.799999"
+   inkscape:export-ydpi="28.799999">
   <metadata
      id="metadata77">
     <rdf:RDF>
@@ -27,7 +30,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
