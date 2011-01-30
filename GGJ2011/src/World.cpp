@@ -126,8 +126,10 @@ void World::Update(const float time_delta) {
 	}
 
 	//mDynamicsWorld->stepSimulation(time_delta, 10);
-	mDynamicsWorld->stepSimulation(1 / 60.f, 10);
-	mDynamicsWorld->clearForces();
+	if(GameApp::get_mutable_instance().GetAppMode() == AM_PLAY) {
+		mDynamicsWorld->stepSimulation(1 / 60.f, 10);
+		mDynamicsWorld->clearForces();
+	}
 
 	Entity* c = GetClosestEntityOnLayer(GameApp::get_mutable_instance().GetMousePosition(), mEditorLayer);
 	BOOST_FOREACH(Entity& entity, mEntities) {
