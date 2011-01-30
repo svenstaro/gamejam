@@ -4,6 +4,13 @@
 #include "World.hpp"
 #include "GameApp.hpp"
 
+std::string leadingZeros2(int i, int n) {
+   std::string s = boost::lexical_cast<std::string>(i);
+   while(s.length() < n) {
+	   s = "0" + s;
+   }
+   return s;
+}
 
 World::World() {
 	mEditorMouseAction = EMA_NONE;
@@ -12,7 +19,7 @@ World::World() {
 	mClosestRailPoint = NULL;
 	mEditorLayer = 1;
 	mCurrentLevel = 0;
-	mNumLevels = 2;
+	mNumLevels = 10;
 	mDrawDebugs = false;
 }
 
@@ -147,6 +154,12 @@ void World::Update(const float time_delta) {
 }
 
 void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
+	// draw background
+	if(mCurrentLevel > 0) {
+		sf::Sprite back(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("level"+leadingZeros2(mCurrentLevel, 2)));
+		target->Draw(back);
+	}
+
 	auto entity_iter = mEntities.begin();
 	// draw first 3 layers
 	int layers_before_collision_polygons = 3;
