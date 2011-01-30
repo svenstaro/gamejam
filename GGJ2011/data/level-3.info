@@ -190,3 +190,36 @@ polygons
         }
     }
 }
+rails
+{
+    0
+    {
+        1
+        {
+            x 200
+            y 554
+        }
+        2
+        {
+            x 760
+            y 554
+        }
+        init true
+        type 1
+    }
+    1
+    {
+        1
+        {
+            x 300
+            y 315
+        }
+        2
+        {
+            x 666
+            y 312
+        }
+        init true
+        type 1
+    }
+}

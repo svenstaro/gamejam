@@ -766,3 +766,111 @@ polygons
         }
     }
 }
+rails
+{
+    0
+    {
+        1
+        {
+            x 90
+            y 595
+        }
+        2
+        {
+            x 154
+            y 596
+        }
+        init false
+        type 1
+    }
+    1
+    {
+        1
+        {
+            x 414
+            y 74
+        }
+        2
+        {
+            x 107
+            y 72
+        }
+        init false
+        type 1
+    }
+    2
+    {
+        1
+        {
+            x 302
+            y 312
+        }
+        2
+        {
+            x 517
+            y 318
+        }
+        init false
+        type 1
+    }
+    3
+    {
+        1
+        {
+            x 651
+            y 417
+        }
+        2
+        {
+            x 647
+            y 157
+        }
+        init false
+        type 1
+    }
+    4
+    {
+        1
+        {
+            x 462
+            y 444
+        }
+        2
+        {
+            x 462
+            y 524
+        }
+        init false
+        type 1
+    }
+    5
+    {
+        1
+        {
+            x 539
+            y 599
+        }
+        2
+        {
+            x 705
+            y 601
+        }
+        init false
+        type 1
+    }
+    6
+    {
+        1
+        {
+            x 954
+            y 408
+        }
+        2
+        {
+            x 787
+            y 406
+        }
+        init false
+        type 1
+    }
+}
