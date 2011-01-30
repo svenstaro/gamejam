@@ -52,6 +52,8 @@ public:
 	World* const GetWorldPtr();
 	ResourceManager* const GetResourceManagerPtr();
 	boost::shared_ptr<sf::RenderWindow> GetRenderWindowPtr();
+
+    void ShowCredits();
 private:
 	boost::shared_ptr<sf::RenderWindow> mRenderWin;
 	boost::shared_ptr<sf::View> mView;
@@ -74,6 +76,9 @@ private:
 	float mCursorRotation;
 
 	AnimatedSprite mBusy;
+
+    bool mCreditsActive;
+    float mTimeSinceCreditsActive;
 };
 
 #endif
