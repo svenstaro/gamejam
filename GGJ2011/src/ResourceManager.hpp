@@ -6,6 +6,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include <boost/foreach.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
@@ -30,6 +31,7 @@ public:
     const sf::Font& GetFont(const std::string& key);
 
 	void PlaySound(std::string key);
+    void StopSounds();
 private:
 	boost::ptr_map<std::string, sf::Image> mImages;
 	boost::ptr_map<std::string, sf::Font> mFonts;
