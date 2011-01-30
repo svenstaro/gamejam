@@ -61,7 +61,7 @@ void Entity::InitializePhysics() {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(15*mScale, 1*mScale, 1)));
 	}
 	else {
-		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.5*mScale, 1.5*mScale, 1)));
+		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.2*mScale, 1.2*mScale, 1)));
 	}
 
 	mCollisionShape->calculateLocalInertia(mass, local_inertia);

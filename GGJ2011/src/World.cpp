@@ -667,24 +667,24 @@ void World::Save() {
 	using boost::property_tree::ptree;
 	ptree pt;
 	std::cout << ":: Saving entities..." << std::endl;
-	if(mEntities.size() > 0) {
-		BOOST_FOREACH(Entity& entity, mEntities) {
-			entity.Save(&pt);
-		}
-		int i = 0;
-		BOOST_FOREACH(CollisionPolygon& colpol, mCollisionPolygons) {
-			colpol.Save(&pt, i);
-			++i;
-		}
-		i = 0;
-		BOOST_FOREACH(Rail& rail, mRails) {
-			rail.Save(&pt, i);
-			++i;
-		}
-		FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
-		fclose(file);
-		write_info(GetCurrentLevelFile(), pt);
+
+	BOOST_FOREACH(Entity& entity, mEntities) {
+		entity.Save(&pt);
 	}
+	int i = 0;
+	BOOST_FOREACH(CollisionPolygon& colpol, mCollisionPolygons) {
+		colpol.Save(&pt, i);
+		++i;
+	}
+	i = 0;
+	BOOST_FOREACH(Rail& rail, mRails) {
+		rail.Save(&pt, i);
+		++i;
+	}
+	FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
+	fclose(file);
+	write_info(GetCurrentLevelFile(), pt);
+
 }
 void World::Load() {
 	std::cout << "::Clearing all entities..." << std::endl;
@@ -729,12 +729,6 @@ void World::Load() {
 	} else {
 		FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
 		fclose(file);
-	}
-	if(mEntities.size() > 0) {
-		/*std::string lastuid = mEntities.back().GetUID();
-		std::vector<std::string> strs;
-		boost::split(strs, lastuid, boost::is_any_of("-"));
-		GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));*/
 	}
 	ReloadTriMeshBody();
 }
@@ -857,26 +851,28 @@ void World::RemoveRigidBody(btRigidBody* body) {
 }
 
 void World::ReloadTriMeshBody() {
-	if(mCollisionPolygons.size() > 0) {
-		if (mTriMeshBody != NULL)
-			mDynamicsWorld->removeRigidBody(mTriMeshBody.get());
-		mTriMesh = boost::shared_ptr<btTriangleMesh>(new btTriangleMesh(true, false));
-		BOOST_FOREACH(CollisionPolygon& p, mCollisionPolygons) {
-			std::vector<Vector2D> points = p.GetPoints();
-			mTriMesh->addTriangle(-btVector3(points.at(0).x,points[0].y,0),-btVector3(points[1].x,points[1].y,0),-btVector3(points[2].x,points[2].y,0));
-		}
-		mTriMeshShape = boost::shared_ptr<btBvhTriangleMeshShape>(new btBvhTriangleMeshShape(mTriMesh.get(),true));
-		btTransform transform;
-		transform.setIdentity();
-		transform.setOrigin(btVector3(0,0,0));
-		transform.setRotation(btQuaternion(0,0,1,0));
-		mTriMeshBodyMotionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(transform));
-		btRigidBody::btRigidBodyConstructionInfo tm_info(btScalar(0), mTriMeshBodyMotionState.get(), mTriMeshShape.get(), btVector3(0,0,0));
 
-		mTriMeshBody = boost::shared_ptr<btRigidBody>(new btRigidBody(tm_info));
-
-		mDynamicsWorld->addRigidBody(mTriMeshBody.get(), COL_WALL, COL_BOX);
+	if (mTriMeshBody != NULL)
+		mDynamicsWorld->removeRigidBody(mTriMeshBody.get());
+	mTriMesh = boost::shared_ptr<btTriangleMesh>(new btTriangleMesh(true, false));
+	BOOST_FOREACH(CollisionPolygon& p, mCollisionPolygons) {
+		std::vector<Vector2D> points = p.GetPoints();
+		mTriMesh->addTriangle(-btVector3(points.at(0).x,points[0].y,0),-btVector3(points[1].x,points[1].y,0),-btVector3(points[2].x,points[2].y,0));
 	}
+	if(mCollisionPolygons.size() <= 0) {
+		mTriMesh->addTriangle(btVector3(0,0,0),btVector3(0,0.01,0),btVector3(0,0,0.01));
+	}
+	mTriMeshShape = boost::shared_ptr<btBvhTriangleMeshShape>(new btBvhTriangleMeshShape(mTriMesh.get(),true));
+	btTransform transform;
+	transform.setIdentity();
+	transform.setOrigin(btVector3(0,0,0));
+	transform.setRotation(btQuaternion(0,0,1,0));
+	mTriMeshBodyMotionState = boost::shared_ptr<btDefaultMotionState>(new btDefaultMotionState(transform));
+	btRigidBody::btRigidBodyConstructionInfo tm_info(btScalar(0), mTriMeshBodyMotionState.get(), mTriMeshShape.get(), btVector3(0,0,0));
+
+	mTriMeshBody = boost::shared_ptr<btRigidBody>(new btRigidBody(tm_info));
+
+	mDynamicsWorld->addRigidBody(mTriMeshBody.get(), COL_WALL, COL_BOX);
 }
 
 Entity* World::GetEntityByLocalLayerId(int ll) {
