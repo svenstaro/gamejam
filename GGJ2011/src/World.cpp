@@ -218,8 +218,9 @@ void World::HandleEvent(const sf::Event& event) {
 		ToggleSetMouseAction(EMA_NONE); // stop grabbing etc.
 	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Escape && !mEditorRenameMode) {
 		// menu or quit or so
-		if (GameApp::get_mutable_instance().IsEditorMode())
-			Save();
+		// no more autosave
+		/*if (GameApp::get_mutable_instance().IsEditorMode())
+			Save();*/
 		GameApp::get_mutable_instance().Quit();
 	} else if(GameApp::get_mutable_instance().IsEditorMode()) {
 		// EDITOR
@@ -503,6 +504,16 @@ void World::HandleEvent(const sf::Event& event) {
 			}
 		}
 	}
+
+	if(GameApp::get_mutable_instance().GetAppMode() != AM_EDITOR) {
+		if(event.Type == sf::Event::KeyPressed) {
+			if(event.Key.Code == sf::Key::Up) {
+				LoadNextLevel();
+			} if(event.Key.Code == sf::Key::Down) {
+				LoadNextLevel(mCurrentLevel - 1);
+			}
+		}
+	}
 }
 
 int World::GetEntityCount() const {
@@ -706,7 +717,6 @@ void World::Load() {
 		GameApp::get_mutable_instance().SetNextId(boost::lexical_cast<int>(strs.back()));*/
 	}
 	ReloadTriMeshBody();
-
 }
 
 void World::SetRenameMode(bool mode) {
@@ -882,10 +892,18 @@ int World::GetCurrentLevel() const {
 	return mCurrentLevel;
 }
 
-void World::LoadNextLevel() {
-	if(mCurrentLevel < mNumLevels) {
+void World::LoadNextLevel(int level) {
+	if(level == -1)
 		mCurrentLevel += 1;
+	else
+		mCurrentLevel = level;
+
+	if(mCurrentLevel < mNumLevels && mCurrentLevel >= 0) {
 		Load();
+		if(mCurrentLevel == 0)
+			GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
+		else
+			GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
 	} else {
 		std::cout << "Finished all levels." << std::endl;
 		exit(0);

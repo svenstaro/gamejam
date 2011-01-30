@@ -63,6 +63,9 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
 
+	// animation test
+	mResourceManager.AddImage(data / "gfx", "cursors.png", 256*METERS_PER_PIXEL, 256*METERS_PER_PIXEL);
+
 	mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
 
 	sf::Font f;
@@ -80,6 +83,15 @@ void GameApp::Init() {
 
 	// Load The World
 	LoadWorld(data);
+
+
+	// Animation test
+	mBusy.SetImage(mResourceManager.GetImage("cursors"));
+	mBusy.SetSubRectSize(sf::Vector2f(16,16));
+	mBusy.SetSubRectOffset(sf::Vector2f(0,16));
+	mBusy.SetFPS(8);
+	mBusy.SetNumFrames(8);
+	mBusy.SetPosition(1,1);
 }
 
 void GameApp::Run() {
@@ -117,6 +129,13 @@ void GameApp::Run() {
 
 		mRenderWin->Clear(sf::Color(0,0,0));
 		SetGuiPaintingMode(false);
+
+
+		// Animation test
+		mBusy.Update(frameTime);
+		mRenderWin->Draw(mBusy);
+
+
 
 		// Draw World
 		mWorld.Draw(mRenderWin.get(), mShader);
