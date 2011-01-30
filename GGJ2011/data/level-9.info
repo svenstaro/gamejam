@@ -3,7 +3,7 @@ entities
     box
     {
         x 2.263165
-        y 8.63956
+        y 7.873936
         img box
         rot 6.278607
         a 1
@@ -638,5 +638,113 @@ polygons
             x 15.39062
             y 8.984375
         }
+    }
+}
+rails
+{
+    0
+    {
+        1
+        {
+            x 943
+            y 28
+        }
+        2
+        {
+            x 109
+            y 25
+        }
+        init false
+        type 1
+    }
+    1
+    {
+        1
+        {
+            x 942
+            y 217
+        }
+        2
+        {
+            x 635
+            y 214
+        }
+        init false
+        type 1
+    }
+    2
+    {
+        1
+        {
+            x 539
+            y 598
+        }
+        2
+        {
+            x 768
+            y 599
+        }
+        init false
+        type 1
+    }
+    3
+    {
+        1
+        {
+            x 155
+            y 408
+        }
+        2
+        {
+            x 268
+            y 410
+        }
+        init false
+        type 1
+    }
+    4
+    {
+        1
+        {
+            x 421
+            y 213
+        }
+        2
+        {
+            x 259
+            y 210
+        }
+        init false
+        type 1
+    }
+    5
+    {
+        1
+        {
+            x 459
+            y 527
+        }
+        2
+        {
+            x 457
+            y 243
+        }
+        init false
+        type 1
+    }
+    6
+    {
+        1
+        {
+            x 97
+            y 604
+        }
+        2
+        {
+            x 189
+            y 603
+        }
+        init true
+        type 1
     }
 }

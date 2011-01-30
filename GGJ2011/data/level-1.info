@@ -100,3 +100,21 @@ polygons
         }
     }
 }
+rails
+{
+    0
+    {
+        1
+        {
+            x 153
+            y 459
+        }
+        2
+        {
+            x 903
+            y 459
+        }
+        init true
+        type 1
+    }
+}
