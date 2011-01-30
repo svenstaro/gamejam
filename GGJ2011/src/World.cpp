@@ -255,12 +255,32 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		if(mSelectedMoverType == 3)
 			ss3.SetColor(sf::Color(100,100,255));
 
+		sf::Text t1("1");
+		sf::Text t2("2");
+		sf::Text t3("3");
+
+		t1.SetCharacterSize(40);
+		t2.SetCharacterSize(40);
+		t3.SetCharacterSize(40);
+
+		t1.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
+		t2.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
+		t3.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
+
+		t1.SetPosition(10, b1.y - t1.GetRect().Height / 2 - 5);
+		t2.SetPosition(10, b2.y - t2.GetRect().Height / 2 - 5);
+		t3.SetPosition(10, b3.y - t3.GetRect().Height / 2 - 5);
+
 		target->Draw(ss1);
 		target->Draw(ss2);
 		target->Draw(ss3);
 		target->Draw(s1);
 		target->Draw(s2);
 		target->Draw(s3);
+
+		target->Draw(t1);
+		target->Draw(t2);
+		target->Draw(t3);
 	}
 }
 
