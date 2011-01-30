@@ -15,7 +15,9 @@ World::World() {
 
 World::~World() {}
 
-void World::Initialize() {
+void World::Initialize(const boost::filesystem::path& data_path) {
+    mDataPath = data_path;
+
 	mCollisionConfiguration = boost::shared_ptr<btDefaultCollisionConfiguration>(new btDefaultCollisionConfiguration());
 	mCollisionDispatcher = boost::shared_ptr<btCollisionDispatcher>(new btCollisionDispatcher(mCollisionConfiguration.get()));
 	mBroadphase = boost::shared_ptr<btDbvtBroadphase>(new btDbvtBroadphase());
@@ -664,9 +666,9 @@ void World::Save() {
 			rail.Save(&pt, i);
 			++i;
 		}
-		FILE* file = fopen("../data/levels.info","w");
+		FILE* file = fopen((mDataPath / "levels.info").string().c_str(),"w");
 		fclose(file);
-		write_info("../data/levels.info", pt);
+		write_info((mDataPath / "levels.info").string(), pt);
 	}
 }
 void World::Load() {
@@ -682,9 +684,9 @@ void World::Load() {
 	ptree pt;
 	std::cout << ":: Loading entities and collision polygons..." << std::endl;
 
-	if(boost::filesystem::exists("../data/levels.info")) {
-		if(!boost::filesystem::is_empty("../data/levels.info")) {
-			read_info("../data/levels.info", pt);
+	if(boost::filesystem::exists(mDataPath / "levels.info")) {
+		if(!boost::filesystem::is_empty(mDataPath / "levels.info")) {
+			read_info((mDataPath / "levels.info").string(), pt);
 
 			pt.put("entities", "");
 			BOOST_FOREACH(ptree::value_type &v, pt.get_child("entities")) {
@@ -704,7 +706,7 @@ void World::Load() {
 			}
 		}
 	} else {
-		FILE* file = fopen("../data/levels.info","w");
+		FILE* file = fopen((mDataPath / "levels.info").string().c_str(),"w");
 		fclose(file);
 	}
 	if(mEntities.size() > 0) {
