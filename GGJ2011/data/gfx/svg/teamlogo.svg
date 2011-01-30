@@ -1117,11 +1117,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="526.99261"
-     inkscape:cy="504.74013"
+     inkscape:zoom="0.71"
+     inkscape:cx="262.7069"
+     inkscape:cy="269.65202"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:window-width="1280"
      inkscape:window-height="750"
@@ -1699,8 +1699,7 @@
   <g
      inkscape:groupmode="layer"
      id="layer4"
-     inkscape:label="Text"
-     sodipodi:insensitive="true">
+     inkscape:label="Text">
     <text
        sodipodi:linespacing="125%"
        id="text5843"
@@ -1729,34 +1728,33 @@
   <g
      inkscape:groupmode="layer"
      id="layer5"
-     inkscape:label="Credits"
-     sodipodi:insensitive="true">
+     inkscape:label="Credits">
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Capture it;-inkscape-font-specification:Capture it"
-       x="31.428572"
-       y="872.36218"
+       x="44.10463"
+       y="832.92554"
        id="text5876"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan5878"
-         x="31.428572"
-         y="872.36218"
+         x="44.10463"
+         y="832.92554"
          style="fill:#ffffff;fill-opacity:1">By: </tspan><tspan
          sodipodi:role="line"
-         x="31.428572"
-         y="922.36218"
+         x="44.10463"
+         y="882.92554"
          style="fill:#ffffff;fill-opacity:1"
-         id="tspan5880">- opatut</tspan><tspan
+         id="tspan5880">- Paul 'opatut' BienkowsKI</tspan><tspan
          sodipodi:role="line"
-         x="31.428572"
-         y="972.36218"
+         x="44.10463"
+         y="932.92554"
          style="fill:#ffffff;fill-opacity:1"
-         id="tspan5882">- zetaron</tspan><tspan
+         id="tspan5882">- FaBian 'zetaron' Stegemann</tspan><tspan
          sodipodi:role="line"
-         x="31.428572"
-         y="1022.3622"
+         x="44.10463"
+         y="982.92554"
          style="fill:#ffffff;fill-opacity:1"
-         id="tspan5884">- svenstaro</tspan></text>
+         id="tspan5884">- Sven-Hendrik 'svenstaro' Haase</tspan></text>
   </g>
 </svg>
