@@ -66,14 +66,14 @@ void GameApp::Init() {
 	mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
 
 	sf::Font f;
-	f.LoadFromFile("../data/Capture it.ttf");
+	f.LoadFromFile((data / "Capture it.ttf").string());
 	mResourceManager.AddFont(f, "custom");
 
 	SetSubtext("");
 
-	//mMusic.OpenFromFile("../data/music.ogg");
-	//mMusic.SetLoop(true);
-	//mMusic.Play();
+	mMusic.OpenFromFile((data / "THA-defensemechanisms.ogg").string());
+	mMusic.SetLoop(true);
+	mMusic.Play();
 
 	mRenderWin->ShowMouseCursor(false);
 	mRenderWin->SetCursorPosition(WIDTH / 2, HEIGHT / 2);
