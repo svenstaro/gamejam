@@ -277,5 +277,6 @@ rails
             y 280
         }
         init true
+		type 1
     }
 }

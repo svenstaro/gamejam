@@ -59,6 +59,8 @@ public:
 
 	float GetAngleOfBox(Entity* box);
 
+	Mover& GetMover();
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;
@@ -71,6 +73,7 @@ private:
 	bool mInitialMoverMounted;
 
 	bool mMounted;
+	bool mDownLastFrame;
 };
 
 #endif // RAIL_HPP

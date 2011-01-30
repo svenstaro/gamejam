@@ -51,15 +51,26 @@ void GameApp::Init() {
 	// load resources
 	mResourceManager.AddImage(data / "gfx", "box.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "rail.png", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+
 	mResourceManager.AddImage(data / "gfx", "magnet_pull.png", 1.f, 1.f);
 	mResourceManager.AddImage(data / "gfx", "magnet_push.png", 1.f, 1.f);
 	mResourceManager.AddImage(data / "gfx", "magnet_off.png", 1.f, 1.f);
-	mResourceManager.AddImage(data / "gfx", "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+
+	mResourceManager.AddImage(data / "gfx", "static_pull.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "static_push.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "static_off.png", 1.f, 1.f);
+
+	mResourceManager.AddImage(data / "gfx", "spring_pull.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "spring_push.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "spring_off.png", 1.f, 1.f);
+
 	mResourceManager.AddImage(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
-	mResourceManager.AddImage(data / "gfx" / "maps", "1_lvl.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level09.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level10.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
 
