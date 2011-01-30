@@ -45,6 +45,7 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
 	mResourceManager.AddImage(data / "gfx" / "maps", "1_lvl.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
 
@@ -55,6 +56,8 @@ void GameApp::Init() {
 	//mMusic.OpenFromFile("../data/music.ogg");
 	//mMusic.SetLoop(true);
 	//mMusic.Play();
+
+	mRenderWin->ShowMouseCursor(false);
 
 	// Load The World
 	LoadWorld(data);
@@ -157,24 +160,28 @@ void GameApp::Run() {
 			mSubtext.SetStyle(sf::Text::Bold);
 			mSubtext.SetPosition(round(mRenderWin->GetWidth() / 2 - mSubtext.GetRect().Width / 2), mRenderWin->GetHeight() - 20);
 			mRenderWin->Draw(mSubtext);
-		} else if(mAppMode == AM_PUZZLE) {
+		} else if(mAppMode != AM_EDITOR) {
 			// Puzzle information
-			sf::Text t("Place a Mover by clicking on the rail.");
-			t.SetCharacterSize(10);
-			t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 20);
-			mRenderWin->Draw(t);
+			if(mAppMode == AM_PUZZLE) {
+				sf::Text t("Place a Mover by clicking on the rail.");
+				t.SetCharacterSize(10);
+				t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 20);
+				mRenderWin->Draw(t);
+			}
 
-			//GUI!!!
-			if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
-				mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
-			else
-				mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
-			mCursor.SetOrigin(mCursor.GetImage()->GetHeight() / 2, mCursor.GetImage()->GetWidth() / 2);
-
-			mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
-			mRenderWin->Draw(mCursor);
 		}
-		mRenderWin->ShowMouseCursor(IsEditorMode());
+		// Cursor
+		if(mAppMode != AM_PLAY)
+			mCursor.SetImage(mResourceManager.GetImage("cursor_default"));
+		else if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+			mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
+		else
+			mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
+		mCursor.SetOrigin(mCursor.GetImage()->GetHeight() / 2, mCursor.GetImage()->GetWidth() / 2);
+
+		mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
+		mRenderWin->Draw(mCursor);
+
 		mRenderWin->Display();
 	}
 }

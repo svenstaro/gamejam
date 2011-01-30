@@ -5,6 +5,7 @@
 Rail::Rail() {
 	mLastPointSet = 0;
 	mStartPosition = 0.5f;
+	mMounted = false;
 }
 
 void Rail::Reinitialize(World& world) {
@@ -13,15 +14,20 @@ void Rail::Reinitialize(World& world) {
 }
 
 void Rail::Deinitialize(World& world) {
-	world.GetDynamicsWorld()->removeConstraint(mConstraint.get());
-	world.GetDynamicsWorld()->removeRigidBody(mBody.get());
+	if(mMounted) {
+		world.GetDynamicsWorld()->removeConstraint(mConstraint.get());
+		world.GetDynamicsWorld()->removeRigidBody(mBody.get());
+		mMounted = false;
+	}
 }
 
 void Rail::Initialize(World& world) {
+	std::cout << "inti.. " << mInitialMoverMounted << std::endl;
 	if(mInitialMoverMounted) {
 		InitializePhysics();
 		world.GetDynamicsWorld()->addConstraint(mConstraint.get());
 		world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
+		mMounted = true;
 	}
 }
 
@@ -81,15 +87,17 @@ void Rail::Update(float time_delta) {
 	mTiledSprite.SetScale(diff.Magnitude(), 20);
 	mTiledSprite.SetRotation(- diff.Rotation() / PI * 180.f);
 
-	mMover.SetRail(this);
-	mMover.Update(time_delta);
+	if(mMounted) {
+		mMover.SetRail(this);
+		mMover.Update(time_delta);
+	}
 
 	// push / pull box
 	bool current_and_down = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && IsCurrentRail();
 
 	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
 	// TODO: make play
-	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
+	if(box != NULL && box->UsesPhysics() && box->GetBody().get() != NULL && mBody.get() != NULL && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY) {
 		//btVector3 force = (mPoint2 - mPoint1);
 		box->GetBody()->activate();
 		box->GetBody()->setFriction(btScalar(100.f));
@@ -100,15 +108,7 @@ void Rail::Update(float time_delta) {
 		v.Rotate(-PI / 2);
 		v *= 0.5;*/
 
-		Vector2D o(mBody->getWorldTransform().getOrigin().x(),mBody->getWorldTransform().getOrigin().y());
-		Vector2D o2(box->GetBody()->getWorldTransform().getOrigin().x(), box->GetBody()->getWorldTransform().getOrigin().y());
-		Vector2D d1(mPoint2 - mPoint1);
-		Vector2D p = d1;
-		p.Normalize();
-		p.Rotate(Vector2D::deg2Rad(-90));
-		p *= 0.2f;
-		Vector2D d2 = o2 - o - p;
-		float angle = Vector2D::Angle(p, d2);
+		float angle = GetAngleOfBox(box);
 
 
 		btVector3 force = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
@@ -119,6 +119,8 @@ void Rail::Update(float time_delta) {
 
 			if(current_and_down)
 				force *= -2;
+			else if(IsCurrentRail())
+				force *= 2;
 			box->GetBody()->applyCentralForce(force * 1.5);
 		}
 
@@ -126,7 +128,7 @@ void Rail::Update(float time_delta) {
 
 		float threshold = 1.f;
 		if(abs(angle) > threshold && abs(angle) < Vector2D::deg2Rad(110)) {
-			box->GetBody()->applyTorque(btVector3(0,0,2*angle));
+			box->GetBody()->applyTorque(btVector3(0,0,4*angle));
 		}
 	}
 }
@@ -144,7 +146,8 @@ void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) 
 		target->Draw(shape);
 	}
 
-	mMover.Draw(target, shader, editor_mode);
+	if(mMounted)
+		mMover.Draw(target, shader, editor_mode);
 }
 
 void Rail::SetNextPoint(Vector2D point) {
@@ -267,4 +270,24 @@ std::string Rail::ToString() {
 
 void Rail::ToggleInitialState() {
 	mInitialMoverMounted =! mInitialMoverMounted;
+}
+
+bool Rail::IsMounted() {
+	return mMounted;
+}
+
+void Rail::SetStartPoint(Vector2D p) {
+	mStartPosition = (mPoint1.x - p.x) / (mPoint1.x - mPoint2.x);
+}
+
+float Rail::GetAngleOfBox(Entity* box) {
+	Vector2D o(mBody->getWorldTransform().getOrigin().x(),mBody->getWorldTransform().getOrigin().y());
+	Vector2D o2(box->GetBody()->getWorldTransform().getOrigin().x(), box->GetBody()->getWorldTransform().getOrigin().y());
+	Vector2D d1(mPoint2 - mPoint1);
+	Vector2D p = d1;
+	p.Normalize();
+	p.Rotate(Vector2D::deg2Rad(-90));
+	p *= 0.2f;
+	Vector2D d2 = o2 - o - p;
+	return Vector2D::Angle(p, d2);
 }

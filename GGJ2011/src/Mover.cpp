@@ -17,7 +17,7 @@ void Mover::InitializePhysics() {
 }
 
 void Mover::Update(float time_delta) {
-	if(mRail == NULL && mRail->GetRigidBody() != NULL )
+	if(mRail == NULL && mRail->GetRigidBody() != NULL)
 		return;
 	if(!(mRail->IsFinished()))
 		return;
