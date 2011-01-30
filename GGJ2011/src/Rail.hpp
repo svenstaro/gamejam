@@ -52,6 +52,10 @@ public:
 
 	void ToggleInitialState();
 
+	bool IsMounted();
+
+	void SetStartPoint(Vector2D p);
+
 private:
 	Vector2D mPoint1, mPoint2;
 	float mStartPosition;

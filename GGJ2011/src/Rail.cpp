@@ -5,6 +5,7 @@
 Rail::Rail() {
 	mLastPointSet = 0;
 	mStartPosition = 0.5f;
+	mMounted = false;
 }
 
 void Rail::Reinitialize(World& world) {
@@ -13,15 +14,20 @@ void Rail::Reinitialize(World& world) {
 }
 
 void Rail::Deinitialize(World& world) {
-	world.GetDynamicsWorld()->removeConstraint(mConstraint.get());
-	world.GetDynamicsWorld()->removeRigidBody(mBody.get());
+	if(mMounted) {
+		world.GetDynamicsWorld()->removeConstraint(mConstraint.get());
+		world.GetDynamicsWorld()->removeRigidBody(mBody.get());
+		mMounted = false;
+	}
 }
 
 void Rail::Initialize(World& world) {
+	std::cout << "inti.. " << mInitialMoverMounted << std::endl;
 	if(mInitialMoverMounted) {
 		InitializePhysics();
 		world.GetDynamicsWorld()->addConstraint(mConstraint.get());
 		world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
+		mMounted = true;
 	}
 }
 
@@ -81,8 +87,10 @@ void Rail::Update(float time_delta) {
 	mTiledSprite.SetScale(diff.Magnitude(), 20);
 	mTiledSprite.SetRotation(- diff.Rotation() / PI * 180.f);
 
-	mMover.SetRail(this);
-	mMover.Update(time_delta);
+	if(mMounted) {
+		mMover.SetRail(this);
+		mMover.Update(time_delta);
+	}
 
 	// push / pull box
 	bool current_and_down = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && IsCurrentRail();
@@ -144,7 +152,8 @@ void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) 
 		target->Draw(shape);
 	}
 
-	mMover.Draw(target, shader, editor_mode);
+	if(mMounted)
+		mMover.Draw(target, shader, editor_mode);
 }
 
 void Rail::SetNextPoint(Vector2D point) {
@@ -267,4 +276,12 @@ std::string Rail::ToString() {
 
 void Rail::ToggleInitialState() {
 	mInitialMoverMounted =! mInitialMoverMounted;
+}
+
+bool Rail::IsMounted() {
+	return mMounted;
+}
+
+void Rail::SetStartPoint(Vector2D p) {
+	mStartPosition = (mPoint1.x - p.x) / (mPoint1.x - mPoint2.x);
 }

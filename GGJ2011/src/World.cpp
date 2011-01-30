@@ -382,7 +382,7 @@ void World::HandleEvent(const sf::Event& event) {
 					Rail* r = GetClosestRail();
 					if(r != NULL) {
 						r->ToggleInitialState();
-						//r->Reinitialize(*this);
+						r->Reinitialize(*this);
 					}
 				}
 			}
@@ -485,39 +485,24 @@ void World::HandleEvent(const sf::Event& event) {
 			SetSelectedEntity(mEditorSelectedEntity);
 
 		}
-	} else {
-		//GAME!!!
-		/*
-		if (event.Type == sf::Event::KeyPressed) {
-			Entity* p = GetEntityByUID("player");
-			if (p != NULL) {
-				p->SetUsePhysics(*this, true);
-				p->GetBody()->setActivationState(DISABLE_DEACTIVATION);
-				if(event.Key.Code == sf::Key::Space) {
-					bool can_jump = false;
-					btTransform xform;
-					p->GetBody()->getMotionState()->getWorldTransform(xform);
-					btVector3 source = xform.getOrigin();
-					btVector3 target = source;
-					target[1] = target[1] + 1.f;
-
-					btCollisionWorld::ClosestRayResultCallback result(source, target);
-					mDynamicsWorld->rayTest(source, target, result);
-					//std::cout << result.hasHit() << std::endl;
-					//std::cout << "(source) x: " << source[0] << " y: " << source[1] << " z: " << source[2] << std::endl;
-					//std::cout << "(target) x: " << target[0] << " y: " << target[1] << " z: " << target[2] << std::endl;
-
-					btVector3 relativeImpulse = btVector3(0, 5, 0);
-					btMatrix3x3& boxRot = p->GetBody()->getWorldTransform().getBasis();
-					btVector3 correctedImpulse = boxRot * relativeImpulse;
-					p->GetBody()->applyCentralImpulse(correctedImpulse);
-				}
-			} else {
-				std::cerr << "There is no player entity. Name one of them 'player'!" << std::endl;
+	} else if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE){
+		// PUZZLE
+		if(event.Type == sf::Event::KeyPressed) {
+			if(event.Key.Code == sf::Key::Return) {
+				GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
 			}
-
 		}
-		*/
+
+		if(event.Type == sf::Event::MouseButtonPressed) {
+			std::cout << "lol" << std::endl;
+			if(event.MouseButton.Button == sf::Mouse::Left) {
+				if(mClosestRail != NULL) {
+					mClosestRail->SetStartPoint(mClosestRailPoint);
+					mClosestRail->ToggleInitialState();
+					mClosestRail->Reinitialize(*this);
+				}
+			}
+		}
 	}
 }
 
