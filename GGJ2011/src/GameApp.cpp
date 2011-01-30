@@ -1,5 +1,7 @@
 #include "GameApp.hpp"
 
+#include "boost/date_time/posix_time/posix_time.hpp"
+
 GameApp::GameApp() {
 	mNextId = 1300;
 	mDebugGrid = false;
@@ -171,6 +173,15 @@ void GameApp::Run() {
 				sf::Text t("Place a Mover by clicking on the rail.");
 				t.SetCharacterSize(18);
 				t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 80);
+				t.SetFont(mResourceManager.GetFont("custom"));
+				mRenderWin->Draw(t);
+			} else {
+				float time = mTotalTimer.GetElapsedTime();
+
+				boost::posix_time::time_duration td = boost::posix_time::seconds(time);
+				sf::Text t("Time: " + boost::lexical_cast<std::string>(td.minutes()) + ":" + boost::lexical_cast<std::string>(td.seconds()) );
+				t.SetCharacterSize(26);
+				t.SetPosition(WIDTH - t.GetRect().Width - 20, 20);
 				t.SetFont(mResourceManager.GetFont("custom"));
 				mRenderWin->Draw(t);
 			}
