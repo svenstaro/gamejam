@@ -3,11 +3,11 @@
 #include "boost/date_time/posix_time/posix_time.hpp"
 
 std::string leadingZeros(int i, int n) {
-	std::string s = boost::lexical_cast<std::string>(i);
-	while(s.length() < n) {
-		s = "0" + s;
-	}
-	return s;
+   std::string s = boost::lexical_cast<std::string>(i);
+   while(s.length() < n) {
+	   s = "0" + s;
+   }
+   return s;
 }
 
 GameApp::GameApp() {
@@ -75,8 +75,18 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "cursor_spring_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_spring_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	// -- add new images here
-	mResourceManager.AddImage(data / "gfx" / "maps", "level09.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
-	mResourceManager.AddImage(data / "gfx" / "maps", "level10.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
+
+	mResourceManager.AddImage(data / "gfx" / "maps", "level01.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level02.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level03.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level04.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level05.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level06.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level07.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level08.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level09.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx" / "maps", "level10.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+
 	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "teamlogo.png", WIDTH*METERS_PER_PIXEL, HEIGHT*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
@@ -220,11 +230,11 @@ void GameApp::Run() {
 		} else if(mAppMode != AM_EDITOR) {
 			// Puzzle information
 			if(mAppMode == AM_PUZZLE) {
-				sf::Text t("Place a Mover by clicking on the rail.");
+				/*sf::Text t("Place a Mover by clicking on the rail.");
 				t.SetCharacterSize(18);
 				t.SetPosition(floor(WIDTH / 2 - t.GetRect().Width / 2), 80);
 				t.SetFont(mResourceManager.GetFont("custom"));
-				mRenderWin->Draw(t);
+				mRenderWin->Draw(t);*/
 			} else if(mWorld.GetCurrentLevel() != 0){
 				boost::posix_time::time_duration td = boost::posix_time::seconds(mTotalTime);
 				sf::Text t(boost::lexical_cast<std::string>(td.minutes()) + ":" + leadingZeros(td.seconds(), 2) );
