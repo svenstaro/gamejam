@@ -905,14 +905,14 @@ void World::LoadNextLevel(int level) {
 	else
 		mCurrentLevel = level;
 
-	if(mCurrentLevel < mNumLevels && mCurrentLevel >= 0) {
-		Load();
-		if(mCurrentLevel == 0)
-			GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
-		else
-			GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
-	} else {
-		std::cout << "Finished all levels." << std::endl;
-		exit(0);
+	if(mCurrentLevel > mNumLevels || mCurrentLevel < 0) {
+		mCurrentLevel = 0;
 	}
+
+	Load();
+	if(mCurrentLevel == 0)
+		GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
+	else
+		GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
+
 }

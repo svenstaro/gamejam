@@ -66,6 +66,9 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "spring_push.png", 1.f, 1.f);
 	mResourceManager.AddImage(data / "gfx", "spring_off.png", 1.f, 1.f);
 
+	mResourceManager.AddImage(data / "gfx", "evil1.png", 64*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "evil2.png", 64*METERS_PER_PIXEL, 16*METERS_PER_PIXEL);
+
 	mResourceManager.AddImage(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
@@ -245,7 +248,7 @@ void GameApp::Run() {
 		if(mAppMode != AM_PLAY)
 			mCursor.SetImage(mResourceManager.GetImage("cursor_default"));
 		else {
-			if(mWorld.GetCurrentRail()->GetMover().GetMoverType() == MT_SPRING && mWorld.GetBoxEntity() != NULL) {
+			if(mWorld.GetCurrentRail() != NULL && mWorld.GetCurrentRail()->GetMover().GetMoverType() == MT_SPRING && mWorld.GetBoxEntity() != NULL) {
 				if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
 					mCursor.SetImage(mResourceManager.GetImage("cursor_spring_push"));
 				else
