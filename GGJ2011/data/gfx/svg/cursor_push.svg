@@ -15,7 +15,10 @@
    id="svg3865"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="cursor_push.svg">
+   sodipodi:docname="cursor_push.svg"
+   inkscape:export-filename="/home/svenstaro/prj/gamejam/GGJ2011/data/gfx/svg/cursor_push.png"
+   inkscape:export-xdpi="28.799999"
+   inkscape:export-ydpi="28.799999">
   <defs
      id="defs3867">
     <linearGradient
@@ -25,7 +28,7 @@
          offset="0"
          id="stop4456" />
       <stop
-         style="stop-color:#0038f7;stop-opacity:1;"
+         style="stop-color:#f70000;stop-opacity:1;"
          offset="1"
          id="stop4458" />
     </linearGradient>
@@ -89,14 +92,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.2"
-     inkscape:cx="10.34614"
+     inkscape:cx="1.8639971"
      inkscape:cy="13.164425"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1280"
-     inkscape:window-height="753"
-     inkscape:window-x="-2"
+     inkscape:window-height="750"
+     inkscape:window-x="-4"
      inkscape:window-y="-3"
      inkscape:window-maximized="1">
     <inkscape:grid
