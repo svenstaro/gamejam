@@ -635,9 +635,9 @@ void World::HandleEvent(const sf::Event& event) {
 	if(GameApp::get_mutable_instance().GetAppMode() != AM_EDITOR) {
 		if(event.Type == sf::Event::KeyPressed) {
 			if(event.Key.Code == sf::Key::Up) {
-				LoadNextLevel();
+				//LoadNextLevel();
 			} if(event.Key.Code == sf::Key::Down) {
-				LoadNextLevel(mCurrentLevel - 1);
+				//LoadNextLevel(mCurrentLevel - 1);
 			}
 		}
 	}
