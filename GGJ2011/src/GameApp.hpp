@@ -59,6 +59,7 @@ private:
 	World mWorld;
 
 	sf::Clock mClock;
+	float mTotalTime;
 	sf::Text mSubtext;
 
 	AppMode mAppMode;

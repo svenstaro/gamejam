@@ -88,6 +88,7 @@ public:
 	void SetCurrentRail(Rail* rail);
 
 	const std::string GetCurrentLevelFile();
+	int GetCurrentLevel() const;
 	void LoadNextLevel();
 private:
 	boost::ptr_vector<Entity> mEntities;
@@ -139,6 +140,8 @@ private:
     boost::filesystem::path mDataPath;
 	int mCurrentLevel;
 	int mNumLevels;
+
+	bool mDrawDebugs;
 };
 
 #endif

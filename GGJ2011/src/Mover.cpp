@@ -29,22 +29,16 @@ void Mover::Update(float time_delta) {
 	Vector2D p = Coordinates::WorldFloatToWorldPixel(Vector2D(origin.x(), origin.y()));
 	mSprite.SetPosition(p.x, p.y);
 
-	if(mRail!=NULL && mRail->IsCurrentRail()) {
+	if(mRail!=NULL && mRail->IsCurrentRail() && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY) {
 		btVector3 body_pos = mRail->GetRigidBody()->getCenterOfMassPosition();
 		Vector2D mp = Coordinates::ScreenPixelToWorldFloat(GameApp::get_mutable_instance().GetMousePosition());
 		btVector3 to_mouse = btVector3(mp.x, mp.y, 0) - body_pos;
 		mRail->GetRigidBody()->applyCentralForce( to_mouse * 4);
 	}
 
-	/*btMatrix3x3 rot;
-	rot.setIdentity();
-	rot = trans.getBasis();
-	float fx,fy,fz;
-	rot.getEulerZYX(fz,fy,fx);
-	std::cout << fz << std::endl;*/
 	mSprite.SetRotation(-Vector2D::rad2Deg(mRail->GetRotation()));
 
-	if(!mRail->IsCurrentRail())
+	if(!mRail->IsCurrentRail() && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY)
 		mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_off"));
 	else if(GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && mRail != NULL && mRail->IsCurrentRail())
 		mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_push"));
