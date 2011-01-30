@@ -14,6 +14,7 @@
 #include "GameObject.hpp"
 
 #include "Mover.hpp"
+#include "Entity.hpp"
 
 class Rail : public GameObject {
 public:
@@ -55,6 +56,8 @@ public:
 	bool IsMounted();
 
 	void SetStartPoint(Vector2D p);
+
+	float GetAngleOfBox(Entity* box);
 
 private:
 	Vector2D mPoint1, mPoint2;

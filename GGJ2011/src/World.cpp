@@ -802,6 +802,9 @@ Rail* World::GetClosestRail(bool all, btVector3 pos) {
 
 
 	BOOST_FOREACH(Rail& r, mRails) {
+		if(all && abs(r.GetAngleOfBox(GetBoxEntity())) > Vector2D::deg2Rad(110))
+			continue;
+
 		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldPixel()));
 		float d = (pol - tmp.GetWorldPixel()).Magnitude();
 		if (d < min_d) {
