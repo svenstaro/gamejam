@@ -325,6 +325,10 @@ float Rail::GetAngleOfBox(Entity* box) {
 	return Vector2D::Angle(p, d2);
 }
 
+float Rail::GetStartPosition() {
+	return mStartPosition;
+}
+
 Mover& Rail::GetMover() {
 	return mMover;
 }

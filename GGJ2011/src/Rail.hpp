@@ -62,6 +62,8 @@ public:
 
 	float GetAngleOfBox(Entity* box);
 
+	float GetStartPosition();
+
 	Mover& GetMover();
 
 private:

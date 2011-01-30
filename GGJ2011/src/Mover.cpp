@@ -37,6 +37,13 @@ void Mover::Update(float time_delta) {
 		mRail->GetRigidBody()->applyCentralForce( to_mouse * 4 * 1000);
 	}
 
+	if(mRail!=NULL && mRail->IsCurrentRail() && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY && mType != MT_MAGNET) {
+		btVector3 body_pos = mRail->GetRigidBody()->getCenterOfMassPosition();
+		Vector2D tp = Coordinates::ScreenPixelToWorldFloat(mRail->GetPointFromFloat(mRail->GetStartPosition()));
+		btVector3 to_mouse = btVector3(tp.x, tp.y, 0) - body_pos;
+		mRail->GetRigidBody()->applyCentralForce( to_mouse * 5* 1000);
+	}
+
 	mSprite.SetRotation(-Vector2D::rad2Deg(mRail->GetRotation()));
 
 	std::string img = "";

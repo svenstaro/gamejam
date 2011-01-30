@@ -284,10 +284,12 @@ void World::HandleEvent(const sf::Event& event) {
 			else
 				// build
 				GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
+			return;
 		} else if( (b1-mp).Magnitude() < 32 ) {
 			// clicked b2
 			// retry
 			LoadNextLevel(mCurrentLevel);
+			return;
 		}
 	}
 
