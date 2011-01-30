@@ -226,8 +226,8 @@ void World::HandleEvent(const sf::Event& event) {
 	if(event.Type == sf::Event::MouseButtonPressed && event.MouseButton.Button == sf::Mouse::Left && !GameApp::get_mutable_instance().IsEditorMode()) {
 		Vector2D mp = GameApp::get_mutable_instance().GetMousePosition();
 
-		Vector2D b1(1000,232);
-		Vector2D b2(1000,342);
+		Vector2D b1(1000,252);
+		Vector2D b2(1000,322);
 
 		if( (b2-mp).Magnitude() < 32 ) {
 			// click on b2
@@ -480,8 +480,12 @@ void World::HandleEvent(const sf::Event& event) {
 						if (r != NULL) {
 							for(auto iter = mRails.begin(); iter != mRails.end(); ++iter) {
 								if (r->GetCenter() == iter->GetCenter()) {
-									RemoveRigidBody(r->GetRigidBody());
-									mDynamicsWorld->removeConstraint(r->GetConstraint());
+									if(r->GetRigidBody() != NULL) {
+										RemoveRigidBody(r->GetRigidBody());
+									}
+									if(r->GetConstraint() != NULL) {
+										mDynamicsWorld->removeConstraint(r->GetConstraint());
+									}
 									mRails.erase(iter);
 									break;
 								}

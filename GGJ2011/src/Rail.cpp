@@ -308,6 +308,8 @@ void Rail::SetStartPoint(Vector2D p) {
 }
 
 float Rail::GetAngleOfBox(Entity* box) {
+	if(mBody.get() == NULL) return PI;
+
 	Vector2D o(mBody->getWorldTransform().getOrigin().x(),mBody->getWorldTransform().getOrigin().y());
 	Vector2D o2(box->GetBody()->getWorldTransform().getOrigin().x(), box->GetBody()->getWorldTransform().getOrigin().y());
 	Vector2D d1(mPoint2 - mPoint1);
