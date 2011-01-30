@@ -24,20 +24,31 @@ void GameApp::Init() {
 	mShader.SetParameter("new_sat", 0.8f);*/
 
 
-	// load resources
-	boost::filesystem::path gfx("../gfx/");
-	mResourceManager.AddImage(gfx, "box.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rail.png", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "magnet_pull.png", 1.f, 1.f);
-	mResourceManager.AddImage(gfx, "magnet_push.png", 1.f, 1.f);
-	mResourceManager.AddImage(gfx, "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-	// -- add new images here
-	mResourceManager.AddImage(gfx / "maps", "1_lvl.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
+    // figure out resource path
+    boost::filesystem::path data;
+    if(boost::filesystem::is_directory("data/")) {
+        data = "data/";
+    } else if(boost::filesystem::is_directory("../data/")) {
+        data = "../data/";
+    } else if(boost::filesystem::is_directory("../../data/")) {
+        data = "../../data/";
+    } else {
+		std::cerr << "Didn't find any valid data path." << std::endl;
+		exit(1);
+    }
 
-	boost::filesystem::path snd("../snd/");
-	mResourceManager.AddSoundBuffer(snd, "collide.ogg", "collide");
+	// load resources
+	mResourceManager.AddImage(data / "gfx", "box.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "rail.png", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "magnet_pull.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "magnet_push.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	mResourceManager.AddImage(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+	// -- add new images here
+	mResourceManager.AddImage(data / "gfx" / "maps", "1_lvl.png", 1408*METERS_PER_PIXEL, 832*METERS_PER_PIXEL);
+
+	mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
 
 	SetSubtext("Hint: <Tab> for the editor!");
 
@@ -46,7 +57,7 @@ void GameApp::Init() {
 	//mMusic.Play();
 
 	// Load The World
-	LoadWorld();
+	LoadWorld(data);
 }
 
 void GameApp::Run() {
@@ -172,9 +183,8 @@ void GameApp::Quit() {
 	mRenderWin->Close();
 }
 
-void GameApp::LoadWorld() {
-	mWorld.Initialize();
-
+void GameApp::LoadWorld(const boost::filesystem::path& data_path) {
+	mWorld.Initialize(data_path);
 	mWorld.Load();
 }
 

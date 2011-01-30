@@ -1,5 +1,4 @@
 CMakeLists.txt.user
 build/
 screenshots/
-gfx/cached/
-gfx/*/cached
+data/gfx/cached/

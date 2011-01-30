@@ -30,7 +30,7 @@ public:
 	void Run();
 	void Quit();
 
-	void LoadWorld();
+	void LoadWorld(const boost::filesystem::path& data_path);
 
 	void SetAppMode(AppMode mode);
 	bool IsEditorMode() const;

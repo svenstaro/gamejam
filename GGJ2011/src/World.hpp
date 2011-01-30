@@ -43,7 +43,7 @@ public:
 	World();
 	~World();
 
-	void Initialize();
+	void Initialize(const boost::filesystem::path& data_path);
 	void Update(const float time_delta);
 	void Draw(sf::RenderTarget* const target, sf::Shader& shader);
 	void AddEntity(Entity* entity);
@@ -136,6 +136,7 @@ private:
 
 	Rail* mCurrentRail;
 
+    boost::filesystem::path mDataPath;
 	int mCurrentLevel;
 	int mNumLevels;
 };
