@@ -24,11 +24,11 @@
     <linearGradient
        id="linearGradient20181">
       <stop
-         style="stop-color:#ffffff;stop-opacity:0.41322315;"
+         style="stop-color:#ffffff;stop-opacity:1;"
          offset="0"
          id="stop20183" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:0;"
+         style="stop-color:#9c9c9c;stop-opacity:0.34710744;"
          offset="1"
          id="stop20185" />
     </linearGradient>
@@ -661,15 +661,6 @@
        id="radialGradient5427-6"
        xlink:href="#linearGradient5296-2"
        inkscape:collect="always" />
-    <filter
-       id="filter5292-5"
-       inkscape:collect="always"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         id="feGaussianBlur5294-4"
-         stdDeviation="4.6875"
-         inkscape:collect="always" />
-    </filter>
     <linearGradient
        id="linearGradient5075-8-4">
       <stop
@@ -2170,7 +2161,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.8950462"
-     inkscape:cx="64.619286"
+     inkscape:cx="112.11153"
      inkscape:cy="108.163"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -2206,7 +2197,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2217,13 +2208,13 @@
      transform="translate(0,-852.36218)">
     <path
        sodipodi:type="arc"
-       style="fill:url(#radialGradient20189);fill-opacity:1;stroke:none"
+       style="fill:url(#radialGradient20189);fill-opacity:1;stroke:#000000;stroke-opacity:0.58256882;stroke-width:3.15789476999999996;stroke-miterlimit:4;stroke-dasharray:none"
        id="path20179"
        sodipodi:cx="100"
        sodipodi:cy="100"
        sodipodi:rx="100"
        sodipodi:ry="100"
-       d="m 200,100 a 100,100 0 1 1 -0.0198,-1.991539"
+       d="M 200,100 C 200,155.22847 155.22847,200 100,200 44.771525,200 0,155.22847 0,100 0,44.771525 44.771525,0 100,0 c 54.45227,0 98.89573,43.566987 99.98017,98.008461"
        transform="matrix(0.94999999,0,0,0.94999999,5.000001,857.36218)"
        sodipodi:start="0"
        sodipodi:end="6.2632686"

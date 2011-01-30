@@ -143,7 +143,7 @@ private:
 
 	bool mDrawDebugs;
 
-	bool mGuiOpen;
+	int mSelectedMoverType;
 };
 
 #endif

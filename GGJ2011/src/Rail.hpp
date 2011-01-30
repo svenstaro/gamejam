@@ -54,6 +54,7 @@ public:
 	void ToggleInitialState();
 	void SetInitialState(bool s);
 	void ToggleForcedInitialState();
+	bool CanBeChanged();
 
 	bool IsMounted();
 
