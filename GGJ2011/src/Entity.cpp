@@ -96,6 +96,7 @@ void Entity::Update(float time_delta) {
 		rot.getEulerZYX(fz,fy,fx);
 		SetRotation(PI-fz);
 	}
+	mWasCollidedLastTick -= 1;
 }
 
 void Entity::UpdateAllAttachments(float time_delta) {
@@ -294,22 +295,25 @@ void Entity::SetUsePhysics(World& world, bool use) {
 
 bool Entity::OnCollide(GameObject* other) {
 	if(mUID == "box") {
-		GameApp::get_mutable_instance().GetResourceManagerPtr()->PlaySound("collide");
+		if(mWasCollidedLastTick <= 0) {
+			GameApp::get_mutable_instance().GetResourceManagerPtr()->PlaySound("collide");
 
-		if(other != NULL && other->ToString() == "entity") {
-			std::string uid = ((Entity*)other)->GetUID();
-			if(uid == "target" || uid == "empty-target") {
-				std::cout << "Level complete!" << std::endl;
-				GameApp::get_mutable_instance().GetWorldPtr()->LoadNextLevel();
-				return false;
-			} else if(uid == "empty-quit") {
-				exit(0);
-			}  else if(uid == "empty-credits") {
-				GameApp::get_mutable_instance().ShowCredits();
-				return false;
+			if(other != NULL && other->ToString() == "entity") {
+				std::string uid = ((Entity*)other)->GetUID();
+				if(uid == "target" || uid == "empty-target") {
+					std::cout << "Level complete!" << std::endl;
+					GameApp::get_mutable_instance().GetWorldPtr()->LoadNextLevel();
+					return false;
+				} else if(uid == "empty-quit") {
+					exit(0);
+				}  else if(uid == "empty-credits") {
+					GameApp::get_mutable_instance().ShowCredits();
+					return false;
+				}
 			}
 		}
 	}
+	mWasCollidedLastTick = 2;
 	return true;
 }
 

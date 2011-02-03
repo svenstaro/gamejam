@@ -135,6 +135,7 @@ protected:
 	boost::ptr_list<EntityAttachment> mAttachments;
 
 	boost::shared_ptr<sf::Sprite> mDrawable;
+	int mWasCollidedLastTick;
 
 	/*
 	boost::shared_ptr<btCollisionShape> mPlayerWeightCollisionShape;

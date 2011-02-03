@@ -226,20 +226,26 @@ rails
     {
         1
         {
-            x 117
-            y 262
+            x 123
+            y 132
         }
         2
         {
-            x 117
-            y 313
+            x 123
+            y 194
         }
         init true
         type 3
     }
 }
-
-messages {
-	0 "There are magnets you cannot move."
-	1 "But you can still invert them."
+messages
+{
+    0 "There are magnets you cannot move."
+    1 "But you can still invert them."
+}
+movers_available
+{
+    1 0
+    2 0
+    3 0
 }

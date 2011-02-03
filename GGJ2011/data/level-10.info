@@ -2,10 +2,10 @@ entities
 {
     box
     {
-        x 7.618878
-        y 3.980418
+        x 2.384502
+        y 7.371043
         img box
-        rot 1.450775
+        rot 5.42436
         a 1
         s 0.2611274
         l 5
@@ -16,6 +16,18 @@ entities
     {
         x 13.94248
         y 8.684004
+        img target
+        rot 6.28089
+        a 1
+        s 0.2611274
+        l 5
+        ll 0
+        phy true
+    }
+    target-empty
+    {
+        x 5.203125
+        y 8.453125
         img target
         rot 6.28089
         a 1
@@ -873,4 +885,10 @@ rails
         init false
         type 1
     }
+}
+movers_available
+{
+    1 1
+    2 0
+    3 3
 }

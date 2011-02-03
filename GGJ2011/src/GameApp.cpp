@@ -74,6 +74,8 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_spring_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "cursor_spring_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+
+	mResourceManager.AddImage(data / "gfx", "selector.png", 330*METERS_PER_PIXEL, 160*METERS_PER_PIXEL);
 	// -- add new images here
 
 	mResourceManager.AddImage(data / "gfx" / "maps", "level01.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
@@ -287,12 +289,13 @@ void GameApp::Run() {
                     mResourceManager.PlaySound("push");
                 } else {
 					mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
-                    mResourceManager.StopSounds();
                 } mCursor.SetRotation(mCursorRotation);
 			}
 		}
+		if(!mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+			mResourceManager.StopSound("push");
 
-		if (!IsEditorMode()) {
+		if (!IsEditorMode() && mWorld.GetCurrentLevel() != 0) {
 			Vector2D b1(1000,252);
 			Vector2D b2(1000,322);
 
@@ -418,4 +421,11 @@ void GameApp::ShowCredits() {
         mTimeSinceCreditsActive = 0.f;
     }
 
+}
+
+void GameApp::ToggleMute() {
+	if(mMusic.GetStatus() == sf::Music::Playing)
+		mMusic.Pause();
+	else
+		mMusic.Play();
 }

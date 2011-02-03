@@ -225,61 +225,57 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 
 	if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
 		//GUI
-		Vector2D b1(64,200);
-		Vector2D b2(64,300);
-		Vector2D b3(64,400);
+		Vector2D b1(WIDTH / 2 - 50, 42);
+		Vector2D b2(WIDTH / 2, 42);
+		Vector2D b3(WIDTH / 2 + 50, 42);
 
 		sf::Sprite s1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_off"));
 		sf::Sprite s2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("spring_off"));
 		sf::Sprite s3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("static_off"));
-		sf::Sprite ss1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
-		sf::Sprite ss2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
-		sf::Sprite ss3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("gui_blob"));
+
+		sf::Sprite sel(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("selector"));
+		sel.SetOrigin(330 / 2, 0);
+		sel.SetScale(0.5,0.6);
+		sel.SetPosition(WIDTH / 2, 10);
+		sel.SetColor(sf::Color(255,255,255,180));
+		target->Draw(sel);
 
 		s1.SetOrigin(32,32);
 		s2.SetOrigin(32,32);
 		s3.SetOrigin(32,32);
-		ss1.SetOrigin(32,32);
-		ss2.SetOrigin(32,32);
-		ss3.SetOrigin(32,32);
+
+		s1.SetScale(0.6, 0.6);
+		s2.SetScale(0.6, 0.6);
+		s3.SetScale(0.6, 0.6);
 
 		s1.SetPosition(b1.x, b1.y);
 		s2.SetPosition(b2.x, b2.y);
 		s3.SetPosition(b3.x, b3.y);
-		ss1.SetPosition(b1.x, b1.y);
-		ss2.SetPosition(b2.x, b2.y);
-		ss3.SetPosition(b3.x, b3.y);
 
-		s1.SetScale(0.8,0.8);
-		s2.SetScale(0.8,0.8);
-		s3.SetScale(0.8,0.8);
+		sf::Text t1(boost::lexical_cast<std::string>(MoversOfTypeLeft(MT_MAGNET)));
+		sf::Text t2(boost::lexical_cast<std::string>(MoversOfTypeLeft(MT_SPRING)));
+		sf::Text t3(boost::lexical_cast<std::string>(MoversOfTypeLeft(MT_STATIC)));
 
-		if(mSelectedMoverType == 1)
-			ss1.SetColor(sf::Color(100,100,255));
-		if(mSelectedMoverType == 2)
-			ss2.SetColor(sf::Color(100,100,255));
-		if(mSelectedMoverType == 3)
-			ss3.SetColor(sf::Color(100,100,255));
+		t1.SetCharacterSize(16);
+		t2.SetCharacterSize(16);
+		t3.SetCharacterSize(16);
 
-		sf::Text t1("1");
-		sf::Text t2("2");
-		sf::Text t3("3");
+		t1.SetColor(sf::Color(150,150,150));
+		t2.SetColor(sf::Color(150,150,150));
+		t3.SetColor(sf::Color(150,150,150));
 
-		t1.SetCharacterSize(40);
-		t2.SetCharacterSize(40);
-		t3.SetCharacterSize(40);
+		if(mSelectedMoverType == 1) t1.SetColor(sf::Color::White);
+		if(mSelectedMoverType == 2) t2.SetColor(sf::Color::White);
+		if(mSelectedMoverType == 3) t3.SetColor(sf::Color::White);
 
 		t1.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
 		t2.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
 		t3.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
 
-		t1.SetPosition(10, b1.y - t1.GetRect().Height / 2 - 5);
-		t2.SetPosition(10, b2.y - t2.GetRect().Height / 2 - 5);
-		t3.SetPosition(10, b3.y - t3.GetRect().Height / 2 - 5);
+		t1.SetPosition(b1.x - t1.GetRect().Width / 2, b1.y + 31);
+		t2.SetPosition(b2.x - t2.GetRect().Width / 2, b2.y + 31);
+		t3.SetPosition(b3.x - t3.GetRect().Width / 2, b3.y + 31);
 
-		target->Draw(ss1);
-		target->Draw(ss2);
-		target->Draw(ss3);
 		target->Draw(s1);
 		target->Draw(s2);
 		target->Draw(s3);
@@ -327,6 +323,9 @@ void World::HandleEvent(const sf::Event& event) {
 			app.SetAppMode(AM_EDITOR);
 		}
 		ToggleSetMouseAction(EMA_NONE); // stop grabbing etc.
+	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::M) {
+		GameApp& app = GameApp::get_mutable_instance();
+		app.ToggleMute();
 	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Escape && !mEditorRenameMode) {
 		// menu or quit or so
 		// no more autosave
@@ -630,8 +629,10 @@ void World::HandleEvent(const sf::Event& event) {
 			if(event.MouseButton.Button == sf::Mouse::Left) {
 				if(mClosestRail != NULL && mClosestRail->CanBeChanged()) {
 					mClosestRail->SetStartPoint(mClosestRailPoint);
-					mClosestRail->SetInitialState(true);
-					mClosestRail->GetMover().SetMoverType((MoverType)mSelectedMoverType);
+					if(MoversOfTypeLeft((MoverType)mSelectedMoverType) > 0) {
+						mClosestRail->SetInitialState(true);
+						mClosestRail->GetMover().SetMoverType((MoverType)mSelectedMoverType);
+					}
 					mClosestRail->Reinitialize(*this);
 				}
 			} else if(event.MouseButton.Button == sf::Mouse::Right) {
@@ -804,6 +805,9 @@ void World::Save() {
 		pt.put("messages."+boost::lexical_cast<std::string>(i), s);
 		++i;
 	}
+	for(auto iter = mMoversAvailable.begin(); iter != mMoversAvailable.end(); ++iter) {
+		pt.put("movers_available."+boost::lexical_cast<std::string>((int)iter->first), iter->second);
+	}
 	FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
 	fclose(file);
 	write_info(GetCurrentLevelFile(), pt);
@@ -823,6 +827,7 @@ void World::Load() {
 	mCollisionPolygons.clear();
 	mRails.clear();
 	mLevelMessages.clear();
+	mMoversAvailable.clear();
 
 	using boost::property_tree::ptree;
 	ptree pt;
@@ -853,6 +858,11 @@ void World::Load() {
 			}
 			mCurrentLevelMessage = 0;
 			mCurrentLevelTime = 0;
+			pt.put("movers_available", "");
+			BOOST_FOREACH(ptree::value_type &v, pt.get_child("movers_available")) {
+				MoverType m = (MoverType)(boost::lexical_cast<int>(v.first.data()));
+				mMoversAvailable[m] = boost::lexical_cast<int>(v.second.data());
+			}
 		}
 	} else {
 		FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
@@ -1052,4 +1062,14 @@ void World::LoadNextLevel(int level) {
 	else
 		GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
 
+}
+
+int World::MoversOfTypeLeft(MoverType type) {
+	int left = mMoversAvailable[type];
+	BOOST_FOREACH(Rail& r, mRails) {
+		if(r.GetMover().GetMoverType() == type && r.CanBeChanged() && r.IsMounted()) {
+			--left;
+		}
+	}
+	return left;
 }

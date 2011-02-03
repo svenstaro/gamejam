@@ -748,3 +748,9 @@ rails
         type 1
     }
 }
+movers_available
+{
+    1 3
+    2 1
+    3 0
+}

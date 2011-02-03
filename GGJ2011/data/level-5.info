@@ -364,8 +364,14 @@ rails
         type 2
     }
 }
-
-messages {
-	0 "Have fun with some springs."
-	1 "Good luck!"
+messages
+{
+    0 "Have fun with some springs."
+    1 "Good luck!"
+}
+movers_available
+{
+    1 1
+    2 2
+    3 0
 }

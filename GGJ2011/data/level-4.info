@@ -333,7 +333,7 @@ rails
             x 857
             y 556
         }
-        init false
+        init true
         type 1
     }
     6
@@ -355,35 +355,27 @@ rails
     {
         1
         {
-            x 190
-            y 549
+            x 195
+            y 552
         }
         2
         {
-            x 242
-            y 547
+            x 429
+            y 553
         }
         init true
-        type 2
-    }
-    8
-    {
-        1
-        {
-            x 255
-            y 547
-        }
-        2
-        {
-            x 356
-            y 545
-        }
-        init false
         type 1
     }
 }
-
-messages {
-	0 "Place some magnets yourself."
-	1 "You only have a limited amount, so choose wisely where to place them."
+messages
+{
+    0 "Place some magnets yourself."
+    1 "There are different types, which you can choose with <1> <2> and <3>."
+    2 "You only have a limited amount of each, so choose wisely where to place them."
+}
+movers_available
+{
+    1 1
+    2 1
+    3 0
 }

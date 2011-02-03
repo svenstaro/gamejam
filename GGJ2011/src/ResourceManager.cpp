@@ -165,6 +165,10 @@ void ResourceManager::PlaySound(std::string key) {
 	}
 }
 
+void ResourceManager::StopSound(std::string key) {
+	mSounds[key].Stop();
+}
+
 void ResourceManager::StopSounds() {
     BOOST_FOREACH(auto sound, mSounds) {
         sound->second->Stop();

@@ -122,9 +122,15 @@ messages
 {
     0 "As the most evil artificial intelligence ever being created"
     1 "your plan is to destroy this world with a giant bomb."
-    4 "Press play or hit <Return> to start."
-    5 "Then use the mouse to move the magnet on the rail above the TNT."
-	6 "The magnet will pull up the chest. Move it above the bomb."
-	6 "Hold down the left mouse button to inverse the magnet"
-	7 "and drop the TNT onto the bomb."
+    2 "Press play or hit <Return> to start."
+    3 "Then use the mouse to move the magnet on the rail above the TNT."
+    4 "The magnet will pull up the chest. Move it above the bomb."
+    5 "Hold down the left mouse button to inverse the magnet"
+    6 "and drop the TNT onto the bomb."
+}
+movers_available
+{
+    1 0
+    2 0
+    3 0
 }

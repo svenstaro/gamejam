@@ -14,10 +14,10 @@ entities
     }
     empty-credits
     {
-        x 4.136804
-        y 8.382442
+        x 4.136803
+        y 8.382446
         img empty
-        rot 6.281838
+        rot 6.281847
         a 1
         s 0.05760156
         l 1
@@ -27,9 +27,9 @@ entities
     empty-quit
     {
         x 11.93738
-        y 8.392956
+        y 8.392959
         img empty
-        rot 6.281837
+        rot 6.281828
         a 1
         s 0.05760156
         l 1
@@ -38,7 +38,7 @@ entities
     }
     empty-target
     {
-        x 7.969333
+        x 7.969332
         y 8.366937
         img empty
         rot 6.281837
@@ -50,10 +50,10 @@ entities
     }
     box
     {
-        x 8.073738
-        y 5.536006
+        x 8.109991
+        y 5.326505
         img box
-        rot 6.281838
+        rot 6.28294
         a 1
         s 0.2618889
         l 1
@@ -277,6 +277,12 @@ rails
             y 280
         }
         init true
-		type 1
+        type 1
     }
+}
+movers_available
+{
+    1 0
+    2 0
+    3 0
 }

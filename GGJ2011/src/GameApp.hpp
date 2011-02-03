@@ -56,6 +56,7 @@ public:
 	boost::shared_ptr<sf::RenderWindow> GetRenderWindowPtr();
 
     void ShowCredits();
+	void ToggleMute();
 private:
 	boost::shared_ptr<sf::RenderWindow> mRenderWin;
 	boost::shared_ptr<sf::View> mView;

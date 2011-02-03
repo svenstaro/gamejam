@@ -91,6 +91,8 @@ public:
 	const std::string GetCurrentLevelFile();
 	int GetCurrentLevel() const;
 	void LoadNextLevel(int level = -1);
+
+	int MoversOfTypeLeft(MoverType type);
 private:
 	boost::ptr_vector<Entity> mEntities;
 	boost::ptr_list<CollisionPolygon> mCollisionPolygons;
@@ -149,6 +151,7 @@ private:
 	std::vector<std::string> mLevelMessages;
 	unsigned int mCurrentLevelMessage;
 	float mCurrentLevelTime;
+	std::map<MoverType, int> mMoversAvailable;
 };
 
 #endif

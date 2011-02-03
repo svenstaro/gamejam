@@ -31,6 +31,7 @@ public:
     const sf::Font& GetFont(const std::string& key);
 
 	void PlaySound(std::string key);
+	void StopSound(std::string key);
     void StopSounds();
 private:
 	boost::ptr_map<std::string, sf::Image> mImages;
