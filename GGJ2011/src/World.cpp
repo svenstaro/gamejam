@@ -624,8 +624,13 @@ void World::HandleEvent(const sf::Event& event) {
 			if(event.MouseButton.Button == sf::Mouse::Left) {
 				if(mClosestRail != NULL && mClosestRail->CanBeChanged()) {
 					mClosestRail->SetStartPoint(mClosestRailPoint);
+					mClosestRail->SetInitialState(true);
 					mClosestRail->GetMover().SetMoverType((MoverType)mSelectedMoverType);
-					mClosestRail->ToggleInitialState();
+					mClosestRail->Reinitialize(*this);
+				}
+			} else if(event.MouseButton.Button == sf::Mouse::Right) {
+				if(mClosestRail != NULL && mClosestRail->CanBeChanged()) {
+					mClosestRail->SetInitialState(false);
 					mClosestRail->Reinitialize(*this);
 				}
 			}
@@ -635,9 +640,9 @@ void World::HandleEvent(const sf::Event& event) {
 	if(GameApp::get_mutable_instance().GetAppMode() != AM_EDITOR) {
 		if(event.Type == sf::Event::KeyPressed) {
 			if(event.Key.Code == sf::Key::Up) {
-				//LoadNextLevel();
+				LoadNextLevel();
 			} if(event.Key.Code == sf::Key::Down) {
-				//LoadNextLevel(mCurrentLevel - 1);
+				LoadNextLevel(mCurrentLevel - 1);
 			}
 		}
 	}

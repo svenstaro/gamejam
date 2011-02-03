@@ -222,4 +222,19 @@ rails
         init true
         type 1
     }
+    2
+    {
+        1
+        {
+            x 117
+            y 262
+        }
+        2
+        {
+            x 117
+            y 313
+        }
+        init true
+        type 3
+    }
 }

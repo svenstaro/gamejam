@@ -308,7 +308,11 @@ bool Rail::IsMounted() {
 }
 
 void Rail::SetStartPoint(Vector2D p) {
-	mStartPosition = (mPoint1.x - p.x) / (mPoint1.x - mPoint2.x);
+	assert(mPoint1.x != mPoint2.x || mPoint1.y != mPoint2.y);
+	if(mPoint1.x == mPoint2.x)
+		mStartPosition = (mPoint1.y - p.y) / (mPoint1.y - mPoint2.y);
+	else
+		mStartPosition = (mPoint1.x - p.x) / (mPoint1.x - mPoint2.x);
 }
 
 float Rail::GetAngleOfBox(Entity* box) {
