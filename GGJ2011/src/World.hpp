@@ -70,6 +70,7 @@ public:
 
 	void Save();
 	void Load();
+	void ResetLevel();
 
 	void SetSelectedEntity(Entity* e);
 	void SetRenameMode(bool mode);

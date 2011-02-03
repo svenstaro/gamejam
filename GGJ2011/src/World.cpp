@@ -300,17 +300,19 @@ void World::HandleEvent(const sf::Event& event) {
 
 		if( (b2-mp).Magnitude() < 32 ) {
 			// click on b2
-			if (GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE)
+			if (GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
 				// go
 				GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
-			else
+			} else {
 				// build
 				GameApp::get_mutable_instance().SetAppMode(AM_PUZZLE);
+				ResetLevel();
+			}
 			return;
 		} else if( (b1-mp).Magnitude() < 32 ) {
 			// clicked b2
 			// retry
-			LoadNextLevel(mCurrentLevel);
+			ResetLevel();
 			return;
 		}
 	}
@@ -869,6 +871,15 @@ void World::Load() {
 		fclose(file);
 	}
 	ReloadTriMeshBody();
+}
+
+void World::ResetLevel() {
+	BOOST_FOREACH(Rail& r, mRails) {
+		r.Reinitialize(*this);
+	}
+	BOOST_FOREACH(Entity& e, mEntities) {
+		e.Reset(*this);
+	}
 }
 
 void World::SetRenameMode(bool mode) {

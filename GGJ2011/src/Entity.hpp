@@ -53,6 +53,8 @@ public:
 	virtual void Initialize(World& world, boost::property_tree::ptree* pt, std::string uid);
 	virtual void InitializePhysics();
 
+	virtual void Reset(World& world);
+
 	virtual void Update(float time_delta);
 	void UpdateAllAttachments(float time_delta);
 
@@ -123,12 +125,14 @@ protected:
 	int mLocalLayer;
 
 	Vector2D mPosition;
-	Vector2D mSpeed;
 	float mRotation;
-	float mRotationSpeed;
 	float mScale;
 	float mAlpha;
 	bool mUsePhysics;
+
+	Vector2D mInitialPosition;
+	float mInitialRotation;
+	float mInitialScale;
 
 	int mHighlightMode;
 

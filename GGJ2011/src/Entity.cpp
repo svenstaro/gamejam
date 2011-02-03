@@ -5,7 +5,6 @@
 Entity::Entity() {
 	mAlpha = 1.f;
 	mRotation = 0.f;
-	mRotationSpeed = 0.f;
 	mScale = 1.f;
 	mUID = "";
 }
@@ -23,6 +22,10 @@ void Entity::Initialize(World& world, const std::string& imagefile, int layer, b
 
 	if (mUID=="")
 		GenerateUID();
+
+	mInitialPosition = mPosition;
+	mInitialRotation = mRotation;
+	mInitialScale = mScale;
 }
 
 void Entity::Initialize(World& world, boost::property_tree::ptree* pt, std::string uid) {
@@ -77,6 +80,17 @@ void Entity::InitializePhysics() {
 	mBody->setAngularFactor(btVector3(0,0,1));
 	//mBody->setAngularFactor(btVector3(0,0,1));
 	mBody->setUserPointer(this);
+}
+
+void Entity::Reset(World& world) {
+	world.GetDynamicsWorld()->removeRigidBody(mBody.get());
+
+	SetPosition(mInitialPosition);
+	SetScale(mInitialScale);
+	SetRotation(mInitialRotation);
+	bool p = mUsePhysics;
+	SetUsePhysics(world, false);
+	SetUsePhysics(world, p);
 }
 
 void Entity::Update(float time_delta) {
@@ -168,28 +182,12 @@ const Vector2D Entity::GetPosition() const {
 	return mPosition;
 }
 
-void Entity::SetSpeed(const Vector2D speed) {
-	mSpeed = speed;
-}
-
-const Vector2D Entity::GetSpeed() const {
-	return mSpeed;
-}
-
 void Entity::SetRotation(float rotation) {
 	mRotation = rotation;
 }
 
 float Entity::GetRotation() const {
 	return mRotation;
-}
-
-void Entity::SetRotationSpeed(float speed) {
-	mRotationSpeed = speed;
-}
-
-float Entity::GetRotationSpeed() const {
-	return mRotationSpeed;
 }
 
 void Entity::SetAlpha(float alpha) {
