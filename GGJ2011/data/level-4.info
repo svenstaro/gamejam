@@ -382,3 +382,8 @@ rails
         type 1
     }
 }
+
+messages {
+	0 "Place some magnets yourself."
+	1 "You only have a limited amount, so choose wisely where to place them."
+}

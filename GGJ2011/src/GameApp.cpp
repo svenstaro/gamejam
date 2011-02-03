@@ -312,6 +312,11 @@ void GameApp::Run() {
 			mRenderWin->Draw(s2);
 		}
 
+		BOOST_FOREACH(TextMessage& msg, mMessages) {
+			msg.Update(time_delta);
+			msg.Draw(mRenderWin.get());
+		}
+
 		mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
 		mRenderWin->Draw(mCursor);
 
@@ -341,6 +346,10 @@ void GameApp::Quit() {
 void GameApp::LoadWorld(const boost::filesystem::path& data_path) {
 	mWorld.Initialize(data_path);
 	mWorld.Load();
+}
+
+void GameApp::Msg(const std::string& msg) {
+	mMessages.push_back(new TextMessage(msg));
 }
 
 void GameApp::SetAppMode(AppMode mode) {

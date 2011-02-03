@@ -118,3 +118,11 @@ rails
         type 1
     }
 }
+messages {
+	0 "As the most evil artificial intelligence"
+	1 "ever being created your plan is to"
+	2 "destroy this world with a giant bomb."
+	3 ""
+	4 "Press play or hit <Return>."
+	5 "Then use the magnet on the rail to move the TNT."
+}

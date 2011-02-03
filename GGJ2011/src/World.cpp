@@ -778,7 +778,7 @@ void World::SetEditorLayer(int layer) {
 void World::Save() {
 	using boost::property_tree::ptree;
 	ptree pt;
-	std::cout << ":: Saving entities..." << std::endl;
+	std::cout << ":: Saving level" << std::endl;
 
 	BOOST_FOREACH(Entity& entity, mEntities) {
 		entity.Save(&pt);
@@ -799,7 +799,6 @@ void World::Save() {
 
 }
 void World::Load() {
-	std::cout << "::Clearing all entities..." << std::endl;
 	BOOST_FOREACH(Entity& entity, mEntities) {
 		if(entity.UsesPhysics()) {
 			mDynamicsWorld->removeRigidBody(entity.GetBody().get());
@@ -815,7 +814,8 @@ void World::Load() {
 
 	using boost::property_tree::ptree;
 	ptree pt;
-	std::cout << ":: Loading entities and collision polygons..." << std::endl;
+	std::cout << ":: Loading level" << std::endl;
+	GameApp::get_mutable_instance().Msg("Loading level");
 
 	if(boost::filesystem::exists(GetCurrentLevelFile())) {
 		if(!boost::filesystem::is_empty(GetCurrentLevelFile())) {

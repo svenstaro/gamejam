@@ -29,6 +29,7 @@ void Rail::Initialize(World& world) {
 		InitializePhysics();
 		world.GetDynamicsWorld()->addConstraint(mConstraint.get());
 		world.GetDynamicsWorld()->addRigidBody(mBody.get(), COL_MOVER, COL_BOX);
+		mBody->setGravity(btVector3(0,0,0));
 		mMounted = true;
 	}
 }

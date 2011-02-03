@@ -364,3 +364,8 @@ rails
         type 2
     }
 }
+
+messages {
+	0 "Have fun with some springs."
+	1 "Good luck!"
+}

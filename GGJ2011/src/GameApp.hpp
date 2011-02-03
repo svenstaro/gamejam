@@ -14,7 +14,7 @@
 #include "ResourceManager.hpp"
 #include "Entity.hpp"
 #include "World.hpp"
-
+#include "TextMessage.hpp"
 #include "AnimatedSprite.hpp"
 
 enum AppMode {
@@ -33,6 +33,8 @@ public:
 	void Quit();
 
 	void LoadWorld(const boost::filesystem::path& data_path);
+
+	void Msg(const std::string& msg);
 
 	void SetAppMode(AppMode mode);
 	bool IsEditorMode() const;
@@ -79,6 +81,8 @@ private:
 
     bool mCreditsActive;
     float mTimeSinceCreditsActive;
+
+	boost::ptr_vector<TextMessage> mMessages;
 };
 
 #endif

@@ -238,3 +238,8 @@ rails
         type 3
     }
 }
+
+messages {
+	0 "There are magnets you cannot move."
+	1 "But you can still invert them."
+}
