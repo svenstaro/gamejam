@@ -24,7 +24,7 @@ entities
         ll 0
         phy true
     }
-    target-empty
+    empty-target
     {
         x 5.203125
         y 8.453125
