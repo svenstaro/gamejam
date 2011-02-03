@@ -24,18 +24,6 @@ entities
         ll 0
         phy true
     }
-    empty-target
-    {
-        x 5.203125
-        y 8.453125
-        img target
-        rot 6.28089
-        a 1
-        s 0.2611274
-        l 5
-        ll 0
-        phy true
-    }
 }
 polygons
 {
