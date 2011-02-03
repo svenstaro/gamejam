@@ -108,6 +108,10 @@ void GameApp::Init() {
 	f.LoadFromFile((data / "Capture it.ttf").string());
 	mResourceManager.AddFont(f, "custom");
 
+	sf::Font f2;
+	f2.LoadFromFile((data / "org_01.ttf").string());
+	mResourceManager.AddFont(f2, "lcd");
+
 	SetSubtext("");
 
 	mMusic.OpenFromFile((data / "THA-defensemechanisms.ogg").string());
@@ -245,10 +249,10 @@ void GameApp::Run() {
 				mRenderWin->Draw(t);*/
 			} else if(mWorld.GetCurrentLevel() != 0){
 				boost::posix_time::time_duration td = boost::posix_time::seconds(mTotalTime);
-				sf::Text t(boost::lexical_cast<std::string>(td.minutes()) + ":" + leadingZeros(td.seconds(), 2) );
-				t.SetCharacterSize(50);
-				t.SetPosition(WIDTH - t.GetRect().Width - 20, 20);
-				t.SetFont(mResourceManager.GetFont("custom"));
+				sf::Text t(boost::lexical_cast<std::string>(td.minutes()) + ":" + leadingZeros(td.seconds(), 2) + ":" + boost::lexical_cast<std::string>(leadingZeros(int(mTotalTime*1000) % 1000 , 3)));
+				t.SetCharacterSize(24);
+				t.SetPosition(WIDTH - 140, 20);
+				t.SetFont(mResourceManager.GetFont("lcd"));
 				mRenderWin->Draw(t);
 			}
 
