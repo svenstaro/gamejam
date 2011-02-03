@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstdio>
+#include <queue>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -144,6 +145,10 @@ private:
 	bool mDrawDebugs;
 
 	int mSelectedMoverType;
+
+	std::vector<std::string> mLevelMessages;
+	unsigned int mCurrentLevelMessage;
+	float mCurrentLevelTime;
 };
 
 #endif

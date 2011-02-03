@@ -60,6 +60,7 @@ void World::Initialize(const boost::filesystem::path& data_path) {
 }
 
 void World::Update(const float time_delta) {
+	mCurrentLevelTime += time_delta;
 	// INPUT!
 	const sf::Input& in = GameApp::get_mutable_instance().GetInput();
 	sf::View& view = GameApp::get_mutable_instance().GetView();
@@ -154,6 +155,11 @@ void World::Update(const float time_delta) {
 	}
 
 	mEditorEnabledRenameThisFrame = false;
+
+	if(mCurrentLevelTime > mCurrentLevelMessage * 5 && mCurrentLevelMessage < mLevelMessages.size()) {
+		GameApp::get_mutable_instance().Msg(mLevelMessages[mCurrentLevelMessage]);
+		mCurrentLevelMessage++;
+	}
 }
 
 void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
@@ -793,6 +799,11 @@ void World::Save() {
 		rail.Save(&pt, i);
 		++i;
 	}
+	i = 0;
+	BOOST_FOREACH(std::string& s, mLevelMessages) {
+		pt.put("messages."+boost::lexical_cast<std::string>(i), s);
+		++i;
+	}
 	FILE* file = fopen(&GetCurrentLevelFile()[0],"w");
 	fclose(file);
 	write_info(GetCurrentLevelFile(), pt);
@@ -811,11 +822,10 @@ void World::Load() {
 	mEntities.clear();
 	mCollisionPolygons.clear();
 	mRails.clear();
+	mLevelMessages.clear();
 
 	using boost::property_tree::ptree;
 	ptree pt;
-	std::cout << ":: Loading level" << std::endl;
-	GameApp::get_mutable_instance().Msg("Loading level");
 
 	if(boost::filesystem::exists(GetCurrentLevelFile())) {
 		if(!boost::filesystem::is_empty(GetCurrentLevelFile())) {
@@ -837,6 +847,12 @@ void World::Load() {
 				mRails.back().Load(&pt, boost::lexical_cast<int>(v.first.data()));
 				mRails.back().Initialize(*this);
 			}
+			pt.put("messages", "");
+			BOOST_FOREACH(ptree::value_type &v, pt.get_child("messages")) {
+				mLevelMessages.push_back(v.second.data());
+			}
+			mCurrentLevelMessage = 0;
+			mCurrentLevelTime = 0;
 		}
 	} else {
 		FILE* file = fopen(&GetCurrentLevelFile()[0],"w");

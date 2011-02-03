@@ -20,14 +20,18 @@ void TextMessage::Update(float time_delta) {
 }
 
 void TextMessage::Draw(sf::RenderTarget* target) {
-	float total = 3;
+	float total = 5;
+	int margin = 10;
 	if(mLifeTime < total) {
 		sf::Text t(mText);
 		t.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
-		t.SetCharacterSize(30);
+		t.SetCharacterSize(20);
+		while(t.GetRect().Width > WIDTH - 2 * margin)
+			t.SetCharacterSize(t.GetCharacterSize() - 1);
+
 		t.SetPosition(WIDTH / 2 - t.GetRect().Width / 2,
-					  HEIGHT - t.GetRect().Height - 10 - 20 / total * mLifeTime);
-		t.SetColor(sf::Color(255,255,255,255 - 255 / total * mLifeTime));
+					  HEIGHT - t.GetRect().Height - margin - 70 / total * mLifeTime);
+		t.SetColor(sf::Color(255,255,255,255 * sin(mLifeTime / total * PI)));
 		target->Draw(t);
 	}
 }

@@ -250,4 +250,5 @@ messages {
 	1 "Bring more TNT to the bomb."
 	2 "Watch out! The magnetic force does not reach the ground."
 	3 "Do not drop the TNT or you loose it."
+	4 "You would have to click the 'Retry' button."
 }

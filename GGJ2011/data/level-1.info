@@ -118,11 +118,13 @@ rails
         type 1
     }
 }
-messages {
-	0 "As the most evil artificial intelligence"
-	1 "ever being created your plan is to"
-	2 "destroy this world with a giant bomb."
-	3 ""
-	4 "Press play or hit <Return>."
-	5 "Then use the magnet on the rail to move the TNT."
+messages
+{
+    0 "As the most evil artificial intelligence ever being created"
+    1 "your plan is to destroy this world with a giant bomb."
+    4 "Press play or hit <Return> to start."
+    5 "Then use the mouse to move the magnet on the rail above the TNT."
+	6 "The magnet will pull up the chest. Move it above the bomb."
+	6 "Hold down the left mouse button to inverse the magnet"
+	7 "and drop the TNT onto the bomb."
 }
