@@ -163,6 +163,7 @@ void World::Update(const float time_delta) {
 }
 
 void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
+	GameApp::get_mutable_instance().SetGuiPaintingMode(false);
 	// draw background
 	if(mCurrentLevel > 0) {
 		sf::Sprite back(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("level"+leadingZeros2(mCurrentLevel, 2)));
@@ -238,7 +239,6 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		sel.SetScale(0.5,0.6);
 		sel.SetPosition(WIDTH / 2, 10);
 		sel.SetColor(sf::Color(255,255,255,180));
-		target->Draw(sel);
 
 		s1.SetOrigin(32,32);
 		s2.SetOrigin(32,32);
@@ -276,6 +276,10 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		t2.SetPosition(b2.x - t2.GetRect().Width / 2, b2.y + 31);
 		t3.SetPosition(b3.x - t3.GetRect().Width / 2, b3.y + 31);
 
+		GameApp::get_mutable_instance().SetGuiPaintingMode(true);
+
+		target->Draw(sel);
+
 		target->Draw(s1);
 		target->Draw(s2);
 		target->Draw(s3);
@@ -295,8 +299,8 @@ void World::HandleEvent(const sf::Event& event) {
 	if(event.Type == sf::Event::MouseButtonPressed && event.MouseButton.Button == sf::Mouse::Left && !GameApp::get_mutable_instance().IsEditorMode()) {
 		Vector2D mp = GameApp::get_mutable_instance().GetMousePosition();
 
-		Vector2D b1(1000,252);
-		Vector2D b2(1000,322);
+		Vector2D b1(WIDTH - 1 * 70 - 10,42);
+		Vector2D b2(WIDTH - 2 * 70 - 10,42);
 
 		if( (b2-mp).Magnitude() < 32 ) {
 			// click on b2

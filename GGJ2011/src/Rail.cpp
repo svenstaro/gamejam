@@ -132,8 +132,9 @@ void Rail::Update(float time_delta) {
 							dir.normalize();
 							dir *= 4;
 						}
-
 						box->GetBody()->applyCentralImpulse(dir * 2);
+						GameApp::get_mutable_instance().GetResourceManagerPtr()->StopSound("spring");
+						GameApp::get_mutable_instance().GetResourceManagerPtr()->PlaySound("spring");
 					}
 				}
 			}

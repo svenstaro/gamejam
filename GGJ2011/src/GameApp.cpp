@@ -25,8 +25,11 @@ void GameApp::Init() {
 	mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
 	mRenderWin->EnableVerticalSync(true);
 
-	mView = boost::shared_ptr<sf::View>(new sf::View(sf::Vector2f(WIDTH / 2, HEIGHT / 2), sf::Vector2f(WIDTH, HEIGHT)));
-	mRenderWin->SetView(*mView.get());
+	mView = boost::shared_ptr<sf::View>(new sf::View());
+	mView->SetViewport(sf::FloatRect(0,(76.0/HEIGHT),1.0,1.0 - (76.0 / HEIGHT)));
+	mView->SetSize(WIDTH, 624);
+	mView->SetCenter(WIDTH / 2, 624 / 2);
+	//>mRenderWin->SetView(*mView.get());
 
 	// load shader
 	mRenderWin->SetActive(true);
@@ -94,6 +97,9 @@ void GameApp::Init() {
 	mResourceManager.AddImage(data / "gfx", "icon_retry.png", 1.f,1.f);
 	mResourceManager.AddImage(data / "gfx", "gui_blob.png", 1.f, 1.f);
 
+	mResourceManager.AddImage(data / "gfx", "clock_lower.png", 1.f, 1.f);
+	mResourceManager.AddImage(data / "gfx", "clock_upper.png", 1.f, 1.f);
+
 	mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "teamlogo.png", WIDTH*METERS_PER_PIXEL, HEIGHT*METERS_PER_PIXEL);
 	mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
@@ -103,6 +109,7 @@ void GameApp::Init() {
 
 	mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
 	mResourceManager.AddSoundBuffer(data / "snd", "push.ogg", "push");
+	mResourceManager.AddSoundBuffer(data / "snd", "spring.ogg", "spring");
 
 	sf::Font f;
 	f.LoadFromFile((data / "Capture it.ttf").string());
@@ -248,12 +255,30 @@ void GameApp::Run() {
 				t.SetFont(mResourceManager.GetFont("custom"));
 				mRenderWin->Draw(t);*/
 			} else if(mWorld.GetCurrentLevel() != 0){
+				sf::Sprite clock(mResourceManager.GetImage("clock_lower"));
+				clock.SetPosition(WIDTH / 2 - clock.GetImage()->GetWidth() / 2, 0);
+				mRenderWin->Draw(clock);
+
 				boost::posix_time::time_duration td = boost::posix_time::seconds(mTotalTime);
-				sf::Text t(boost::lexical_cast<std::string>(td.minutes()) + ":" + leadingZeros(td.seconds(), 2) + ":" + boost::lexical_cast<std::string>(leadingZeros(int(mTotalTime*1000) % 1000 , 3)));
-				t.SetCharacterSize(24);
-				t.SetPosition(WIDTH - 140, 20);
+				sf::Text t( boost::lexical_cast<std::string>(mWorld.GetCurrentLevel())
+							+ " " +
+							boost::lexical_cast<std::string>(td.minutes()) + ":" + leadingZeros(td.seconds(), 2));
+				t.SetCharacterSize(28);
 				t.SetFont(mResourceManager.GetFont("lcd"));
+				t.SetPosition(WIDTH / 2 - 70, 20);
+				t.SetColor(sf::Color(150,150,150));
 				mRenderWin->Draw(t);
+
+				t.SetString(boost::lexical_cast<std::string>(leadingZeros(int(mTotalTime*1000) % 1000 , 3)));
+				t.SetCharacterSize(16);
+				t.SetFont(mResourceManager.GetFont("lcd"));
+				t.SetPosition(WIDTH/2 + 43, 32);
+				t.SetColor(sf::Color(150,150,150));
+				mRenderWin->Draw(t);
+
+
+				clock.SetImage(mResourceManager.GetImage("clock_upper"));
+				mRenderWin->Draw(clock);
 			}
 
 		}
@@ -300,8 +325,8 @@ void GameApp::Run() {
 			mResourceManager.StopSound("push");
 
 		if (!IsEditorMode() && mWorld.GetCurrentLevel() != 0) {
-			Vector2D b1(1000,252);
-			Vector2D b2(1000,322);
+			Vector2D b1(WIDTH - 1 * 70 - 10,42);
+			Vector2D b2(WIDTH - 2 * 70 - 10,42);
 
 			sf::Sprite s1(mResourceManager.GetImage("icon_retry"));
 			sf::Sprite s2;

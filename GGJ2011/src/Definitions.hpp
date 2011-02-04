@@ -2,7 +2,7 @@
 #define DEFINITIONS_HPP
 
 #define WIDTH	1056
-#define HEIGHT	624
+#define HEIGHT	700
 
 #define PIXELS_PER_METER	64.0f
 #define METERS_PER_PIXEL	(1.0f/PIXELS_PER_METER)
