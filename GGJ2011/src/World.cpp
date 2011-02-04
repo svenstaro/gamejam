@@ -115,10 +115,8 @@ void World::Update(const float time_delta) {
 		if(r != NULL) {
 			Coordinates tmp;
 			tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
-			float d = r->ClosestPositionOnLine(tmp.GetWorldPixel());
-			if(d <= 20) {
-				mClosestRailPoint = r->GetPointFromFloat(d);
-			}
+			float d = r->ClosestPositionOnLine(tmp.GetWorldFloat());
+			mClosestRailPoint = r->GetPointFromFloat(d);
 		}
 		mClosestRail = r;
 
@@ -210,7 +208,8 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	}
 
 	if(mClosestRail != NULL) {
-		target->Draw(sf::Shape::Circle(mClosestRailPoint.x, mClosestRailPoint.y, 5, sf::Color(255,255,255,128)));
+		Vector2D p = Coordinates::WorldFloatToWorldPixel(mClosestRailPoint);
+		target->Draw(sf::Shape::Circle(p.x, p.y, 5, sf::Color(255,255,255,128)));
 	}
 
 	if(mEditorMouseAction == EMA_ROTATE && mEditorMouseActionEntity != NULL) {
@@ -296,6 +295,7 @@ void World::AddEntity(Entity* entity) {
 }
 
 void World::HandleEvent(const sf::Event& event) {
+	GameApp::get_mutable_instance().SetGuiPaintingMode(false);
 	if(event.Type == sf::Event::MouseButtonPressed && event.MouseButton.Button == sf::Mouse::Left && !GameApp::get_mutable_instance().IsEditorMode()) {
 		Vector2D mp = GameApp::get_mutable_instance().GetMousePosition();
 
@@ -548,7 +548,7 @@ void World::HandleEvent(const sf::Event& event) {
 					}
 					Coordinates tmp;
 					tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
-					mRails.back().SetNextPoint(tmp.GetWorldPixel());
+					mRails.back().SetNextPoint(tmp.GetWorldFloat());
 					mEditorRailFinished = mRails.back().IsFinished();
 					if(mEditorRailFinished) {
 						mRails.back().Initialize(*this);
@@ -965,7 +965,7 @@ Rail* World::GetClosestRail(bool all, btVector3 pos) {
 	Rail* closest = NULL;
 	Coordinates tmp;
 	tmp.SetWorldPixel(Vector2D(20,0));
-	float min_d = tmp.GetWorldPixel().x;
+	float min_d = tmp.GetWorldFloat().x;
 	if(all) min_d = 1000000000000;
 
 	if(all) {
@@ -979,8 +979,8 @@ Rail* World::GetClosestRail(bool all, btVector3 pos) {
 		if(all && abs(r.GetAngleOfBox(GetBoxEntity())) > Vector2D::deg2Rad(110))
 			continue;
 
-		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldPixel()));
-		float d = (pol - tmp.GetWorldPixel()).Magnitude();
+		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldFloat()));
+		float d = (pol - tmp.GetWorldFloat()).Magnitude();
 		if (d < min_d) {
 			closest = &r;
 			min_d = d;

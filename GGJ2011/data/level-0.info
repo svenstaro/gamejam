@@ -14,10 +14,10 @@ entities
     }
     empty-credits
     {
-        x 4.136803
-        y 8.382446
+        x 4.136804
+        y 8.382442
         img empty
-        rot 6.281847
+        rot 6.281833
         a 1
         s 0.05760156
         l 1
@@ -27,9 +27,9 @@ entities
     empty-quit
     {
         x 11.93738
-        y 8.392959
+        y 8.392957
         img empty
-        rot 6.281828
+        rot 6.281831
         a 1
         s 0.05760156
         l 1
@@ -38,7 +38,7 @@ entities
     }
     empty-target
     {
-        x 7.969332
+        x 7.969331
         y 8.366937
         img empty
         rot 6.281837
@@ -51,7 +51,7 @@ entities
     box
     {
         x 8.109991
-        y 5.326505
+        y 5.549532
         img box
         rot 6.28294
         a 1
@@ -268,13 +268,13 @@ rails
     {
         1
         {
-            x 874
-            y 280
+            x 13.65625
+            y 4.375
         }
         2
         {
-            x 150
-            y 280
+            x 2.34375
+            y 4.375
         }
         init true
         type 1

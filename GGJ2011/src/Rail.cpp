@@ -37,12 +37,9 @@ void Rail::Initialize(World& world) {
 void Rail::InitializePhysics() {
 	btTransform tr;
 	tr.setIdentity();
-	Coordinates tmp;
-	tmp.SetWorldPixel(GetPointFromFloat(mStartPosition));
-	Vector2D p = tmp.GetWorldFloat();
+	Vector2D p = GetPointFromFloat(mStartPosition);
 
-	tmp.SetWorldPixel(mPoint2-mPoint1);
-	Vector2D o = tmp.GetWorldFloat();
+	Vector2D o(mPoint2-mPoint1);
 	o.Normalize();
 	o.Rotate(-90);
 	o *= 0.34;
@@ -72,7 +69,7 @@ void Rail::InitializePhysics() {
 
 	mConstraint->setAngularLowerLimit(btVector3(0,0,0));
 	mConstraint->setAngularUpperLimit(btVector3(0,0,0));
-	float l = Coordinates::ScreenPixelToWorldFloat(mPoint2 - mPoint1).Magnitude();
+	float l = (mPoint2 - mPoint1).Magnitude();
 	mConstraint->setLinearLowerLimit(btVector3(-l*mStartPosition+0.3, 0,0));
 	mConstraint->setLinearUpperLimit(btVector3(l*(1-mStartPosition),0,0));
 
@@ -85,8 +82,8 @@ void Rail::InitializePhysics() {
 
 void Rail::Update(float time_delta) {
 	mTiledSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("rail"));
-	Vector2D diff = mPoint2 - mPoint1;
-	mTiledSprite.SetPosition(mPoint1.x, mPoint1.y);
+	Vector2D diff = Coordinates::WorldFloatToWorldPixel(mPoint2 - mPoint1);
+	mTiledSprite.SetPosition(Coordinates::WorldFloatToWorldPixel(mPoint1).x,Coordinates::WorldFloatToWorldPixel(mPoint1).y);
 	mTiledSprite.SetScale(diff.Magnitude(), 20);
 	mTiledSprite.SetRotation(- diff.Rotation() / PI * 180.f);
 
@@ -161,7 +158,8 @@ void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) 
 		target->Draw(s);
 	} else {
 		// draw p1
-		sf::Shape shape = sf::Shape::Circle(mPoint1.x, mPoint1.y, 3.f, sf::Color(255,255,255));
+		Vector2D p = Coordinates::WorldFloatToWorldPixel(mPoint1);
+		sf::Shape shape = sf::Shape::Circle(p.x, p.y, 3.f, sf::Color(255,255,255));
 		target->Draw(shape);
 	}
 
@@ -211,11 +209,11 @@ bool Rail::IsFinished() const {
 	return mLastPointSet >= 2;
 }
 
-float Rail::ClosestPositionOnLine(Vector2D pixel_pos) {
+float Rail::ClosestPositionOnLine(Vector2D float_pos) {
 	// don't ask me, ask him ;)
 	// http://www.codeguru.com/forum/showpost.php?p=538288&postcount=2
-	double cx = pixel_pos.x;
-	double cy = pixel_pos.y;
+	double cx = float_pos.x;
+	double cy = float_pos.y;
 	double ax = mPoint1.x;
 	double ay = mPoint1.y;
 	double bx = mPoint2.x;
