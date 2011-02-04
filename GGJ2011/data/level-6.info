@@ -1,5 +1,17 @@
 entities
 {
+    evil01
+    {
+        x 8.96875
+        y 7.984375
+        img evil1
+        rot 6.283185
+        a 1
+        s 1.480817
+        l 1
+        ll 103
+        phy true
+    }
     target
     {
         x 12.50193

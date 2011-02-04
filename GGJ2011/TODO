@@ -1,15 +1,17 @@
 == TODO ==
 - Highscore
-- Spielende
 - Bessere Story
-- Partikelsysteme
-- Bad Entities
-- Level transitions
 - Better Credits
-- Options
-  > Sound
-  > Music
+  * Sound
+  * Music
 - Hardcore mode (no hard collisions of TNT box allowed)
+
+== TODO after rewrite with engine ==
+- Level transitions
+- Partikelsysteme
+- Options
+- Spielende (Kawumm)
 
 == DONE ==
 - Begrenzung der Anzahl der platzierbaren Movers
+- Bad Entities

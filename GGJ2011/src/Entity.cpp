@@ -62,8 +62,11 @@ void Entity::InitializePhysics() {
 
 	if(mUID.substr(0,5) == "empty") {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(15*mScale, 1*mScale, 1)));
-	}
-	else {
+	} else if(mImageFile == "evil1") {
+		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(0.5*mScale, 0.22*mScale, 1)));
+	} else if(mImageFile == "evil2") {
+		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(0.5*mScale, 0.05*mScale, 1)));
+	} else {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.2*mScale, 1.2*mScale, 1)));
 	}
 
@@ -304,9 +307,11 @@ bool Entity::OnCollide(GameObject* other) {
 					return false;
 				} else if(uid == "empty-quit") {
 					exit(0);
-				}  else if(uid == "empty-credits") {
+				} else if(uid == "empty-credits") {
 					GameApp::get_mutable_instance().ShowCredits();
 					return false;
+				} else if(uid.substr(0,4) == "evil") {
+					GameApp::get_mutable_instance().GetWorldPtr()->ResetLevel();
 				}
 			}
 		}
