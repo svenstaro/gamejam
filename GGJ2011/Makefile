@@ -18,3 +18,4 @@ win32:
 
 clean:
 	rm -r build
+	rm -r build-win32
