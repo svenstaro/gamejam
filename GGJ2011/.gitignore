@@ -3,5 +3,5 @@ build/
 build-win32/
 screenshots/
 data/gfx/cached/
-bin/ai-and-the-bomb
+bin/
 *.psd
