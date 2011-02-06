@@ -115,10 +115,8 @@ void World::Update(const float time_delta) {
 		if(r != NULL) {
 			Coordinates tmp;
 			tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
-			float d = r->ClosestPositionOnLine(tmp.GetWorldPixel());
-			if(d <= 20) {
-				mClosestRailPoint = r->GetPointFromFloat(d);
-			}
+			float d = r->ClosestPositionOnLine(tmp.GetWorldFloat());
+			mClosestRailPoint = r->GetPointFromFloat(d);
 		}
 		mClosestRail = r;
 
@@ -163,6 +161,7 @@ void World::Update(const float time_delta) {
 }
 
 void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
+	GameApp::get_mutable_instance().SetGuiPaintingMode(false);
 	// draw background
 	if(mCurrentLevel > 0) {
 		sf::Sprite back(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("level"+leadingZeros2(mCurrentLevel, 2)));
@@ -209,7 +208,8 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	}
 
 	if(mClosestRail != NULL) {
-		target->Draw(sf::Shape::Circle(mClosestRailPoint.x, mClosestRailPoint.y, 5, sf::Color(255,255,255,128)));
+		Vector2D p = Coordinates::WorldFloatToWorldPixel(mClosestRailPoint);
+		target->Draw(sf::Shape::Circle(p.x, p.y, 5, sf::Color(255,255,255,128)));
 	}
 
 	if(mEditorMouseAction == EMA_ROTATE && mEditorMouseActionEntity != NULL) {
@@ -238,7 +238,6 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		sel.SetScale(0.5,0.6);
 		sel.SetPosition(WIDTH / 2, 10);
 		sel.SetColor(sf::Color(255,255,255,180));
-		target->Draw(sel);
 
 		s1.SetOrigin(32,32);
 		s2.SetOrigin(32,32);
@@ -276,6 +275,10 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		t2.SetPosition(b2.x - t2.GetRect().Width / 2, b2.y + 31);
 		t3.SetPosition(b3.x - t3.GetRect().Width / 2, b3.y + 31);
 
+		GameApp::get_mutable_instance().SetGuiPaintingMode(true);
+
+		target->Draw(sel);
+
 		target->Draw(s1);
 		target->Draw(s2);
 		target->Draw(s3);
@@ -292,11 +295,12 @@ void World::AddEntity(Entity* entity) {
 }
 
 void World::HandleEvent(const sf::Event& event) {
+	GameApp::get_mutable_instance().SetGuiPaintingMode(false);
 	if(event.Type == sf::Event::MouseButtonPressed && event.MouseButton.Button == sf::Mouse::Left && !GameApp::get_mutable_instance().IsEditorMode()) {
 		Vector2D mp = GameApp::get_mutable_instance().GetMousePosition();
 
-		Vector2D b1(1000,252);
-		Vector2D b2(1000,322);
+		Vector2D b1(WIDTH - 1 * 70 - 10,42);
+		Vector2D b2(WIDTH - 2 * 70 - 10,42);
 
 		if( (b2-mp).Magnitude() < 32 ) {
 			// click on b2
@@ -544,7 +548,7 @@ void World::HandleEvent(const sf::Event& event) {
 					}
 					Coordinates tmp;
 					tmp.SetScreenPixel(GameApp::get_mutable_instance().GetMousePosition());
-					mRails.back().SetNextPoint(tmp.GetWorldPixel());
+					mRails.back().SetNextPoint(tmp.GetWorldFloat());
 					mEditorRailFinished = mRails.back().IsFinished();
 					if(mEditorRailFinished) {
 						mRails.back().Initialize(*this);
@@ -961,7 +965,7 @@ Rail* World::GetClosestRail(bool all, btVector3 pos) {
 	Rail* closest = NULL;
 	Coordinates tmp;
 	tmp.SetWorldPixel(Vector2D(20,0));
-	float min_d = tmp.GetWorldPixel().x;
+	float min_d = tmp.GetWorldFloat().x;
 	if(all) min_d = 1000000000000;
 
 	if(all) {
@@ -975,8 +979,8 @@ Rail* World::GetClosestRail(bool all, btVector3 pos) {
 		if(all && abs(r.GetAngleOfBox(GetBoxEntity())) > Vector2D::deg2Rad(110))
 			continue;
 
-		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldPixel()));
-		float d = (pol - tmp.GetWorldPixel()).Magnitude();
+		Vector2D pol = r.GetPointFromFloat(r.ClosestPositionOnLine(tmp.GetWorldFloat()));
+		float d = (pol - tmp.GetWorldFloat()).Magnitude();
 		if (d < min_d) {
 			closest = &r;
 			min_d = d;

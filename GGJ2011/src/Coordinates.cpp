@@ -18,7 +18,7 @@ void Coordinates::SetViewPixel(const Vector2D coords) {
 }
 void Coordinates::SetScreenPixel(const Vector2D coords) {
 	sf::View& view = GameApp::get_mutable_instance().GetView();
-	SetViewPixel(coords - Vector2D(view.GetViewport().Left, view.GetViewport().Top)); // coords - ViewPORT Offset
+	SetViewPixel(coords - Vector2D(view.GetViewport().Left * GameApp::get_mutable_instance().GetWindowSize().x, view.GetViewport().Top * GameApp::get_mutable_instance().GetWindowSize().y)); // coords - ViewPORT Offset
 }
 void Coordinates::SetScreenFloat(const Vector2D coords) {
 	SetScreenPixel(Vector2D(coords.x * GameApp::get_mutable_instance().GetWindowSize().x, coords.y * GameApp::get_mutable_instance().GetWindowSize().y));
@@ -38,7 +38,8 @@ const Vector2D Coordinates::GetViewPixel() const {
 }
 const Vector2D Coordinates::GetScreenPixel() const {
 	sf::View& view = GameApp::get_mutable_instance().GetView();
-	return GetViewPixel() + Vector2D(view.GetViewport().Left, view.GetViewport().Top); // ViewPixel + ViewPORT Offset
+	return GetViewPixel() + Vector2D(view.GetViewport().Left * GameApp::get_mutable_instance().GetWindowSize().x,
+									 view.GetViewport().Top  * GameApp::get_mutable_instance().GetWindowSize().y); // ViewPixel + ViewPORT Offset
 }
 const Vector2D Coordinates::GetScreenFloat() const {
 	return Vector2D(GetScreenPixel().x / GameApp::get_mutable_instance().GetWindowSize().x, GetScreenPixel().y / GameApp::get_mutable_instance().GetWindowSize().y);
