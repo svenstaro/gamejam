@@ -302,7 +302,7 @@ bool Entity::OnCollide(GameObject* other) {
 			if(other != NULL && other->ToString() == "entity") {
 				std::string uid = ((Entity*)other)->GetUID();
 				if(uid == "target" || uid == "empty-target") {
-					std::cout << "Level complete!" << std::endl;
+					//std::cout << "Level complete!" << std::endl;
 					GameApp::get_mutable_instance().GetWorldPtr()->LoadNextLevel();
 					return false;
 				} else if(uid == "empty-quit") {
