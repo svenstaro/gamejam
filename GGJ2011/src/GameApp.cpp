@@ -112,7 +112,7 @@ void GameApp::Init() {
 	mResourceManager.AddSoundBuffer(data / "snd", "spring.ogg", "spring");
 
 	sf::Font f;
-	f.LoadFromFile((data / "Capture it.ttf").string());
+	f.LoadFromFile((data / "capture-it.ttf").string());
 	mResourceManager.AddFont(f, "custom");
 
 	sf::Font f2;

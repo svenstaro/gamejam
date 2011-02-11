@@ -4,7 +4,7 @@ bake:
 	mkdir -p build 
 	cd build; cmake ..; make -j3
 
-go: build bake run
+go: bake run
 
 run:
 	cd bin; ./ai-and-the-bomb
