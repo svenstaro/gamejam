@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+    <Product Name='AI And The Bomb' Id='*' UpgradeCode='F6DB7CD5-7888-4AE1-B252-379095E26407' Language='1033' Version='1.0.0' Manufacturer='Pseudozero Productions'>
+        <Package Id='*' Keywords='Installer' Description='AI And The Bomb Installer'
+            Comments='Copyright 2011 @ Pseudozero Productions' Manufacturer='Pseudozero Productions'
+            InstallerVersion='100' Languages='1033' Compressed='yes' />
+
+        <!--
+        <Property Id='WIXUI_INSTALLDIR' Value='INSTALLDIR' />
+        <UIRef Id='WixUI_InstallDir' />
+        -->
+
+        <Media Id='1' Cabinet='ai_and_the_bomb.cab' EmbedCab='yes' CompressionLevel='mszip' />
+
+        <Directory Id='TARGETDIR' Name='SourceDir'>
+            <Directory Id='ProgramMenuFolder'>
+                <Directory Id='ApplicationProgramsFolder' Name='AI And The Bomb' />
+            </Directory>
+            <Directory Id='DesktopFolder' />
+
+            <Directory Id='ProgramFilesFolder' Name='PFiles'>
+                <Directory Id='INSTALLDIR' Name='AI And The Bomb'>
+                    <Component Id='Info' Guid='FB7D2100-56C2-4D63-A131-20E01E39E90F'>
+                        <File Id='readme' Name='readme.txt' DiskId='1' Source='README' />
+                        <File Id='authors' Name='authors.txt' DiskId='1' Source='AUTHORS' />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <DirectoryRef Id='ApplicationProgramsFolder'>
+            <Component Id='ShortcutStartMenu' Guid='*'>
+                <Shortcut Id='ShortcutStartMenuShortcut' Name='AI And The Bomb' WorkingDirectory='INSTALLDIR' Target='[INSTALLDIR]\bin\ai-and-the-bomb.exe' Description='Physics puzzle' Icon='ShortcutStartMenuIcon'>
+                   <Icon Id='ShortcutStartMenuIcon' SourceFile='data\icon.ico' />
+                </Shortcut>
+                <RemoveFolder Id='ApplicationProgramsFolder' On='uninstall' />
+                <RegistryValue Root="HKCU" Key="Software\AIAndTheBomb" Name="ShortcutStartMenu" Type="integer" Value="1" KeyPath="yes"/>
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id='DesktopFolder'>
+            <Component Id='ShortcutDesktop' Guid='*'>
+                <Shortcut Id='ShortcutDesktopShortcut' Name='AI And The Bomb' WorkingDirectory='INSTALLDIR' Target='[INSTALLDIR]\bin\ai-and-the-bomb.exe' Description='Physics puzzle' Icon='ShortcutDesktopIcon'>
+                    <Icon Id='ShortcutDesktopIcon' SourceFile='data\icon.ico' />
+                </Shortcut>
+                <RegistryValue Root="HKCU" Key="Software\AIAndTheBomb" Name="DesktopStartMenu" Type="integer" Value="1" KeyPath="yes"/>
+            </Component>
+        </DirectoryRef>
+
+        <Icon Id="icon.ico" SourceFile="data\icon.ico"/>
+        <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+        <Feature Id='MainGame' Title='Main Game' Level='1'>
+            <ComponentRef Id='ShortcutStartMenu' />
+            <ComponentRef Id='ShortcutDesktop' />
+            <ComponentRef Id='Info' />
+            <ComponentGroupRef Id='GameBinFiles' />
+            <ComponentGroupRef Id='GameDataFiles' />
+        </Feature>
+
+    </Product>
+</Wix>
