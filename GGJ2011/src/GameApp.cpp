@@ -24,15 +24,11 @@ void GameApp::Init(char* argv[]) {
 	mRenderWin = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow);
 	if(mFullscreen) {
         // Fake fullscreen
-        //mRenderWin->Create(
-        //    sf::VideoMode(sf::VideoMode::GetDesktopMode().Width, sf::VideoMode::GetDesktopMode().Height, 32), 
-        //    "AI and the bomb", sf::Style::None, sf::ContextSettings(24, 8, 4));
+        mRenderWin->Create(sf::VideoMode::GetDesktopMode(), "AI and the bomb", sf::Style::None, sf::ContextSettings(24, 8, 4));
 
         // Real fullscreen
-        mRenderWin->Create(
-                sf::VideoMode(sf::VideoMode::GetDesktopMode().Width, sf::VideoMode::GetDesktopMode().Height, 32), 
-                "AI and the bomb", sf::Style::Fullscreen, sf::ContextSettings(24, 8, 4));
-	    mRenderWin->SetPosition(0,0);
+        //mRenderWin->Create(sf::VideoMode::GetDesktopMode(), "AI and the bomb", sf::Style::Fullscreen, sf::ContextSettings(24, 8, 4));
+	    //mRenderWin->SetPosition(0,0);
     }
     else {
         mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb", sf::Style::Default, sf::ContextSettings(24, 8, 4));
@@ -132,9 +128,9 @@ void GameApp::Init(char* argv[]) {
 	mResourceManager.AddSoundBuffer(data / "snd", "push.ogg", "push");
 	mResourceManager.AddSoundBuffer(data / "snd", "spring.ogg", "spring");
 
-	sf::Font f;
-	f.LoadFromFile((data / "capture-it.ttf").string());
-	mResourceManager.AddFont(f, "custom");
+	sf::Font f1;
+	f1.LoadFromFile((data / "capture-it.ttf").string());
+	mResourceManager.AddFont(f1, "custom");
 
 	sf::Font f2;
 	f2.LoadFromFile((data / "org_01.ttf").string());
@@ -396,6 +392,15 @@ void GameApp::Run() {
             }
         }
 
+        sf::Font font;
+        sf::Text text;
+        text.SetString("x: "+boost::lexical_cast<std::string>(GetMousePosition().x)+" y: "+boost::lexical_cast<std::string>(GetMousePosition().y));
+        text.SetFont(mResourceManager.GetFont("lcd"));
+        text.SetCharacterSize(20);
+        text.SetColor(sf::Color::Red);
+		text.SetPosition(20, 20);
+        mRenderWin->Draw(text);
+
 		mRenderWin->Display();
 	}
 }
@@ -497,9 +502,7 @@ void GameApp::ToggleFullscreen() {
     mFullscreen = !mFullscreen;
 
 	if(mFullscreen) {
-        mRenderWin->Create(
-                sf::VideoMode(sf::VideoMode::GetDesktopMode().Width, sf::VideoMode::GetDesktopMode().Height, 32), 
-                "AI and the bomb", sf::Style::Fullscreen, sf::ContextSettings(24, 8, 4));
+        mRenderWin->Create(sf::VideoMode::GetDesktopMode(), "AI and the bomb", sf::Style::Fullscreen, sf::ContextSettings(24, 8, 4));
 	    mRenderWin->SetPosition(0,0);
     }
     else {
