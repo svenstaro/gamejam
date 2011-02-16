@@ -5,8 +5,8 @@
             Comments='Copyright 2011 @ Pseudozero Productions' Manufacturer='Pseudozero Productions'
             InstallerVersion='100' Languages='1033' Compressed='yes' />
 
-        <Property Id='WIXUI_INSTALLDIR' Value='INSTALLDIR' />
-        <UIRef Id='WixUI_FeatureTree' />
+        <!--<Property Id='WIXUI_INSTALLDIR' Value='INSTALLDIR' />
+        <UIRef Id='WixUI_FeatureTree' />-->
 
         <Media Id='1' Cabinet='ai_and_the_bomb.cab' EmbedCab='yes' CompressionLevel='mszip' />
 

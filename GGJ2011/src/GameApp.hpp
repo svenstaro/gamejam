@@ -28,7 +28,7 @@ public:
 	GameApp();
 	~GameApp();
 
-	void Init();
+	void Init(char* argv[]);
 	void Run();
 	void Quit();
 

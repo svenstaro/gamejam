@@ -19,7 +19,7 @@ GameApp::GameApp() {
 
 GameApp::~GameApp() {}
 
-void GameApp::Init() {
+void GameApp::Init(char* argv[]) {
 	mRenderWin = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow);
 	mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb", sf::Style::Default, sf::ContextSettings(24, 8, 4));
 	mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
@@ -41,12 +41,14 @@ void GameApp::Init() {
 
     // figure out resource path
     boost::filesystem::path data;
-    if(boost::filesystem::is_directory("data/")) {
-        data = "data/";
-    } else if(boost::filesystem::is_directory("../data/")) {
-        data = "../data/";
-    } else if(boost::filesystem::is_directory("../../data/")) {
-        data = "../../data/";
+    boost::filesystem::path base_dir(argv[0]);
+    base_dir.remove_filename();
+    if(boost::filesystem::is_directory(base_dir / "data/")) {
+        data = base_dir / "data/";
+    } else if(boost::filesystem::is_directory(base_dir / "../data/")) {
+        data = base_dir / "../data/";
+    } else if(boost::filesystem::is_directory(base_dir / "../../data/")) {
+        data = base_dir / "../../data/";
     } else {
 		std::cerr << "Didn't find any valid data path." << std::endl;
 		exit(1);
