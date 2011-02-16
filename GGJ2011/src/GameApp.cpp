@@ -15,21 +15,40 @@ GameApp::GameApp() {
 	mDebugGrid = false;
 	mAppMode = AM_PLAY;
 	mCursorRotation = 0;
+    mFullscreen = true;
 }
 
 GameApp::~GameApp() {}
 
 void GameApp::Init(char* argv[]) {
 	mRenderWin = boost::shared_ptr<sf::RenderWindow>(new sf::RenderWindow);
-	mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb", sf::Style::Default, sf::ContextSettings(24, 8, 4));
-	mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
+	if(mFullscreen) {
+        // Fake fullscreen
+        //mRenderWin->Create(
+        //    sf::VideoMode(sf::VideoMode::GetDesktopMode().Width, sf::VideoMode::GetDesktopMode().Height, 32), 
+        //    "AI and the bomb", sf::Style::None, sf::ContextSettings(24, 8, 4));
+
+        // Real fullscreen
+        mRenderWin->Create(
+                sf::VideoMode(sf::VideoMode::GetDesktopMode().Width, sf::VideoMode::GetDesktopMode().Height, 32), 
+                "AI and the bomb", sf::Style::Fullscreen, sf::ContextSettings(24, 8, 4));
+	    mRenderWin->SetPosition(0,0);
+    }
+    else {
+        mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb", sf::Style::Default, sf::ContextSettings(24, 8, 4));
+        mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
+    }
 	mRenderWin->EnableVerticalSync(true);
 
-	mView = boost::shared_ptr<sf::View>(new sf::View());
-	mView->SetViewport(sf::FloatRect(0,(76.0/HEIGHT),1.0,1.0 - (76.0 / HEIGHT)));
-	mView->SetSize(WIDTH, 624);
-	mView->SetCenter(WIDTH / 2, 624 / 2);
-	//>mRenderWin->SetView(*mView.get());
+    mView = boost::shared_ptr<sf::View>(new sf::View());
+    if(mFullscreen) {
+        // TODO: black borders
+        mView->SetViewport(sf::FloatRect(0,(76.0/HEIGHT),1.0,1.0 - (76.0 / HEIGHT)));
+    } else {
+        mView->SetViewport(sf::FloatRect(0,(76.0/HEIGHT),1.0,1.0 - (76.0 / HEIGHT)));
+    }
+    mView->SetSize(WIDTH, 624);
+    mView->SetCenter(WIDTH / 2, 624 / 2);
 
 	// load shader
 	mRenderWin->SetActive(true);
@@ -155,6 +174,14 @@ void GameApp::Run() {
 				Quit();
 			if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Comma) {
 				mDebugGrid = !mDebugGrid;
+            }
+            if(event.Type == sf::Event::KeyPressed) {
+                if(event.Key.Code == sf::Key::F && mAppMode != AM_EDITOR) {
+                    ToggleFullscreen();
+                }
+                if(event.Key.Code == sf::Key::Return && event.Key.Alt) {
+                    ToggleFullscreen();
+                }
 			}
 			mWorld.HandleEvent(event);
 		}
@@ -351,7 +378,7 @@ void GameApp::Run() {
 			msg.Draw(mRenderWin.get());
 		}
 
-		mCursor.SetPosition(mRenderWin->GetInput().GetMouseX(),mRenderWin->GetInput().GetMouseY());
+		mCursor.SetPosition(GetMousePosition().x, GetMousePosition().y);
 		mRenderWin->Draw(mCursor);
 
 
@@ -415,7 +442,12 @@ const sf::Input& GameApp::GetInput() const {
 }
 
 Vector2D GameApp::GetMousePosition() const {
-	return Vector2D(GetInput().GetMouseX(), GetInput().GetMouseY());
+    if(mFullscreen)
+    	return Vector2D(1.0 * GetInput().GetMouseX(), 1.0 * GetInput().GetMouseY());
+    else
+    	return Vector2D(
+            1.0 * GetInput().GetMouseX() / mRenderWin->GetWidth() * WIDTH, 
+            1.0 * GetInput().GetMouseY() / mRenderWin->GetHeight() * HEIGHT);
 }
 
 const Vector2D GameApp::GetWindowSize() const {
@@ -459,4 +491,21 @@ void GameApp::ToggleMute() {
 		mMusic.Pause();
 	else
 		mMusic.Play();
+}
+    
+void GameApp::ToggleFullscreen() {
+    mFullscreen = !mFullscreen;
+
+	if(mFullscreen) {
+        mRenderWin->Create(
+                sf::VideoMode(sf::VideoMode::GetDesktopMode().Width, sf::VideoMode::GetDesktopMode().Height, 32), 
+                "AI and the bomb", sf::Style::Fullscreen, sf::ContextSettings(24, 8, 4));
+	    mRenderWin->SetPosition(0,0);
+    }
+    else {
+        mRenderWin->Create(sf::VideoMode(WIDTH, HEIGHT, 32), "AI and the bomb", sf::Style::Default, sf::ContextSettings(24, 8, 4));
+        mRenderWin->SetPosition(sf::VideoMode::GetDesktopMode().Width / 2 - WIDTH / 2,sf::VideoMode::GetDesktopMode().Height / 2 - HEIGHT / 2);
+    }
+	mRenderWin->EnableVerticalSync(true);
+	mRenderWin->ShowMouseCursor(false);
 }

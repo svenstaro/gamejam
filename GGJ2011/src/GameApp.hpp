@@ -57,6 +57,7 @@ public:
 
     void ShowCredits();
 	void ToggleMute();
+    void ToggleFullscreen();
 private:
 	boost::shared_ptr<sf::RenderWindow> mRenderWin;
 	boost::shared_ptr<sf::View> mView;
@@ -84,6 +85,8 @@ private:
     float mTimeSinceCreditsActive;
 
 	boost::ptr_vector<TextMessage> mMessages;
+
+    bool mFullscreen;
 };
 
 #endif
