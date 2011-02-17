@@ -26,11 +26,11 @@ void TextMessage::Draw(sf::RenderTarget* target) {
 		sf::Text t(mText);
 		t.SetFont(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetFont("custom"));
 		t.SetCharacterSize(20);
-		while(t.GetRect().Width > WIDTH - 2 * margin)
+		while(t.GetRect().Width > target->GetWidth() - 2 * margin)
 			t.SetCharacterSize(t.GetCharacterSize() - 1);
 
-		t.SetPosition(WIDTH / 2 - t.GetRect().Width / 2,
-					  HEIGHT - t.GetRect().Height - margin - 70 / total * mLifeTime);
+		t.SetPosition(target->GetWidth() / 2 - t.GetRect().Width / 2,
+					  target->GetHeight() - t.GetRect().Height - margin - 70 / total * mLifeTime);
 		t.SetColor(sf::Color(255,255,255,255 * sin(mLifeTime / total * PI)));
 		target->Draw(t);
 	}

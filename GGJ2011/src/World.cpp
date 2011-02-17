@@ -225,9 +225,9 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 
 	if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
 		//GUI
-		Vector2D b1(WIDTH / 2 - 50, 42);
-		Vector2D b2(WIDTH / 2, 42);
-		Vector2D b3(WIDTH / 2 + 50, 42);
+		Vector2D b1(target->GetWidth() / 2 - 50, 42);
+		Vector2D b2(target->GetWidth() / 2, 42);
+		Vector2D b3(target->GetWidth() / 2 + 50, 42);
 
 		sf::Sprite s1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_off"));
 		sf::Sprite s2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("spring_off"));
@@ -236,7 +236,7 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		sf::Sprite sel(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("selector"));
 		sel.SetOrigin(330 / 2, 0);
 		sel.SetScale(0.5,0.6);
-		sel.SetPosition(WIDTH / 2, 10);
+		sel.SetPosition(target->GetWidth() / 2, 10);
 		sel.SetColor(sf::Color(255,255,255,180));
 
 		s1.SetOrigin(32,32);
@@ -299,10 +299,11 @@ void World::HandleEvent(const sf::Event& event) {
 	if(event.Type == sf::Event::MouseButtonPressed && event.MouseButton.Button == sf::Mouse::Left && !GameApp::get_mutable_instance().IsEditorMode()) {
 		Vector2D mp = GameApp::get_mutable_instance().GetMousePosition();
 
-		Vector2D b1(WIDTH - 1 * 70 - 10,42);
-		Vector2D b2(WIDTH - 2 * 70 - 10,42);
+        auto target = GameApp::get_mutable_instance().GetRenderWindowPtr();
+		Vector2D b1(target->GetWidth() - 1 * 70 - 10,42);
+		Vector2D b2(target->GetWidth() - 2 * 70 - 10,42);
 
-		if( (b2-mp).Magnitude() < 32 ) {
+		if((b2-mp).Magnitude() < 32) {
 			// click on b2
 			if (GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE) {
 				// go
@@ -313,7 +314,7 @@ void World::HandleEvent(const sf::Event& event) {
 				ResetLevel();
 			}
 			return;
-		} else if( (b1-mp).Magnitude() < 32 ) {
+		} else if((b1-mp).Magnitude() < 32) {
 			// clicked b2
 			// retry
 			ResetLevel();
