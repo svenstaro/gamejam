@@ -14,7 +14,7 @@ gdb:
 
 win32:
 	mkdir -p build-win32
-	cd build-win32; cmake .. -DCMAKE_TOOLCHAIN_FILE=../cmake-extras/cmake-toolchain.cmake -DCMAKE_CXX_FLAGS="-mwindows"; make -j3 VERBOSE=1
+	cd build-win32; cmake .. -DCMAKE_TOOLCHAIN_FILE=../cmake-extras/cmake-toolchain.cmake -DCMAKE_CXX_FLAGS="-mwindows"; make -j3
 
 win32-package:
 	cd packaging && ./make_win32_package.sh
