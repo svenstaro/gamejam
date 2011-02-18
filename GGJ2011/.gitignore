@@ -5,3 +5,7 @@ screenshots/
 data/gfx/cached/
 bin/
 *.psd
+*.msi
+*.wixobj
+*.wixpdb
+*.zip
