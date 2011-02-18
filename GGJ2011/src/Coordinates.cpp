@@ -30,7 +30,10 @@ const Vector2D Coordinates::GetWorldPixel() const {
 	return mWorldPixel;
 }
 const Vector2D Coordinates::GetWorldFloat() const {
-	return mWorldPixel / PIXELS_PER_METER;
+    float posx = mWorldPixel.x / GameApp::get_mutable_instance().GetRenderWindowPtr()->GetWidth() * WIDTH_WINDOW / PIXELS_PER_METER;
+    float posy = mWorldPixel.y / GameApp::get_mutable_instance().GetRenderWindowPtr()->GetHeight() * HEIGHT_WINDOW / PIXELS_PER_METER;
+    Vector2D tmp(posx, posy);
+	return tmp;
 }
 const Vector2D Coordinates::GetViewPixel() const {
 	sf::View& view = GameApp::get_mutable_instance().GetView();

@@ -382,8 +382,7 @@ void GameApp::Run() {
             msg.Draw(mRenderWin.get());
         }
 
-        //mCursor.SetPosition(GetMousePosition().x, GetMousePosition().y);
-        mCursor.SetPosition(GetMousePosition().x / WIDTH_WINDOW * mRenderWin->GetWidth(), GetMousePosition().y);
+        mCursor.SetPosition(GetMousePosition().x, GetMousePosition().y);
         mRenderWin->Draw(mCursor);
 
 
@@ -456,12 +455,8 @@ const sf::Input& GameApp::GetInput() const {
 }
 
 Vector2D GameApp::GetMousePosition() const {
-    if(mFullscreen)
-        return Vector2D(1.0 * GetInput().GetMouseX(), 1.0 * GetInput().GetMouseY());
-    else
-        return Vector2D(
-                1.0 * GetInput().GetMouseX() / mRenderWin->GetWidth() * mRenderWin->GetWidth(), 
-                1.0 * GetInput().GetMouseY() / mRenderWin->GetHeight() * mRenderWin->GetHeight());
+    Vector2D pos(GetInput().GetMouseX(), GetInput().GetMouseY());
+    return pos;
 }
 
 const Vector2D GameApp::GetWindowSize() const {
