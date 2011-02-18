@@ -11,31 +11,43 @@
         <Media Id="1" Cabinet="ai_and_the_bomb.cab" EmbedCab="yes" CompressionLevel="mszip" />
 
         <Directory Id="TARGETDIR" Name="SourceDir">
-            <Directory Id="ProgramMenuFolder">
-                <Directory Id="ApplicationProgramsFolder" Name="AI And The Bomb" />
-            </Directory>
-            <Directory Id="DesktopFolder" />
-
             <Directory Id="ProgramFilesFolder" Name="PFiles">
                 <Directory Id="INSTALLDIR" Name="AI And The Bomb">
-                    <Component Id="Info" Guid="FB7D2100-56C2-4D63-A131-20E01E39E90F">
-                        <File Id="readme" Name="readme.txt" DiskId="1" Source="README" />
-                        <File Id="authors" Name="authors.txt" DiskId="1" Source="AUTHORS" />
-                    </Component>
+                    <!--<Component Id="Executable" Guid="FEF90315-EA44-4685-A319-06951DE02C97">-->
+
+                        <Component Id="Info" Guid="FB7D2100-56C2-4D63-A131-20E01E39E90F">
+                            <File Id="readme" Name="readme.txt" DiskId="1" Source="README" />
+                            <File Id="authors" Name="authors.txt" DiskId="1" Source="AUTHORS" />
+                        </Component>
+
+                        <Directory Id="bin" Name="bin">
+                            <Component Id="MainExecutable" Guid="68F3AE67-F590-4896-8DE0-BEF767A24B3B">
+                                <File Id="exec" Name="ai-and-the-bomb.exe" Vital="yes" Source="bin\ai-and-the-bomb.exe" KeyPath="yes">
+                                    <Shortcut Id="ShortcutStartMenuShortcut" Name="AI And The Bomb" Directory="ProgramMenuDir" WorkingDirectory="INSTALLDIR" Description="Physics puzzle game" Icon="icon.ico" Advertise="yes" />
+                                    <Shortcut Id="ShortcutDesktop" Name="AI And The Bomb" Directory="DesktopFolder" WorkingDirectory="INSTALLDIR" Description="Physics puzzle game" Icon="icon.ico" Advertise="yes" />
+                                </File>
+                            </Component>
+                        </Directory>
+
+                    </Directory>
                 </Directory>
+
+            <Directory Id="ProgramMenuFolder" Name="Programs">
+                <Directory Id="ProgramMenuDir" Name="AI And The Bomb" />
+                <Component Id="ProgramMenuDir" Guid="*">
+                    <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+                    <RegistryValue Root="HKCU" Key="Software\AIAndTheBomb" Name="ShortcutStartMenu" Type="integer" Value="1" KeyPath="yes"/>
+                </Component>
             </Directory>
+
+            <Directory Id="DesktopFolder" />
+
         </Directory>
 
-        <DirectoryRef Id="ApplicationProgramsFolder">
-            <Component Id="ShortcutStartMenu" Guid="*">
-                <Shortcut Id="ShortcutStartMenuShortcut" Name="AI And The Bomb" WorkingDirectory="INSTALLDIR" Target="bin\ai-and-the-bomb.exe" Description="Physics puzzle" Icon="ShortcutStartMenuIcon" Advertised="yes">
-                   <Icon Id="ShortcutStartMenuIcon" SourceFile="data\icon.ico" />
-                </Shortcut>
-                <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
-                <RegistryValue Root="HKCU" Key="Software\AIAndTheBomb" Name="ShortcutStartMenu" Type="integer" Value="1" KeyPath="yes"/>
-            </Component>
-        </DirectoryRef>
+        <!--<DirectoryRef Id="ApplicationProgramsFolder">
+        </DirectoryRef>-->
 
+        <!--
         <DirectoryRef Id="DesktopFolder">
             <Component Id="ShortcutDesktop" Guid="*">
                 <Shortcut Id="ShortcutDesktopShortcut" Name="AI And The Bomb" WorkingDirectory="INSTALLDIR" Target="bin\ai-and-the-bomb.exe" Description="Physics puzzle" Icon="ShortcutDesktopIcon">
@@ -43,19 +55,21 @@
                 </Shortcut>
                 <RegistryValue Root="HKCU" Key="Software\AIAndTheBomb" Name="DesktopStartMenu" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
-        </DirectoryRef>
+        </DirectoryRef>-->
 
         <Icon Id="icon.ico" SourceFile="data\icon.ico"/>
         <Property Id="ARPPRODUCTICON" Value="icon.ico" />
 
         <Feature Id="MainGame" Title="Main Game" Level="1">
-            <ComponentRef Id="Info" />
+            <!--<ComponentRef Id="Executable" />-->
             <ComponentGroupRef Id="GameBinFiles" />
             <ComponentGroupRef Id="GameDataFiles" />
+            <ComponentRef Id="Info" />
         </Feature>
         <Feature Id="Shortcuts" Title="Shortcuts Game" Level="1">
-            <ComponentRef Id="ShortcutStartMenu" />
-            <ComponentRef Id="ShortcutDesktop" />
+            <ComponentRef Id="MainExecutable" />
+            <ComponentRef Id="ProgramMenuDir" />
+            <!--<ComponentRef Id="ShortcutDesktop" />-->
         </Feature>
 
     </Product>

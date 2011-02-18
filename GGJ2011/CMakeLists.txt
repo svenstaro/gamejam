@@ -12,7 +12,10 @@ find_package(Bullet REQUIRED)
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 #find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
 
-add_definitions(-Wall -Wextra -O2 -pedantic -fPIC -std=c++0x -DBOOST_FILESYSTEM_VERSION=3)
+#add_definitions(-Wall -Wextra -O2 -pedantic -fPIC -std=c++0x -DBOOST_FILESYSTEM_VERSION=3)
+#add_definitions(-std=c++0x -DBOOST_FILESYSTEM_VERSION=3)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra -O2 -pedantic -fPIC -std=c++0x -DBOOST_FILESYSTEM_VERSION=3")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -g -pedantic -fPIC -std=c++0x -DBOOST_FILESYSTEM_VERSION=3")
 set(CMAKE_BUILD_TYPE "Release")
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -31,6 +34,7 @@ include_directories(src/)
 
 add_executable(ai-and-the-bomb
     ${sources}
+    #data/ai-and-the-bomb.rc
 )
 
 target_link_libraries(ai-and-the-bomb
