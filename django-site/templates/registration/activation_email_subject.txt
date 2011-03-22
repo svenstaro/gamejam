@@ -1,0 +1,1 @@
+{{ site.name }} email address confirmation

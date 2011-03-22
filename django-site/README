@@ -7,7 +7,7 @@ handle the voting stuff of the products done by the nice programmers.
 HACKING
 =======
 
-Prerequisites: Django
+Prerequisites: Django, django-registration
 cd project
 cp settings.py.example settings.py
 Then modify settings.py with the relevant settings. In particular you should change SECRET_KEY.

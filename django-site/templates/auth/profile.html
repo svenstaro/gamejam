@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>
+    Hey, {{ user.username }}
+</h2>
+
+<p>
+    Your UUID to post on reddit is {{ user.get_profile.uuid }}
+</p>
+
+{% endblock %}

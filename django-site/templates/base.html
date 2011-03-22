@@ -22,8 +22,13 @@
             <div id="MENU">
                 <div id="LOGIN">
                     <ul>
-                        <li><a href="#">log in</a></li>
-                        <li><a href="#">sign up</a></li>
+                        {% if user.is_authenticated %}
+                            <li>Logged in as <a href="/accounts/profile/">{{ user.username }}</a></li>
+                            <li><a href="/accounts/logout/?next=/">log out</a></li>
+                        {% else %}
+                            <li><a href="/accounts/login/">log in</a></li>
+                            <li><a href="/accounts/register/">sign up</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div id="NAVBAR">
