@@ -1,0 +1,3 @@
+{% for jam in jams %}
+    <li><a href="{{ jam.get_absolute_url }}">{{ jam.title }}</a></li>
+{% endfor %}

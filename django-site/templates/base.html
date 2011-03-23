@@ -1,3 +1,5 @@
+<!doctype html>
+{% load jam %}
 <html>
 <head>
     <title>You were eaten hardly!</title>
@@ -33,14 +35,10 @@
                 </div>
                 <div id="NAVBAR">
                     <ul>
-                        <li><a href="#" class="current">home</a></li>
+                        <li><a href="/" class="current">home</a></li>
                         <li><a href="#">announcements</a></li>
                         <li><a href="#">rulez</a></li>
-                        <li><a href="#">RGJ 01</a></li>
-                        <li><a href="#">RGJ 02</a></li>
-                        <li><a href="#">RGJ 03</a></li>
-                        <li><a href="#">RGJ 04</a></li>
-                        <li><a href="#">RGJ 05</a></li>
+                        {% show_jams %}
                     </ul>
                 </div>
             </div>
@@ -58,9 +56,9 @@
         <div id="FOOTER">
             <div id="FOOTER_NAVBAR">
                 <ul>
-                    <li><a href="#">faq</a></li>
-                    <li><a href="#">about</a></li>
-                    <li><a href="#">contact</a></li>
+                    <li><a href="/faq/">faq</a></li>
+                    <li><a href="/about/">about</a></li>
+                    <li><a href="/contact/">contact</a></li>
                 </ul>
             </div>
             <div id="COPYRIGHT_NOTE">

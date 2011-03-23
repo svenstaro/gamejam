@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="_jam">
+        <h2>{{ jam.title }}</h2>
+        <p>{{ jam.description }}</p>
+        <p>{{ jam.rules }}</p>
+        <p class="_date">{{ jam.date_start }} - {{ jam.date_end }}</p>
+        <i>posted {{ jam.date_announced }}</i>
+        <a href="{{ jam.redditpost }}" target="_blank" class="external">{{ jam.redditpost }}</a>
+    </div>
+    <h2>Entries</h2>
+    {% if not_started %}
+        <p>The contest hasn't started yet.</p>
+    {% endif %}
+    {% if not_finished %}
+        <p>The contest is still ongoing.</p>
+    {% endif %}
+    {% if cant_vote %}
+        <p>
+            The contest has finished but you've not been authorised to view
+            entries or vote. You will be able to see the entries once the voting
+            period is over.
+        </p>
+    {% endif %}
+    {% if entries %}
+        <ul>
+            {% for entry in entries %}
+                <li>
+                    <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if voting %}
+        {% if next_entry %}
+            <a href="{{ next_entry.get_absolute_url }}">Start voting</a>
+        {% else %}
+            <p>You've already voted on all entries</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

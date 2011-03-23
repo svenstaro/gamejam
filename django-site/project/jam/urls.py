@@ -1,14 +1,15 @@
 from django.conf.urls.defaults import *
-from models import Jam
+from models import *
 
-info_dict = {
-    'queryset': Jam.objects.all().order_by('-date_announced'),
-    'template_name': 'home.html',
-}
+urlpatterns = patterns('',
+        (r'^$', 'django.views.generic.list_detail.object_list', {
+            'queryset': Jam.objects.all().order_by('-date_announced'),
+            'template_name': 'home.html',
+        }),
+        (r'^(?P<jam_id>\d+)/$', 'gamejam.jam.views.jam_detail'),
+        (r'^entry/(?P<entry_id>\d+)/$', 'gamejam.jam.views.entry_detail'),
+        (r'^voting-finished/$', 'django.views.generic.simple.direct_to_template', {
+            'template': 'jam/voting_finished.html'
+        }),
 
-urlpatterns = patterns('django.views.generic.list_detail',
-        (r'^$', 'object_list', dict(info_dict)),
 )
-#        (r'^(P<jam_id>\d+)/$', 'jam_detail'),
-#        (r'^(P<jam_id>\d+)/(?P<entry_id>\d+)/$', 'entry_detail'),
-#)

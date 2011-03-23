@@ -17,17 +17,17 @@
     </p>
     <h1>Jams</h1>
     {% if object_list %}
-    {% for jam in object_list %}
-    <div class="_jam">
-        <h2>{{ jam.title }}</h2>
-        <p>{{ jam.description }}</p>
-        <p>{{ jam.rules }}</p>
-        <p class="_date">{{ jam.date_start }} - {{ jam.date_end }}</p>
-        <i>posted {{ jam.date_announced }}</i>
-        <a href="{{ jam.redditpost }}" target="_blank" class="external">{{ jam.redditpost }}</a>
-    </div>
-    {% endfor %}
+        {% for jam in object_list %}
+        <div class="_jam">
+            <h2><a href="{{ jam.get_absolute_url }}">{{ jam.title }}</a></h2>
+            <p>{{ jam.description }}</p>
+            <p>{{ jam.rules }}</p>
+            <p class="_date">{{ jam.date_start }} - {{ jam.date_end }}</p>
+            <i>posted {{ jam.date_announced }}</i>
+            <a href="{{ jam.redditpost }}" target="_blank" class="external">{{ jam.redditpost }}</a>
+        </div>
+        {% endfor %}
     {% else %}
-    <p>Sorry, there aren't any jams available :(</p>
+        <p>Sorry, there aren't any jams available :(</p>
     {% endif %}
 {% endblock %}
