@@ -1,8 +1,9 @@
 from models import *
+from forms import *
+
 from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
-from forms import RatingForm
 from django.db.models import Avg, Count
 from django.template import RequestContext
 
@@ -15,15 +16,14 @@ def get_next_entry(request, jam):
 def jam_detail(request, jam_id):
     jam = get_object_or_404(Jam, pk=jam_id)
     user_profile = None
-    if request.user.is_authenticated():
-        user_profile = request.user.get_profile()
     now = datetime.now()
 
     not_started = now < jam.date_start
     not_finished = jam.date_start < now < jam.date_end
     voting_period = jam.date_end < now < jam.date_vote_end
-    can_vote = user_profile and user_profile.can_vote
+    can_vote = request.user.is_authenticated() and Entry.objects.filter(user=request.user, gamejam=jam).count() == 1
     cant_vote = not can_vote and voting_period
+    entering = request.user.is_authenticated() and not_finished
     voting = can_vote and voting_period
     entries = None
     if now > jam.date_vote_end:
@@ -31,6 +31,22 @@ def jam_detail(request, jam_id):
     next_entry = None
     if voting:
         next_entry = get_next_entry(request, jam)
+    entry_form = None
+    try:
+        instance = Entry.objects.get(user=request.user, gamejam=jam)
+    except Entry.DoesNotExist:
+        instance = None
+    if entering:
+        if request.method == 'POST':
+            entry_form = EntryForm(request.POST, instance=instance)
+            if entry_form.is_valid():
+                entry = entry_form.save(commit=False)
+                entry.user = request.user
+                entry.gamejam = jam
+                entry.save()
+                return HttpResponseRedirect(jam.get_absolute_url())
+        else:
+            entry_form = EntryForm(instance=instance)
     
     return render_to_response('jam/jam_detail.html', {
         'jam': jam,
@@ -40,15 +56,16 @@ def jam_detail(request, jam_id):
         'entries': entries,
         'voting': voting,
         'next_entry': next_entry,
+        'entry_form': entry_form,
     }, context_instance=RequestContext(request))
 
 def entry_detail(request, entry_id):
     entry = get_object_or_404(Entry, pk=entry_id)
     user_profile = None
-    if request.user.is_authenticated():
-        user_profile = request.user.get_profile()
     now = datetime.now()
-    voting = user_profile and user_profile.can_vote and request.user != entry.user and entry.gamejam.date_end < now < entry.gamejam.date_vote_end and Vote.objects.filter(user=request.user, entry=entry).count() == 0
+    can_vote = request.user.is_authenticated() and Vote.objects.filter(user=request.user, entry=entry).count() == 0 and Entry.objects.filter(user=request.user, gamejam=entry.gamejam).count() == 1 and request.user != entry.user
+    voting_period = entry.gamejam.date_end < now < entry.gamejam.date_vote_end
+    voting = can_vote and voting_period
     if not voting and now < entry.gamejam.date_vote_end:
         raise Http404
     rating_form = None

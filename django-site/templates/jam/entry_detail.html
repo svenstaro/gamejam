@@ -3,9 +3,9 @@
 {% block content %}
     <h2>{{ entry.title }}</h2>
     <p>{{ entry.description }}</p>
-    <a href="{{ entry.screenshotlink }}" class="external">Screenshot</a>
-    <a href="{{ entry.downloadlink }}" class="external">Download</a>
-    <a href="{{ entry.timelapselink }}" class="external">Timelapse</a>
+    <a href="{{ entry.screenshot_link }}" class="external">Screenshot</a>
+    <a href="{{ entry.download_link }}" class="external">Download</a>
+    <a href="{{ entry.time_lapse_link }}" class="external">Timelapse</a>
     {% if rating %}
         <dl>
             <dt>Gameplay</dt>

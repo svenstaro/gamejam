@@ -31,9 +31,9 @@ class Entry(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=30)
     description = models.TextField()
-    screenshotlink = models.URLField()
-    downloadlink = models.URLField()
-    timelapselink = models.URLField()
+    screenshot_link = models.URLField()
+    download_link = models.URLField()
+    time_lapse_link = models.URLField()
     gamejam = models.ForeignKey('Jam')
 
     def get_absolute_url(self):
@@ -42,10 +42,12 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        unique_together = (("user", "gamejam"),)
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     uuid = models.CharField(max_length=32)
-    can_vote = models.BooleanField()
 
     def __unicode__(self):
         return self.user.username
@@ -54,6 +56,9 @@ class Vote(models.Model):
     user = models.ForeignKey(User)
     entry = models.ForeignKey('Entry')
     couldnt_run = models.BooleanField()
+
+    class Meta:
+        unique_together = (("user", "entry"),)
 
 class Rating(models.Model):
     vote = models.OneToOneField('Vote')
@@ -67,7 +72,7 @@ def add_user_profile(sender, instance, created, **kwargs):
     if created:
         print "adding user profile"
         a_uuid = uuid.uuid4()
-        user_profile = UserProfile(user=instance, uuid=a_uuid.hex, can_vote=False)
+        user_profile = UserProfile(user=instance, uuid=a_uuid.hex)
         user_profile.save()
 
 post_save.connect(add_user_profile, sender=User)
