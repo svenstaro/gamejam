@@ -36,7 +36,7 @@
                 </div>
                 <div id="NAVBAR">
                     <ul>
-                        <li><a href="/" class="current">home</a></li>
+                        <li><a href="/" class="{% current request "^/jams/$" %}">home</a></li>
                         <li><a href="#">announcements</a></li>
                         <li><a href="#">rulez</a></li>
                         {% show_jams %}
@@ -57,9 +57,9 @@
         <div id="FOOTER">
             <div id="FOOTER_NAVBAR">
                 <ul>
-                    <li><a href="/faq/">faq</a></li>
-                    <li><a href="/about/">about</a></li>
-                    <li><a href="/contact/">contact</a></li>
+                    <li><a href="/faq/" class="{% current request "^/faq/$" %}">faq</a></li>
+                    <li><a href="/about/" class="{% current request "^/about/$" %}">about</a></li>
+                    <li><a href="/contact/" class="{% current request "^/contact/$" %}">contact</a></li>
                 </ul>
             </div>
             <div id="COPYRIGHT_NOTE">

@@ -1,3 +1,7 @@
 {% for jam in jams %}
-    <li><a href="{{ jam.get_absolute_url }}">{{ jam.title }}</a></li>
+    <li><a 
+        {% ifequal jam curjam %}
+            class="current"
+        {% endifequal %}
+    href="{{ jam.get_absolute_url }}">{{ jam.title }}</a></li>
 {% endfor %}
