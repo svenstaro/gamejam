@@ -4,6 +4,7 @@
 <head>
     <title>You were eaten hardly!</title>
     <link rel="stylesheet" type="text/css" href="/static/css/css.css">
+    <link rel="stylesheet" type="text/css" href="/static/stars/jquery.ui.stars.min.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -67,5 +68,12 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript">
+        $(".stars").stars();
+        $(".stars li").remove();
+    </script>
 </body>
 </html>

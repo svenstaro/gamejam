@@ -230,3 +230,7 @@ div#FOOTER div#COPYRIGHT_NOTE {
     font-weight: normal;
 }
 
+dl dt {
+    clear: left;
+}
+

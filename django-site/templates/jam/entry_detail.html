@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load jam %}
 {% block content %}
     <h2>{{ entry.title }}</h2>
     <p>{{ entry.description }}</p>
@@ -9,15 +9,15 @@
     {% if rating %}
         <dl>
             <dt>Gameplay</dt>
-            <dd>{{ rating.gameplay }}</dd>
+            <dd>{% stars rating.gameplay %} &nbsp;{{ rating.gameplay }} Stars</dd>
             <dt>Graphics</dt>
-            <dd>{{ rating.graphics }}</dd>
+            <dd>{% stars rating.graphics %} &nbsp;{{ rating.graphics }} Stars</dd>
             <dt>Music</dt>
-            <dd>{{ rating.music }}</dd>
+            <dd>{% stars rating.music %} &nbsp;{{ rating.music }} Stars</dd>
             <dt>Fun</dt>
-            <dd>{{ rating.fun }}</dd>
+            <dd>{% stars rating.fun %} &nbsp;{{ rating.fun }} Stars</dd>
             <dt>Overall</dt>
-            <dd>{{ rating.overall }}</dd>
+            <dd>{% stars rating.overall %} &nbsp;{{ rating.overall }} Stars</dd>
     {% endif %}
     {% if rating_form %}
         <form action="" method="post">{% csrf_token %}
