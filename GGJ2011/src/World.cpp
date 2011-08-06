@@ -61,24 +61,22 @@ void World::Initialize(const boost::filesystem::path& data_path) {
 
 void World::Update(const float time_delta) {
 	mCurrentLevelTime += time_delta;
-	// INPUT!
-	const sf::Input& in = GameApp::get_mutable_instance().GetInput();
 	sf::View& view = GameApp::get_mutable_instance().GetView();
 	if(GameApp::get_mutable_instance().IsEditorMode()) {
 		float px = 10;
-		if(in.IsKeyDown(sf::Key::LShift) || in.IsKeyDown(sf::Key::RShift)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::LShift) || sf::Keyboard::IsKeyPressed(sf::Keyboard::RShift)) {
 			px *= 5;
 		}
-		if(in.IsKeyDown(sf::Key::Up)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Up)) {
 			view.SetCenter(view.GetCenter().x, view.GetCenter().y - px);
 		}
-		if(in.IsKeyDown(sf::Key::Down)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Down)) {
 			view.SetCenter(view.GetCenter().x, view.GetCenter().y + px);
 		}
-		if(in.IsKeyDown(sf::Key::Left)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Left)) {
 			view.SetCenter(view.GetCenter().x - px, view.GetCenter().y);
 		}
-		if(in.IsKeyDown(sf::Key::Right)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Right)) {
 			view.SetCenter(view.GetCenter().x + px, view.GetCenter().y);
 		}
 
@@ -121,7 +119,7 @@ void World::Update(const float time_delta) {
 		mClosestRail = r;
 
 	}
-	if(GetBoxEntity() != NULL && GetBoxEntity()->UsesPhysics() && !GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left)) {
+	if(GetBoxEntity() != NULL && GetBoxEntity()->UsesPhysics() && !sf::Mouse::IsButtonPressed(sf::Mouse::Left)) {
 		mCurrentRail = GetClosestRail(true, GetBoxEntity()->GetBody()->getWorldTransform().getOrigin());
 	}
 
@@ -322,7 +320,7 @@ void World::HandleEvent(const sf::Event& event) {
 		}
 	}
 
-	if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Tab) {
+	if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Keyboard::Tab) {
 		GameApp& app = GameApp::get_mutable_instance();
 		if(app.IsEditorMode()) {
 			app.SetAppMode(AM_PUZZLE);
@@ -330,10 +328,10 @@ void World::HandleEvent(const sf::Event& event) {
 			app.SetAppMode(AM_EDITOR);
 		}
 		ToggleSetMouseAction(EMA_NONE); // stop grabbing etc.
-	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::M) {
+	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Keyboard::M) {
 		GameApp& app = GameApp::get_mutable_instance();
 		app.ToggleMute();
-	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Escape && !mEditorRenameMode) {
+	} else if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Keyboard::Escape && !mEditorRenameMode) {
 		// menu or quit or so
 		// no more autosave
 		/*if (GameApp::get_mutable_instance().IsEditorMode())
@@ -351,7 +349,7 @@ void World::HandleEvent(const sf::Event& event) {
 
 		if (event.Type == sf::Event::KeyPressed) {
 			if(mEditorRenameMode) {
-				if(event.Key.Code == sf::Key::Return || event.Key.Code == sf::Key::Escape) {
+				if(event.Key.Code == sf::Keyboard::Return || event.Key.Code == sf::Keyboard::Escape) {
 					Entity* e = GetEntityByUID(mEditorRenameString);
 					if (e!=NULL) {
 						SetRenameMode(false);
@@ -363,23 +361,23 @@ void World::HandleEvent(const sf::Event& event) {
 					}
 				}
 			} else {
-				if(event.Key.Code == sf::Key::F1) {
+				if(event.Key.Code == sf::Keyboard::F1) {
 					Save();
-				} else if(event.Key.Code == sf::Key::F2) {
+				} else if(event.Key.Code == sf::Keyboard::F2) {
 					ReloadTriMeshBody();
-				} else if(event.Key.Code == sf::Key::O) {
+				} else if(event.Key.Code == sf::Keyboard::O) {
 					mDrawDebugs = !mDrawDebugs;
-				} else if(event.Key.Code == sf::Key::S) {
+				} else if(event.Key.Code == sf::Keyboard::S) {
 					ToggleSetMouseAction(EMA_SCALE);
-				} else if(event.Key.Code == sf::Key::R) {
+				} else if(event.Key.Code == sf::Keyboard::R) {
 					ToggleSetMouseAction(EMA_ROTATE);
-				} else if(event.Key.Code == sf::Key::G) {
+				} else if(event.Key.Code == sf::Keyboard::G) {
 					ToggleSetMouseAction(EMA_GRAB);
-				} else if(event.Key.Code == sf::Key::A) {
+				} else if(event.Key.Code == sf::Keyboard::A) {
 					ToggleSetMouseAction(EMA_ALPHA);
-				} else if(event.Key.Code == sf::Key::Return) {
+				} else if(event.Key.Code == sf::Keyboard::Return) {
 					ToggleSetMouseAction(EMA_ACCEPT);
-				} else if(event.Key.Code == sf::Key::C) {
+				} else if(event.Key.Code == sf::Keyboard::C) {
 					//create entity
 					Entity* e = new Entity();
 					if (mEditorSelectedEntity != NULL) {
@@ -396,21 +394,21 @@ void World::HandleEvent(const sf::Event& event) {
 					e->SetPosition(Coordinates::ScreenPixelToWorldFloat(GameApp::get_mutable_instance().GetMousePosition()));
 					AddEntity(e);
 					SetSelectedEntity(&mEntities.back());
-				} else if(event.Key.Code == sf::Key::X) {
+				} else if(event.Key.Code == sf::Keyboard::X) {
 					//delete entity
 					if (mEditorSelectedEntity!=NULL) {
 						DeleteEntityByUID(mEditorSelectedEntity->GetUID());
 						SetSelectedEntity(NULL);
 					}
-				} else if(event.Key.Code == sf::Key::E) {
+				} else if(event.Key.Code == sf::Keyboard::E) {
 					//next image
 					if (mEditorSelectedEntity!=NULL)
 						mEditorSelectedEntity->SetImage(GetImageKeyRelativeTo(mEditorSelectedEntity->GetImage(), +1));
-				} else if(event.Key.Code == sf::Key::W) {
+				} else if(event.Key.Code == sf::Keyboard::W) {
 					//prev entity
 					if (mEditorSelectedEntity!=NULL)
 						mEditorSelectedEntity->SetImage(GetImageKeyRelativeTo(mEditorSelectedEntity->GetImage(), -1));
-				} else if(event.Key.Code == sf::Key::F) {
+				} else if(event.Key.Code == sf::Keyboard::F) {
 					// move up 1 layer
 					if(mEditorSelectedEntity!=NULL && mEditorSelectedEntity->GetLayer()<9) {
 						Entity* e = mEditorSelectedEntity;
@@ -420,7 +418,7 @@ void World::HandleEvent(const sf::Event& event) {
 						SetEditorLayer(n);
 						SetSelectedEntity(e);
 					}
-				} else if(event.Key.Code == sf::Key::V) {
+				} else if(event.Key.Code == sf::Keyboard::V) {
 					// move down 1 layer and follow
 					if(mEditorSelectedEntity!=NULL && mEditorSelectedEntity->GetLayer()>1) {
 						Entity* e = mEditorSelectedEntity;
@@ -430,7 +428,7 @@ void World::HandleEvent(const sf::Event& event) {
 						SetEditorLayer(n);
 						SetSelectedEntity(e);
 					}
-				} else if(event.Key.Code == sf::Key::PageUp) {
+				} else if(event.Key.Code == sf::Keyboard::PageUp) {
 					// move up 1 layer
 					if(mEditorSelectedEntity!=NULL && mEditorSelectedEntity->GetLocalLayer()<9) {
 						Entity* e = mEditorSelectedEntity;
@@ -445,7 +443,7 @@ void World::HandleEvent(const sf::Event& event) {
 						mEntityListNeedsSorting = true;
 						SetSelectedEntity(e);
 					}
-				} else if(event.Key.Code == sf::Key::PageDown) {
+				} else if(event.Key.Code == sf::Keyboard::PageDown) {
 					// move down 1 layer and follow
 					if(mEditorSelectedEntity!=NULL && mEditorSelectedEntity->GetLocalLayer()>1) {
 						Entity* e = mEditorSelectedEntity;
@@ -460,41 +458,41 @@ void World::HandleEvent(const sf::Event& event) {
 						mEntityListNeedsSorting = true;
 						SetSelectedEntity(e);
 					}
-				} else if(event.Key.Code == sf::Key::N) {
+				} else if(event.Key.Code == sf::Keyboard::N) {
 					if (mEditorSelectedEntity!=NULL) {
 						SetRenameMode(true);
 					}
-				} else if(event.Key.Code == sf::Key::P) {
+				} else if(event.Key.Code == sf::Keyboard::P) {
 					if (mEditorSelectedEntity!=NULL) {
 						mEditorSelectedEntity->TogglePhysics(*this);
 					}
 				}
 
 				// -- Layer selection
-				else if(event.Key.Code == sf::Key::Num1 || event.Key.Code == sf::Key::Numpad1) {
+				else if(event.Key.Code == sf::Keyboard::Num1 || event.Key.Code == sf::Keyboard::Numpad1) {
 					SetEditorLayer(1);
-				} else if(event.Key.Code == sf::Key::Num2 || event.Key.Code == sf::Key::Numpad2) {
+				} else if(event.Key.Code == sf::Keyboard::Num2 || event.Key.Code == sf::Keyboard::Numpad2) {
 					SetEditorLayer(2);
-				} else if(event.Key.Code == sf::Key::Num3 || event.Key.Code == sf::Key::Numpad3) {
+				} else if(event.Key.Code == sf::Keyboard::Num3 || event.Key.Code == sf::Keyboard::Numpad3) {
 					SetEditorLayer(3);
-				} else if(event.Key.Code == sf::Key::Num4 || event.Key.Code == sf::Key::Numpad4) {
+				} else if(event.Key.Code == sf::Keyboard::Num4 || event.Key.Code == sf::Keyboard::Numpad4) {
 					SetEditorLayer(4);
-				} else if(event.Key.Code == sf::Key::Num5 || event.Key.Code == sf::Key::Numpad5) {
+				} else if(event.Key.Code == sf::Keyboard::Num5 || event.Key.Code == sf::Keyboard::Numpad5) {
 					SetEditorLayer(5);
-				} else if(event.Key.Code == sf::Key::Num6 || event.Key.Code == sf::Key::Numpad6) {
+				} else if(event.Key.Code == sf::Keyboard::Num6 || event.Key.Code == sf::Keyboard::Numpad6) {
 					SetEditorLayer(6);
-				} else if(event.Key.Code == sf::Key::Num7 || event.Key.Code == sf::Key::Numpad7) {
+				} else if(event.Key.Code == sf::Keyboard::Num7 || event.Key.Code == sf::Keyboard::Numpad7) {
 					SetEditorLayer(7);
-				} else if(event.Key.Code == sf::Key::Num8 || event.Key.Code == sf::Key::Numpad8) {
+				} else if(event.Key.Code == sf::Keyboard::Num8 || event.Key.Code == sf::Keyboard::Numpad8) {
 					SetEditorLayer(8);
-				} else if(event.Key.Code == sf::Key::Num9 || event.Key.Code == sf::Key::Numpad9) {
+				} else if(event.Key.Code == sf::Keyboard::Num9 || event.Key.Code == sf::Keyboard::Numpad9) {
 					SetEditorLayer(9);
-				} else if(event.Key.Code == sf::Key::Num0 || event.Key.Code == sf::Key::Numpad0) {
+				} else if(event.Key.Code == sf::Keyboard::Num0 || event.Key.Code == sf::Keyboard::Numpad0) {
 					SetEditorLayer(0);
 				}
 				// -- End layer selection
 
-				if(event.Key.Code == sf::Key::Space && mEditorLayer == 9) {
+				if(event.Key.Code == sf::Keyboard::Space && mEditorLayer == 9) {
 					// toggle initial mover mounted
 					Rail* r = GetClosestRail();
 					if(r != NULL) {
@@ -502,7 +500,7 @@ void World::HandleEvent(const sf::Event& event) {
 						r->SetInitialState(false);
 						r->Reinitialize(*this);
 					}
-				} else if(event.Key.Code == sf::Key::T && mEditorLayer == 9) {
+				} else if(event.Key.Code == sf::Keyboard::T && mEditorLayer == 9) {
 					// toggle initial mover mounted
 					Rail* r = GetClosestRail();
 					if(r != NULL) {
@@ -617,17 +615,17 @@ void World::HandleEvent(const sf::Event& event) {
 	} else if(GameApp::get_mutable_instance().GetAppMode() == AM_PUZZLE){
 		// PUZZLE
 		if(event.Type == sf::Event::KeyPressed) {
-			if(event.Key.Code == sf::Key::Return) {
+			if(event.Key.Code == sf::Keyboard::Return) {
 				GameApp::get_mutable_instance().SetAppMode(AM_PLAY);
 			}
 
-			if(event.Key.Code == sf::Key::Num1) {
+			if(event.Key.Code == sf::Keyboard::Num1) {
 				mSelectedMoverType = 1;
 			}
-			if(event.Key.Code == sf::Key::Num2) {
+			if(event.Key.Code == sf::Keyboard::Num2) {
 				mSelectedMoverType = 2;
 			}
-			if(event.Key.Code == sf::Key::Num3) {
+			if(event.Key.Code == sf::Keyboard::Num3) {
 				mSelectedMoverType = 3;
 			}
 		}
@@ -653,9 +651,9 @@ void World::HandleEvent(const sf::Event& event) {
 
 	if(GameApp::get_mutable_instance().GetAppMode() != AM_EDITOR) {
 		if(event.Type == sf::Event::KeyPressed) {
-			if(event.Key.Code == sf::Key::Up) {
+			if(event.Key.Code == sf::Keyboard::Up) {
 				//LoadNextLevel();
-			} if(event.Key.Code == sf::Key::Down) {
+			} if(event.Key.Code == sf::Keyboard::Down) {
 				//LoadNextLevel(mCurrentLevel - 1);
 			}
 		}

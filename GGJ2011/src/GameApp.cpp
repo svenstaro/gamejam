@@ -151,7 +151,7 @@ void GameApp::Init(char* argv[]) {
     mMusic.Play();
 
     mRenderWin->ShowMouseCursor(false);
-    mRenderWin->SetCursorPosition(mRenderWin->GetWidth() / 2, mRenderWin->GetHeight() / 2);
+    sf::Mouse::SetPosition(sf::Vector2i(mRenderWin->GetWidth() / 2, mRenderWin->GetHeight() / 2));
 
     // Load The World
     LoadWorld(data);
@@ -173,17 +173,17 @@ void GameApp::Run() {
 
     while(mRenderWin->IsOpened()) {
         sf::Event event;
-        while(mRenderWin->GetEvent(event)) {
+        while(mRenderWin->PollEvent(event)) {
             if(event.Type == sf::Event::Closed)
                 Quit();
-            if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Comma) {
+            if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Keyboard::Comma) {
                 mDebugGrid = !mDebugGrid;
             }
             if(event.Type == sf::Event::KeyPressed) {
-                if(event.Key.Code == sf::Key::F && mAppMode != AM_EDITOR) {
+                if(event.Key.Code == sf::Keyboard::F && mAppMode != AM_EDITOR) {
                     ToggleFullscreen();
                 }
-                if(event.Key.Code == sf::Key::Return && event.Key.Alt) {
+                if(event.Key.Code == sf::Keyboard::Return && event.Key.Alt) {
                     ToggleFullscreen();
                 }
             }
@@ -196,8 +196,6 @@ void GameApp::Run() {
         if(mAppMode == AM_PLAY && mWorld.GetCurrentLevel() != 0)
             mTotalTime += time_delta;
 
-        // SFML access class for real-time input
-        const sf::Input& input = mRenderWin->GetInput();
         float frameTime = mRenderWin->GetFrameTime();
 
         time_budget += time_delta;
@@ -328,7 +326,7 @@ void GameApp::Run() {
             mCursor.SetImage(mResourceManager.GetImage("cursor_default"));
         else {
             if(mWorld.GetCurrentRail() != NULL && mWorld.GetCurrentRail()->GetMover().GetMoverType() == MT_SPRING && mWorld.GetBoxEntity() != NULL) {
-                if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+                if(sf::Mouse::IsButtonPressed(sf::Mouse::Left))
                     mCursor.SetImage(mResourceManager.GetImage("cursor_spring_push"));
                 else
                     mCursor.SetImage(mResourceManager.GetImage("cursor_spring_pull"));
@@ -346,7 +344,7 @@ void GameApp::Run() {
                 float a = 255 - dir.length() * 50;
                 mCursor.SetColor(sf::Color(255,255,255,a));
             } else {
-                if(mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left)) {
+                if(sf::Mouse::IsButtonPressed(sf::Mouse::Left)) {
                     mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
                     mResourceManager.PlaySound("push");
                 } else {
@@ -354,7 +352,7 @@ void GameApp::Run() {
                 } mCursor.SetRotation(mCursorRotation);
             }
         }
-        if(!mRenderWin->GetInput().IsMouseButtonDown(sf::Mouse::Left))
+        if(!sf::Mouse::IsButtonPressed(sf::Mouse::Left))
             mResourceManager.StopSound("push");
 
         if (!IsEditorMode() && mWorld.GetCurrentLevel() != 0) {
@@ -450,15 +448,6 @@ void GameApp::SetGuiPaintingMode(bool guipaint) {
         mRenderWin->SetView(*mView);
 }
 
-const sf::Input& GameApp::GetInput() const {
-    return mRenderWin.get()->GetInput();
-}
-
-Vector2D GameApp::GetMousePosition() const {
-    Vector2D pos(GetInput().GetMouseX(), GetInput().GetMouseY());
-    return pos;
-}
-
 const Vector2D GameApp::GetWindowSize() const {
     return Vector2D(mRenderWin->GetWidth(), mRenderWin->GetHeight());
 }
@@ -515,4 +504,9 @@ void GameApp::ToggleFullscreen() {
     }
     mRenderWin->EnableVerticalSync(true);
     mRenderWin->ShowMouseCursor(false);
+}
+
+
+Vector2D GameApp::GetMousePosition() const {
+    return Vector2D(sf::Mouse::GetPosition().x, sf::Mouse::GetPosition().y);
 }

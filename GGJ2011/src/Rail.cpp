@@ -93,7 +93,7 @@ void Rail::Update(float time_delta) {
 	}
 
 	// push / pull box
-	bool current_and_down = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && IsCurrentRail();
+	bool current_and_down = sf::Mouse::IsButtonPressed(sf::Mouse::Left) && IsCurrentRail();
 
 	Entity* box = GameApp::get_mutable_instance().GetWorldPtr()->GetBoxEntity();
 	// TODO: make play
@@ -118,7 +118,7 @@ void Rail::Update(float time_delta) {
 
 			if (mMover.GetMoverType() == MT_SPRING) {
 				force *= 0.5; // springs are weaker
-				if(mDownLastFrame == false && GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left)) {
+				if(mDownLastFrame == false && sf::Mouse::IsButtonPressed(sf::Mouse::Left)) {
 					btVector3 dist = mBody->getWorldTransform().getOrigin() - box->GetBody()->getWorldTransform().getOrigin();
 					if(dist.length() < 2) {
 						force *= 0;
@@ -146,7 +146,7 @@ void Rail::Update(float time_delta) {
 		}
 	}
 
-	mDownLastFrame = GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left);
+	mDownLastFrame = sf::Mouse::IsButtonPressed(sf::Mouse::Left);
 }
 
 void Rail::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {
