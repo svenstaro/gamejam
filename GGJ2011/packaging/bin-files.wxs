@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dirC24A635189E52DF456E2FBC3F74A024A" Name="bin" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="GameBinFiles">
+            <Component Id="cmp1833D88D9462B38D7DCE38594DE348AA" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filF1E24022D7614FE2D2FA55B913C3B955" KeyPath="yes" Source="$(var.BinDir)\libLinearMath.dll" />
+            </Component>
+            <Component Id="cmpF965A56E9D3E7E5B58B3397FEFAD3C5F" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filC27124BE23DAC5E69A0A63B15FFCBE90" KeyPath="yes" Source="$(var.BinDir)\libvorbis-0.dll" />
+            </Component>
+            <Component Id="cmpA2B070C5EC6B7CF6A38561F77EFEDED6" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil4C4070A1F6B4F4892568B5F231467226" KeyPath="yes" Source="$(var.BinDir)\libBulletMultiThreaded.dll" />
+            </Component>
+            <Component Id="cmp0D8F8E7C325DA69D60F269CC7F195319" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filD019195220FFB9D717883BD23EFE10EC" KeyPath="yes" Source="$(var.BinDir)\libpng15-15.dll" />
+            </Component>
+            <Component Id="cmp1745599B9B7A1FF78164F21AC2C7FAD5" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil1427CBF8196F7FE3AF054D2DF037BB61" KeyPath="yes" Source="$(var.BinDir)\libBulletDynamics.dll" />
+            </Component>
+            <Component Id="cmpC5E2DEE6E35CD63DE67A0C2483FE6F90" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil7D637898F8CC519F240B5B2EE433959E" KeyPath="yes" Source="$(var.BinDir)\sfml-audio-2.dll" />
+            </Component>
+            <Component Id="cmp27D6441D722F0B5979F117C3ABEBD5D8" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil38271246C57F5DF0102218D824F290ED" KeyPath="yes" Source="$(var.BinDir)\libfreetype-6.dll" />
+            </Component>
+            <Component Id="cmp2C705F6408B589CC1DDC69CEC499F2D2" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil09D158D4E78D45A76CDEDD76546E0AC6" KeyPath="yes" Source="$(var.BinDir)\sfml-network-2.dll" />
+            </Component>
+            <Component Id="cmp93380BEBEE41CC352FC79AC45A29022C" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil04DF7F593CFAA1E698460CC5CE82D10D" KeyPath="yes" Source="$(var.BinDir)\libvorbisenc-2.dll" />
+            </Component>
+            <Component Id="cmp0CB2467BE1E6D27671F276AC0ED84283" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filC60A29C920AB1B7F5CAF13AA3BD10A24" KeyPath="yes" Source="$(var.BinDir)\libcharset-1.dll" />
+            </Component>
+            <Component Id="cmp758EA2EFDFEE920A2D44CF23C1415B16" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil3691D18B2613CFCAF09C29B86A3861AE" KeyPath="yes" Source="$(var.BinDir)\sfml-window-2.dll" />
+            </Component>
+            <Component Id="cmpF911282528159BABF8D4570CEEF1B633" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil4D577B68C1C808DD5586CAA4EA988311" KeyPath="yes" Source="$(var.BinDir)\libFLAC-8.dll" />
+            </Component>
+            <Component Id="cmp390CD69C7C3B8B95B4B335EAEB817157" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filE6CDE67D088BB41E4292EA89E1CEA58F" KeyPath="yes" Source="$(var.BinDir)\libConvexDecomposition.dll" />
+            </Component>
+            <Component Id="cmp82468EC3BC8008BBC799397D7E1F10F2" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil05B698EAEED5CC7BE3A90837550DAB6B" KeyPath="yes" Source="$(var.BinDir)\zlib1.dll" />
+            </Component>
+            <Component Id="cmp33C41622A3784EBFFA8B27E66D2BAF4D" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil5367982483CB27A80046ABC5A82344E4" KeyPath="yes" Source="$(var.BinDir)\sfml-graphics-2.dll" />
+            </Component>
+            <Component Id="cmp61958DE9CEB7130A7B5E98B9A74EB3CA" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filB2953943110E0D9B122FB43AF046F0C8" KeyPath="yes" Source="$(var.BinDir)\libogg-0.dll" />
+            </Component>
+            <Component Id="cmp98AB1D8E9E1D02A008774EB486F42096" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil03EB7D4A3DAA0C3910409788B30E58C2" KeyPath="yes" Source="$(var.BinDir)\libsndfile-1.dll" />
+            </Component>
+            <Component Id="cmp46EBBE28AD44258BECA9C1D532842800" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil032557EF1F2B2AA6F71336DBD462C397" KeyPath="yes" Source="$(var.BinDir)\OpenAL32.dll" />
+            </Component>
+            <Component Id="cmp894DF1A4F63B22CCABD08F96542FC70D" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil7B6DA217701F7DF0E3F5762D9C8FA3C7" KeyPath="yes" Source="$(var.BinDir)\libBulletCollision.dll" />
+            </Component>
+            <Component Id="cmp35CA2F1441E9F57F79AB5712B689A439" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil6872048157814EFA9D93DE853B6E88B2" KeyPath="yes" Source="$(var.BinDir)\libintl-8.dll" />
+            </Component>
+            <Component Id="cmp4A0ABFAE3AABA8B6FDADB3CAF9A740A6" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil1BEF8A861521F5306912BE3FEEADB589" KeyPath="yes" Source="$(var.BinDir)\ai-and-the-bomb" />
+            </Component>
+            <Component Id="cmp908E5B5DEF3B536351BF7A46984B1E96" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil128222100287CB97F1CD089BE4463138" KeyPath="yes" Source="$(var.BinDir)\ai-and-the-bomb.exe" />
+            </Component>
+            <Component Id="cmpD6988B0F7FAD63B94C4CD7E66C2CC80F" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filA5588A4481E9FC1937CF237F47610408" KeyPath="yes" Source="$(var.BinDir)\libBulletSoftBodySolvers_CPU.dll" />
+            </Component>
+            <Component Id="cmp750A66BE73552E4BB5BC70946ADCA131" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil8CD62446D08671EA0A9F7C990682D6D5" KeyPath="yes" Source="$(var.BinDir)\libiconv-2.dll" />
+            </Component>
+            <Component Id="cmp18F442CAE69F3C7ECE3AE7B8B9874E93" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filC0CE1F6E8C46B8DB3B07EED6ECFBF5D1" KeyPath="yes" Source="$(var.BinDir)\libvorbisfile-3.dll" />
+            </Component>
+            <Component Id="cmpB521ADCBC2EF7CB7C034C973D3B33410" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filB503EE2EDCE7C252B33EFF617B8E17B5" KeyPath="yes" Source="$(var.BinDir)\mingwm10.dll" />
+            </Component>
+            <Component Id="cmp5E8B7762B81BB0D5A15C78A867322170" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil3DCABAB06E8FE5063807C0221C7BED90" KeyPath="yes" Source="$(var.BinDir)\libstdc++-6.dll" />
+            </Component>
+            <Component Id="cmp18CA97770AF7171992BAF851A6D618BC" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil58112A205B5E76711543F752B1514999" KeyPath="yes" Source="$(var.BinDir)\libai-and-the-bomb.dll.a" />
+            </Component>
+            <Component Id="cmp999C0E80A44C42F60D87BEA208D86D51" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil24494E3F001F304EE3D379980C89E25E" KeyPath="yes" Source="$(var.BinDir)\libgcc_s_sjlj-1.dll" />
+            </Component>
+            <Component Id="cmpDD14EF752320CDEE6D83F1FA339B935C" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filF1E64EA8F3FB37CE8BD380F69F2C0998" KeyPath="yes" Source="$(var.BinDir)\libGIMPACTUtils.dll" />
+            </Component>
+            <Component Id="cmp5F85578CC8C73F4DFBAC508E52B43962" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil4C03A6E32B88830D8E8D4EFFC9E9FF78" KeyPath="yes" Source="$(var.BinDir)\libjpeg-8.dll" />
+            </Component>
+            <Component Id="cmpD5CB019F6CB829D2C5C49440A42010DF" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil747D367366BA6737850F00DEA9AD079E" KeyPath="yes" Source="$(var.BinDir)\glew32.dll" />
+            </Component>
+            <Component Id="cmp845BE7E61902625D4FFE01F3E2067B09" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil6B8CF29FA7542657CC35709F2CAEA08C" KeyPath="yes" Source="$(var.BinDir)\libBulletSoftBody.dll" />
+            </Component>
+            <Component Id="cmpAE502CFEE9DE7431EDEF87C27C5B9FBF" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil57EEB95E41F875736463172DE30A3D68" KeyPath="yes" Source="$(var.BinDir)\sfml-system-2.dll" />
+            </Component>
+            <Component Id="cmp4ABBC9E1CC0BCADF7CD3D5692E5B892E" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="fil0E5CED31F980A76CC20557514F5A190B" KeyPath="yes" Source="$(var.BinDir)\libFLAC++-6.dll" />
+            </Component>
+            <Component Id="cmpF824453B4DC5DED7A5FE20DE68A71AFE" Directory="dirC24A635189E52DF456E2FBC3F74A024A" Guid="*">
+                <File Id="filE6134FF3194A2F0469A2B2703E8823EE" KeyPath="yes" Source="$(var.BinDir)\libMiniCL.dll" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirC24A635189E52DF456E2FBC3F74A024A" />
+    </Fragment>
+</Wix>

@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Directory Id="dirB276DA02640884951E0BF0969BFE78E5" Name="data" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="GameDataFiles">
+            <Component Id="cmp2756284D61B635048D7992E264D1F615" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filCE66789FA674B628528CA5E7A046BAD6" KeyPath="yes" Source="$(var.DataDir)\icon.png" />
+            </Component>
+            <Component Id="cmpBA00D2D8542DB443C948DE13CC7B94B6" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil93034C7FA36636B56DF7BBCAFA55AF0B" KeyPath="yes" Source="$(var.DataDir)\THA-defensemechanisms.ogg" />
+            </Component>
+            <Component Id="cmp6B3524585AD654CE072E788AAABE5E99" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil200F3247480689ED265A30D3BA7793D2" KeyPath="yes" Source="$(var.DataDir)\icon.svg" />
+            </Component>
+            <Component Id="cmpD3A4C87F4803EF164A1F6F32DAB9F046" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil331E0508CFB512E89C607521FB70F648" KeyPath="yes" Source="$(var.DataDir)\level-1.info" />
+            </Component>
+            <Component Id="cmpF01CBA9596166110A074E87BE0B6C450" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filD3615EEC0C1DAEA2ED070ECEB5C0D7CB" KeyPath="yes" Source="$(var.DataDir)\icon.ico" />
+            </Component>
+            <Component Id="cmp9708C52D8C9B44B1C9E372A99EAF1741" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil746E6DFE71FDB2921808753AF9262A5E" KeyPath="yes" Source="$(var.DataDir)\level-4.info" />
+            </Component>
+            <Component Id="cmpA164025325156395BACB999AA2B2771F" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filD54F2C9E01C16F6473DB5579DA0BEA10" KeyPath="yes" Source="$(var.DataDir)\level-10.info" />
+            </Component>
+            <Component Id="cmp3300736AD3061D90A163CAE54DD69ACD" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filF85E013A9C2235012DA1DDB96101125E" KeyPath="yes" Source="$(var.DataDir)\level-9.info" />
+            </Component>
+            <Component Id="cmpF8D687C0493B84B4D87C2D93C365958C" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil7576BDB1AFA89B22AEDC7A157D4AE68D" KeyPath="yes" Source="$(var.DataDir)\level-2.info" />
+            </Component>
+            <Component Id="cmp63F5133D31DE50EE65EED06F794AA1AA" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filE37017A49940CD498E70BC73C386CE3D" KeyPath="yes" Source="$(var.DataDir)\level-5.info" />
+            </Component>
+            <Component Id="cmp1A65058B19B9F47702E7F431B1C41600" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil7357825E84395001130B2BAFD4D24DA7" KeyPath="yes" Source="$(var.DataDir)\level-0.info" />
+            </Component>
+            <Component Id="cmp7EACA762DEB580696AA8A1C9E19E6E04" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil6F2C30B015B2A81C29241C878372EF58" KeyPath="yes" Source="$(var.DataDir)\level-3.info" />
+            </Component>
+            <Component Id="cmp019A8ABDCC9FD7CB6CD180C76ED5B48C" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil854CCCDFC1D08217895E32C5D35E49F7" KeyPath="yes" Source="$(var.DataDir)\ai-and-the-bomb.rc" />
+            </Component>
+            <Component Id="cmpEC25B679C4B478C1CC81DDD7EB13B7F5" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filA364F2E9F022AA78D274747103535DD6" KeyPath="yes" Source="$(var.DataDir)\level-6.info" />
+            </Component>
+            <Component Id="cmp05132DD3931EC0E94C97679687EFF706" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filE4324796297D46F1C1E274C492CFF6F3" KeyPath="yes" Source="$(var.DataDir)\level-7.info" />
+            </Component>
+            <Component Id="cmp931CD6C8F0B46BB61EBB5170C99DDF07" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filF3C7833B4CE3A55309577542F7FD6A92" KeyPath="yes" Source="$(var.DataDir)\org_01.ttf" />
+            </Component>
+            <Component Id="cmp16582273A1FF7BEB3D9FD1EE7AA14B50" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="filD76EA16BFD7A5F6A184BD8DA9DE35E90" KeyPath="yes" Source="$(var.DataDir)\level-8.info" />
+            </Component>
+            <Component Id="cmpCE4670024DBD537C4D7FBC585A7EA4EE" Directory="dirB276DA02640884951E0BF0969BFE78E5" Guid="*">
+                <File Id="fil2DB7D12EB932BA2C6F21250580C465EF" KeyPath="yes" Source="$(var.DataDir)\capture-it.ttf" />
+            </Component>
+            <Component Id="cmp23F100A0D704A2D13DB36003AC182E2D" Directory="dir7AD144E3F9B12E1798748D07B12DAE27" Guid="*">
+                <File Id="fil0562B8206AE361C5E3990FFE235B19E8" KeyPath="yes" Source="$(var.DataDir)\snd\collide.ogg" />
+            </Component>
+            <Component Id="cmpBEF4A2A54AF9CABC2E8F6BCB56D09BC3" Directory="dir7AD144E3F9B12E1798748D07B12DAE27" Guid="*">
+                <File Id="fil6B625A1DE0C5EBE005CBE5648FDDDC0A" KeyPath="yes" Source="$(var.DataDir)\snd\push.ogg" />
+            </Component>
+            <Component Id="cmp158B8E3D8B85EECE13264BD39A834759" Directory="dir7AD144E3F9B12E1798748D07B12DAE27" Guid="*">
+                <File Id="fil7466E1E53DB6C69BD7511E109127075F" KeyPath="yes" Source="$(var.DataDir)\snd\spring.ogg" />
+            </Component>
+            <Component Id="cmpC9A6178CB44C686B3B45530A8213A388" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filC23C10F7CED2BFB16884E41128B2B410" KeyPath="yes" Source="$(var.DataDir)\gfx\selector.png" />
+            </Component>
+            <Component Id="cmp8CF8FCD4536C302CEB9C355BE1A93045" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil90B1191A9E5E9A6B5BB6E155F96E1185" KeyPath="yes" Source="$(var.DataDir)\gfx\cursors.png" />
+            </Component>
+            <Component Id="cmpFA06FF81EB7309EDBCD3C64E96559400" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil500B1F27920986E1AF59FE80B34567C0" KeyPath="yes" Source="$(var.DataDir)\gfx\empty.png" />
+            </Component>
+            <Component Id="cmp27564C240E27DA9625483A708F9FA39A" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filA79F802F07B4F398F2909298603CE2E5" KeyPath="yes" Source="$(var.DataDir)\gfx\titlescreen.png" />
+            </Component>
+            <Component Id="cmpAB7B2295CE5C0A01ADA6733E925E0F8F" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil92CF6E135A65A42492A3066A454FD0E6" KeyPath="yes" Source="$(var.DataDir)\gfx\titlescreen_map.png" />
+            </Component>
+            <Component Id="cmpDA83B4CEE0F76A58EC17DE8DCD473BD8" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil6784CD97F7ADA73DFC8A588796E12E52" KeyPath="yes" Source="$(var.DataDir)\gfx\cursor_pull.png" />
+            </Component>
+            <Component Id="cmpD6039E8118D337E9C1D155FD74DC92BA" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil232F8B1C240C40DF24A5AD429DC07934" KeyPath="yes" Source="$(var.DataDir)\gfx\spring_push.png" />
+            </Component>
+            <Component Id="cmp5DC9BEA57A24302C39897CD924E18D47" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil5BAB5A132848DD4EC384706E45AB1EF6" KeyPath="yes" Source="$(var.DataDir)\gfx\clock_upper.png" />
+            </Component>
+            <Component Id="cmp34FAA0E45A52A15594B64336C08549A9" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filDC63D6F0B0BC37F895C4E3C6C03FB0DF" KeyPath="yes" Source="$(var.DataDir)\gfx\magnet_push.png" />
+            </Component>
+            <Component Id="cmpFE65F42C22A8DE87F9610E38B6DE27F7" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filA2ACEBFA7BD438C9BD93970E3299C2CA" KeyPath="yes" Source="$(var.DataDir)\gfx\cursor_default.png" />
+            </Component>
+            <Component Id="cmpFEFA2272F9EECA62819A9CDF414F9157" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filB70DC5F1FB5EEECC17C4357D10F15A35" KeyPath="yes" Source="$(var.DataDir)\gfx\cursor_push.png" />
+            </Component>
+            <Component Id="cmp93D9588E2F642197C697C78142EB4D58" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil032486FBF69D35FCB2D9C45DE59A3C11" KeyPath="yes" Source="$(var.DataDir)\gfx\spring_off.png" />
+            </Component>
+            <Component Id="cmp7763DA5FA38209B25666443F0BB886A6" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil3DC82110A9D40799377F80315805905A" KeyPath="yes" Source="$(var.DataDir)\gfx\icon_build.png" />
+            </Component>
+            <Component Id="cmpD22465DD9F90570F1B11145F0B209669" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil1C2F7D1206581971509EF57E5FAFDD8D" KeyPath="yes" Source="$(var.DataDir)\gfx\target.png" />
+            </Component>
+            <Component Id="cmp8203D7C1AC09F234833D9BA3835F4050" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil61A5064FF808DCBD76CFF00FC81837F4" KeyPath="yes" Source="$(var.DataDir)\gfx\gui_blob.png" />
+            </Component>
+            <Component Id="cmp0788CB64FFFE8C2CC886EFE121D594AB" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil72ADBD245F6D47856C0658172351AC81" KeyPath="yes" Source="$(var.DataDir)\gfx\static_off.png" />
+            </Component>
+            <Component Id="cmpD711AEA6AF682D2A79334A5286FF85B0" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filB26134DD42A34F3482063C174BB20358" KeyPath="yes" Source="$(var.DataDir)\gfx\cursor_spring_pull.png" />
+            </Component>
+            <Component Id="cmpCD5FE38C82F278C2DCD991A2E0FE601F" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil6C53542871D77A4962E8BE7390C2D0BA" KeyPath="yes" Source="$(var.DataDir)\gfx\clock_lower.png" />
+            </Component>
+            <Component Id="cmp0E3A5FAE19DBBC512BBC53232C5A8B08" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filEE2633E9F45041E5AC31913F74F9033B" KeyPath="yes" Source="$(var.DataDir)\gfx\rail.png" />
+            </Component>
+            <Component Id="cmp6EB6367134A6499D875C140D779C646A" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil2E5D7F2084A1CF294943CA3FE0B6BFA1" KeyPath="yes" Source="$(var.DataDir)\gfx\icon_go.png" />
+            </Component>
+            <Component Id="cmp008D9F375EC3833E384DC022FA97FFE8" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filBB108E30F6FF703FFB8CDF312D9C7607" KeyPath="yes" Source="$(var.DataDir)\gfx\icon_retry.png" />
+            </Component>
+            <Component Id="cmpE601AAFC86A615FFE05B2FCE132A3930" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil0A8EEC5F35B832FB07A6114E9099AF7B" KeyPath="yes" Source="$(var.DataDir)\gfx\box.png" />
+            </Component>
+            <Component Id="cmp196C21446AA9C0525630EDAB5FE22563" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filC0DE7A90E85F3F072FEC7DC37AEF2901" KeyPath="yes" Source="$(var.DataDir)\gfx\evil2.png" />
+            </Component>
+            <Component Id="cmp64A1FC3077E828155469D94BF1D9B8DF" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil86E188C2475A6D8117D52D371D522E5D" KeyPath="yes" Source="$(var.DataDir)\gfx\teamlogo.png" />
+            </Component>
+            <Component Id="cmpCC4868614327EDE09726F2F7EC367A80" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil854933FFB34764B3C57E28700DBB3166" KeyPath="yes" Source="$(var.DataDir)\gfx\magnet_pull.png" />
+            </Component>
+            <Component Id="cmp899D33444155F55EB09DE14AB89A5900" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil7CA726DB253E6CBA16127A8961B9354F" KeyPath="yes" Source="$(var.DataDir)\gfx\static_push.png" />
+            </Component>
+            <Component Id="cmp699BBE589F5354C5165D787555BBEDD4" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filF771791F6D3D067D87073A8129FE3DFC" KeyPath="yes" Source="$(var.DataDir)\gfx\static_pull.png" />
+            </Component>
+            <Component Id="cmp5D33CDB052F90980D3BF48EC63E37CDD" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil7B52B0F21B7D17323E106F9E7B41D75A" KeyPath="yes" Source="$(var.DataDir)\gfx\evil1.png" />
+            </Component>
+            <Component Id="cmp3AA608D6D215F96AAE2DCFE19EEF268D" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil8E920416CA522633FBDDAA1E41493D75" KeyPath="yes" Source="$(var.DataDir)\gfx\cursor_spring_push.png" />
+            </Component>
+            <Component Id="cmpEF84B17165B6EA856EA5BC0D2C509CC8" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="filC53B2DB35BB68C4FA6F6A54ABC29AA59" KeyPath="yes" Source="$(var.DataDir)\gfx\spring_pull.png" />
+            </Component>
+            <Component Id="cmp8165D4556914FEB90E848A6D67C5C9A0" Directory="dir82C8B22A23F8ECD92D8F7F5542BB6839" Guid="*">
+                <File Id="fil1BBE9561D8F36F1BFD8B9F682E00C760" KeyPath="yes" Source="$(var.DataDir)\gfx\magnet_off.png" />
+            </Component>
+            <Component Id="cmp263E14D923C7E22E60C3578F861FDC9D" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="fil5F980A78AC06C56B95769EF3E251B619" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level06.png" />
+            </Component>
+            <Component Id="cmpBB83FB134F379D14F32CAC688A87636F" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="fil49FCD48769181EF9922975B663B1973E" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level02.png" />
+            </Component>
+            <Component Id="cmpEAA54CA1962E64B345E1830E564ECD33" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="fil334B4EE88FC43B8160412A0A109AEE14" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level08.png" />
+            </Component>
+            <Component Id="cmp4D640D46A86C8B3F2DD08F4C252F1F95" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="filE81EC5842AAABE3002078C04ACE1286F" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level07.png" />
+            </Component>
+            <Component Id="cmpCA8F8A6E606445C7D305AED41470C112" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="fil243B6B22BB63D7BD8D39B568AFFC32C0" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level03.png" />
+            </Component>
+            <Component Id="cmp529DFBDFFE42F88CBB7A2702BC6EEDDC" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="fil7D8DADB4869696946EF1B29C2E83902C" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level01.png" />
+            </Component>
+            <Component Id="cmp4A51332BAA446830E22BB761B3B2DFE7" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="fil8A701B458202D927BCE657201009BAAE" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level10.png" />
+            </Component>
+            <Component Id="cmp3B86E8140F3EFE5F19396C4A22EEBC84" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="filE1BD6F21AB6696C9FF26E92783839908" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level09.png" />
+            </Component>
+            <Component Id="cmp7423F403C68254D24A1EC0F91B3F4DA6" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="fil2FC957F7B4DCF3CF4114D91166EBEBBA" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level05.png" />
+            </Component>
+            <Component Id="cmp52310E7AD9695CC44C41175C7BD1A9F9" Directory="dir8A129FABD83736870D6141EF0E974C32" Guid="*">
+                <File Id="filC7FB9F870199037EE8C511760C0C79FC" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\level04.png" />
+            </Component>
+            <Component Id="cmp88C8F10CBD1CF382AE255CF5D38DB9B9" Directory="dir49CB5EA3CD44431AC1818E8049942BF6" Guid="*">
+                <File Id="fil64FA920F30465A863C6B97F5E7205A18" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\tilesets\tileset.png" />
+            </Component>
+            <Component Id="cmp13C489BB63E28EE34E85E83D1D204394" Directory="dir49CB5EA3CD44431AC1818E8049942BF6" Guid="*">
+                <File Id="fil83BC98FE039521FE20986EF3D1250721" KeyPath="yes" Source="$(var.DataDir)\gfx\maps\tilesets\shadow.png" />
+            </Component>
+            <Component Id="cmp8B886F74BF6F2BF804A77DDB051CFDB0" Directory="dir9224932B6969D2C1FB4E5024CEE141F5" Guid="*">
+                <File Id="fil295F9F67689FE9FA0539AE89725159BF" KeyPath="yes" Source="$(var.DataDir)\gfx\psd\selector.pdd" />
+            </Component>
+            <Component Id="cmp99B96AB6868595240DE0742695627408" Directory="dirDBF68BB259DB39D10FBBBA9ABA36C213" Guid="*">
+                <File Id="fil3DB559B13E8379268B5F3D47F7C3DE15" KeyPath="yes" Source="$(var.DataDir)\gfx\tga\trak2_wall1b.tga" />
+            </Component>
+            <Component Id="cmp320401EA353DC0E94A20E6BB5BC5B2A5" Directory="dirDBF68BB259DB39D10FBBBA9ABA36C213" Guid="*">
+                <File Id="fil36952E5627BE883346C28DBE55EECAE5" KeyPath="yes" Source="$(var.DataDir)\gfx\tga\trak2_panel1d.tga" />
+            </Component>
+            <Component Id="cmp14ED4B18464B5C1D08EC0111AD4D1B33" Directory="dirDBF68BB259DB39D10FBBBA9ABA36C213" Guid="*">
+                <File Id="filEE4E7A61B900192B73FF83DD0C2B1352" KeyPath="yes" Source="$(var.DataDir)\gfx\tga\trak2_trim4e.tga" />
+            </Component>
+            <Component Id="cmp969C6D9DB4FF7477D960AEFD58C50B35" Directory="dirDBF68BB259DB39D10FBBBA9ABA36C213" Guid="*">
+                <File Id="fil0FBAA149FB612A005D823384C612F1A4" KeyPath="yes" Source="$(var.DataDir)\gfx\tga\tileset.xcf" />
+            </Component>
+            <Component Id="cmp3308C53A2E41B629A2417B4A4FA7DC01" Directory="dirDBF68BB259DB39D10FBBBA9ABA36C213" Guid="*">
+                <File Id="filE4B606B606616E6723222BF2A0DEF27B" KeyPath="yes" Source="$(var.DataDir)\gfx\tga\trak2_panel2d.tga" />
+            </Component>
+            <Component Id="cmpBB9D5A1D1DDC26943C692DF1B1D808B7" Directory="dirDBF68BB259DB39D10FBBBA9ABA36C213" Guid="*">
+                <File Id="fil8679B17278AFB6BF9C699CD868DF9010" KeyPath="yes" Source="$(var.DataDir)\gfx\tga\trak2_trim4b.tga" />
+            </Component>
+            <Component Id="cmpFB78FA444C989E8D572FC73270C14FB0" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filC7672E4924A66583C023720AFB386DAE" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\icon_retry.svg" />
+            </Component>
+            <Component Id="cmpC42C41AEB76936061644EC7337367C73" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil73DBE77D148CD793E3F3D873034033E4" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\cursor_pull.svg" />
+            </Component>
+            <Component Id="cmp0E57E6E786C3D05427FF88E1C8DAF420" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil58E9B80BE225C0B720AC9ACD6FB572B1" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\spring_off.svg" />
+            </Component>
+            <Component Id="cmp96D6336ADAEFF0998705A485CD0B2B33" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil35AE35AE3AFD41005D9E1FD8920B6353" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\spring_push.svg" />
+            </Component>
+            <Component Id="cmp7883A955686CEEF1C8AAA4E71461E863" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filAF60D3DBA89EBAEBE992514C4C599412" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\static_off.svg" />
+            </Component>
+            <Component Id="cmp23BF2F04A956720CFBDEA341F5CB2ED8" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil128BFE0BC1A15DAEE2D383A0B45F84CE" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\box.svg" />
+            </Component>
+            <Component Id="cmpCFF34138357D5D0243503DE94D1C2213" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil23433FC969F0C59B745E669CA54907AC" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\evil2.svg" />
+            </Component>
+            <Component Id="cmpF6E3FA8F6EAE8421999789F1A1C70D4B" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil4C6CADE6788690EAF7DA8C7B4260BDE5" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\icon_build.svg" />
+            </Component>
+            <Component Id="cmpF37E6BE02DF64C2A4E8B6CF3178A7833" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filAB70B111615EBA7D8C7DB76D7FF92585" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\teamlogo.svg" />
+            </Component>
+            <Component Id="cmp6A61D7EEF1E7DC9A5B890D66C6F0640E" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filE40446EE9666A82BF2BBDEFE03BBB1B7" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\spring_pull.svg" />
+            </Component>
+            <Component Id="cmp91871E836D3F7007C1CE7C8C799FA2A2" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filDE19EE404D2B25557B71DA6180E3F0D9" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\evil1.svg" />
+            </Component>
+            <Component Id="cmp32D29DB44192F16C0A93D28720442060" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filEE05CFC9A7F8DB8055560CF16ADB1B7D" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\magnet_pull.svg" />
+            </Component>
+            <Component Id="cmpEBA7134E53255D6892F85D5021B4D241" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filABD8076BE765560089EF7AE8FD5CD396" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\static_pull.svg" />
+            </Component>
+            <Component Id="cmpFC2F083D23B97582F05FDF195984E099" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil4CBE209CCD2F00F391DE093650424A3C" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\titlescreen.svg" />
+            </Component>
+            <Component Id="cmp6CA6379B5102BB249CA6DCEA873B2662" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil6BBDAF50AE61897CCABCD7F6BACBBC49" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\static_push.svg" />
+            </Component>
+            <Component Id="cmp9C932EEFC0570AABE4A0157862E9AAA3" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filFECF2325853EEFDE9000B2876496D2C4" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\clock.svg" />
+            </Component>
+            <Component Id="cmpB5D6B4773DA02A37DDA031161E659DBF" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil095A323374251B8F0F398A50E74BB39A" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\cursor_default.svg" />
+            </Component>
+            <Component Id="cmp2F37B984DBB43C2F43B1977050AB0F78" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil35E008A267F4C4725C5E1D6583CE9D0C" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\cursor_spring_push.svg" />
+            </Component>
+            <Component Id="cmp83F19DFB1CE991CD295603DC8B0DE809" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil1399C9E48BF3E2F5C74283A391180613" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\magnet_push.svg" />
+            </Component>
+            <Component Id="cmp5DA848B96032C98DC8B0155C2D703ECE" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil48C4972352E9C17648B2856D6F1355F6" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\shadow.svg" />
+            </Component>
+            <Component Id="cmpFA561425BC80F7134A2A9AC9F488270D" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil96E1C9B9987DB19EA549C5A1C4298B5F" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\magnet_off.svg" />
+            </Component>
+            <Component Id="cmpB81612E9FA693A47EC9BCE98B4195CE0" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil32B823421135C61B3A5B3F63CBCFA929" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\rail.svg" />
+            </Component>
+            <Component Id="cmpDFC5D01FBD01AFE3E97835BA02EEBAE7" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filF0C857B66E163EDC8FBA5A76FBEFB291" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\cursor_spring_pull.svg" />
+            </Component>
+            <Component Id="cmpB0AC03B75CA68CD912BE111880C0553D" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filE94E246DAB07B71945D266A354A2E710" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\gui_blob.svg" />
+            </Component>
+            <Component Id="cmpAEB34AC7766F04ED7566578D184515B0" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil6BD14EA10D3C0FBF9E17A04DC6FF1093" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\cursor_push.svg" />
+            </Component>
+            <Component Id="cmp0D75B5C41442D51E95359AC8629F8242" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="filAA5D8A5EDC18B520C7CD6E156220DEC4" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\target.svg" />
+            </Component>
+            <Component Id="cmp11D053B3BABEDE508A5480DE4EEADC3E" Directory="dir4776B9EE6B457CF59DBC5540F364F283" Guid="*">
+                <File Id="fil4D2E122F1E0DF21F2BC0EB7849437D76" KeyPath="yes" Source="$(var.DataDir)\gfx\svg\icon_go.svg" />
+            </Component>
+            <Component Id="cmp40E9C49AE8E161FDB11103A54767CEE9" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="filD9B0001862A3737AE3F7B5C0F43142A7" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level05.tmx" />
+            </Component>
+            <Component Id="cmp9410B6F1DDF5D13A427058554479985A" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil6F53EF09AAAE4F9F064EDAC4AF68E343" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\raw.tmx" />
+            </Component>
+            <Component Id="cmp7CDD9E9CF69CBA92570AABFB71A23DFB" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="filCFBF1809D00F906954733E39AD609D15" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level04.tmx" />
+            </Component>
+            <Component Id="cmpC5094C90505B2DCAF4EF4BE788BFAD58" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil04E641E4EEB333A0FFE60DD09881AEFF" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level09.tmx" />
+            </Component>
+            <Component Id="cmp73A14C7FF43EAAA1E3F6B264DB8DAB14" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil8F4927B901257B6FB61767BD07B71213" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level02.tmx" />
+            </Component>
+            <Component Id="cmp6A9793EC6832BB6896C004816A759817" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil5B13D04FCC374C8A1ACC37BADD578C19" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level08.tmx" />
+            </Component>
+            <Component Id="cmp6E0EDEA4A73B44F4D950444422FF4A68" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil4FBD98671EDF3BABFE47DE7F1A5B734F" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level01.tmx" />
+            </Component>
+            <Component Id="cmp5FEF7504BB26B7BEE2C9C21AD65DAB55" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil71EFDE459FE60A2045D8FCF0D79432E5" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level07.tmx" />
+            </Component>
+            <Component Id="cmp226A8FADC186C1A134F7F46D20654667" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil3B8437D4141A0742CB433333A551E6F5" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\titlescreen.tmx" />
+            </Component>
+            <Component Id="cmp0F819945FA559F7006A5F1D68636AAA3" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="filC0D568A1ACDBD69E85731F70C139AB15" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level03.tmx" />
+            </Component>
+            <Component Id="cmpEE188E7E1B373B8B8C74EE4E45AC672B" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="fil82AC89FE79AB221BEDDBBAE0EA5A0BE7" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level10.tmx" />
+            </Component>
+            <Component Id="cmpE3D47B06AE58E731B65611079AFF6EC8" Directory="dir36917345047B93DBD4DC5CA91D83BDEC" Guid="*">
+                <File Id="filF83A1071F093CFB9530EEC6FCF8B5381" KeyPath="yes" Source="$(var.DataDir)\tiled_maps\level06.tmx" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir7AD144E3F9B12E1798748D07B12DAE27" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir8A129FABD83736870D6141EF0E974C32" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirB276DA02640884951E0BF0969BFE78E5" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir36917345047B93DBD4DC5CA91D83BDEC" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir49CB5EA3CD44431AC1818E8049942BF6" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir9224932B6969D2C1FB4E5024CEE141F5" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirDBF68BB259DB39D10FBBBA9ABA36C213" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir82C8B22A23F8ECD92D8F7F5542BB6839" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir4776B9EE6B457CF59DBC5540F364F283" />
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirB276DA02640884951E0BF0969BFE78E5">
+            <Directory Id="dir36917345047B93DBD4DC5CA91D83BDEC" Name="tiled_maps" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir82C8B22A23F8ECD92D8F7F5542BB6839">
+            <Directory Id="dir4776B9EE6B457CF59DBC5540F364F283" Name="svg" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir8A129FABD83736870D6141EF0E974C32">
+            <Directory Id="dir49CB5EA3CD44431AC1818E8049942BF6" Name="tilesets" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirB276DA02640884951E0BF0969BFE78E5">
+            <Directory Id="dir7AD144E3F9B12E1798748D07B12DAE27" Name="snd" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirB276DA02640884951E0BF0969BFE78E5">
+            <Directory Id="dir82C8B22A23F8ECD92D8F7F5542BB6839" Name="gfx" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir82C8B22A23F8ECD92D8F7F5542BB6839">
+            <Directory Id="dir8A129FABD83736870D6141EF0E974C32" Name="maps" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir82C8B22A23F8ECD92D8F7F5542BB6839">
+            <Directory Id="dir9224932B6969D2C1FB4E5024CEE141F5" Name="psd" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir82C8B22A23F8ECD92D8F7F5542BB6839">
+            <Directory Id="dirDBF68BB259DB39D10FBBBA9ABA36C213" Name="tga" />
+        </DirectoryRef>
+    </Fragment>
+</Wix>

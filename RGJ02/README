@@ -1,0 +1,25 @@
+==============================
+===== Tower Of Opposites =====
+==============================
+
+=== License ===
+The artwork and code of this game are licensed under GPL v3 (http://www.gnu.org/licenses/gpl-3.0.html)
+The music is licensed under Creative Commons by-nc-nd v3.0 (http://creativecommons.org/licenses/by-nc-nd/3.0/)
+
+=== Description ===
+Survive as long as possible.
+You can't take many hits from the opposites!
+Use Q, A, W, S, E, D, R, F to morph into opposites.
+
+=== Run ===
+Dependencies you'll need for playing:
+Python 2.6, PyOpenGL 3, Pygame 1.9
+
+Just get those deps and run main.py.
+Do not run setup.py if not on Win32!
+
+=== Thanks And Resources ===
+Thanks go out to the authors of the libs I use as well as the tools used.
+Specificially Inkscape and sfxr.
+
+I use music from the Hamster Alliance (http://www.hamsteralliance.com).

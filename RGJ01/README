@@ -1,0 +1,25 @@
+========================
+===== Asteroid Jam =====
+========================
+
+=== License ===
+The artwork and code of this game are licensed under GPL v3 (http://www.gnu.org/licenses/gpl-3.0.html)
+The music is licensed under Creative Commons by-nc-nd v3.0 (http://creativecommons.org/licenses/by-nc-nd/3.0/)
+
+=== Description ===
+Survive as long as possible.
+You can't take many hits from the asteroids!
+Use the mouse.
+
+=== Compile ===
+Dependencies you'll need for compiling: 
+SFML 1.6, Boost > 1.38, C++ compiler, Box2D > 2.1.0
+
+IF you have those, just issue "make" and stuff should compile.
+Then run ./AsteroidJam.bin
+
+=== Thanks And Resources ===
+Thanks go out to the authors of the libs I use as well as the tools used.
+Specificially Inkscape and sfxr.
+
+I use music from the Hamster Alliance (http://www.hamsteralliance.com).

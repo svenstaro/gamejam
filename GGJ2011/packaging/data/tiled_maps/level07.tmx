@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="22" height="13" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tileset" tilewidth="64" tileheight="64">
+  <image source="../gfx/maps/tilesets/tileset.png"/>
+ </tileset>
+ <tileset firstgid="7" name="shadow" tilewidth="64" tileheight="64">
+  <image source="../gfx/maps/tilesets/shadow.png"/>
+ </tileset>
+ <layer name="background" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA72TwQoAIAhDZ/b/39wpCHGkJh2GYvHQWQpAg5okt7UzjiZ5XHHuCalXuJaV5Sq4DxnWrd+o2FxVrpjozRXlCnK7i7yHisebNx+43nm2X5szb379ty5t3gIEh16ueAQAAA==
+  </data>
+ </layer>
+ <layer name="shadows" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGDjAQUOzealsFjuUTQ03I5vFDcQ8UEypm9HNYoeycbmZFPuQzYLZg2wGBwN5YYTNLHQ3kxJG6PI8WDC6m/GFEQOSWkLm4nIzPoDuJ2Q9yGxsbqY24KaBmbgAAEm+Aod4BAAA
+  </data>
+ </layer>
+ <layer name="shadows2" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGNqAl0bmctDADnYg5oFidDsoAdxI5sIwLjeT6hdkN4MwrdyMzW0wu8l1My59MLtJBcToo8TNlNpNTX20BgAjFTp+eAQAAA==
+  </data>
+ </layer>
+ <layer name="walls" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgoC1gpBLGZi413DZqLnnmslFgLisOs4j1C7HuJTVsqGEGGxY9+MyFhQVyeGJjw/IBctjhMpcW+Y3aAAAphBmYeAQAAA==
+  </data>
+ </layer>
+</map>

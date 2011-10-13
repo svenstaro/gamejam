@@ -1,0 +1,42 @@
+LOVE ROBOT FROM SPACE
+
+Programming / Graphics:
+	Sven <Svenstaro> Haase
+	Paul <Opatut> Bienkowski
+	Matz <Timesqueezer> Radloff
+
+Controls:
+    == Global Keys ==
+    Tab:    Toggle editor mode
+    Escape: Quit
+
+    == Game Mode ==
+    Right:      Run right
+    Left:       Run left
+    1st Space:  Jump
+    2nd Space:  Double jump
+    Up:         Jetpack
+    
+    == Editor Mode ==
+    Arrows:     Scroll view
+    C:          Create entity
+    X:          Delete current entity
+    S:          Scale current entity
+    R:          Rotate current entity
+    G:          Grab current entity
+    E:          Next image
+    W:          Previous image
+    N:          Name entity
+    A:          Change entity alpha
+    P:          Pause entity physics
+    1-9:        Change layer
+    F:          Move entity 1 layer up
+    V:          Move entity 1 layer down
+    F1:         Save world
+    F2:         Reload world (Warning: changes are lost!)
+    Return:     Accept
+    Click:      Accept
+    Rightclick: Select Entity
+
+Special thanks to:
+    hamsteralliance.com - Music track: Where am I?

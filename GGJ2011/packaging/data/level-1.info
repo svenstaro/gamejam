@@ -1,0 +1,136 @@
+entities
+{
+    target
+    {
+        x 13.30038
+        y 6.176621
+        img target
+        rot 0.001306446
+        a 1
+        s 0.4527578
+        l 5
+        ll 0
+        phy true
+    }
+    box
+    {
+        x 3.11486
+        y 6.303133
+        img box
+        rot 0.001307877
+        a 1
+        s 0.3584268
+        l 5
+        ll 0
+        phy true
+    }
+}
+polygons
+{
+    0
+    {
+        0
+        {
+            x 2.21875
+            y 2.28125
+        }
+        1
+        {
+            x 2.21875
+            y 6.75
+        }
+        2
+        {
+            x 0.703125
+            y 4.5
+        }
+    }
+    1
+    {
+        0
+        {
+            x 2.234375
+            y 2.984375
+        }
+        1
+        {
+            x 14.25
+            y 3
+        }
+        2
+        {
+            x 10.92188
+            y 1.84375
+        }
+    }
+    2
+    {
+        0
+        {
+            x 14.25
+            y 6.71875
+        }
+        1
+        {
+            x 14.28125
+            y 3.015625
+        }
+        2
+        {
+            x 15.03125
+            y 4.703125
+        }
+    }
+    3
+    {
+        0
+        {
+            x 2.25
+            y 6.734375
+        }
+        1
+        {
+            x 14.20312
+            y 6.71875
+        }
+        2
+        {
+            x 8.59375
+            y 7.484375
+        }
+    }
+}
+rails
+{
+    0
+    {
+        1
+        {
+            x 13.9375
+            y 3.796875
+        }
+        2
+        {
+            x 2.5
+            y 3.734375
+        }
+        init true
+        type 1
+    }
+}
+messages
+{
+    0 "As the most evil artificial intelligence ever being created"
+    1 "your plan is to destroy this world with a giant bomb."
+    2 "Press play or hit <Return> to start."
+    3 "Then use the mouse to move the magnet on the rail above the TNT."
+    4 "The magnet will pull up the chest. Move it above the bomb."
+    5 "Hold down the left mouse button to inverse the magnet"
+    6 "and drop the TNT onto the bomb."
+}
+movers_available
+{
+    1 0
+    2 0
+    3 0
+}

@@ -1,1 +1,0 @@
-To complete your registration simply navigate your browser to http://{{ site.domain }}/accounts/activate/{{ activation_key }}/

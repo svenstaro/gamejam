@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="22" height="13" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tileset" tilewidth="64" tileheight="64">
+  <image source="../gfx/maps/tilesets/tileset.png"/>
+ </tileset>
+ <tileset firstgid="7" name="shadow" tilewidth="64" tileheight="64">
+  <image source="../gfx/maps/tilesets/shadow.png"/>
+ </tileset>
+ <layer name="background" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NmYGBgJhKz4GCjiyHTTFTCQ9FcZhqZO9TCYSiay0Ijc4daOKCHB6UYZh4ACnbEF3gEAAA=
+  </data>
+ </layer>
+ <layer name="walls" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgoC1gBmIWKEZm48PMWDC6mdgwPvNwmY8OGKmEsZlLKRg1d2DMpUV6wJWGScX0MpfaAABq5lZ+eAQAAA==
+  </data>
+ </layer>
+ <layer name="shadows" width="22" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgGAX0Arw0MpcDiDlpYC4PA23cDDKXFm7mYaCdm0cBdQEAn0wJLXgEAAA=
+  </data>
+ </layer>
+</map>
