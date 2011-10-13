@@ -55,7 +55,7 @@ void Mover::Update(float time_delta) {
 
 	if(!mRail->IsCurrentRail() && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY)
 		img += "off";
-	else if(GameApp::get_mutable_instance().GetInput().IsMouseButtonDown(sf::Mouse::Left) && mRail != NULL && mRail->IsCurrentRail() && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY)
+	else if(sf::Mouse::IsButtonPressed(sf::Mouse::Left) && mRail != NULL && mRail->IsCurrentRail() && GameApp::get_mutable_instance().GetAppMode() == AM_PLAY)
 		img += "push";
 	else
 		img += "pull";

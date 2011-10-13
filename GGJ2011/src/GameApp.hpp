@@ -43,7 +43,6 @@ public:
     const Vector2D GetWindowSize() const;
 	sf::View& GetView();
 	void SetGuiPaintingMode(bool guipaint);
-	const sf::Input& GetInput() const;
 	Vector2D GetMousePosition() const;
 
 	int GetNextId();
