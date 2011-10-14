@@ -11,7 +11,7 @@ using namespace sf;
 class AnimatedSprite : public sf::Sprite {
 public:
 	AnimatedSprite();
-	explicit AnimatedSprite(const Image& Img,
+	explicit AnimatedSprite(const Texture& Texture,
 						 const Vector2f& Position = Vector2f(0, 0),
 						 const Vector2f& Scale = Vector2f(1, 1),
 						 float Rotation = 0.f,

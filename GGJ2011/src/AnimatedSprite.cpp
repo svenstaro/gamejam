@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Image.hpp>
 
 using namespace sf;
 
@@ -15,8 +14,8 @@ AnimatedSprite::AnimatedSprite() {
 	mTimeSinceLastFrame = 0;
 }
 
-AnimatedSprite::AnimatedSprite(const Image& Img, const Vector2f& Position, const Vector2f& Scale, float Rotation, const Color& Col) {
-	SetImage(Img);
+AnimatedSprite::AnimatedSprite(const Texture& Texture, const Vector2f& Position, const Vector2f& Scale, float Rotation, const Color& Col) {
+	SetTexture(Texture);
 	SetPosition(Position);
 	SetScale(Scale);
 	SetRotation(Rotation);
@@ -78,11 +77,11 @@ void AnimatedSprite::Render(RenderTarget&, Renderer& renderer) const
 	float width  = mSubRectSize.x;
 	float height = mSubRectSize.y;
 
-	// Check if the image is valid, and calculate the texture coordinates
+	// Check if the texture is valid, and calculate the texture coordinates
 	FloatRect coords;
 	IntRect subrect(mSubRectOffset.x + mSubRectSize.x * mFrameNumber, mSubRectOffset.y, mSubRectSize.x, mSubRectSize.y);
-	if (GetImage())
-		coords = GetImage()->GetTexCoords(subrect);
+	if (GetTexture())
+		coords = GetTexture()->GetTexCoords(subrect);
 
 	// Compute the texture coordinates
 	float left   = coords.Left;
@@ -91,7 +90,7 @@ void AnimatedSprite::Render(RenderTarget&, Renderer& renderer) const
 	float bottom = coords.Top + coords.Height;
 
 	// Bind the texture
-	renderer.SetTexture(GetImage());
+	renderer.SetTexture(GetTexture());
 
 	// Draw the sprite's geometry
 	renderer.Begin(Renderer::TriangleStrip);

@@ -11,7 +11,7 @@ using namespace sf;
 class TiledSprite : public sf::Sprite {
 public:
 	TiledSprite();
-    explicit TiledSprite(const Image& Img,
+    explicit TiledSprite(const Texture& Img,
                          const Vector2f& Position = Vector2f(0, 0),
                          const Vector2f& Scale = Vector2f(1, 1),
                          const float Rotation = 0.f,

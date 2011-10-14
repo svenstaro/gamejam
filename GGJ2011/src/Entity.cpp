@@ -14,8 +14,8 @@ void Entity::Initialize(World& world) {
 	SetUsePhysics(world, false);
 }
 
-void Entity::Initialize(World& world, const std::string& imagefile, int layer, bool use_physics) {
-	mImageFile = imagefile;
+void Entity::Initialize(World& world, const std::string& texturefile, int layer, bool use_physics) {
+	mTextureFile = texturefile;
 	mLayer = layer;
 	mUsePhysics = false;
 	SetUsePhysics(world, use_physics);
@@ -62,9 +62,9 @@ void Entity::InitializePhysics() {
 
 	if(mUID.substr(0,5) == "empty") {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(15*mScale, 1*mScale, 1)));
-	} else if(mImageFile == "evil1") {
+	} else if(mTextureFile == "evil1") {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(0.5*mScale, 0.22*mScale, 1)));
-	} else if(mImageFile == "evil2") {
+	} else if(mTextureFile == "evil2") {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(0.5*mScale, 0.05*mScale, 1)));
 	} else {
 		mCollisionShape = boost::shared_ptr<btCollisionShape>(new btBoxShape(btVector3(1.2*mScale, 1.2*mScale, 1)));
@@ -127,8 +127,8 @@ void Entity::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode
 	Vector2D p = Coordinates::WorldFloatToWorldPixel(mPosition);
 	// TODO: Actually draw
 	sf::Sprite s;
-	s.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage(mImageFile));
-	s.SetOrigin(s.GetImage()->GetWidth()/2, s.GetImage()->GetHeight()/2);
+	s.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture(mTextureFile));
+	s.SetOrigin(s.GetTexture()->GetWidth()/2, s.GetTexture()->GetHeight()/2);
 	s.SetPosition(p.x, p.y);
 	s.SetRotation(Vector2D::rad2Deg(mRotation));
 	s.SetScale(mScale, mScale);
@@ -150,12 +150,12 @@ void Entity::DrawAllAttachments(sf::RenderTarget* target, sf::Shader& shader) {
 	}
 }
 
-void Entity::SetImage(const std::string& filename) {
-	mImageFile = filename;
+void Entity::SetTexture(const std::string& filename) {
+	mTextureFile = filename;
 }
 
-const std::string& Entity::GetImage() const {
-	return mImageFile;
+const std::string& Entity::GetTexture() const {
+	return mTextureFile;
 }
 
 void Entity::GenerateUID() {
@@ -264,7 +264,7 @@ bool Entity::SortHelper(const Entity& l, const Entity& r) {
 void Entity::Save(boost::property_tree::ptree* pt) {
 	pt->add("entities."+mUID+".x", mPosition.x);
 	pt->add("entities."+mUID+".y", mPosition.y);
-	pt->add("entities."+mUID+".img", mImageFile);
+	pt->add("entities."+mUID+".img", mTextureFile);
 	pt->add("entities."+mUID+".rot", mRotation);
 	pt->add("entities."+mUID+".a", mAlpha);
 	pt->add("entities."+mUID+".s", mScale);

@@ -60,8 +60,8 @@ void Mover::Update(float time_delta) {
 	else
 		img += "pull";
 
-	mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage(img));
-	mSprite.SetOrigin(mSprite.GetImage()->GetWidth() / 2,mSprite.GetImage()->GetHeight() / 2);
+	mSprite.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture(img));
+	mSprite.SetOrigin(mSprite.GetTexture()->GetWidth() / 2,mSprite.GetTexture()->GetHeight() / 2);
 }
 
 void Mover::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode) const {

@@ -78,59 +78,59 @@ void GameApp::Init(char* argv[]) {
     }
 
     // load resources
-    mResourceManager.AddImage(data / "gfx", "box.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "rail.png", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "box.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "rail.png", 20*METERS_PER_PIXEL, 20*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "target.png", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 
-    mResourceManager.AddImage(data / "gfx", "magnet_pull.png", 1.f, 1.f);
-    mResourceManager.AddImage(data / "gfx", "magnet_push.png", 1.f, 1.f);
-    mResourceManager.AddImage(data / "gfx", "magnet_off.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "magnet_pull.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "magnet_push.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "magnet_off.png", 1.f, 1.f);
 
-    mResourceManager.AddImage(data / "gfx", "static_pull.png", 1.f, 1.f);
-    mResourceManager.AddImage(data / "gfx", "static_push.png", 1.f, 1.f);
-    mResourceManager.AddImage(data / "gfx", "static_off.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "static_pull.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "static_push.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "static_off.png", 1.f, 1.f);
 
-    mResourceManager.AddImage(data / "gfx", "spring_pull.png", 1.f, 1.f);
-    mResourceManager.AddImage(data / "gfx", "spring_push.png", 1.f, 1.f);
-    mResourceManager.AddImage(data / "gfx", "spring_off.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "spring_pull.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "spring_push.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "spring_off.png", 1.f, 1.f);
 
-    mResourceManager.AddImage(data / "gfx", "evil1.png", 64*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "evil2.png", 64*METERS_PER_PIXEL, 16*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "evil1.png", 64*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "evil2.png", 64*METERS_PER_PIXEL, 16*METERS_PER_PIXEL);
 
-    mResourceManager.AddImage(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "cursor_spring_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "cursor_spring_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "cursor_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "cursor_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "cursor_default.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "cursor_spring_pull.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "cursor_spring_push.png", 32*METERS_PER_PIXEL, 32*METERS_PER_PIXEL);
 
-    mResourceManager.AddImage(data / "gfx", "selector.png", 330*METERS_PER_PIXEL, 160*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "selector.png", 330*METERS_PER_PIXEL, 160*METERS_PER_PIXEL);
     // -- add new images here
 
-    mResourceManager.AddImage(data / "gfx" / "maps", "level01.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level02.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level03.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level04.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level05.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level06.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level07.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level08.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level09.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx" / "maps", "level10.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level01.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level02.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level03.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level04.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level05.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level06.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level07.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level08.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level09.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx" / "maps", "level10.png", 1056*METERS_PER_PIXEL, 624*METERS_PER_PIXEL);
 
-    mResourceManager.AddImage(data / "gfx", "icon_build.png", 1.f,1.f);
-    mResourceManager.AddImage(data / "gfx", "icon_go.png", 1.f,1.f);
-    mResourceManager.AddImage(data / "gfx", "icon_retry.png", 1.f,1.f);
-    mResourceManager.AddImage(data / "gfx", "gui_blob.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "icon_build.png", 1.f,1.f);
+    mResourceManager.AddTexture(data / "gfx", "icon_go.png", 1.f,1.f);
+    mResourceManager.AddTexture(data / "gfx", "icon_retry.png", 1.f,1.f);
+    mResourceManager.AddTexture(data / "gfx", "gui_blob.png", 1.f, 1.f);
 
-    mResourceManager.AddImage(data / "gfx", "clock_lower.png", 1.f, 1.f);
-    mResourceManager.AddImage(data / "gfx", "clock_upper.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "clock_lower.png", 1.f, 1.f);
+    mResourceManager.AddTexture(data / "gfx", "clock_upper.png", 1.f, 1.f);
 
-    mResourceManager.AddImage(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "teamlogo.png", mRenderWin->GetWidth()*METERS_PER_PIXEL, mRenderWin->GetHeight()*METERS_PER_PIXEL);
-    mResourceManager.AddImage(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "titlescreen.png", 1024*METERS_PER_PIXEL, 600*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "teamlogo.png", mRenderWin->GetWidth()*METERS_PER_PIXEL, mRenderWin->GetHeight()*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "empty.png", 150*METERS_PER_PIXEL, 10*METERS_PER_PIXEL);
 
     // animation test
-    mResourceManager.AddImage(data / "gfx", "cursors.png", 256*METERS_PER_PIXEL, 256*METERS_PER_PIXEL);
+    mResourceManager.AddTexture(data / "gfx", "cursors.png", 256*METERS_PER_PIXEL, 256*METERS_PER_PIXEL);
 
     mResourceManager.AddSoundBuffer(data / "snd", "collide.ogg", "collide");
     mResourceManager.AddSoundBuffer(data / "snd", "push.ogg", "push");
@@ -158,7 +158,7 @@ void GameApp::Init(char* argv[]) {
 
 
     // Animation test
-    mBusy.SetImage(mResourceManager.GetImage("cursors"));
+    mBusy.SetTexture(mResourceManager.GetTexture("cursors"));
     mBusy.SetSubRectSize(sf::Vector2f(16,16));
     mBusy.SetSubRectOffset(sf::Vector2f(0,16));
     mBusy.SetFPS(8);
@@ -286,8 +286,8 @@ void GameApp::Run() {
                   t.SetFont(mResourceManager.GetFont("custom"));
                   mRenderWin->Draw(t);*/
             } else if(mWorld.GetCurrentLevel() != 0){
-                sf::Sprite clock(mResourceManager.GetImage("clock_lower"));
-                clock.SetPosition(mRenderWin->GetWidth() / 2 - clock.GetImage()->GetWidth() / 2, 0);
+                sf::Sprite clock(mResourceManager.GetTexture("clock_lower"));
+                clock.SetPosition(mRenderWin->GetWidth() / 2 - clock.GetTexture()->GetWidth() / 2, 0);
                 mRenderWin->Draw(clock);
 
                 boost::posix_time::time_duration td = boost::posix_time::seconds(mTotalTime);
@@ -308,7 +308,7 @@ void GameApp::Run() {
                 mRenderWin->Draw(t);
 
 
-                clock.SetImage(mResourceManager.GetImage("clock_upper"));
+                clock.SetTexture(mResourceManager.GetTexture("clock_upper"));
                 mRenderWin->Draw(clock);
             }
 
@@ -323,13 +323,13 @@ void GameApp::Run() {
         mCursor.SetColor(sf::Color(255,255,255,255));
 
         if(mAppMode != AM_PLAY)
-            mCursor.SetImage(mResourceManager.GetImage("cursor_default"));
+            mCursor.SetTexture(mResourceManager.GetTexture("cursor_default"));
         else {
             if(mWorld.GetCurrentRail() != NULL && mWorld.GetCurrentRail()->GetMover().GetMoverType() == MT_SPRING && mWorld.GetBoxEntity() != NULL) {
                 if(sf::Mouse::IsButtonPressed(sf::Mouse::Left))
-                    mCursor.SetImage(mResourceManager.GetImage("cursor_spring_push"));
+                    mCursor.SetTexture(mResourceManager.GetTexture("cursor_spring_push"));
                 else
-                    mCursor.SetImage(mResourceManager.GetImage("cursor_spring_pull"));
+                    mCursor.SetTexture(mResourceManager.GetTexture("cursor_spring_pull"));
 
                 Vector2D mp = Coordinates::ScreenPixelToWorldFloat(GetMousePosition());
                 btVector3 dir(mp.x, mp.y, 0);
@@ -345,10 +345,10 @@ void GameApp::Run() {
                 mCursor.SetColor(sf::Color(255,255,255,a));
             } else {
                 if(sf::Mouse::IsButtonPressed(sf::Mouse::Left)) {
-                    mCursor.SetImage(mResourceManager.GetImage("cursor_push"));
+                    mCursor.SetTexture(mResourceManager.GetTexture("cursor_push"));
                     mResourceManager.PlaySound("push");
                 } else {
-                    mCursor.SetImage(mResourceManager.GetImage("cursor_pull"));
+                    mCursor.SetTexture(mResourceManager.GetTexture("cursor_pull"));
                 } mCursor.SetRotation(mCursorRotation);
             }
         }
@@ -359,12 +359,12 @@ void GameApp::Run() {
             Vector2D b1(mRenderWin->GetWidth() - 1 * 70 - 10,42);
             Vector2D b2(mRenderWin->GetWidth() - 2 * 70 - 10,42);
 
-            sf::Sprite s1(mResourceManager.GetImage("icon_retry"));
+            sf::Sprite s1(mResourceManager.GetTexture("icon_retry"));
             sf::Sprite s2;
             if(mAppMode == AM_PLAY)
-                s2.SetImage(mResourceManager.GetImage("icon_build"));
+                s2.SetTexture(mResourceManager.GetTexture("icon_build"));
             else
-                s2.SetImage(mResourceManager.GetImage("icon_go"));
+                s2.SetTexture(mResourceManager.GetTexture("icon_go"));
 
             s1.SetOrigin(32,32);
             s2.SetOrigin(32,32);
@@ -386,7 +386,7 @@ void GameApp::Run() {
 
         // Draw crdits
         if(mCreditsActive) {
-            sf::Sprite credits(mResourceManager.GetImage("teamlogo"));
+            sf::Sprite credits(mResourceManager.GetTexture("teamlogo"));
             credits.Move(0, mTimeSinceCreditsActive * -100);
             mRenderWin->Draw(credits);
 

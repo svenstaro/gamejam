@@ -49,7 +49,7 @@ public:
 	~Entity();
 
 	virtual void Initialize(World& world);
-	virtual void Initialize(World& world, const std::string& imagefile, int layer=1, bool use_physics = false);
+	virtual void Initialize(World& world, const std::string& texturefile, int layer=1, bool use_physics = false);
 	virtual void Initialize(World& world, boost::property_tree::ptree* pt, std::string uid);
 	virtual void InitializePhysics();
 
@@ -61,8 +61,8 @@ public:
 	virtual void Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode = false) const;
 	void DrawAllAttachments(sf::RenderTarget* target, sf::Shader& shader);
 
-	void SetImage(const std::string& filename);
-	const std::string& GetImage() const;
+	void SetTexture(const std::string& filename);
+	const std::string& GetTexture() const;
 
 	void GenerateUID();
 	void SetUID(const std::string& id);
@@ -120,7 +120,7 @@ public:
 
 protected:
 	std::string mUID;
-	std::string mImageFile;
+	std::string mTextureFile;
 	int mLayer;
 	int mLocalLayer;
 

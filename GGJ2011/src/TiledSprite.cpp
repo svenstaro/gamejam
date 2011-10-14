@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Image.hpp>
 
 using namespace sf;
 
@@ -11,8 +10,8 @@ TiledSprite::TiledSprite() {
 	SetSubRect(IntRect(0,0,1,1));
 }
 
-TiledSprite::TiledSprite(const Image& Img, const Vector2f& Position, const Vector2f& Scale, const float Rotation, const Color& Col) {
-	SetImage(Img);
+TiledSprite::TiledSprite(const Texture& Img, const Vector2f& Position, const Vector2f& Scale, const float Rotation, const Color& Col) {
+	SetTexture(Img);
 	SetPosition(Position);
 	SetScale(Scale);
 	SetRotation(Rotation);
@@ -21,7 +20,7 @@ TiledSprite::TiledSprite(const Image& Img, const Vector2f& Position, const Vecto
 }
 
 void TiledSprite::Render(RenderTarget&, Renderer& renderer) const {
-	const Image* image = GetImage();
+	const Texture* texture = GetTexture();
 
 
     const IntRect& sub_rect = GetSubRect();
@@ -36,16 +35,16 @@ void TiledSprite::Render(RenderTarget&, Renderer& renderer) const {
 	float sw = GetScale().x; // 200
 	float sh = GetScale().y; // 30
 
-    // Check if the image is valid
-	if(image) {
+    // Check if the texture is valid
+	if(texture) {
 		// Bind the texture
-		renderer.SetTexture(image);
+		renderer.SetTexture(texture);
 
 		// 9 subrects
 		for(int x = 0; x < 3; x++) {
 			for(int y = 0; y < 3; y++) {
                 // Calculate the texture coordinates
-				FloatRect tc = image->GetTexCoords(IntRect(x * subw, y * subh, subw, subh));
+				FloatRect tc = texture->GetTexCoords(IntRect(x * subw, y * subh, subw, subh));
 
 				float left = 0, top = 0, right = 0, bottom = 0;
 				float hp = subw/sw;

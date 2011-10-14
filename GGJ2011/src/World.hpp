@@ -63,7 +63,7 @@ public:
 
 	void ToggleSetMouseAction(EditorMouseAction action);
 
-	static std::string GetImageKeyRelativeTo(const std::string& original, int offset);
+	static std::string GetTextureKeyRelativeTo(const std::string& original, int offset);
 
 	int GetEditorLayer() const;
 	void SetEditorLayer(int layer);

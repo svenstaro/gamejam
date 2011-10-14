@@ -162,7 +162,7 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 	GameApp::get_mutable_instance().SetGuiPaintingMode(false);
 	// draw background
 	if(mCurrentLevel > 0) {
-		sf::Sprite back(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("level"+leadingZeros2(mCurrentLevel, 2)));
+		sf::Sprite back(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("level"+leadingZeros2(mCurrentLevel, 2)));
 		target->Draw(back);
 	}
 
@@ -227,11 +227,11 @@ void World::Draw(sf::RenderTarget* target, sf::Shader& shader) {
 		Vector2D b2(target->GetWidth() / 2, 42);
 		Vector2D b3(target->GetWidth() / 2 + 50, 42);
 
-		sf::Sprite s1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("magnet_off"));
-		sf::Sprite s2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("spring_off"));
-		sf::Sprite s3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("static_off"));
+		sf::Sprite s1(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("magnet_off"));
+		sf::Sprite s2(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("spring_off"));
+		sf::Sprite s3(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("static_off"));
 
-		sf::Sprite sel(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("selector"));
+		sf::Sprite sel(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("selector"));
 		sel.SetOrigin(330 / 2, 0);
 		sel.SetScale(0.5,0.6);
 		sel.SetPosition(target->GetWidth() / 2, 10);
@@ -339,7 +339,7 @@ void World::HandleEvent(const sf::Event& event) {
 		GameApp::get_mutable_instance().Quit();
 	} else if(GameApp::get_mutable_instance().IsEditorMode()) {
 		// EDITOR
-		std::vector<std::string> img_keys = GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImageKeys();
+		std::vector<std::string> img_keys = GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTextureKeys();
 		if (img_keys.size() == 0) {
 			std::cerr << "There are no images. The Editor cannot be used when there are no images loaded. Exiting." << std::endl;
 			exit(1);
@@ -382,7 +382,7 @@ void World::HandleEvent(const sf::Event& event) {
 					Entity* e = new Entity();
 					if (mEditorSelectedEntity != NULL) {
 						// copy properties
-						e->Initialize(*this, mEditorSelectedEntity->GetImage(),mEditorLayer);
+						e->Initialize(*this, mEditorSelectedEntity->GetTexture(),mEditorLayer);
 						e->SetLocalLayer(mLocalLayerCount);
 						mLocalLayerCount++;
 						e->SetRotation(mEditorSelectedEntity->GetRotation());
@@ -403,11 +403,11 @@ void World::HandleEvent(const sf::Event& event) {
 				} else if(event.Key.Code == sf::Keyboard::E) {
 					//next image
 					if (mEditorSelectedEntity!=NULL)
-						mEditorSelectedEntity->SetImage(GetImageKeyRelativeTo(mEditorSelectedEntity->GetImage(), +1));
+						mEditorSelectedEntity->SetTexture(GetTextureKeyRelativeTo(mEditorSelectedEntity->GetTexture(), +1));
 				} else if(event.Key.Code == sf::Keyboard::W) {
 					//prev entity
 					if (mEditorSelectedEntity!=NULL)
-						mEditorSelectedEntity->SetImage(GetImageKeyRelativeTo(mEditorSelectedEntity->GetImage(), -1));
+						mEditorSelectedEntity->SetTexture(GetTextureKeyRelativeTo(mEditorSelectedEntity->GetTexture(), -1));
 				} else if(event.Key.Code == sf::Keyboard::F) {
 					// move up 1 layer
 					if(mEditorSelectedEntity!=NULL && mEditorSelectedEntity->GetLayer()<9) {
@@ -750,8 +750,8 @@ void World::ToggleSetMouseAction(EditorMouseAction action) {
 }
 
 
-std::string World::GetImageKeyRelativeTo(const std::string& original, int offset) {
-	const std::vector<std::string> img_keys = GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImageKeys();
+std::string World::GetTextureKeyRelativeTo(const std::string& original, int offset) {
+	const std::vector<std::string> img_keys = GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTextureKeys();
 
 	int i = 0;
 	int n = img_keys.size();

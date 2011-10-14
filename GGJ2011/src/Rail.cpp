@@ -81,7 +81,7 @@ void Rail::InitializePhysics() {
 }
 
 void Rail::Update(float time_delta) {
-	mTiledSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("rail"));
+	mTiledSprite.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("rail"));
 	Vector2D diff = Coordinates::WorldFloatToWorldPixel(mPoint2 - mPoint1);
 	mTiledSprite.SetPosition(Coordinates::WorldFloatToWorldPixel(mPoint1).x,Coordinates::WorldFloatToWorldPixel(mPoint1).y);
 	mTiledSprite.SetScale(diff.Magnitude(), 20);
