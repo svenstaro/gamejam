@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09003"
+   height="1052.3622"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="cake.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+   inkscape:export-xdpi="14.719175"
+   inkscape:export-ydpi="14.719175"
+   version="1.0">
+  <defs
+     id="defs4">
+    <pattern
+       inkscape:stockid="Checkerboard"
+       id="Checkerboard"
+       patternTransform="matrix(10,0,0,10,-284.21053,131.57895)"
+       height="2"
+       width="2"
+       patternUnits="userSpaceOnUse"
+       inkscape:collect="always">
+      <rect
+         id="rect4010"
+         height="1"
+         width="1"
+         y="0"
+         x="0"
+         style="fill:black;stroke:none" />
+      <rect
+         id="rect4012"
+         height="1"
+         width="1"
+         y="1"
+         x="1"
+         style="fill:black;stroke:none" />
+    </pattern>
+    <pattern
+       inkscape:stockid="Polka dots, small white"
+       id="Polkadots-smallwhite"
+       patternTransform="matrix(10,0,0,10,-217.54386,38.596492)"
+       height="10"
+       width="10"
+       patternUnits="userSpaceOnUse"
+       inkscape:collect="always">
+      <circle
+         id="circle4118"
+         r="0.05"
+         cy="0.810"
+         cx="2.567"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4120"
+         r="0.05"
+         cy="2.33"
+         cx="3.048"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4122"
+         r="0.05"
+         cy="2.415"
+         cx="4.418"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4124"
+         r="0.05"
+         cy="3.029"
+         cx="1.844"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4126"
+         r="0.05"
+         cy="1.363"
+         cx="6.08"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4128"
+         r="0.05"
+         cy="4.413"
+         cx="5.819"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4130"
+         r="0.05"
+         cy="4.048"
+         cx="4.305"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4132"
+         r="0.05"
+         cy="3.045"
+         cx="5.541"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4134"
+         r="0.05"
+         cy="5.527"
+         cx="4.785"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4136"
+         r="0.05"
+         cy="5.184"
+         cx="2.667"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4138"
+         r="0.05"
+         cy="1.448"
+         cx="7.965"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4140"
+         r="0.05"
+         cy="5.049"
+         cx="7.047"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4142"
+         r="0.05"
+         cy="0.895"
+         cx="4.340"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4144"
+         r="0.05"
+         cy="0.340"
+         cx="7.125"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4146"
+         r="0.05"
+         cy="1.049"
+         cx="9.553"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4148"
+         r="0.05"
+         cy="2.689"
+         cx="7.006"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4150"
+         r="0.05"
+         cy="2.689"
+         cx="8.909"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4152"
+         r="0.05"
+         cy="4.407"
+         cx="9.315"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4154"
+         r="0.05"
+         cy="3.870"
+         cx="7.820"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4156"
+         r="0.05"
+         cy="5.948"
+         cx="8.270"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4158"
+         r="0.05"
+         cy="7.428"
+         cx="7.973"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4160"
+         r="0.05"
+         cy="8.072"
+         cx="9.342"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4162"
+         r="0.05"
+         cy="9.315"
+         cx="8.206"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4164"
+         r="0.05"
+         cy="9.475"
+         cx="9.682"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4166"
+         r="0.05"
+         cy="6.186"
+         cx="9.688"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4168"
+         r="0.05"
+         cy="6.296"
+         cx="3.379"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4170"
+         r="0.05"
+         cy="8.204"
+         cx="2.871"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4172"
+         r="0.05"
+         cy="8.719"
+         cx="4.59"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4174"
+         r="0.05"
+         cy="9.671"
+         cx="3.181"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4176"
+         r="0.05"
+         cy="7.315"
+         cx="5.734"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4178"
+         r="0.05"
+         cy="6.513"
+         cx="6.707"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4180"
+         r="0.05"
+         cy="9.670"
+         cx="5.730"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4182"
+         r="0.05"
+         cy="8.373"
+         cx="6.535"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4184"
+         r="0.05"
+         cy="7.154"
+         cx="4.37"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4186"
+         r="0.05"
+         cy="7.25"
+         cx="0.622"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4188"
+         r="0.05"
+         cy="5.679"
+         cx="0.831"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4190"
+         r="0.05"
+         cy="8.519"
+         cx="1.257"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4192"
+         r="0.05"
+         cy="6.877"
+         cx="1.989"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4194"
+         r="0.05"
+         cy="3.181"
+         cx="0.374"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4196"
+         r="0.05"
+         cy="1.664"
+         cx="1.166"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4198"
+         r="0.05"
+         cy="0.093"
+         cx="1.151"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4200"
+         r="0.05"
+         cy="10.093"
+         cx="1.151"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4202"
+         r="0.05"
+         cy="4.451"
+         cx="1.302"
+         style="fill:white;stroke:none" />
+      <circle
+         id="circle4204"
+         r="0.05"
+         cy="3.763"
+         cx="3.047"
+         style="fill:white;stroke:none" />
+    </pattern>
+    <pattern
+       inkscape:stockid="Wavy"
+       id="Wavy"
+       height="5.1805778"
+       width="30.066020"
+       patternUnits="userSpaceOnUse"
+       inkscape:collect="always">
+      <path
+         id="path4563"
+         d="M 7.597,0.061 C 5.079,-0.187 2.656,0.302 -0.01,1.788 L -0.01,3.061 C 2.773,1.431 5.173,1.052 7.472,1.280 C 9.770,1.508 11.969,2.361 14.253,3.218 C 18.820,4.931 23.804,6.676 30.066,3.061 L 30.062,1.788 C 23.622,5.497 19.246,3.770 14.691,2.061 C 12.413,1.207 10.115,0.311 7.597,0.061 z "
+         style="fill:black;stroke:none;" />
+    </pattern>
+    <linearGradient
+       id="linearGradient3165">
+      <stop
+         style="stop-color:#830000;stop-opacity:1;"
+         offset="0"
+         id="stop3167" />
+      <stop
+         style="stop-color:#d92020;stop-opacity:1;"
+         offset="1"
+         id="stop3169" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3155">
+      <stop
+         style="stop-color:#452314;stop-opacity:1;"
+         offset="0"
+         id="stop3157" />
+      <stop
+         style="stop-color:#7c2900;stop-opacity:1;"
+         offset="1"
+         id="stop3159" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3155"
+       id="linearGradient3161"
+       x1="85.449249"
+       y1="972.50647"
+       x2="692.47894"
+       y2="412.85733"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3165"
+       id="linearGradient3171"
+       x1="111.53508"
+       y1="629.55518"
+       x2="172.67543"
+       y2="561.13416"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter3173">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.20921053"
+         id="feGaussianBlur3175" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3177">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.222207"
+         id="feGaussianBlur3179" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3165"
+       id="linearGradient3183"
+       gradientUnits="userSpaceOnUse"
+       x1="111.53508"
+       y1="629.55518"
+       x2="172.67543"
+       y2="561.13416" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3165"
+       id="linearGradient3187"
+       gradientUnits="userSpaceOnUse"
+       x1="111.53508"
+       y1="629.55518"
+       x2="172.67543"
+       y2="561.13416" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3165"
+       id="linearGradient3191"
+       gradientUnits="userSpaceOnUse"
+       x1="111.53508"
+       y1="629.55518"
+       x2="172.67543"
+       y2="561.13416" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3165"
+       id="linearGradient3195"
+       gradientUnits="userSpaceOnUse"
+       x1="111.53508"
+       y1="629.55518"
+       x2="172.67543"
+       y2="561.13416" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3165"
+       id="linearGradient3199"
+       gradientUnits="userSpaceOnUse"
+       x1="111.53508"
+       y1="629.55518"
+       x2="172.67543"
+       y2="561.13416" />
+    <filter
+       inkscape:collect="always"
+       id="filter5271"
+       x="-0.66363001"
+       width="2.32726"
+       y="-0.60832751"
+       height="2.216655">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="5.3362064"
+         id="feGaussianBlur5273" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.68322486"
+     inkscape:cx="372.04724"
+     inkscape:cy="526.18109"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1024"
+     inkscape:window-height="929"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3201"
+       width="14.035088"
+       height="143.85965"
+       x="375.43863"
+       y="457.62537"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       style="fill:url(#linearGradient3161);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3177)"
+       d="M 84.210526,608.50253 C 68.61304,694.27192 77.123935,784.86299 84.210526,875.1692 C 265.63524,893.383 458.94129,893.7748 668.42105,869.90604 C 673.15726,782.18674 679.97049,694.46744 666.66667,606.74814 C 475.23998,596.43152 280.28589,600.22445 84.210526,608.50253 z"
+       id="path3153"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       style="opacity:0.08403362;fill:url(#Checkerboard);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3177)"
+       d="M 79.456964,609.41089 C 63.859474,695.18028 72.370374,785.77135 79.456964,876.07756 C 260.88167,894.29136 454.18772,894.68316 663.66748,870.8144 C 668.40369,783.0951 675.21692,695.3758 661.9131,607.6565 C 470.48641,597.33988 275.53232,601.13281 79.456964,609.41089 z"
+       id="path4956"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient3171);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3173)"
+       id="path3163"
+       sodipodi:cx="149.1228"
+       sodipodi:cy="594.46747"
+       sodipodi:rx="17.543859"
+       sodipodi:ry="19.298246"
+       d="M 166.66666,594.46747 A 17.543859,19.298246 0 1 1 131.57894,594.46747 A 17.543859,19.298246 0 1 1 166.66666,594.46747 z"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient3183);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3173)"
+       id="path3181"
+       sodipodi:cx="149.1228"
+       sodipodi:cy="594.46747"
+       sodipodi:rx="17.543859"
+       sodipodi:ry="19.298246"
+       d="M 166.66666,594.46747 A 17.543859,19.298246 0 1 1 131.57894,594.46747 A 17.543859,19.298246 0 1 1 166.66666,594.46747 z"
+       transform="translate(77.192983,-5.2631811)"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient3187);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3173)"
+       id="path3185"
+       sodipodi:cx="149.1228"
+       sodipodi:cy="594.46747"
+       sodipodi:rx="17.543859"
+       sodipodi:ry="19.298246"
+       d="M 166.66666,594.46747 A 17.543859,19.298246 0 1 1 131.57894,594.46747 A 17.543859,19.298246 0 1 1 166.66666,594.46747 z"
+       transform="translate(466.66667,-3.5087944)"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient3191);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3173)"
+       id="path3189"
+       sodipodi:cx="149.1228"
+       sodipodi:cy="594.46747"
+       sodipodi:rx="17.543859"
+       sodipodi:ry="19.298246"
+       d="M 166.66666,594.46747 A 17.543859,19.298246 0 1 1 131.57894,594.46747 A 17.543859,19.298246 0 1 1 166.66666,594.46747 z"
+       transform="translate(380.70177,-7.0175661)"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient3195);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3173)"
+       id="path3193"
+       sodipodi:cx="149.1228"
+       sodipodi:cy="594.46747"
+       sodipodi:rx="17.543859"
+       sodipodi:ry="19.298246"
+       d="M 166.66666,594.46747 A 17.543859,19.298246 0 1 1 131.57894,594.46747 A 17.543859,19.298246 0 1 1 166.66666,594.46747 z"
+       transform="translate(285.96491,-7.0175664)"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient3199);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3173)"
+       id="path3197"
+       sodipodi:cx="149.1228"
+       sodipodi:cy="594.46747"
+       sodipodi:rx="17.543859"
+       sodipodi:ry="19.298246"
+       d="M 166.66666,594.46747 A 17.543859,19.298246 0 1 1 131.57894,594.46747 A 17.543859,19.298246 0 1 1 166.66666,594.46747 z"
+       transform="translate(173.68421,-7.017566)"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       style="fill:url(#Wavy);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3177)"
+       d="M 84.720123,609.41089 C 69.122633,695.18028 77.633533,785.77135 84.720123,876.07756 C 266.14483,894.29136 459.45088,894.68316 668.93064,870.8144 C 673.66685,783.0951 680.48008,695.3758 667.17626,607.6565 C 475.74957,597.33988 280.79548,601.13281 84.720123,609.41089 z"
+       id="path3211"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       style="fill:url(#Polkadots-smallwhite);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3177)"
+       d="M 77.702582,612.91967 C 62.105092,698.68906 70.615992,789.28013 77.702582,879.58634 C 259.12729,897.80014 452.43334,898.19194 661.9131,874.32318 C 666.64931,786.60388 673.46254,698.88458 660.15872,611.16528 C 468.73203,600.84866 273.77794,604.64159 77.702582,612.91967 z"
+       id="path4817"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#ffe677;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:4.99992943;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5271)"
+       id="path4973"
+       sodipodi:cx="385.08771"
+       sodipodi:cy="440.08148"
+       sodipodi:rx="9.6491232"
+       sodipodi:ry="10.526316"
+       d="M 394.73683,440.08148 A 9.6491232,10.526316 0 1 1 375.43858,440.08148 A 9.6491232,10.526316 0 1 1 394.73683,440.08148 z"
+       transform="matrix(4.2462893,0,0,4.4982654,-1251.8737,-1532.2367)"
+       inkscape:export-xdpi="14.719175"
+       inkscape:export-ydpi="14.719175"
+       inkscape:export-filename="/home/svenstaro/LudumDare/ludumdare15/img/cake.png" />
+  </g>
+</svg>
