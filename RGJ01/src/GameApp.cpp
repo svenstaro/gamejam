@@ -130,6 +130,7 @@ void GameApp::Run() {
 
 		// Set up timestep and reset clock
 		float elapsed = m_Clock.GetElapsedTime();
+        elapsed /= 1000.f;
 		accumulator += elapsed;
 		m_Clock.Reset();
 

@@ -45,7 +45,7 @@ void Ship::Update() {
 	sf::Vector2f size = m_sprite.GetSize();
 	m_sprite.SetPosition(position.x + size.x / 2, 
 						 position.y - size.y / 2);
-	m_sprite.SetRotation(angle);
+	m_sprite.SetRotation(angle - 180);
 }
 
 const sf::Sprite& Ship::GetDrawable() {
