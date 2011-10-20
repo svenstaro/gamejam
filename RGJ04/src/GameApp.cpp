@@ -204,22 +204,20 @@ void GameApp::Init() {
 
 void GameApp::Run() {
 	while(mRenderWin->IsOpened()) {
-		while(mRenderWin->GetEvent(mEvent)) {
+		while(mRenderWin->PollEvent(mEvent)) {
 			if(mEvent.Type == sf::Event::Closed) 
 				mRenderWin->Close();
 			if(mEvent.Type == sf::Event::KeyPressed) {
-				if(mEvent.Key.Code == sf::Key::Escape) 
+				if(mEvent.Key.Code == sf::Keyboard::Escape) 
 					mRenderWin->Close();
 			}
 		}
 
-		float time_delta = mClock.GetElapsedTime();
+		//float time_delta = mClock.GetElapsedTime();
 		mClock.Reset();
 
-		// SFML access class for real-time input
-		const sf::Input& input = mRenderWin->GetInput();
 		// get the current "frame time" (seconds elapsed since the previous frame, hopefully close to 1/60 since vsync is enabled)
-		float frameTime = mRenderWin->GetFrameTime();
+		//float frameTime = mRenderWin->GetFrameTime();
 
 		//step the Box2D physics world, with a constant time step
 		//note that this is kind of a bad way to do time steps, as it can get out of sync if the framerate drops (see http://gafferongames.wordpress.com/game-physics/fix-your-timestep/ for more information)
@@ -227,22 +225,22 @@ void GameApp::Run() {
 		mDynamicsWorld->clearForces();
 
 		//check for user keyboard input to control Bullet forces/torques/etc
-		float mag = 50.0f;
-		if(input.IsKeyDown(sf::Key::Left)) {
+		//float mag = 50.0f;
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Left)) {
 			btVector3 relative_force = btVector3(0, 0, -2);
 			mPlayerBody->applyTorque(relative_force);
 		}
-		if(input.IsKeyDown(sf::Key::Right)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Right)) {
 			btVector3 relative_force = btVector3(0, 0, 2);
 			mPlayerBody->applyTorque(relative_force);
 		}
-		if(input.IsKeyDown(sf::Key::Up)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Up)) {
 			btVector3 relativeForce = btVector3(0, 5, 0);
 			btMatrix3x3& boxRot = mPlayerBody->getWorldTransform().getBasis();
 			btVector3 correctedForce = boxRot * relativeForce;
 			mPlayerBody->applyCentralForce(correctedForce);
 		}
-		if(input.IsKeyDown(sf::Key::Down)) {
+		if(sf::Keyboard::IsKeyPressed(sf::Keyboard::Down)) {
 			btVector3 relativeForce = btVector3(0, -2, 0);
 			btMatrix3x3& boxRot = mPlayerBody->getWorldTransform().getBasis();
 			btVector3 correctedForce = boxRot * relativeForce;
