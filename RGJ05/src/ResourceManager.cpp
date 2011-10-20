@@ -4,7 +4,7 @@
 ResourceManager::ResourceManager() {}
 ResourceManager::~ResourceManager() {}
 
-bool ResourceManager::AddImage(const boost::filesystem::path& path,
+bool ResourceManager::AddTexture(const boost::filesystem::path& path,
 							   const std::string& imgname,
 							   const float width,
 							   const float height) {
@@ -28,22 +28,22 @@ bool ResourceManager::AddImage(const boost::filesystem::path& path,
     std::string cacheFile = (cacheDir / image_key ).string()+".png";
 
     // if an image with that key already exists in the dictionary, return
-    if(mImages.count(image_key) != 0) {
+    if(mTextures.count(image_key) != 0) {
         return true;
     }
 
-	sf::Image sfimage;
+	sf::Texture sftexture;
 	bool cache = true;
 
 	if(boost::filesystem::is_regular_file(cacheFile)) {
 		// Load cached file
-		bool success = sfimage.LoadFromFile(cacheFile);
-		if (success && (int)sfimage.GetHeight() == (int)size.x && (int)sfimage.GetWidth() == (int)size.y) {
+		bool success = sftexture.LoadFromFile(cacheFile);
+		if (success && (int)sftexture.GetHeight() == (int)size.x && (int)sftexture.GetWidth() == (int)size.y) {
 			cache = false;
-			std::cout << "Image " << originalFile << " already exists. Not caching. "<< std::endl;
+			std::cout << "Texture " << originalFile << " already exists. Not caching. "<< std::endl;
 		} else if (success) {
-			std::cout << "Image " << originalFile << " does not exist in the resolution "
-					<< size.x << "x" << size.y << " but in " << sfimage.GetHeight() << "x" << sfimage.GetWidth() << "." << std::endl;
+			std::cout << "Texture " << originalFile << " does not exist in the resolution "
+					<< size.x << "x" << size.y << " but in " << sftexture.GetHeight() << "x" << sftexture.GetWidth() << "." << std::endl;
 		}
 	}
 
@@ -65,33 +65,33 @@ bool ResourceManager::AddImage(const boost::filesystem::path& path,
 		mimage.write(cacheFile);
 
 		// Load cached file
-		sfimage.LoadFromFile(cacheFile);
+		sftexture.LoadFromFile(cacheFile);
 	}
 
 
-	sfimage.SetSmooth(true);
+	sftexture.SetSmooth(true);
 
 
 	//std::cout << "  Added image: "<<image_key << std::endl;
-	// Save loaded Image in Dictionary
-	mImages[image_key] = sfimage;
+	// Save loaded Texture in Dictionary
+	mTextures[image_key] = sftexture;
 
     return true;
 }
 
-const sf::Image& ResourceManager::GetImage(const std::string& img) {
-	if(mImages.count(img) >= 1) {
-		return mImages[img];
+const sf::Texture& ResourceManager::GetTexture(const std::string& img) {
+	if(mTextures.count(img) >= 1) {
+		return mTextures[img];
 	} else {
 		std::cerr << "Tried getting image '"<<img<<"' but this image doesn't exist!"<<std::endl;
 		exit(1);
 	}
 }
 
-const std::vector<std::string> ResourceManager::GetImageKeys() {
+const std::vector<std::string> ResourceManager::GetTextureKeys() {
 	std::vector<std::string> keys;
 
-	for(auto iter = mImages.begin(); iter != mImages.end(); iter++) {
+	for(auto iter = mTextures.begin(); iter != mTextures.end(); iter++) {
 		if (iter->first != "view_border") {
 			keys.push_back(iter->first);
 		}

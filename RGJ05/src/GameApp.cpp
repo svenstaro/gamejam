@@ -24,34 +24,34 @@ void GameApp::Init() {
 
 	// load resources
 	boost::filesystem::path gfx("../gfx/");
-	mResourceManager.AddImage(gfx, "loverobot.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "heart.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "box.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal2.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal3.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "crystal4.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "grass2.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "grass1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "tree1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "flare.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray1.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray2.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray3.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray4.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray5.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "lightray6.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "platform.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock1.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock2.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock3.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock4.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock5.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock6.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock7.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock8.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "rock9.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
-	mResourceManager.AddImage(gfx, "spaceship.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "loverobot.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "heart.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "box.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "crystal1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "crystal2.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "crystal3.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "crystal4.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "grass2.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "grass1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "tree1.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "flare.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "lightray1.svg", 200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "lightray2.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "lightray3.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "lightray4.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "lightray5.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "lightray6.svg", 100*METERS_PER_PIXEL, 50*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "platform.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock1.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock2.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock3.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock4.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock5.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock6.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock7.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock8.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "rock9.svg",		200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
+	mResourceManager.AddTexture(gfx, "spaceship.svg",	200*METERS_PER_PIXEL, 200*METERS_PER_PIXEL);
 	// -- add new images here
 
 	mViewBorder.LoadFromFile("../gfx/view_border.png");
@@ -73,10 +73,10 @@ void GameApp::Run() {
 
 	while(mRenderWin->IsOpened()) {
 		sf::Event event;
-		while(mRenderWin->GetEvent(event)) {
+		while(mRenderWin->PollEvent(event)) {
 			if(event.Type == sf::Event::Closed)
 				Quit();
-			if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Quote) {
+			if(event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Keyboard::Quote) {
 				mDebugGrid = !mDebugGrid;
 			}
 			mWorld.HandleEvent(event);
@@ -86,7 +86,6 @@ void GameApp::Run() {
 		mClock.Reset();
 
 		// SFML access class for real-time input
-		const sf::Input& input = mRenderWin->GetInput();
 		float frameTime = mRenderWin->GetFrameTime();
 
 		time_budget += time_delta;
@@ -213,12 +212,9 @@ void GameApp::SetGuiPaintingMode(bool guipaint) {
 		mRenderWin->SetView(*mView);
 }
 
-const sf::Input& GameApp::GetInput() const {
-	return mRenderWin.get()->GetInput();
-}
-
 Vector2D GameApp::GetMousePosition() const {
-	return Vector2D(GetInput().GetMouseX(), GetInput().GetMouseY());
+	return Vector2D(sf::Mouse::GetPosition().x,
+                    sf::Mouse::GetPosition().y);
 }
 
 const Vector2D GameApp::GetWindowSize() const {
@@ -241,11 +237,11 @@ sf::Color GameApp::GetSpriteColor(const float alpha) const {
 	return sf::Color(v,v,v, alpha * 255);
 }
 
-World* const GameApp::GetWorldPtr() {
+World* GameApp::GetWorldPtr() {
 	return &mWorld;
 }
 
-ResourceManager* const GameApp::GetResourceManagerPtr() {
+ResourceManager* GameApp::GetResourceManagerPtr() {
 	return &mResourceManager;
 }
 

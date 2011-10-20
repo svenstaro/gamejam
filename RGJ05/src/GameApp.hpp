@@ -31,7 +31,6 @@ public:
     const Vector2D GetWindowSize() const;
 	sf::View& GetView();
 	void SetGuiPaintingMode(bool guipaint);
-	const sf::Input& GetInput() const;
 	Vector2D GetMousePosition() const;
 
 	int GetNextId();
@@ -43,8 +42,8 @@ public:
 	void SetWorldHearts(int h);
 	int GetWorldHearts() const;
 
-	World* const GetWorldPtr();
-	ResourceManager* const GetResourceManagerPtr();
+	World* GetWorldPtr();
+	ResourceManager* GetResourceManagerPtr();
 	boost::shared_ptr<sf::RenderWindow> GetRenderWindowPtr();
 private:
 	boost::shared_ptr<sf::RenderWindow> mRenderWin;
@@ -65,7 +64,7 @@ private:
 	int mWorldHearts;
 
 	bool mDebugGrid;
-	sf::Image mViewBorder;
+	sf::Texture mViewBorder;
 	sf::Music mMusic;
 };
 

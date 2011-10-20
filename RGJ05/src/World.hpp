@@ -35,7 +35,7 @@ enum EditorMouseAction {
 	EMA_ACCEPT
 };
 
-static void myTickCallback(btDynamicsWorld *world, btScalar timeStep);
+void myTickCallback(btDynamicsWorld *world, btScalar timeStep);
 
 class World {
 public:

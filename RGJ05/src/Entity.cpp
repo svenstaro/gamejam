@@ -125,8 +125,8 @@ void Entity::Draw(sf::RenderTarget* target, sf::Shader& shader, bool editor_mode
 	Vector2D p = Coordinates::WorldFloatToWorldPixel(mPosition);
 	// TODO: Actually draw
 	sf::Sprite s;
-	s.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage(mImageFile));
-	s.SetOrigin(s.GetImage()->GetWidth()/2, s.GetImage()->GetHeight()/2);
+	s.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture(mImageFile));
+	s.SetOrigin(s.GetTexture()->GetWidth()/2, s.GetTexture()->GetHeight()/2);
 	s.SetPosition(p.x, p.y);
 	s.SetRotation(Vector2D::rad2Deg(mRotation));
 	s.SetScale(mScale, mScale);

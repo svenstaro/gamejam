@@ -19,10 +19,10 @@ public:
 
     ~ResourceManager();
 
-	bool AddImage(const boost::filesystem::path& path, const std::string& imgname,
+	bool AddTexture(const boost::filesystem::path& path, const std::string& imgname,
 		const float width, const float height);
-	const sf::Image& GetImage(const std::string& filename);
-	const std::vector<std::string> GetImageKeys();
+	const sf::Texture& GetTexture(const std::string& filename);
+	const std::vector<std::string> GetTextureKeys();
 
 	bool AddSoundBuffer(const boost::filesystem::path& path, const std::string& sound, const std::string& key="");
 	const sf::SoundBuffer& GetSoundBuffer(const std::string& sound);
@@ -30,7 +30,7 @@ public:
     void AddFont(sf::Font& font, std::string key);
     const sf::Font& GetFont(const std::string& key);
 private:
-	boost::ptr_map<std::string, sf::Image> mImages;
+	boost::ptr_map<std::string, sf::Texture> mTextures;
 	boost::ptr_map<std::string, sf::Font> mFonts;
 	boost::ptr_map<std::string, sf::SoundBuffer> mSoundBuffers;
 };

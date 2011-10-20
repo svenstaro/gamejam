@@ -24,7 +24,7 @@ public:
 	static const Vector2D ScreenPixelToWorldFloat(const Vector2D coords);
 	static const Vector2D WorldFloatToViewPixel(const Vector2D coords);
 
-    static const float WorldFloatToWorldPixel(const float length);
+    static float WorldFloatToWorldPixel(const float length);
 
 	static const Vector2D GetParallaxDisplacement(const Vector2D position, float displacement_factor);
 
