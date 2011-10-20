@@ -10,19 +10,18 @@ GameApp::GameApp(const uint32_t width, const uint32_t height, const std::string&
 GameApp::~GameApp() {}
 
 bool GameApp::Init() {
+    srand(time(NULL));
+
 	m_RenderWin.Create(sf::VideoMode(m_width, m_height, 32), m_name);
 	m_RenderWin.ShowMouseCursor(false);
 	
-	m_Input = &m_RenderWin.GetInput();
-
 	return true;
 }
 
 void GameApp::Run() {
 	// Physics setup
 	b2Vec2 gravity(0.f, 0.f);
-	bool do_sleep = true;
-	b2World world(gravity, do_sleep);
+	b2World world(gravity);
 
 	// Player ship
 	Ship PlayerShip(1.f, "gfx/ship.png");
@@ -36,31 +35,31 @@ void GameApp::Run() {
 	StarfieldMan.SetMaxStars(20);
 
 	// Background
-	sf::Image background_img;
-	background_img.LoadFromFile("gfx/background.png");
-	sf::Sprite background(background_img);
+	sf::Texture background_tex;
+	background_tex.LoadFromFile("gfx/background.png");
+	sf::Sprite background(background_tex);
 
 	// Foreground
-	sf::Image foreground_img;
-	foreground_img.LoadFromFile("gfx/foreground.png");
-	foreground_img.SetSmooth(false);
-	sf::Sprite foreground1(foreground_img);
+	sf::Texture foreground_tex;
+	foreground_tex.LoadFromFile("gfx/foreground.png");
+	foreground_tex.SetSmooth(false);
+	sf::Sprite foreground1(foreground_tex);
 	foreground1.SetPosition(0, 0);
-	sf::Sprite foreground2(foreground_img);
+	sf::Sprite foreground2(foreground_tex);
 	foreground1.SetPosition(800, 0);
 
 	// Shield overlay
-	sf::Image shield_img;
-	shield_img.LoadFromFile("gfx/shield.png");
-	shield_img.SetSmooth(false);
-	sf::Sprite shield(shield_img);
+	sf::Texture shield_tex;
+	shield_tex.LoadFromFile("gfx/shield.png");
+	shield_tex.SetSmooth(false);
+	sf::Sprite shield(shield_tex);
 	shield.SetPosition(0, m_height - shield.GetSize().y);
 
 	// Shield bar
-	sf::Image shieldbar_img;
-	shieldbar_img.LoadFromFile("gfx/shieldbar.png");
-	shieldbar_img.SetSmooth(false);
-	sf::Sprite shieldbar(shieldbar_img);
+	sf::Texture shieldbar_tex;
+	shieldbar_tex.LoadFromFile("gfx/shieldbar.png");
+	shieldbar_tex.SetSmooth(false);
+	sf::Sprite shieldbar(shieldbar_tex);
 	shieldbar.SetPosition(28, m_height - 42);
 
 	// FPS stuff
@@ -91,33 +90,33 @@ void GameApp::Run() {
 	bool drawn = false;
 
 	// Collision
-	sf::Image collision_img;
-	collision_img.LoadFromFile("gfx/collision.png");
-	sf::Sprite collision(collision_img);
+	sf::Texture collision_tex;
+	collision_tex.LoadFromFile("gfx/collision.png");
+	sf::Sprite collision(collision_tex);
 	sf::Vector2f size = collision.GetSize();
 	collision.SetOrigin(size.x / 2, size.y / 2);
 	bool collided = false;
 
 	// Pause and instructions stuff
-	sf::Image instruct1_img;
-	instruct1_img.LoadFromFile("gfx/instruct1.png");
-	sf::Sprite instruct1(instruct1_img);
+	sf::Texture instruct1_tex;
+	instruct1_tex.LoadFromFile("gfx/instruct1.png");
+	sf::Sprite instruct1(instruct1_tex);
 	instruct1.SetPosition(200, 50);
 
-	sf::Image instruct2_img;
-	instruct2_img.LoadFromFile("gfx/instruct2.png");
-	sf::Sprite instruct2(instruct2_img);
+	sf::Texture instruct2_tex;
+	instruct2_tex.LoadFromFile("gfx/instruct2.png");
+	sf::Sprite instruct2(instruct2_tex);
 	instruct2.SetPosition(200, 50);
 
-	sf::Image paused_img;
-	paused_img.LoadFromFile("gfx/paused.png");
-	sf::Sprite paused(paused_img);
+	sf::Texture paused_tex;
+	paused_tex.LoadFromFile("gfx/paused.png");
+	sf::Sprite paused(paused_tex);
 	paused.SetPosition(400, 450);
 	m_pause_mode = 1;
 
-	sf::Image gameover_img;
-	gameover_img.LoadFromFile("gfx/gameover.png");
-	sf::Sprite gameover(gameover_img);
+	sf::Texture gameover_tex;
+	gameover_tex.LoadFromFile("gfx/gameover.png");
+	sf::Sprite gameover(gameover_tex);
 	gameover.SetPosition(200, 50);
 
 	sf::Music Music;
@@ -206,7 +205,7 @@ void GameApp::Run() {
 				world.Step(dt, velocity_iterations, position_iterations);
 				world.ClearForces();
 
-				PlayerShip.Update(m_Input);
+				PlayerShip.Update();
 			}
 
 			accumulator -= dt;
@@ -266,15 +265,22 @@ void GameApp::Run() {
 	}
 }
 
+float GameApp::Random(float min, float max) {
+    return static_cast<float>(rand()) / RAND_MAX * (max - min) + min;
+}
+int GameApp::Random(int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
+
 void GameApp::GetEvents() {
 	// Process events
 	sf::Event Event;
-	while(m_RenderWin.GetEvent(Event)) {
+	while(m_RenderWin.PollEvent(Event)) {
 		// Window closed
 		if(Event.Type == sf::Event::Closed)
 			m_RenderWin.Close();
 		// Escape key pressed
-		if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape))
+		if((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Keyboard::Escape))
 			m_RenderWin.Close();
 		// Pause switcher
 		if((Event.Type == sf::Event::KeyPressed) && (m_pause_mode > 0))

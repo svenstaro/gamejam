@@ -8,9 +8,9 @@ Ship::Ship(const float scale, const std::string& image_path) {
 Ship::~Ship() {}
 
 void Ship::Spawn(const float pos_x, const float pos_y, b2World* world) {
-	m_image.LoadFromFile(m_image_path);
-	m_image.SetSmooth(false);
-	m_sprite.SetImage(m_image);
+	m_texture.LoadFromFile(m_image_path);
+	m_texture.SetSmooth(false);
+	m_sprite.SetTexture(m_texture);
 	m_sprite.SetScale(m_scale, m_scale);
 	m_sprite.SetPosition(pos_x, pos_y);
 
@@ -36,8 +36,9 @@ void Ship::Spawn(const float pos_x, const float pos_y, b2World* world) {
 	m_body->CreateFixture(&fixtureDef);
 }
 
-void Ship::Update(const sf::Input* Input) {
-	MoveTo(Input->GetMouseX(), Input->GetMouseY());
+void Ship::Update() {
+    sf::Vector2i mouse_pos = sf::Mouse::GetPosition();
+	MoveTo(mouse_pos.x, mouse_pos.y);
 
 	b2Vec2 position = m_body->GetPosition();
 	float32 angle = m_body->GetAngle();
@@ -66,7 +67,7 @@ void Ship::SetHealth(const float health) {
 	m_health = health;
 }
 
-const float Ship::GetHealth() const {
+float Ship::GetHealth() const {
 	return m_health;
 }
 
@@ -74,10 +75,10 @@ void Ship::SetMaxHealth(const float health) {
 	m_max_health = health;
 }
 
-const float Ship::GetMaxHealth() const {
+float Ship::GetMaxHealth() const {
 	return m_max_health;
 }
 
-void Ship::MoveTo(float pos_x, float pos_y) {
+void Ship::MoveTo(const float pos_x, const float pos_y) {
 	m_body->SetTransform(b2Vec2(pos_x, pos_y), -90);
 }

@@ -1,5 +1,7 @@
 #include "AsteroidManager.hpp"
 
+#include "GameApp.hpp"
+
 AsteroidManager::AsteroidManager(b2World& world) {
 	m_current_asteroids = 0;
 	m_max_asteroids = 0;
@@ -11,7 +13,7 @@ void AsteroidManager::SetMaxAsteroids(const uint8_t max_asteroids) {
 	m_max_asteroids = max_asteroids;
 }
 
-const uint8_t AsteroidManager::GetMaxAsteroids() const {
+uint8_t AsteroidManager::GetMaxAsteroids() const {
 	return m_max_asteroids;
 }
 
@@ -22,11 +24,11 @@ const boost::ptr_vector<Asteroid>& AsteroidManager::GetAsteroidVector() const {
 void AsteroidManager::Update(const float elapsed, b2World& world) {
 	// Create new asteroids if needed.
 	while(m_current_asteroids < m_max_asteroids) {
-		float random_x = sf::Randomizer::Random(850, 800*2);
-		float random_y = sf::Randomizer::Random(0, 600);
-		float random_speed = sf::Randomizer::Random(50.f, 50.f * m_max_asteroids);
+		float random_x = GameApp::Random(850, 800*2);
+		float random_y = GameApp::Random(0, 600);
+		float random_speed = GameApp::Random(50.f, 50.f * m_max_asteroids);
 		// This somehow leads to bugs in the asteroids. :(
-		float random_size = sf::Randomizer::Random(0.9f, 1.1f);
+		float random_size = GameApp::Random(0.9f, 1.1f);
 		m_asteroids.push_back(new Asteroid(random_size, "gfx/asteroid.png"));
 		m_asteroids.back().Spawn(random_x, random_y, random_speed, world);
 		++m_current_asteroids;

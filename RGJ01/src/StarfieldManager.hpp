@@ -16,7 +16,7 @@ public:
 	StarfieldManager();
 	~StarfieldManager();
 	void SetMaxStars(const uint16_t max_stars);
-	const uint16_t GetMaxStars() const;
+	uint16_t GetMaxStars() const;
 	const boost::ptr_vector<Star>& GetStarVector() const;
 	void Update(float elapsed);
 

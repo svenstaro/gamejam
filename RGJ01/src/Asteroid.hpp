@@ -5,6 +5,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 
@@ -22,7 +23,7 @@ private:
 	float m_scale;
 	float m_radius;
 	std::string m_image_path;
-	sf::Image m_image;
+	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	float m_rotation;
 	float m_speed;

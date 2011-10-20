@@ -13,7 +13,7 @@ public:
 	AsteroidManager(b2World& world);
 	~AsteroidManager();
 	void SetMaxAsteroids(const uint8_t max_asteroids);
-	const uint8_t GetMaxAsteroids() const;
+	uint8_t GetMaxAsteroids() const;
 	const boost::ptr_vector<Asteroid>& GetAsteroidVector() const;
 	void Update(const float elapsed, b2World& world);
 	void Reset();

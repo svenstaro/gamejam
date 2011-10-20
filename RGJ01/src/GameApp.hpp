@@ -10,8 +10,9 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
+#include <cstdint>
+#include <cstdlib>
 #include <string>
-#include <stdint.h>
 
 #include "Asteroid.hpp"
 #include "AsteroidManager.hpp"
@@ -33,6 +34,9 @@ public:
 	// Runs the whole game (game loop).
 	void Run();
 
+    static float Random(float min, float max);
+    static int Random(int min, int max);
+
 private:
 	uint32_t m_width;
 	uint32_t m_height;
@@ -41,7 +45,6 @@ private:
 
 	sf::RenderWindow m_RenderWin;
 	sf::Clock m_Clock;
-	const sf::Input* m_Input;
 	int8_t m_pause_mode;
 	uint16_t m_level;
 

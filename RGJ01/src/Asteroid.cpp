@@ -1,5 +1,7 @@
 #include "Asteroid.hpp"
 
+#include "GameApp.hpp"
+
 Asteroid::Asteroid(const float scale, const std::string& image_path) {
 	m_scale = scale;
 	m_image_path = image_path;
@@ -8,9 +10,9 @@ Asteroid::Asteroid(const float scale, const std::string& image_path) {
 Asteroid::~Asteroid() {}
 
 void Asteroid::Spawn(const float pos_x, const float pos_y, const float speed, b2World& world) {
-	m_image.LoadFromFile(m_image_path);
-	m_image.SetSmooth(false);
-	m_sprite.SetImage(m_image);
+	m_texture.LoadFromFile(m_image_path);
+	m_texture.SetSmooth(false);
+	m_sprite.SetTexture(m_texture);
 	m_sprite.SetScale(m_scale, m_scale);
 	m_sprite.SetPosition(pos_x, pos_y);
 
@@ -18,7 +20,7 @@ void Asteroid::Spawn(const float pos_x, const float pos_y, const float speed, b2
 	m_radius = (size.x + size.y) / 8;
 
 	m_speed = speed;
-	m_rotation = sf::Randomizer::Random(-10.f, 10.f);
+	m_rotation = GameApp::Random(-10.f, 10.f);
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_kinematicBody;
@@ -35,7 +37,7 @@ void Asteroid::Spawn(const float pos_x, const float pos_y, const float speed, b2
 
 	m_body->CreateFixture(&fixtureDef);
 	
-	float random_speed_v = sf::Randomizer::Random(-100.f, 100.f);
+	float random_speed_v = GameApp::Random(-100.f, 100.f);
 	m_body->SetLinearVelocity(b2Vec2(-1.f * m_speed, random_speed_v));
 	//m_body->SetAngularVelocity(m_rotation);
 	
@@ -45,7 +47,7 @@ void Asteroid::Spawn(const float pos_x, const float pos_y, const float speed, b2
 void Asteroid::Update(const float elapsed) {
 	b2Vec2 position = m_body->GetPosition();
 	//float32 angle = m_body->GetAngle();
-	sf::Vector2f size = m_sprite.GetSize();
+	//sf::Vector2f size = m_sprite.GetSize();
 	m_sprite.SetPosition(position.x, position.y);
 	//m_sprite.SetRotation(angle);
 	m_sprite.Rotate(m_rotation * 0.1f);
