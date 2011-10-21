@@ -6,13 +6,13 @@ ResourceManager::ResourceManager() {}
 
 ResourceManager::~ResourceManager() {}
 
-bool ResourceManager::AddImage(const boost::filesystem::path& path,
+bool ResourceManager::AddTexture(const boost::filesystem::path& path,
 							   const std::string& imgname,
 							   const float width,
 							   const float height) {
 
 	if(!boost::filesystem::is_regular_file(path/imgname)) {
-		std::cerr << "Tried loading image path '" << (path/imgname).string() << "' but this image path doesn't exist!" << std::endl;
+		std::cerr << "Tried loading texture path '" << (path/imgname).string() << "' but this texture path doesn't exist!" << std::endl;
 		exit(1);
 	}
 
@@ -20,44 +20,44 @@ bool ResourceManager::AddImage(const boost::filesystem::path& path,
     std::string originalFile = (path / imgname).string();
 
     // if the optional param key is not given, use the basename as key
-	std::string image_key = boost::filesystem::basename(originalFile);
+	std::string texture_key = boost::filesystem::basename(originalFile);
 
     // Create Cache Paths
 	//boost::filesystem::path cacheDir = (path / "cached").string();
-	//std::string cacheFile = (cacheDir / image_key ).string()+".png";
+	//std::string cacheFile = (cacheDir / texture_key ).string()+".png";
 
-    // if an image with that key already exists in the dictionary, return
-    if(mImages.count(image_key) != 0) {
+    // if an texture with that key already exists in the dictionary, return
+    if(mTextures.count(texture_key) != 0) {
         return true;
     }
 
-	sf::Image sfimage;
-	bool success = sfimage.LoadFromFile(originalFile);
+	sf::Texture sftexture;
+	bool success = sftexture.LoadFromFile(originalFile);
 	if(!success) {
-		std::cerr << "Image " << originalFile << " does not exists. Exit. "<< std::endl;
+		std::cerr << "Texture " << originalFile << " does not exists. Exit. "<< std::endl;
 		exit(1);
 	}
 	/*bool cache = true;
 
 	if(boost::filesystem::is_regular_file(cacheFile)) {
 		// Load cached file
-		bool success = sfimage.LoadFromFile(cacheFile);
-		if (success && (int)sfimage.GetHeight() == (int)size.x && (int)sfimage.GetWidth() == (int)size.y) {
+		bool success = sftexture.LoadFromFile(cacheFile);
+		if (success && (int)sftexture.GetHeight() == (int)size.x && (int)sftexture.GetWidth() == (int)size.y) {
 			cache = false;
-			std::cout << "Image " << originalFile << " already exists. Not caching. "<< std::endl;
+			std::cout << "Texture " << originalFile << " already exists. Not caching. "<< std::endl;
 		} else if (success) {
-			std::cout << "Image " << originalFile << " does not exist in the resolution "
-					<< size.x << "x" << size.y << " but in " << sfimage.GetHeight() << "x" << sfimage.GetWidth() << "." << std::endl;
+			std::cout << "Texture " << originalFile << " does not exist in the resolution "
+					<< size.x << "x" << size.y << " but in " << sftexture.GetHeight() << "x" << sftexture.GetWidth() << "." << std::endl;
 		}
 	}
 
 	if(cache){
-		std::cout << ":: Caching image " << originalFile << std::endl;
+		std::cout << ":: Caching texture " << originalFile << std::endl;
 
 		// Create cache directory
 		boost::filesystem::create_directory(cacheDir.string());
 
-		// Load, convert and save image (originalFile > cacheFile)
+		// Load, convert and save texture (originalFile > cacheFile)
 		Magick::Image mimage;
 		mimage.backgroundColor(Magick::Color(0, 0, 0, 65535));
 		mimage.density(Magick::Geometry(144, 144));
@@ -69,32 +69,32 @@ bool ResourceManager::AddImage(const boost::filesystem::path& path,
 		mimage.write(cacheFile);
 
 		// Load cached file
-		sfimage.LoadFromFile(cacheFile);
+		sftexture.LoadFromFile(cacheFile);
 	}
 */
 
-	sfimage.SetSmooth(true);
+	sftexture.SetSmooth(true);
 
-	std::cout << "  Added image: "<<image_key << std::endl;
-	// Save loaded Image in Dictionary
-	mImages[image_key] = sfimage;
+	std::cout << "  Added texture: "<<texture_key << std::endl;
+	// Save loaded Texture in Dictionary
+	mTextures[texture_key] = sftexture;
 
     return true;
 }
 
-const sf::Image& ResourceManager::GetImage(const std::string& img) {
-	if(mImages.count(img) >= 1) {
-		return mImages[img];
+const sf::Texture& ResourceManager::GetTexture(const std::string& img) {
+	if(mTextures.count(img) >= 1) {
+		return mTextures[img];
 	} else {
-		std::cerr << "Tried getting image '"<<img<<"' but this image doesn't exist!"<<std::endl;
+		std::cerr << "Tried getting texture '"<<img<<"' but this texture doesn't exist!"<<std::endl;
 		exit(1);
 	}
 }
 
-const std::vector<std::string> ResourceManager::GetImageKeys() {
+const std::vector<std::string> ResourceManager::GetTextureKeys() {
 	std::vector<std::string> keys;
 
-	for(auto iter = mImages.begin(); iter != mImages.end(); iter++) {
+	for(auto iter = mTextures.begin(); iter != mTextures.end(); iter++) {
 		if (iter->first != "view_border") {
 			keys.push_back(iter->first);
 		}

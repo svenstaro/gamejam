@@ -9,12 +9,12 @@ Background::Background(const std::string& type, float speed) {
     
     mScale = 1.f;
 
-    mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage(type));
+    mSprite1.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture(type));
 
-    mSprite2.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage(type));
+    mSprite2.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture(type));
     mSprite2.FlipX( true ); // background isn't really tileable, so let's make it!
 
-    mSprite3.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage(type));
+    mSprite3.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture(type));
 }
 
 Background::~Background() {}
@@ -23,7 +23,7 @@ void Background::Update(float time_diff) {
     if(mPosition.x < -1600) {
         mPosition.x = 0;
     }
-    mSprite.SetPosition(mPosition.x, mPosition.y);
+    mSprite1.SetPosition(mPosition.x, mPosition.y);
 
     mSprite2.SetPosition(mPosition.x + 800, mPosition.y);
 
@@ -35,7 +35,7 @@ void Background::Update(float time_diff) {
 }
 
 void Background::Draw(sf::RenderTarget* target) {
-    target->Draw(mSprite);
+    target->Draw(mSprite1);
     target->Draw(mSprite2);
     target->Draw(mSprite3);
 

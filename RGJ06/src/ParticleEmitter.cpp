@@ -2,6 +2,7 @@
 #include <boost/foreach.hpp>
 
 #include "ParticleEmitter.hpp"
+#include "GameApp.hpp"
 
 ParticleEmitter::ParticleEmitter(const Vector2D& position_offset,
 								 const float rotation_offset,
@@ -68,7 +69,7 @@ void ParticleEmitter::Update(float time_diff,
 
     if(emit) {
         while(mTimeSinceLastParticle >= 1.f / mRate) {
-            float spread = sf::Randomizer::Random(-mSpread/2, mSpread/2);
+            float spread = GameApp::Random(-mSpread/2, mSpread/2);
             Vector2D spread_vector = mDirection;
             spread_vector.Normalize();
             spread_vector.Rotate(Vector2D::deg2Rad(spread));

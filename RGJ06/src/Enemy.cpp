@@ -9,15 +9,15 @@ Enemy::Enemy() {
     
     mScale = 1.f;
 
-    mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("photon"));
+    mSprite.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("photon"));
     mSprite.SetOrigin(mSprite.GetSize().x / 2, mSprite.GetSize().y / 2);
     mSprite.SetBlendMode(sf::Blend::Add);
     mSprite.SetColor(sf::Color(255,0,0));
     mScale = 0.7f;
 
-    int rand_x = sf::Randomizer::Random(0, 800);
-    int rand_y = sf::Randomizer::Random(0, 600);
-    int border = sf::Randomizer::Random(0,3);
+    int rand_x = GameApp::Random(0, 800);
+    int rand_y = GameApp::Random(0, 600);
+    int border = GameApp::Random(0,3);
     if(border == 0)
         rand_x = 0;
     else if(border == 1)
@@ -55,7 +55,7 @@ Enemy::Enemy() {
 
 void Enemy::GeneratePhotons() {
     int lvl = GameApp::get_mutable_instance().GetWorld().GetLevel();
-    int e = sf::Randomizer::Random(1,lvl);
+    int e = GameApp::Random(1,lvl);
 
     for(int i = 0; i < e; ++i) {
         GameApp::get_mutable_instance().GetWorld().AddPhoton(this);

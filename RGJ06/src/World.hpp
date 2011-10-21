@@ -22,8 +22,8 @@ public:
 
     void Initialize();
     void Reset();
-    void HandleEvent(const sf::Event& event, const sf::Input& input);
-    void Update(float time_diff, const sf::Input& input);
+    void HandleEvent(const sf::Event& event);
+    void Update(float time_diff);
     void Draw(sf::RenderTarget* target);
 
     void AddEntity(Entity* e);

@@ -20,6 +20,9 @@ public:
     ResourceManager* const GetResourceManagerPtr();
     World& GetWorld();
 
+    static float Random(float min, float max);
+    static int Random(int min, int max);
+
 private:
     void HandleEvents();
     void Update(float frame_time);

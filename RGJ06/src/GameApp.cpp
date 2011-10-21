@@ -9,13 +9,13 @@ void GameApp::Initialize() {
     std::cout << "Antialiasing level: " << mRenderWindow.GetSettings().AntialiasingLevel << std::endl;
     mRenderWindow.ShowMouseCursor(false);
 
-    mResourceManager.AddImage("../gfx/",   "particle.png",   20,  20);
-    mResourceManager.AddImage("../gfx/",   "blob.png",       100, 100);
-    mResourceManager.AddImage("../gfx/",   "enemy.png",      100, 100);
-    mResourceManager.AddImage("../gfx/",   "player.png",     200, 200);
-    mResourceManager.AddImage("../gfx/",   "photon.png",     200, 200);
-    mResourceManager.AddImage("../gfx/",   "background.png", 800, 600);
-    mResourceManager.AddImage("../gfx/",   "foreground.png", 800, 600);
+    mResourceManager.AddTexture("../gfx/",   "particle.png",   20,  20);
+    mResourceManager.AddTexture("../gfx/",   "blob.png",       100, 100);
+    mResourceManager.AddTexture("../gfx/",   "enemy.png",      100, 100);
+    mResourceManager.AddTexture("../gfx/",   "player.png",     200, 200);
+    mResourceManager.AddTexture("../gfx/",   "photon.png",     200, 200);
+    mResourceManager.AddTexture("../gfx/",   "background.png", 800, 600);
+    mResourceManager.AddTexture("../gfx/",   "foreground.png", 800, 600);
 
     mResourceManager.AddSoundBuffer("../snd/", "death.ogg");
     mResourceManager.AddSoundBuffer("../snd/", "killenemy.ogg");
@@ -39,6 +39,7 @@ void GameApp::Run() {
         HandleEvents();
 
         float time_delta = mClock.GetElapsedTime();
+        time_delta /= 1000;
         mClock.Reset();
 
         time_budget += time_delta;
@@ -56,17 +57,17 @@ void GameApp::HandleEvents() {
     while(mRenderWindow.PollEvent(event)) {
         if((event.Type == sf::Event::Closed) ||
                 (event.Type == sf::Event::KeyPressed &&
-                 event.Key.Code == sf::Key::Escape)) {
+                 event.Key.Code == sf::Keyboard::Escape)) {
             mRenderWindow.Close();
         }
 
         //handle event 
-        mWorld.HandleEvent(event, mRenderWindow.GetInput());
+        mWorld.HandleEvent(event);
     }
 }
 
 void GameApp::Update(float frame_time) {
-    mWorld.Update(frame_time, mRenderWindow.GetInput());
+    mWorld.Update(frame_time);
 }
 
 void GameApp::Draw() {
@@ -82,3 +83,11 @@ ResourceManager* const GameApp::GetResourceManagerPtr() {
 World& GameApp::GetWorld() {
     return mWorld;
 }
+
+float GameApp::Random(float min, float max) {
+    return static_cast<float>(rand()) / RAND_MAX * (max - min) + min;
+}
+int GameApp::Random(int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
+

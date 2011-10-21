@@ -6,13 +6,13 @@ Photon::Photon(Vector2D pos) {
     mType = "photon";
     mMarkedForRemoval = false;
 
-    mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("photon"));
-    mSprite.SetOrigin(mSprite.GetImage()->GetWidth() / 2.f, mSprite.GetImage()->GetHeight() / 2.f);
+    mSprite.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("photon"));
+    mSprite.SetOrigin(mSprite.GetTexture()->GetWidth() / 2.f, mSprite.GetTexture()->GetHeight() / 2.f);
     mSprite.SetBlendMode(sf::Blend::Add);
 
-    SetPosition(pos + Vector2D(sf::Randomizer::Random(-30.f,30.f), sf::Randomizer::Random(-30.f,30.f)));
-    SetSpeed(sf::Randomizer::Random(40.f,80.f));
-    SetDirection(Vector2D(sf::Randomizer::Random(-1.f,1.f), sf::Randomizer::Random(-1.f,1.f)));
+    SetPosition(pos + Vector2D(GameApp::Random(-30.f,30.f), GameApp::Random(-30.f,30.f)));
+    SetSpeed(GameApp::Random(40.f,80.f));
+    SetDirection(Vector2D(GameApp::Random(-1.f,1.f), GameApp::Random(-1.f,1.f)));
 
     mTarget = NULL;
 }
@@ -63,7 +63,7 @@ void Photon::CheckOpponentCollision() {
                 int m_e = w.GetEnergyOfEntity(GetTarget());    // my energy
                 int p_e = w.GetEnergyOfEntity(p->GetTarget()); // other's energy
                 bool other_is_player = p->GetTarget()->GetType() == "player";
-                if( m_e > p_e || other_is_player || (m_e == p_e && sf::Randomizer::Random(0,1) == 1) ) {
+                if( m_e > p_e || other_is_player || (m_e == p_e && GameApp::Random(0,1) == 1) ) {
                     // I am stronger, delete the other one
                     p->MarkForRemoval();
                     return;

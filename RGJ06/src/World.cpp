@@ -60,14 +60,15 @@ void World::Reset() {
     mScore = 0;
 }
 
-void World::HandleEvent(const sf::Event& event, const sf::Input& input) {
+void World::HandleEvent(const sf::Event& event) {
     auto mouse_partsys = GetEntityByName<ParticleSystem>("mouse_partsys");
-    mouse_partsys->SetPosition(Vector2D(input.GetMouseX(), input.GetMouseY()));
+    mouse_partsys->SetPosition(Vector2D(sf::Mouse::GetPosition().x,
+                                        sf::Mouse::GetPosition().y));
 
     if(event.Type == sf::Event::KeyPressed) {
-        if(event.Key.Code == sf::Key::D) {
+        if(event.Key.Code == sf::Keyboard::D) {
             mDebug = !mDebug;
-        } else if(event.Key.Code == sf::Key::Space) {
+        } else if(event.Key.Code == sf::Keyboard::Space) {
             AddPhoton(GetPlayer());
         }
     }
@@ -108,11 +109,12 @@ void World::HandleEvent(const sf::Event& event, const sf::Input& input) {
     }*/
 }
 
-void World::Update(float time_diff, const sf::Input& input) {
+void World::Update(float time_diff) {
 
     mTimeSinceLastPhotonTransfered += time_diff;
-    if(input.IsMouseButtonDown(sf::Mouse::Left)) {
-        Vector2D mp(input.GetMouseX(), input.GetMouseY());
+    if(sf::Mouse::IsButtonPressed(sf::Mouse::Left)) {
+        Vector2D mp(sf::Mouse::GetPosition().x,
+                    sf::Mouse::GetPosition().y);
         int player_energy = GetEnergyOfEntity(GetPlayer());
         if(PointWithinPlayerRange(mp) && mCurrentBlob != NULL && player_energy > 0) {
             if(mTimeSinceLastPhotonTransfered > (3.0 / (player_energy + GetEnergyOfEntity(mCurrentBlob)) )) {

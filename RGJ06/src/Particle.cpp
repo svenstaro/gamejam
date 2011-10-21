@@ -43,7 +43,7 @@ Particle::Particle(const Vector2D& position,
 Particle::~Particle() {}
 
 void Particle::Initialize() {
-	mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage(mImageName));
+	mSprite.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture(mImageName));
 	mSprite.SetOrigin(mSprite.GetSize().x / 2, mSprite.GetSize().y / 2);
 	mSprite.SetBlendMode(mBlendMode);
 }

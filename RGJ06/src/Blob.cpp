@@ -8,7 +8,7 @@ Blob::Blob() {
     mType = "blob";
     mMarkedForRemoval = false;
 
-    mSprite.SetImage(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetImage("photon"));
+    mSprite.SetTexture(GameApp::get_mutable_instance().GetResourceManagerPtr()->GetTexture("photon"));
     mSprite.SetOrigin(mSprite.GetSize().x / 2, mSprite.GetSize().y / 2);
     mSprite.SetBlendMode(sf::Blend::Add);
     mSprite.SetColor(sf::Color(100,200,255));

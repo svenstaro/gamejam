@@ -15,7 +15,7 @@ public:
     void Draw(sf::RenderTarget* target);
 
 private:
-    sf::Sprite mSprite;
+    sf::Sprite mSprite1;
     sf::Sprite mSprite2;
     sf::Sprite mSprite3;
     float mSpeed;
