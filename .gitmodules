@@ -1,0 +1,3 @@
+[submodule "BGJ01/externals/ducttape-engine"]
+	path = BGJ01/externals/ducttape-engine
+	url = git://github.com/ducttape/ducttape-engine.git
