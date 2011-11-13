@@ -42,6 +42,9 @@ void PlayerControlComponent::OnUpdate(double time_diff) {
 
         AircraftComponent* aircraft = GetNode()->FindComponent<AircraftComponent>(mAircraftComponentName);
         aircraft->GetPhysicsBody()->SetCentralForce(btVector3(x, y, 0) * 10);
+
+        if(dt::InputManager::Get()->GetMouse()->getMouseState().buttonDown(OIS::MB_Left))
+            aircraft->Shoot();
     }
 }
 

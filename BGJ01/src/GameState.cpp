@@ -8,7 +8,9 @@
 #include <OgreFontManager.h>
 
 #include "AircraftComponent.hpp"
+#include "BotControlComponent.hpp"
 #include "PlayerControlComponent.hpp"
+#include "WorldComponent.hpp"
 
 void GameState::OnInitialize() {
     // setup scene
@@ -43,6 +45,13 @@ void GameState::OnInitialize() {
     dt::Node* enemy_node = mGameScene->AddChildNode(new dt::Node());
     enemy_node->SetPosition(15, 10, 0);
     aircraft = enemy_node->AddComponent(new AircraftComponent(EVIL, "aircraft"));
+    enemy_node->AddComponent(new BotControlComponent("aircraft", aircraft->GetCannonNode()->GetName(), "control"));
+
+    /*
+    // the world
+    dt::Node* world_node = mGameScene->AddChildNode(new dt::Node());
+    world_node->AddComponent(new WorldComponent());
+    */
 }
 
 void GameState::OnDeinitialize() {

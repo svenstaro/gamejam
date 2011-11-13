@@ -6,9 +6,11 @@ CannonBallComponent::CannonBallComponent(Party party, const QString& name)
 
 void CannonBallComponent::OnCreate() {
     mMesh = GetNode()->AddComponent(new dt::MeshComponent("cannon_ball", "CannonBall", GetFullName() + "_mesh"));
-    mPhysicsBody = GetNode()->AddComponent(new dt::PhysicsBodyComponent(GetFullName() + "_mesh", GetFullName() + "_physics_body"));
-    mPhysicsBody->SetTwoDimensional(true);
-    mPhysicsBody->DisableDeactivation(true); // TODO: really necessary?
+    mPhysicsBody = new dt::PhysicsBodyComponent(GetFullName() + "_mesh", GetFullName() + "_physics_body");
+    mPhysicsBody->SetCollisionShapeType(dt::PhysicsBodyComponent::SPHERE);
+    GetNode()->AddComponent(mPhysicsBody);
+    mPhysicsBody->SetRestrictMovement(btVector3(1, 1, 0));
+    mPhysicsBody->DisableSleep(true); // TODO: really necessary?
     mPhysicsBody->SetDampingAmount(0.15, 0.0); // TODO: Play with this
     mPhysicsBody->SetMass(0.1);
     mPhysicsBody->SetCollisionGroup(short(OppositeParty(mParty)));

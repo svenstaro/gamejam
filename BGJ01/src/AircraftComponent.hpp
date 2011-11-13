@@ -40,6 +40,7 @@ private:
     Ogre::Radian mTargetAngle;
 
     Party mParty;
+    double mShootingCooldown;
 };
 
 #endif
