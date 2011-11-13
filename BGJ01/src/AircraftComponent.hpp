@@ -1,6 +1,8 @@
 #ifndef _AIRCRAFTCOMPONENT
 #define _AIRCRAFTCOMPONENT
 
+#include "CannonComponent.hpp"
+
 #include <Scene/Component.hpp>
 #include <Scene/Node.hpp>
 
@@ -21,14 +23,18 @@ public:
 
     dt::PhysicsBodyComponent* GetPhysicsBody();
 
-    void SetTargetAngle(float angle);
+    void SetTargetAngle(Ogre::Radian angle);
+    dt::Node* GetCannonNode();
 
 private:
     dt::BillboardSetComponent* mShipGraphics;
     dt::MeshComponent* mShipMesh;
     dt::PhysicsBodyComponent* mPhysicsBody;
 
-    float mTargetAngle;
+    dt::Node* mCannonNode;
+    CannonComponent* mCannonComponent;
+
+    Ogre::Radian mTargetAngle;
 };
 
 #endif

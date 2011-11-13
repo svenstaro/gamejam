@@ -35,8 +35,8 @@ void GameState::OnInitialize() {
     background_node->AddComponent(new dt::MeshComponent("background", "BackgroundMesh", "Background"));
 
     mPlayerAircraft = mGameScene->AddChildNode(new dt::Node("player_aircraft"));
-    mPlayerAircraft->AddComponent(new AircraftComponent("aircraft"));
-    mPlayerAircraft->AddComponent(new PlayerControlComponent("aircraft", "control"));
+    AircraftComponent* aircraft = mPlayerAircraft->AddComponent(new AircraftComponent("aircraft"));
+    mPlayerAircraft->AddComponent(new PlayerControlComponent("aircraft", aircraft->GetCannonNode()->GetName(), "control"));
 }
 
 void GameState::OnDeinitialize() {
