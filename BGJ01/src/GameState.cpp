@@ -1,7 +1,8 @@
 #include "GameState.hpp"
 
-#include <Graphics/DisplayManager.hpp>
 #include <Core/ResourceManager.hpp>
+#include <Graphics/DisplayManager.hpp>
+#include <Utils/Random.hpp>
 
 #include <OgreProcedural.h>
 
@@ -15,6 +16,8 @@
 void GameState::OnInitialize() {
     // setup scene
     mGameScene = AddScene(new dt::Scene("gamescene"));
+
+    dt::Random::Initialize();
 
     OgreProcedural::Root::getInstance()->sceneManager = mGameScene->GetSceneManager();
     dt::DisplayManager::Get()->SetWindowSize(1024, 768);
@@ -38,20 +41,38 @@ void GameState::OnInitialize() {
     background_node->AddComponent(new dt::MeshComponent("background", "BackgroundMesh", "Background"));
 
     mPlayerAircraft = mGameScene->AddChildNode(new dt::Node("player_aircraft"));
-    AircraftComponent* aircraft = mPlayerAircraft->AddComponent(new AircraftComponent(GOOD, "aircraft"));
-    mPlayerAircraft->AddComponent(new PlayerControlComponent("aircraft", aircraft->GetCannonNode()->GetName(), "control"));
+    mPlayerAircraft->SetPosition(-10, 0, 0);
+    mPlayerAircraftComponent = mPlayerAircraft->AddComponent(new AircraftComponent(GOOD, "aircraft"));
+    mPlayerAircraft->AddComponent(new PlayerControlComponent("aircraft", mPlayerAircraftComponent->GetCannonNode()->GetName(), "control"));
 
     // an enemy
     dt::Node* enemy_node = mGameScene->AddChildNode(new dt::Node());
-    enemy_node->SetPosition(15, 10, 0);
-    aircraft = enemy_node->AddComponent(new AircraftComponent(EVIL, "aircraft"));
-    enemy_node->AddComponent(new BotControlComponent("aircraft", aircraft->GetCannonNode()->GetName(), "control"));
+    enemy_node->SetPosition(10, 0, 0);
+    mEnemyAircraftComponent = enemy_node->AddComponent(new AircraftComponent(EVIL, "aircraft"));
+    enemy_node->AddComponent(new BotControlComponent("aircraft", mEnemyAircraftComponent->GetCannonNode()->GetName(), "control"));
 
-    /*
     // the world
     dt::Node* world_node = mGameScene->AddChildNode(new dt::Node());
-    world_node->AddComponent(new WorldComponent());
-    */
+    WorldComponent* world = new WorldComponent();
+    world->AddPoint(Ogre::Vector3(17, 12, 0));
+    world->AddPoint(Ogre::Vector3(17, -12, 0));
+    world->AddPoint(Ogre::Vector3(-17, -12, 0));
+    world->AddPoint(Ogre::Vector3(-17, 12, 0));
+    world_node->AddComponent(world);
+
+    dt::Node* node;
+
+    node = mGameScene->AddChildNode(new dt::Node());
+    node->SetPosition(-14, -10, 0);
+    mPlayerHealthDisplay = node->AddComponent(new dt::TextComponent("You: 100", "health"));
+    mPlayerHealthDisplay->SetFont("DejaVuSans");
+    mPlayerHealthDisplay->SetFontSize(16);
+
+    node = mGameScene->AddChildNode(new dt::Node());
+    node->SetPosition(14, -10, 0);
+    mEnemyHealthDisplay = node->AddComponent(new dt::TextComponent("Him: 100", "health"));
+    mEnemyHealthDisplay->SetFont("DejaVuSans");
+    mEnemyHealthDisplay->SetFontSize(16);
 }
 
 void GameState::OnDeinitialize() {

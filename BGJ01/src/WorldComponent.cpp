@@ -3,17 +3,7 @@
 #include <OgreProcedural.h>
 
 WorldComponent::WorldComponent(const QString& name)
-    : dt::Component(name) {
-
-    AddPoint(Ogre::Vector3(10, 10, 0));
-    AddPoint(Ogre::Vector3(15, 0, 0));
-    AddPoint(Ogre::Vector3(10, -10, 0));
-    AddPoint(Ogre::Vector3(0, -15, 0));
-    AddPoint(Ogre::Vector3(-10, -20, 0));
-    AddPoint(Ogre::Vector3(-10, -3, 0));
-    AddPoint(Ogre::Vector3(-11, 1, 0));
-    AddPoint(Ogre::Vector3(-2, 19, 0));
-}
+    : dt::Component(name) {}
 
 void WorldComponent::OnCreate() {
     // create the mesh
@@ -35,8 +25,11 @@ void WorldComponent::OnCreate() {
     e.setExtrusionPath(&p).setShapeToExtrude(&s).realizeMesh(GetFullName().toStdString() + "_mesh_type");
 
     mMeshComponent = GetNode()->AddComponent(new dt::MeshComponent(GetFullName() + "_mesh_type", "Invisible", GetFullName() + "_mesh"));
-    // mMeshComponent->Disable(); // hide mesh
+    mMeshComponent->Disable(); // hide mesh
+
     mPhysicsBodyComponent = new dt::PhysicsBodyComponent(mMeshComponent->GetName(), GetFullName() + "_physics_body");
+    mPhysicsBodyComponent->SetCollisionGroup(0x0111);
+    mPhysicsBodyComponent->SetCollisionMask(0x0111);
     mPhysicsBodyComponent->SetCollisionShapeType(dt::PhysicsBodyComponent::TRIMESH);
     GetNode()->AddComponent(mPhysicsBodyComponent);
     mPhysicsBodyComponent->SetRestrictMovement(btVector3(1, 1, 0));
