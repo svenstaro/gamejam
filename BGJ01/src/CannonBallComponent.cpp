@@ -73,3 +73,9 @@ void CannonBallComponent::SetParticlesOn(bool pon)
     }
 }
 void CannonBallComponent::OnSerialize(dt::IOPacket& packet) {}
+
+void CannonBallComponent::OnUpdate(double time_diff) {
+    if(GetNode()->GetPosition(dt::Node::SCENE).y < -11.9) {
+        GetNode()->RemoveComponent(GetName());
+    }
+}
