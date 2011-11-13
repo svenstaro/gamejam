@@ -3,6 +3,8 @@
 
 #include "Enums.hpp"
 
+#include "AircraftComponent.hpp"
+
 #include <Scene/Component.hpp>
 #include <Scene/Node.hpp>
 
@@ -12,7 +14,7 @@
 class CannonBallComponent : public dt::Component {
     Q_OBJECT
 public:
-    CannonBallComponent(Party party, const QString& name);
+    CannonBallComponent(Party party, AircraftComponent* aircraft, const QString& name);
     void OnCreate();
     void OnDestroy();
     void OnSerialize(dt::IOPacket& packet);
@@ -20,10 +22,13 @@ public:
 
     void SetDirection(Ogre::Radian angle);
 
+    AircraftComponent* GetAircraft();
+
 private:
     dt::MeshComponent* mMesh;
     dt::PhysicsBodyComponent* mPhysicsBody;
     Party mParty;
+    AircraftComponent* mAircraft;
 
 };
 

@@ -1,8 +1,9 @@
 #include "CannonBallComponent.hpp"
 
-CannonBallComponent::CannonBallComponent(Party party, const QString& name)
+CannonBallComponent::CannonBallComponent(Party party, AircraftComponent* aircraft, const QString& name)
     : dt::Component(name),
-      mParty(party) {}
+      mParty(party),
+      mAircraft(aircraft) {}
 
 void CannonBallComponent::OnCreate() {
     mMesh = GetNode()->AddComponent(new dt::MeshComponent("cannon_ball", "CannonBall", GetFullName() + "_mesh"));
@@ -36,4 +37,8 @@ void CannonBallComponent::OnUpdate(double time_diff) {
     if(GetNode()->GetPosition(dt::Node::SCENE).y < -11.9) {
         GetNode()->RemoveComponent(GetName());
     }
+}
+
+AircraftComponent* CannonBallComponent::GetAircraft() {
+    return mAircraft;
 }

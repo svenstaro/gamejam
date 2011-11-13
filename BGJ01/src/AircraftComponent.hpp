@@ -29,6 +29,9 @@ public:
     void Shoot();
     dt::Node* GetCannonNode();
 
+    void AddHealth(float diff);
+    float GetHealth();
+
 public slots:
     void OnCollide(dt::PhysicsBodyComponent* other_body);
 
@@ -45,7 +48,7 @@ private:
     Party mParty; // PARTY HARD
     double mShootingCooldown;
 
-    uint8_t mHitpoints;
+    float mHitpoints;
 };
 
 #endif

@@ -80,5 +80,6 @@ void GameState::OnDeinitialize() {
 }
 
 void GameState::UpdateStateFrame(double simulation_frame_time) {
-
+    mPlayerHealthDisplay->SetText("You: " + QString::number(round(mPlayerAircraftComponent->GetHealth() * 100)));
+    mEnemyHealthDisplay->SetText("Him: " + QString::number(round(mEnemyAircraftComponent->GetHealth() * 100)));
 }

@@ -3,13 +3,15 @@
 #include "CannonBallComponent.hpp"
 
 #include <Scene/Scene.hpp>
+#include <Utils/Random.hpp>
 
 #include <OgreProcedural.h>
 
 AircraftComponent::AircraftComponent(Party party, const QString& name)
     : dt::Component(name),
       mParty(party),
-      mShootingCooldown(0) {}
+      mShootingCooldown(0),
+      mHitpoints(0.8f) {}
 
 void AircraftComponent::OnCreate() {
     mShipGraphics = GetNode()->AddComponent(new dt::BillboardSetComponent(GetFullName() + "_ship_image", 1, "playership.png"));
@@ -55,10 +57,18 @@ void AircraftComponent::OnUpdate(double time_diff) {
     if(mShootingCooldown >= 0) {
         mShootingCooldown -= time_diff;
     }
+
+    AddHealth(0.01 * time_diff);
 }
 
 void AircraftComponent::OnCollide(dt::PhysicsBodyComponent* other_body) {
     std::cout << GetNode()->GetName().toStdString() << " collided with " << other_body->GetNode()->GetName().toStdString() << std::endl;
+
+    CannonBallComponent* ball = other_body->GetNode()->FindComponent<CannonBallComponent>("ball");
+    if(ball != nullptr) {
+        ball->GetAircraft()->AddHealth(dt::Random::Get(0.1f, 0.2f));
+        ball->GetNode()->GetParent()->RemoveChildNode(ball->GetNode()->GetName());
+    }
 }
 
 void AircraftComponent::OnSerialize(dt::IOPacket& packet) {}
@@ -77,11 +87,24 @@ void AircraftComponent::Shoot() {
 
     dt::Node* ball_node = GetNode()->GetScene()->AddChildNode(new dt::Node());
     ball_node->SetPosition(mCannonNode->GetPosition(dt::Node::SCENE));
-    ball_node->AddComponent(new CannonBallComponent(mParty, "ball"))->SetDirection(mTargetAngle);
+    ball_node->AddComponent(new CannonBallComponent(mParty, this, "ball"))->SetDirection(mTargetAngle);
 
     mShootingCooldown = 1.f;
 }
 
 dt::Node* AircraftComponent::GetCannonNode() {
     return mCannonNode;
+}
+
+void AircraftComponent::AddHealth(float diff) {
+    mHitpoints += diff;
+    if(diff > 1)
+        diff = 1.f;
+
+    // if(diff < 0)
+       // TODO: explode
+}
+
+float AircraftComponent::GetHealth() {
+    return mHitpoints;
 }
