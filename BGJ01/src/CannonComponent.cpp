@@ -4,11 +4,11 @@ CannonComponent::CannonComponent(const QString& name)
     : dt::Component(name) {}
 
 void CannonComponent::OnCreate() {
-    mBaseGraphics = GetNode()->AddComponent(new dt::BillboardSetComponent(GetName() + "_base_graphics", 1, "cannonbase.png"));
+    mBaseGraphics = GetNode()->AddComponent(new dt::BillboardSetComponent(GetFullName() + "_base_graphics", 1, "cannonbase.png"));
     mBaseGraphics->GetOgreBillboardSet()->setDefaultDimensions(1, 1);
 
-    mBarrelNode  = GetNode()->AddChildNode(new dt::Node(GetName() + "_barrel_node"));
-    mBarrelGraphics = mBarrelNode->AddComponent(new dt::BillboardSetComponent("barrel_graphics", 1, "cannonbarrel.png"));
+    mBarrelNode  = GetNode()->AddChildNode(new dt::Node(GetFullName() + "_barrel_node"));
+    mBarrelGraphics = mBarrelNode->AddComponent(new dt::BillboardSetComponent(GetFullName() + "_barrel_graphics", 1, "cannonbarrel.png"));
     mBarrelGraphics->GetOgreBillboardSet()->setDefaultDimensions(1, 1);
     mBarrelGraphics->SetOrientedSelf();
 }

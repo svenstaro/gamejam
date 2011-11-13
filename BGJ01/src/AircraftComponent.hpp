@@ -2,6 +2,7 @@
 #define _AIRCRAFTCOMPONENT
 
 #include "CannonComponent.hpp"
+#include "Enums.hpp"
 
 #include <Scene/Component.hpp>
 #include <Scene/Node.hpp>
@@ -10,10 +11,11 @@
 #include <Graphics/MeshComponent.hpp>
 #include <Physics/PhysicsBodyComponent.hpp>
 
+
 class AircraftComponent : public dt::Component {
     Q_OBJECT
 public:
-    AircraftComponent(const QString& name);
+    AircraftComponent(Party party, const QString& name = "");
     void OnCreate();
     void OnDestroy();
     void OnEnable();
@@ -24,6 +26,7 @@ public:
     dt::PhysicsBodyComponent* GetPhysicsBody();
 
     void SetTargetAngle(Ogre::Radian angle);
+    void Shoot();
     dt::Node* GetCannonNode();
 
 private:
@@ -35,6 +38,8 @@ private:
     CannonComponent* mCannonComponent;
 
     Ogre::Radian mTargetAngle;
+
+    Party mParty;
 };
 
 #endif

@@ -16,6 +16,7 @@ public:
 
 public slots:
     void MouseMoved(const OIS::MouseEvent &arg);
+    void MousePressed(const OIS::MouseEvent& event, OIS::MouseButtonID button);
 
 private:
     QString mAircraftComponentName;

@@ -14,6 +14,7 @@ PlayerControlComponent::PlayerControlComponent(QString aircraft_component_name, 
 
 void PlayerControlComponent::OnCreate() {
     connect(dt::InputManager::Get(), SIGNAL(sMouseMoved(const OIS::MouseEvent&)), this, SLOT(MouseMoved(const OIS::MouseEvent&)));
+    connect(dt::InputManager::Get(), SIGNAL(sMousePressed(OIS::MouseEvent,OIS::MouseButtonID)), this, SLOT(MousePressed(OIS::MouseEvent,OIS::MouseButtonID)));
 }
 
 void PlayerControlComponent::OnDestroy() {
@@ -64,5 +65,11 @@ void PlayerControlComponent::MouseMoved(const OIS::MouseEvent &arg) {
         mouse_point.normalise();
 
         aircraft->SetTargetAngle(Ogre::Vector3::UNIT_X.getRotationTo(mouse_point, Ogre::Vector3::UNIT_Z).getRoll());
+    }
+}
+
+void PlayerControlComponent::MousePressed(const OIS::MouseEvent& event, OIS::MouseButtonID button) {
+    if(button == OIS::MB_Left) {
+        GetNode()->FindComponent<AircraftComponent>(mAircraftComponentName)->Shoot();
     }
 }

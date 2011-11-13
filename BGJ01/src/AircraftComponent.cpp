@@ -1,26 +1,35 @@
 #include "AircraftComponent.hpp"
 
+#include "CannonBallComponent.hpp"
+
+#include <Scene/Scene.hpp>
+
 #include <OgreProcedural.h>
 
-AircraftComponent::AircraftComponent(const QString& name)
-    : dt::Component(name) {}
+AircraftComponent::AircraftComponent(Party party, const QString& name)
+    : dt::Component(name),
+      mParty(party) {}
 
 void AircraftComponent::OnCreate() {
-    mShipGraphics = GetNode()->AddComponent(new dt::BillboardSetComponent("ship_image", 1, "playership.png"));
+    mShipGraphics = GetNode()->AddComponent(new dt::BillboardSetComponent(GetFullName() + "_ship_image", 1, "playership.png"));
     mShipGraphics->GetOgreBillboardSet()->setDefaultDimensions(4.f, 4.f);
 
-    mShipMesh = GetNode()->AddComponent(new dt::MeshComponent("ship_box", "ship_box_material", "ship_mesh"));
+    mShipMesh = GetNode()->AddComponent(new dt::MeshComponent("ship_box", "Invisible", GetFullName() + "_ship_mesh"));
+    mShipMesh->Disable(); // hide the mesh
 
-    mPhysicsBody = GetNode()->AddComponent(new dt::PhysicsBodyComponent("ship_mesh", "physics_body"));
+    mPhysicsBody = GetNode()->AddComponent(new dt::PhysicsBodyComponent(GetFullName() + "_ship_mesh", GetFullName() + "_physics_body"));
     mPhysicsBody->SetTwoDimensional(true);
-    mPhysicsBody->SetGravity(btVector3(0, 0, 0));
     mPhysicsBody->DisableDeactivation(true);
     mPhysicsBody->SetDampingAmount(0.75, 0.5);
+    mPhysicsBody->GetRigidBody()->setAngularFactor(btVector3(0, 0, 0));
+    mPhysicsBody->SetCollisionGroup(short(mParty));
+    mPhysicsBody->SetCollisionMask(short(mParty));
+    mPhysicsBody->SetGravity(btVector3(0, 0, 0));
 
     // create the cannon
-    mCannonNode = GetNode()->AddChildNode(new dt::Node(mName + "_cannon_node"));
+    mCannonNode = GetNode()->AddChildNode(new dt::Node(GetFullName() +  "_cannon_node"));
     mCannonNode->SetPosition(0.75, -0.70, 0);
-    mCannonComponent = mCannonNode->AddComponent(new CannonComponent("cannon"));
+    mCannonComponent = mCannonNode->AddComponent(new CannonComponent(GetFullName() + "_cannon"));
 }
 
 void AircraftComponent::OnDestroy() {
@@ -48,6 +57,12 @@ dt::PhysicsBodyComponent* AircraftComponent::GetPhysicsBody() {
 
 void AircraftComponent::SetTargetAngle(Ogre::Radian angle) {
     mTargetAngle = angle;
+}
+
+void AircraftComponent::Shoot() {
+    dt::Node* ball_node = GetNode()->GetScene()->AddChildNode(new dt::Node());
+    ball_node->SetPosition(mCannonNode->GetPosition(dt::Node::SCENE));
+    ball_node->AddComponent(new CannonBallComponent(mParty, "ball"))->SetDirection(mTargetAngle);
 }
 
 dt::Node* AircraftComponent::GetCannonNode() {
