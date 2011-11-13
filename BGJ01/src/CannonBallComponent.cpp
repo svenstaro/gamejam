@@ -46,9 +46,10 @@ void CannonBallComponent::AddParticles()
     BallParticleSys->GetOgreParticleSystem()->setDefaultDimensions(1, 1);
 
     Ogre::ParticleEmitter* bemitter = BallParticleSys->AddEmitter("emit1", "Point");
-    bemitter->setAngle(Ogre::Degree(20));
+    bemitter->setPosition(Ogre::Vector3(0,0,0.5));
+    bemitter->setAngle(Ogre::Degree(180));
     bemitter->setColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f), Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-    bemitter->setEmissionRate(50);
+    bemitter->setEmissionRate(30);
     bemitter->setParticleVelocity(-1.5f, 1.5f);
     bemitter->setTimeToLive(0.2f, 0.75f);
 

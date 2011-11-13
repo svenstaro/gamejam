@@ -69,13 +69,13 @@ void AircraftComponent::OnUpdate(double time_diff) {
 }
 
 void AircraftComponent::OnCollide(dt::PhysicsBodyComponent* other_body) {
-    std::cout << GetNode()->GetName().toStdString() << " collided with " << other_body->GetNode()->GetName().toStdString() << std::endl;
+    // std::cout << GetNode()->GetName().toStdString() << " collided with " << other_body->GetNode()->GetName().toStdString() << std::endl;
 
-    CannonBallComponent* ball = other_body->GetNode()->FindComponent<CannonBallComponent>("ball");
+    /* CannonBallComponent* ball = other_body->GetNode()->FindComponent<CannonBallComponent>("ball");
     if(ball != nullptr) {
-        ball->GetAircraft()->AddHealth(dt::Random::Get(0.1f, 0.2f));
+        ball->GetAircraft()->AddHealth(-dt::Random::Get(0.1f, 0.2f));
         ball->GetNode()->GetParent()->RemoveChildNode(ball->GetNode()->GetName());
-    }
+    } */
 }
 
 void AircraftComponent::OnSerialize(dt::IOPacket& packet) {}
@@ -96,21 +96,21 @@ void AircraftComponent::AddParticles()
     AircraftParticleSys->GetOgreParticleSystem()->setDefaultDimensions(1.5, 1.5);
 
     Ogre::ParticleEmitter* emitter = AircraftParticleSys->AddEmitter("emit1", "Point");
-    emitter->setAngle(Ogre::Degree(20));
-    emitter->setColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f), Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-    emitter->setEmissionRate(50);
-    emitter->setParticleVelocity(-1.5f, 1.5f);
+    emitter->setAngle(Ogre::Degree(10));
+    emitter->setPosition(Ogre::Vector3(0,0,0.5));
+
+    // emitter->setColour(Ogre::ColourValue(0.5f, 0.5f, 0.5f), Ogre::ColourValue(0.5f, 0.5f, 0.5f));
+    emitter->setEmissionRate(10);
+    emitter->setParticleVelocity(-3.f);
     emitter->setTimeToLive(0.2f, 0.75f);
 
-    AircraftParticleSys->AddScalerAffector("scaler", -1.0);
+    AircraftParticleSys->AddScalerAffector("scaler", 2.0);
 
     Ogre::ParticleAffector* affector = AircraftParticleSys->AddAffector("colour_interpolator", "ColourInterpolator");
     affector->setParameter("time0", "0");
-    affector->setParameter("colour0", "0.5 0.5 0.5 1");
-    affector->setParameter("time1", "0.5");
-    affector->setParameter("colour1", "0.5 0.5 0.5 1");
-    affector->setParameter("time2", "1");
-    affector->setParameter("colour2", "0.6 0.6 0.6 0");
+    affector->setParameter("colour0", "1.0 0.5 0.0 1");
+    affector->setParameter("time1", "1");
+    affector->setParameter("colour1", "1.0 1.0 1.0 0");
 }
 void AircraftComponent::SetParticlesOn(bool pon)
 {
