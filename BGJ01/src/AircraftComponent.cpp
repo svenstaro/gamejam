@@ -68,7 +68,7 @@ void AircraftComponent::SetTargetAngle(Ogre::Radian angle) {
 void AircraftComponent::AddParticles()
 {
     //Create the particles for the ship
-    dt::ParticleSystemComponent* AircraftParticleSys = mAircraftParticles->AddComponent(new dt::ParticleSystemComponent("ACPsys"));
+    dt::ParticleSystemComponent* AircraftParticleSys = mAircraftParticles->AddComponent(new dt::ParticleSystemComponent(GetFullName() + "_ACPsys"));
     AircraftParticleSys->SetMaterialName("Test/Particle");
     AircraftParticleSys->SetParticleCountLimit(500);
     AircraftParticleSys->GetOgreParticleSystem()->setDefaultDimensions(1.5, 1.5);
