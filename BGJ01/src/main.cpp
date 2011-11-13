@@ -1,3 +1,5 @@
+#include <Config.hpp>
+
 #include <iostream>
 
 int main() {
