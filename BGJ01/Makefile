@@ -9,7 +9,7 @@ release:
 
 debug:
 	mkdir -p build
-	cd build; cmake -DCMAKE_BUILD_TYPE=Debug ..; make -j$(shell grep -c ^processor /proc/cpuinfo)
+	cd build; cmake -DBUILD_TESTS=FALSE -DBUILD_SAMPLES=FALSE -DCMAKE_BUILD_TYPE=Debug ..; make -j$(shell grep -c ^processor /proc/cpuinfo)
 
 run:
 	bin/cannonium

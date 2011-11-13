@@ -40,7 +40,7 @@ void PlayerControlComponent::OnUpdate(double time_diff) {
             x = 1;
 
         AircraftComponent* aircraft = GetNode()->FindComponent<AircraftComponent>(mAircraftComponentName);
-        aircraft->GetPhysicsBody()->SetForce(btVector3(x, y, 0) * 10);
+        aircraft->GetPhysicsBody()->SetCentralForce(btVector3(x, y, 0) * 10);
     }
 }
 

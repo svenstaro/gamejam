@@ -12,7 +12,6 @@ void AircraftComponent::OnCreate() {
     mShipMesh = GetNode()->AddComponent(new dt::MeshComponent("ship_box", "ship_box_material", "ship_mesh"));
 
     mPhysicsBody = GetNode()->AddComponent(new dt::PhysicsBodyComponent("ship_mesh", "physics_body"));
-    mPhysicsBody->HasForce(true);
     mPhysicsBody->SetTwoDimensional(true);
     mPhysicsBody->SetGravity(btVector3(0, 0, 0));
     mPhysicsBody->DisableDeactivation(true);
