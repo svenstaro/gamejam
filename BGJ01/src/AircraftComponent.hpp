@@ -21,6 +21,7 @@ public:
     void OnEnable();
     void OnDisable();
     void OnUpdate(double time_diff);
+    void OnCollide(dt::PhysicsBodyComponent* other_body);
     void OnSerialize(dt::IOPacket& packet);
 
     dt::PhysicsBodyComponent* GetPhysicsBody();
@@ -39,8 +40,10 @@ private:
 
     Ogre::Radian mTargetAngle;
 
-    Party mParty;
+    Party mParty; // PARTY HARD
     double mShootingCooldown;
+
+    uint8_t mHitpoints;
 };
 
 #endif
