@@ -14,7 +14,8 @@ add_subdirectory(externals/ducttape-engine)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/externals/ducttape-engine/cmake-extras/")
 message(${CMAKE_MODULE_PATH})
 
-include_directories(src/)
+get_directory_property(ducttape-includes DIRECTORY externals/ducttape-engine INCLUDE_DIRECTORIES)
+include_directories(src/ ${ducttape-includes})
 
 file(GLOB_RECURSE cannonium_SOURCES src/*.cpp)
 
