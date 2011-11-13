@@ -17,7 +17,7 @@ void CannonBallComponent::OnCreate() {
     mPhysicsBody->SetCollisionMask(short(OppositeParty(mParty)));
 
     //Add particles to the ball
-    mBallParticles = GetNode()->AddChildNode(new dt::Node("Aircraft_Particles"));
+    mBallParticles = GetNode()->AddChildNode(new dt::Node("Cannon_Ball_Particles"));
     //mBallParticles->SetPosition(GetNode()->GetPosition());
     SetParticlesOn(true);
 }
@@ -67,7 +67,7 @@ void CannonBallComponent::SetParticlesOn(bool pon)
     }
     else
     {
-        mBallParticles->RemoveComponent("Aircraft_Particles");
+        mBallParticles->RemoveComponent("Cannon_Ball_Particles");
     }
 }
 void CannonBallComponent::OnSerialize(dt::IOPacket& packet) {}
