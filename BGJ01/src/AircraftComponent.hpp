@@ -11,7 +11,7 @@
 class AircraftComponent : public dt::Component {
     Q_OBJECT
 public:
-    AircraftComponent(QString name);
+    AircraftComponent(const QString& name);
     void OnCreate();
     void OnDestroy();
     void OnEnable();

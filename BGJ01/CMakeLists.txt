@@ -38,6 +38,6 @@ file(GLOB_RECURSE cannonium_SOURCES src/*.cpp)
 file(GLOB_RECURSE cannonium_HEADERS src/*.hpp)
 qt4_wrap_cpp(cannonium_HEADERS_MOC ${cannonium_HEADERS})
 
-add_executable(cannonium ${cannonium_SOURCES} ${cannonium_HEADERS_MOD})
+add_executable(cannonium ${cannonium_SOURCES} ${cannonium_HEADERS_MOC})
 
 target_link_libraries(cannonium ducttape)

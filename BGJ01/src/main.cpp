@@ -2,15 +2,12 @@
 
 #include <iostream>
 
-#include "Test.hpp"
+#include "GameState.hpp"
+#include <Core/Root.hpp>
+#include <Scene/Game.hpp>
 
-int main() {
-
-    Test t;
-    Test1 t1;
-    t.omg();
-    t1.omg();
-    std::cout << "lol" << std::endl;
-
+int main(int argc, char** argv) {
+    dt::Game game;
+    game.Run(new GameState, argc, argv);
     return 0;
 }

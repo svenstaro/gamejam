@@ -2,7 +2,7 @@
 
 #include <OgreProcedural.h>
 
-AircraftComponent::AircraftComponent(QString name)
+AircraftComponent::AircraftComponent(const QString& name)
     : dt::Component(name) {}
 
 void AircraftComponent::OnCreate() {
