@@ -20,6 +20,7 @@ private:
     dt::Node* mBarrelNode;
     dt::BillboardSetComponent* mBarrelGraphics;
 
+    uint8_t mHitpoints;
 };
 
 #endif

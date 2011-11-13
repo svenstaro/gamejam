@@ -29,6 +29,9 @@ public:
     void Shoot();
     dt::Node* GetCannonNode();
 
+public slots:
+    void OnCollide(dt::PhysicsBodyComponent* other_body);
+
 private:
     dt::BillboardSetComponent* mShipGraphics;
     dt::MeshComponent* mShipMesh;
@@ -39,8 +42,10 @@ private:
 
     Ogre::Radian mTargetAngle;
 
-    Party mParty;
+    Party mParty; // PARTY HARD
     double mShootingCooldown;
+
+    uint8_t mHitpoints;
 };
 
 #endif
