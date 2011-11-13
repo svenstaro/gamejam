@@ -21,7 +21,6 @@ public:
     void OnEnable();
     void OnDisable();
     void OnUpdate(double time_diff);
-    void OnCollide(dt::PhysicsBodyComponent* other_body);
     void OnSerialize(dt::IOPacket& packet);
 
     dt::PhysicsBodyComponent* GetPhysicsBody();
@@ -29,6 +28,9 @@ public:
     void SetTargetAngle(Ogre::Radian angle);
     void Shoot();
     dt::Node* GetCannonNode();
+
+public slots:
+    void OnCollide(dt::PhysicsBodyComponent* other_body);
 
 private:
     dt::BillboardSetComponent* mShipGraphics;

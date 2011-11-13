@@ -32,8 +32,8 @@ void AircraftComponent::OnCreate() {
     mCannonNode->SetPosition(0.75, -0.70, 0);
     mCannonComponent = mCannonNode->AddComponent(new CannonComponent(GetFullName() + "_cannon"));
 
-    QObject::connect(mPhysicsBody, SIGNAL(Collided(dt::PhysicsBodyComponent* )),
-                     this,         SLOT(OnCollide(dt::PhysicsBodyComponent)));
+    connect(mPhysicsBody, SIGNAL(Collided(dt::PhysicsBodyComponent* )),
+            this,         SLOT(OnCollide(dt::PhysicsBodyComponent*)));
 }
 
 void AircraftComponent::OnDestroy() {
@@ -57,8 +57,9 @@ void AircraftComponent::OnUpdate(double time_diff) {
     }
 }
 
-void AircraftComponent::OnCollide(dt::PhysicsBodyComponet* other_body) {
-    std::cout << GetNode()->GetName() << " collided with " << other_body->GetNode()->GetName() << std::endl;
+void AircraftComponent::OnCollide(dt::PhysicsBodyComponent* other_body) {
+    std::cout << GetNode()->GetName().toStdString() << " collided with " << other_body->GetNode()->GetName().toStdString() << std::endl;
+}
 
 void AircraftComponent::OnSerialize(dt::IOPacket& packet) {}
 
