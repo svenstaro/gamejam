@@ -13,11 +13,14 @@ public:
     void OnCreate();
     void OnDestroy();
     void OnUpdate(double time_diff);
+    void AddParticles();
+    void SetParticlesOn(bool pon);
     void OnSerialize(dt::IOPacket& packet);
 
 private:
     dt::BillboardSetComponent* mBaseGraphics;
     dt::Node* mBarrelNode;
+    dt::Node* mCannonParticles;
     dt::BillboardSetComponent* mBarrelGraphics;
 
     uint8_t mHitpoints;

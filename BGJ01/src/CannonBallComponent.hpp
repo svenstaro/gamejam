@@ -18,6 +18,10 @@ public:
     void OnCreate();
     void OnDestroy();
     void OnSerialize(dt::IOPacket& packet);
+
+    void AddParticles();
+    void SetParticlesOn(bool pon);
+
     void OnUpdate(double time_diff);
 
     void SetDirection(Ogre::Radian angle);
@@ -27,6 +31,7 @@ public:
 private:
     dt::MeshComponent* mMesh;
     dt::PhysicsBodyComponent* mPhysicsBody;
+    dt::Node* mBallParticles;
     Party mParty;
     AircraftComponent* mAircraft;
 
