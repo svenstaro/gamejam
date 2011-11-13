@@ -16,12 +16,14 @@ public:
     void OnCreate();
     void OnDestroy();
     void OnSerialize(dt::IOPacket& packet);
-
+    void AddParticles();
+    void SetParticlesOn(bool pon);
     void SetDirection(Ogre::Radian angle);
 
 private:
     dt::MeshComponent* mMesh;
     dt::PhysicsBodyComponent* mPhysicsBody;
+    dt::Node* mBallParticles;
     Party mParty;
 
 };

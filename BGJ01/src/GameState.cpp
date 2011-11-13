@@ -19,6 +19,7 @@ void GameState::OnInitialize() {
     OgreProcedural::Root::getInstance()->sceneManager = mGameScene->GetSceneManager();
     dt::DisplayManager::Get()->SetWindowSize(1024, 768);
     dt::ResourceManager::Get()->AddResourceLocation("","FileSystem", true);
+    dt::ResourceManager::Get()->AddResourceLocation("particle/","FileSystem", true);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
     Ogre::FontManager::getSingleton().load("DejaVuSans", "General");
