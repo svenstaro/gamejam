@@ -62,21 +62,7 @@ To create a new game state, inherit it from the GameState class (util/gamestate)
 
 ## License
 
-This program is free software. It comes without any warranty, to the extent permitted by applicable law. You can redistribute it and/or modify it under the terms of the Do What The Fuck You Want To Public License, Version 2, as published by Sam Hocevar. See http://sam.zoy.org/wtfpl/COPYING for more details.
-
-             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
-                       Version 2, December 2004 
-
-    Copyright (C) 2004 Sam Hocevar <sam@hocevar.net> 
-
-    Everyone is permitted to copy and distribute verbatim or modified 
-    copies of this license document, and changing it is allowed as long 
-    as the name is changed. 
-
-               DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
-      TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
-
-     0. You just DO WHAT THE FUCK YOU WANT TO. 
+This game is distributed under the zlib license. See the attached LICENSE file.
 
 The following files and directories are not part of this project and were redistributed under their respective licenses:
 
@@ -85,3 +71,5 @@ The following files and directories are not part of this project and were redist
 * lib/linux_x64 (license file included)
 * lib/windows_x86 (license file included)
 * lib/windows_x64 (license file included)
+
+The utils/vector.lua file was originally taken from [vrdl](https://github.com/vrld) and somewhat changed.
