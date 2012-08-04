@@ -33,8 +33,9 @@ function Ship:update(dt)
     PolygonEntity.update(self, dt)
 
     local bouncy = 0.8
-    max_x = 300
-    max_y = 200
+    local arena = self.world:findByType("Arena")[1]
+    max_x = arena.size.x / 2
+    max_y = arena.size.y / 2
     if self.position.x > max_x then
         self.position.x = max_x
         self.velocity.x = -self.velocity.x * bouncy
