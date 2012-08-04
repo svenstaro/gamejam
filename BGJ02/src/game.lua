@@ -27,7 +27,7 @@ function Game:draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.normal)
 
-    local s = "Game state"
+    local s = love.timer.getFPS() .. " FPS"
     love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 10)
 
     love.graphics.push()
