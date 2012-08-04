@@ -10,9 +10,10 @@ function Bullet:__init(position, velocity)
     self.velocity = velocity
 end
 
---[[function Bullet:update()
-    Entity
-end]]
+function Bullet:update(dt)
+    
+    PolygonEntity.update(self, dt)
+end
 
 function Bullet:draw()
     for i = 5, 1, -1 do
@@ -21,7 +22,8 @@ function Bullet:draw()
 end
 
 function Bullet:drawPart(size)
-    love.graphics.setColor(200, 255, 200, 255 - (5-size) * 50)
+    local alpha = math.max(255 - (5-size) * 50 * self.lifetime, 0)
+    love.graphics.setColor(200, 255, 200, alpha)
     local pos = Vector(self.position.x, self.position.y)
     pos = pos - self.velocity:normalized() * (5 - size) * 8
     love.graphics.circle("fill", pos.x, pos.y, size, 8)
