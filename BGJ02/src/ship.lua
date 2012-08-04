@@ -54,5 +54,5 @@ end
 function Ship:shoot()
     local v = Vector(0, 1):rotated(self.rotation) * 150 --bulletspeed
     local b = Bullet(self.position, self.velocity - v)
-    self.world.add(b)
+    self.world:add(b)
 end

@@ -37,7 +37,7 @@ function Game:draw()
 end
 
 function Game:update(dt)
-    world:update(dt)
+    self.world:update(dt)
 end
 
 function Game:keypressed(k, u)
