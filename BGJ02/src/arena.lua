@@ -3,49 +3,142 @@ require("polygonentity")
 
 Arena =  class("Arena", PolygonEntity)
 
+ARENA_MAX_LENGTH = 100
+
 function Arena:__init()
     PolygonEntity.__init(self)
-    self.nearest_point = Vector()
-    self.being_changed = false -- if the mouse is down, this arena is being changed
+
+    self.reference_point = 0
+    self.dragging = false
+    self.unspawnedAsteroid = nil
+
+    self.nearest = Vector()
+
     self.size = Vector(600, 400)
-    self:addPoint(Vector(-self.size.x/2,    -self.size.y/2))
-    self:addPoint(Vector(-self.size.x/2,    self.size.y/2))
-    self:addPoint(Vector(self.size.x/2,     self.size.y/2))
-    self:addPoint(Vector(self.size.x/2,     -self.size.y/2))
+    self:addPoint(Vector(-self.size.x/2, -self.size.y/2))
+    self:addPoint(Vector(-self.size.x/2,  self.size.y/2))
+    self:addPoint(Vector( self.size.x/2,  self.size.y/2))
+    self:addPoint(Vector( self.size.x/2, -self.size.y/2))
+end
+
+function Arena:mouse()
+    local mouse = getMouseVector()
+    local diff = self:ref() - mouse
+    if diff:len() > ARENA_MAX_LENGTH then
+        diff = diff:normalized() * ARENA_MAX_LENGTH
+    end
+    return self:ref() - diff
+end
+
+function Arena:ref()
+    return self:getPointByDistance(self.reference_point)
+end
+
+function Arena:splitWidth()
+    local l = (self:ref() - self:mouse()):len() / ARENA_MAX_LENGTH
+    return (1.0 - l * 0.5) * 40
+end
+
+function Arena:right()
+    return self:getPointByDistance(self.reference_point + self:splitWidth())
+end
+
+function Arena:left()
+    return self:getPointByDistance(self.reference_point - self:splitWidth())
 end
 
 function Arena:draw()
-    love.graphics.polygon("line", self:getDrawPoints())
-    love.graphics.setColor(100, 255, 100)
-    love.graphics.circle("fill", self:getDrawPoints()[self.nearest_point_index * 2 - 1],
-                                 self:getDrawPoints()[self.nearest_point_index * 2], 20)
+    self.__super.draw(self)
 
-    if self.being_changed then
-        love.graphics.setColor(255, 100, 100)
-        love.graphics.circle("fill", self:getDrawPoints()[self.nearest_point_index * 2 - 1],
-                                     self:getDrawPoints()[self.nearest_point_index * 2], 20)
+    if self.dragging then
+        local ref = self:ref()
+        local right = self:right()
+        local left = self:left()
+        local mouse = self:mouse()
+
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.polygon("line", right.x, right.y, mouse.x, mouse.y, left.x, left.y)
+
+        self.unspawnedAsteroid:draw()
     end
 end
 
-function Arena:update()
-    -- get nearest point to mouse
-    self.nearest_point = self.points[1] -- just a wild first guess
-    self.nearest_point_index = 1 -- ditto
-    for index,value in ipairs(self.points) do
-        if value:dist(getMouseVector()) < self.nearest_point:dist(getMouseVector()) then
-            self.nearest_point = value
-            self.nearest_point_index = index
+function Arena:getPointByDistance(d)
+    local u = self.size.x * 2 + self.size.y * 2 
+    while d < 0 do d = d + u end
+    while d > u do d = d - u end
+
+    if d < self.size.x then
+        return Vector(- self.size.x / 2 + d, -self.size.y / 2)
+    elseif d < self.size.x + self.size.y then
+        return Vector(self.size.x / 2, d - self.size.x - self.size.y / 2)
+    elseif d < self.size.x * 2 + self.size.y then
+        return Vector(- d + self.size.x * 1.5 + self.size.y, self.size.y / 2)
+    else
+        return Vector(-self.size.x / 2, - d + self.size.x * 2 + self.size.y * 1.5)
+    end
+end
+
+function Arena:findReferencePoint()
+    local mouse = getMouseVector()
+
+    if mouse.x > self.size.x / 2 and mouse.y < -self.size.y / 2 then
+        self.reference_point = self.size.x
+    elseif mouse.x > self.size.x / 2 and mouse.y > self.size.y / 2 then
+        self.reference_point = self.size.x + self.size.y
+    elseif mouse.x < -self.size.x / 2 and mouse.y > self.size.y / 2 then
+        self.reference_point = self.size.x * 2 + self.size.y
+    elseif mouse.x < -self.size.x / 2 and mouse.y < -self.size.y / 2 then
+        self.reference_point = 0
+    else
+        local d_left   = math.abs(mouse.x + self.size.x / 2)
+        local d_right  = math.abs(mouse.x - self.size.x / 2)
+        local d_top    = math.abs(mouse.y + self.size.y / 2)
+        local d_bottom = math.abs(mouse.y - self.size.y / 2)
+
+        local min = math.min(d_left, d_right, d_top, d_bottom)
+
+        if min > 20 then return false end
+
+        local in_x = math.abs(mouse.x) <= self.size.x / 2
+        local in_y = math.abs(mouse.y) <= self.size.y / 2
+        if in_x and (min == d_top or mouse.y < -self.size.y / 2) then
+            self.reference_point = self.size.x / 2 + mouse.x
+        elseif in_y and (min == d_right or mouse.x > self.size.x / 2) then
+            self.reference_point = self.size.x + self.size.y / 2 + mouse.y
+        elseif in_x and (min == d_bottom or mouse.y > self.size.y / 2) then
+            self.reference_point = self.size.x + self.size.y + self.size.x / 2 - mouse.x
+        else
+            self.reference_point = self.size.x * 2 + self.size.y * 1.5 - mouse.y
         end
     end
 
+    return true
+end
+
+function Arena:update(dt)
     if love.mouse.isDown("l") then
-        self.being_changed = true
-        self.points[self.nearest_point_index] = getMouseVector()
-    else
-        self.being_changed = false
+        if not self.dragging then
+            -- start dragging
+            self.dragging = self:findReferencePoint()
+            self.unspawnedAsteroid = Asteroid(math.random(1,3))
+        else
+            -- continue dragging
+        end
+
+        self.unspawnedAsteroid.position = self:mouse()
+        self.unspawnedAsteroid:update(dt)
+    elseif self.dragging then
+        -- stop dragging
+        self.dragging = false
+
+        self.world:add(self.unspawnedAsteroid)
+        local ref = self:getPointByDistance(self.reference_point)
+        local d = ref - self:mouse()
+        local speed = (6 - self.unspawnedAsteroid.size) * 0.5
+        self.unspawnedAsteroid.velocity = d * speed 
+        self.unspawnedAsteroid = nil
     end
 end
 
-function Arena:keypressed(k, u)
 
-end
