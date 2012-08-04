@@ -13,6 +13,8 @@ function Ship:__init()
     self:addPoint(Vector(7, 10))
     self:addPoint(Vector(0, 3))
     self:addPoint(Vector(-7, 10))
+
+    self.timeUntilShoot = 0
 end
 
 function Ship:update(dt)
@@ -44,6 +46,10 @@ function Ship:update(dt)
     if self.position.x <-max_x then self.position.x =-max_x end
     if self.position.y > max_y then self.position.y = max_y end
     if self.position.y <-max_y then self.position.y =-max_y end
+
+    if self.timeUntilShoot > 0 then
+        self.timeUntilShoot = self.timeUntilShoot - dt
+    end
 end
 
 function Ship:draw()
@@ -52,7 +58,9 @@ function Ship:draw()
 end
 
 function Ship:shoot()
-    local v = Vector(0, 1):rotated(self.rotation) * 150 --bulletspeed
-    local b = Bullet(self.position, self.velocity - v)
-    self.world:add(b)
+    if self.timeUntilShoot <= 0 then
+        local b = Bullet(self.position, self.velocity, self.rotation)
+        self.world:add(b)
+        self.timeUntilShoot = 0.5
+    end
 end
