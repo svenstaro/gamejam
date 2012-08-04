@@ -51,6 +51,10 @@ function Game:keypressed(k, u)
         self.world:add(a)
     elseif k == "lshift" then
         ship:shoot()
+    elseif k == "b" then
+        for k,e in pairs(self.world:findByType("Asteroid")) do
+            e:crush()
+        end
     end
 end
 

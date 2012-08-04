@@ -45,3 +45,19 @@ function Asteroid:generate()
         self:addPoint(v)
     end
 end
+
+function Asteroid:crush()
+    if self.size > 1 then
+        for i = 1,3 do
+            local a = Asteroid(self.size - 1)
+            a.position = self.position + Vector(math.random(-20, 20), math.random(-20, 20))
+            a.velocity = Vector(math.random(-40, 40), math.random(-40, 40))
+            self.world:add(a)
+        end
+    end
+
+    self.world:remove(self)
+end
+
+
+

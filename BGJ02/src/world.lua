@@ -35,3 +35,11 @@ function World:draw()
         v:draw()
     end
 end
+
+function World:findByType(typename) 
+    l = {}
+    for k, v in pairs(self.entities) do
+        if v.__name == typename then table.insert(l, v) end
+    end
+    return l
+end
