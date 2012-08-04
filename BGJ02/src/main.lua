@@ -12,7 +12,12 @@ function reset()
     menu = Menu()
     game = Game()
     stack = GameStack()
-    stack:push(intro)
+
+    if debug then
+        stack:push(game)
+    else
+        stack:push(intro)
+    end
 end
 
 function love.load()

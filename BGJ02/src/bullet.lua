@@ -7,7 +7,7 @@ Bullet = class("Bullet", Entity)
 function Bullet:__init(position, ship_velocity, ship_rotation)
     Entity.__init(self)
     self.position = position
-    self.own_velocity = Vector(0, -1):rotated(ship_rotation) * 250 --bulletspeed
+    self.own_velocity = Vector(1, 0):rotated(ship_rotation) * 250 --bulletspeed
     --self.velocity = ship_velocity + self.own_velocity
     self.velocity = ship_velocity * 0.2 + self.own_velocity
 end
