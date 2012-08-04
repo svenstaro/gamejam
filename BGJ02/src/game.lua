@@ -24,9 +24,12 @@ function Game:draw()
     local s = "Game state"
     love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 10)
 
+    love.graphics.push()
+    love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
     for k, v in pairs(self.entities) do
         v:draw() 
     end
+    love.graphics.pop()
 end
 
 function Game:update(dt)
@@ -37,7 +40,8 @@ end
 
 function Game:keypressed(k, u)
     if k == "escape" then
-        stack:pop()
+        stack:pop() -- game
+        stack:pop() -- menu
     end
 end
 
