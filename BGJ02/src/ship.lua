@@ -1,6 +1,7 @@
 require("util/helper")
 require("util/vector")
 require("polygonentity")
+require("bullet")
 
 Ship = class("Ship", PolygonEntity)
 
@@ -48,4 +49,10 @@ end
 function Ship:draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.polygon("line", self:getDrawPoints())
+end
+
+function Ship:shoot()
+    local v = Vector(0, 1):rotated(self.rotation) * 150 --bulletspeed
+    local b = Bullet(self.position, self.velocity - v)
+    table.insert(game.entities, b)
 end

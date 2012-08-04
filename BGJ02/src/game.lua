@@ -46,5 +46,8 @@ function Game:keypressed(k, u)
         stack:pop() -- game
         stack:pop() -- menu
     end
+    if k == "lshift" then
+        ship:shoot()
+    end
 end
 
