@@ -107,6 +107,10 @@ end
 
 function Game:update(dt)
     self.world:update(dt)
+
+    for i = 1,3 do
+        self.previewAsteroids[i]:update(dt)
+    end
 end
 
 function Game:keypressed(k, u)

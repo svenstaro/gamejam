@@ -37,7 +37,6 @@ function love.load()
     
     -- load shaders
     resources:addShader("pixelate", "shader/pixelate.glsl")
-    resources:addShader("rock", "shader/rock.glsl")
 
     resources:load()
 
