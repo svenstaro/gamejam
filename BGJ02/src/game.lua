@@ -5,6 +5,7 @@ require("util/gamestate")
 require("util/resources")
 
 require("ship")
+require("ship_player")
 require("asteroid")
 require("world")
 
@@ -13,7 +14,11 @@ Game = class("Game", GameState)
 function Game:__init()
     self.world = World()
 
-    ship = Ship()
+    if debug then
+        ship = ShipPlayer()
+    else
+        --ship = ShipAI()
+    end
     self.world:add(ship)
 
     arena = Arena()

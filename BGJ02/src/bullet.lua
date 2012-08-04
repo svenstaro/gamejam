@@ -1,6 +1,6 @@
 require("util/helper")
 require("util/vector")
-require("polygonentity")
+require("entity")
 
 Bullet = class("Bullet", Entity)
 
