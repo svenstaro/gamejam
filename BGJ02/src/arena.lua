@@ -41,6 +41,8 @@ function Arena:update()
     if love.mouse.isDown("l") then
         self.being_changed = true
         self.points[self.nearest_point_index] = getMouseVector()
+    else
+        self.being_changed = false
     end
 end
 
