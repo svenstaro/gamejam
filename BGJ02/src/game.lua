@@ -6,16 +6,18 @@ require("util/resources")
 
 require("ship")
 require("asteroid")
+require("world")
 
 Game = class("Game", GameState)
 
 function Game:__init()
-    self.entities = {}
+    self.world = World()
 
     ship = Ship()
+    self.world:add(ship)
+
     arena = Arena()
-    table.insert(self.entities, ship)
-    table.insert(self.entities, arena)
+    self.world:add(arena)
 end
 
 function Game:draw()
@@ -30,16 +32,12 @@ function Game:draw()
 
     love.graphics.push()
     love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
-    for k, v in pairs(self.entities) do
-        v:draw() 
-    end
+    self.world:draw(dt)
     love.graphics.pop()
 end
 
 function Game:update(dt)
-    for k, v in pairs(self.entities) do
-        v:update(dt)
-    end
+    self.world:update(dt)
 end
 
 function Game:keypressed(k, u)
@@ -50,9 +48,8 @@ function Game:keypressed(k, u)
         local a = Asteroid(math.random(1,3))
         a.position = ship.position
         a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
-        table.insert(self.entities, a)
-    end
-    if k == "lshift" then
+        self.world:add(a)
+    elseif k == "lshift" then
         ship:shoot()
     end
 end
