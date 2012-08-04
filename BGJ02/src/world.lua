@@ -32,7 +32,7 @@ function World:remove(entity)
         if v == entity then 
             self.entities[k] = nil 
             entity.world = nil
-            entity.physicsObject:destroy()
+            if entity.physicsObject and entity.physicsObject.body then entity.physicsObject.body:destroy() end
         end
     end
 end

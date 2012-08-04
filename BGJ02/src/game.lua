@@ -131,6 +131,8 @@ function Game:keypressed(k, u)
         self.selectedAsteroid = 2
     elseif k == "3" then
         self.selectedAsteroid = 3
+    elseif k == "r" then
+        self.materialAvailable = 80
     end
 end
 

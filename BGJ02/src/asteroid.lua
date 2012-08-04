@@ -61,8 +61,7 @@ function Asteroid:crush()
         for i = 1,3 do
             local a = Asteroid(self.size - 1)
             a.position = self.position
-            a.velocity = Vector(math.random(-40, 40), math.random(-40, 40))
-            a:update(0.4)
+            a.velocity = Vector(math.random(-40, 40), math.random(-40, 40)) + self.velocity * 0.7
             self.world:add(a)
         end
     end
