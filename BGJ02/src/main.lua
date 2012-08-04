@@ -1,16 +1,18 @@
-require("intro")
 require("game")
-require("util/resources")
+require("intro")
+require("menu")
 require("util/gamestack")
+require("util/resources")
 
 resources = Resources("data/")
 
 function reset()
     -- start game
     intro = Intro()
+    menu = Menu()
     game = Game()
     stack = GameStack()
-    stack:push(game)
+    stack:push(intro)
 end
 
 function love.load()
@@ -22,6 +24,7 @@ function love.load()
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 14)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
+    resources:addFont("huge", "DejaVuSans.ttf", 30)
 
     -- load music
     -- resources:addMusic("background", "background.mp3")

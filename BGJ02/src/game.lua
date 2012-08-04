@@ -112,8 +112,7 @@ end
 
 function Game:keypressed(k, u)
     if k == "escape" then
-        stack:pop() -- game
-        stack:pop() -- menu
+        stack:pop() 
     elseif k == " " then
         local a = Asteroid(math.random(1,3))
         a.position = ship.position
@@ -131,8 +130,13 @@ function Game:keypressed(k, u)
         self.selectedAsteroid = 2
     elseif k == "3" then
         self.selectedAsteroid = 3
-    elseif k == "r" then
-        self.materialAvailable = 80
+    end
+
+    -- DEBUG CONTROLS
+    if debug then
+        if k == "r" then
+            self.materialAvailable = 80
+        end
     end
 end
 

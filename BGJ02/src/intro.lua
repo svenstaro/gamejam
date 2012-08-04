@@ -43,7 +43,12 @@ function Intro:draw()
     love.graphics.print("Press Escape to skip intro", 10, 10)
 end
 
+function Intro:skip()
+    stack:pop()
+    stack:push(menu)
+end
+
 function Intro:keypressed(k, u)
-    stack:push(game)
+    self:skip()
 end
 
