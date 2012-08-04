@@ -15,6 +15,10 @@ function Entity:update(dt)
     self.lifetime = self.lifetime + dt
     self.position = self.position + (self.velocity * dt)
     self.rotation = self.rotation + self.rotationSpeed * dt
+
+    if self.physicsObject ~= nil then
+        self.position = Vector(self.physicsObject.body:getX(), self.physicsObject.body:getY())
+    end
 end
 
 function Entity:draw()

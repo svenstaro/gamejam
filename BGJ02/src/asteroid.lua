@@ -34,6 +34,16 @@ function Asteroid:__init(size)
     self.size = size
     self:generate()
     self.rotationSpeed = math.random(-1.0, 1.0)
+
+    self.physicsObject = {}
+end
+
+function Asteroid:enablePhysics()
+    self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
+    self.physicsObject.shape = love.physics.newCircleShape(randomRadius(self.size))
+    self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
+    self.physicsObject.body:setLinearVelocity(self.velocity.x, self.velocity.y)
+    table.insert(self.world.physicsObjects, self.physicsObject)
 end
 
 function Asteroid:generate()
@@ -58,6 +68,3 @@ function Asteroid:crush()
 
     self.world:remove(self)
 end
-
-
-

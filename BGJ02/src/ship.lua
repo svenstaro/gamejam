@@ -13,7 +13,16 @@ function Ship:__init()
     self:addPoint(Vector(7, 10))
     self:addPoint(Vector(0, 3))
     self:addPoint(Vector(-7, 10))
+
+    --self.physicsObject = {}
 end
+
+--function Ship:enablePhysics()
+--    self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
+--    self.physicsObject.shape = love.physics.newPolygonShape(0, -10, 7, 10, 0, 3, -3, 10)
+--    self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
+--    table.insert(self.world.physicsObjects, self.physicsObject)
+--end
 
 function Ship:update(dt)
     speed_add = 0
