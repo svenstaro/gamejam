@@ -44,8 +44,3 @@ function Ship:update(dt)
     if self.position.y > max_y then self.position.y = max_y end
     if self.position.y <-max_y then self.position.y =-max_y end
 end
-
-function Ship:draw()
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.polygon("line", self:getDrawPoints())
-end

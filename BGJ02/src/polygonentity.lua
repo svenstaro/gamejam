@@ -25,3 +25,8 @@ function PolygonEntity:getDrawPoints()
     end
     return pts
 end
+
+function PolygonEntity:draw()
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.polygon("line", self:getDrawPoints())
+end

@@ -5,6 +5,7 @@ require("util/gamestate")
 require("util/resources")
 
 require("ship")
+require("asteroid")
 
 Game = class("Game", GameState)
 
@@ -45,6 +46,11 @@ function Game:keypressed(k, u)
     if k == "escape" then
         stack:pop() -- game
         stack:pop() -- menu
+    elseif k == " " then
+        local a = Asteroid(math.random(1,3))
+        a.position = ship.position
+        a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
+        table.insert(self.entities, a)
     end
 end
 
