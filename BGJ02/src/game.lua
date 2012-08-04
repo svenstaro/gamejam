@@ -3,9 +3,15 @@
 require("util/gamestate")
 require("util/resources")
 
+require("ship")
+
 Game = class("Game", GameState)
 
 function Game:__init()
+    self.entities = {}
+
+    ship = Ship()
+    table.insert(self.entities, ship)
 end
 
 function Game:draw()
@@ -17,9 +23,21 @@ function Game:draw()
 
     local s = "Game state"
     love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 10)
+
+    for k, v in pairs(self.entities) do
+        v:draw() 
+    end
+end
+
+function Game:update(dt)
+    for k, v in pairs(self.entities) do
+        v:update(dt)
+    end
 end
 
 function Game:keypressed(k, u)
-
+    if k == "escape" then
+        stack:pop()
+    end
 end
 

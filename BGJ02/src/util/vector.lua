@@ -1,15 +1,14 @@
 require("util/helper")
 
-Vector = class("Vector")
-
-function Vector:__init()
-    self.x = 0
-    self.y = 0
+function assert_vector(v)
+    assert(v.__name == "Vector")
 end
 
+Vector = class("Vector")
+
 function Vector:__init(x, y)
-    self.x = x
-    self.y = y
+    self.x = x or 0
+    self.y = y or 0
 end
 
 function Vector:unpack()
@@ -25,10 +24,14 @@ function Vector.__unm(a)
 end
 
 function Vector.__add(a, b)
+    assert_vector(a)
+    assert_vector(b)
 	return Vector(a.x + b.x, a.y + b.y)
 end
 
 function Vector.__sub(a, b)
+    assert_vector(a)
+    assert_vector(b)
 	return Vector(a.x - b.x, a.y - b.y)
 end
 
@@ -38,27 +41,39 @@ function Vector.__mul(a, b)
 	elseif type(b) == "number" then
 		return Vector(b*a.x, b*a.y)
 	else
+        assert_vector(a)
+        assert_vector(b)
 		return a.x*b.x + a.y*b.y
 	end
 end
 
 function Vector.__div(a, b)
+    assert_vector(a)
+    assert(type(a) == "number", "Not a number: " .. b)
 	return Vector(a.x / b, a.y / b)
 end
 
 function Vector.__eq(a, b)
+    assert_vector(a)
+    assert_vector(b)
 	return a.x == b.x and a.y == b.y
 end
 
 function Vector.__lt(a,b)
+    assert_vector(a)
+    assert_vector(b)
 	return a.x < b.x or (a.x == b.x and a.y < b.y)
 end
 
 function Vector.__le(a,b)
+    assert_vector(a)
+    assert_vector(b)
 	return a.x <= b.x and a.y <= b.y
 end
 
 function Vector.permul(a,b)
+    assert_vector(a)
+    assert_vector(b)
 	return Vector(a.x*b.x, a.y*b.y)
 end
 
@@ -67,13 +82,15 @@ function Vector:len2()
 end
 
 function Vector:len()
-	return sqrt(self.x * self.x + self.y * self.y)
+	return math.sqrt(self.x * self.x + self.y * self.y)
 end
 
 function Vector.dist(a, b)
+    assert_vector(a)
+    assert_vector(b)
 	local dx = a.x - b.x
 	local dy = a.y - b.y
-	return sqrt(dx * dx + dy * dy)
+	return math.sqrt(dx * dx + dy * dy)
 end
 
 function Vector:normalize()
@@ -89,13 +106,13 @@ function Vector:normalized()
 end
 
 function Vector:rotate(phi)
-	local c, s = cos(phi), sin(phi)
+	local c, s = math.cos(phi), math.sin(phi)
 	self.x, self.y = c * self.x - s * self.y, s * self.x + c * self.y
 	return self
 end
 
 function Vector:rotated(phi)
-	local c, s = cos(phi), sin(phi)
+	local c, s = math.cos(phi), math.sin(phi)
 	return Vector(c * self.x - s * self.y, s * self.x + c * self.y)
 end
 
@@ -104,16 +121,19 @@ function Vector:perpendicular()
 end
 
 function Vector:projectOn(v)
+    assert_vector(v)
 	-- (self * v) * v / v:len2()
 	local s = (self.x * v.x + self.y * v.y) / (v.x * v.x + v.y * v.y)
 	return Vector(s * v.x, s * v.y)
 end
 
 function Vector:mirrorOn(v)
+    assert_vector(v)
 	local s = 2 * (self.x * v.x + self.y * v.y) / (v.x * v.x + v.y * v.y)
 	return Vector(s * v.x - self.x, s * v.y - self.y)
 end
 
 function Vector:cross(v)
+    assert_vector(v)
 	return self.x * v.y - self.y * v.x
 end

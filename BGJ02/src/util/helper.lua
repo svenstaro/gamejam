@@ -22,12 +22,17 @@ end
 function class(name, super)
     -- main metadata
     local cls = {}
-    cls.__name = name
-    cls.__super = super
 
-    -- copy the members of the superclass
-    if super then
-        for k,v in pairs(super) do
+    -- copy the members of the superclasses
+    superstack = {}
+    s = super
+    while s do
+        table.insert(superstack, s)
+        s = s.__super
+    end
+
+    for i = #superstack,1,-1 do
+        for k,v in pairs(superstack[i]) do
             cls[k] = v
         end
     end
@@ -37,15 +42,19 @@ function class(name, super)
     -- members, calling its __init with the given
     -- params
     cls = setmetatable(cls, {__call = function(c, ...)
-        local obj = {}
+        local obj = { __call = nil }
         for k,v in pairs(cls) do
             --if not k == "__call" then
                 obj[k] = v
             --end
         end
+        setmetatable(obj, cls)
         if obj.__init then obj:__init(...) end
         return obj
     end})
+
+    cls.__name = name
+    cls.__super = super
     return cls
 end
 
