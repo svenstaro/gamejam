@@ -1,18 +1,22 @@
 require("util/helper")
 require("util/vector")
-require("polygonentity")
+require("entity")
 
 Bullet = class("Bullet", Entity)
 
-function Bullet:__init(position, velocity)
+function Bullet:__init(position, ship_velocity, ship_rotation)
     Entity.__init(self)
     self.position = position
-    self.velocity = velocity
+    self.own_velocity = Vector(0, -1):rotated(ship_rotation) * 250 --bulletspeed
+    --self.velocity = ship_velocity + self.own_velocity
+    self.velocity = ship_velocity * 0.2 + self.own_velocity
 end
 
 function Bullet:update(dt)
-    
     PolygonEntity.update(self, dt)
+    if self.lifetime >= 3 then
+        self.world:remove(self)
+    end
 end
 
 function Bullet:draw()
@@ -22,9 +26,9 @@ function Bullet:draw()
 end
 
 function Bullet:drawPart(size)
-    local alpha = math.max(255 - (5-size) * 50 * self.lifetime, 0)
-    love.graphics.setColor(200, 255, 200, alpha)
+    local alpha = math.max(255 * math.min(self.lifetime * 3, 1) - (5-size) * 50, 0)
+    love.graphics.setColor(255, 20, 20, alpha)
     local pos = Vector(self.position.x, self.position.y)
-    pos = pos - self.velocity:normalized() * (5 - size) * 8
-    love.graphics.circle("fill", pos.x, pos.y, size, 8)
+    pos = pos - self.own_velocity:normalized() * (5 - size) * 8
+    love.graphics.circle("line", pos.x, pos.y, size, 5)
 end
