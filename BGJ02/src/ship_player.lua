@@ -7,7 +7,7 @@ function ShipPlayer:__init()
 end
 
 function ShipPlayer:update(dt)
-    speed_add = 0
+    local speed_add = 0
     if love.keyboard.isDown("up") then
         speed_add = 1
     elseif love.keyboard.isDown("down") then

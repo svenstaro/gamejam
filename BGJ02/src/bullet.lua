@@ -10,6 +10,17 @@ function Bullet:__init(position, ship_velocity, ship_rotation)
     self.own_velocity = Vector(1, 0):rotated(ship_rotation) * 250 --bulletspeed
     --self.velocity = ship_velocity + self.own_velocity
     self.velocity = ship_velocity * 0.2 + self.own_velocity
+
+    self.physicsObject = {}
+end
+
+function Bullet:enablePhysics()
+    self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
+    self.physicsObject.shape = love.physics.newPolygonShape(0, -10, 7, 10, 0, 3, -3, 10)
+    self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
+    self.physicsObject.fixture:setSensor(true)
+    self.physicsObject.fixture:setUserData(self)
+    table.insert(self.world.physicsObjects, self.physicsObject)
 end
 
 function Bullet:update(dt)
