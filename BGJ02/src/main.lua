@@ -20,6 +20,7 @@ function love.load()
     resources:addImage("test", "test.jpg")
 
     -- load fonts
+    resources:addFont("tiny", "DejaVuSans.ttf", 14)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
 
     -- load music
@@ -39,6 +40,14 @@ function love.draw()
 
     -- love.graphics.setFont(resources.fonts.tiny)
     -- love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
+end
+
+function love.keypressed(k, u)
+    stack:keypressed(k, u)
+end
+
+function love.mousepressed(x, y, mb)
+    stack:mousepressed(x, y, mb)
 end
 
 function love.keypressed(k, u)

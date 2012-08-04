@@ -59,6 +59,3 @@ function Asteroid:crush()
 
     self.world:remove(self)
 end
-
-
-

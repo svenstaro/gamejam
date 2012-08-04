@@ -48,6 +48,7 @@ function Arena:left()
 end
 
 function Arena:draw()
+    love.graphics.setColor(255,255,255)
     self.__super.draw(self)
 
     if self.dragging then
@@ -119,25 +120,32 @@ end
 function Arena:update(dt)
     if love.mouse.isDown("l") then
         if not self.dragging then
-            -- start dragging
-            self.dragging = self:findReferencePoint()
-            self.unspawnedAsteroid = Asteroid(math.random(1,3))
-        else
-            -- continue dragging
+            if self:findReferencePoint() and game.materialAvailable > materialValue(game.selectedAsteroid) then
+                -- start dragging
+                self.dragging = true
+                self.unspawnedAsteroid = Asteroid(game.selectedAsteroid)
+            end
         end
-
-        self.unspawnedAsteroid.position = self:mouse()
-        self.unspawnedAsteroid:update(dt)
+        
+        if self.dragging then
+            if game.selectedAsteroid ~= self.unspawnedAsteroid.size then
+                self.unspawnedAsteroid = Asteroid(game.selectedAsteroid)
+            end
+            self.unspawnedAsteroid.position = self:mouse()
+            self.unspawnedAsteroid:update(dt)
+        end
     elseif self.dragging then
         -- stop dragging
         self.dragging = false
 
         self.world:add(self.unspawnedAsteroid)
+        game.materialAvailable = game.materialAvailable - materialValue(self.unspawnedAsteroid.size)
         local ref = self:getPointByDistance(self.reference_point)
         local d = ref - self:mouse()
         local speed = (6 - self.unspawnedAsteroid.size) * 0.5
         self.unspawnedAsteroid.velocity = d * speed 
         self.unspawnedAsteroid = nil
+
     end
 end
 
