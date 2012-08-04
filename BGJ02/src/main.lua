@@ -10,7 +10,7 @@ function reset()
     intro = Intro()
     game = Game()
     stack = GameStack()
-    stack:push(intro)
+    stack:push(game)
 end
 
 function love.load()
