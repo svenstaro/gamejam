@@ -1,3 +1,6 @@
 [submodule "BGJ01/externals/ducttape-engine"]
 	path = BGJ01/externals/ducttape-engine
 	url = git://github.com/ducttape/ducttape-engine.git
+[submodule "BGJ02/src/externals/HardonCollider"]
+	path = BGJ02/src/externals/HardonCollider
+	url = git://github.com/vrld/HardonCollider.git
