@@ -26,15 +26,15 @@ function GameStack:pop()
     if not self:current() then return end
     self:current():stop()
     table.remove(self.states, #self.states)
-    if self:current() then 
-        self:current():start() 
-    else
-        love.event.quit()
-    end
+    if self:current() then self:current():start() end
 end
 
 function GameStack:update(dt)
-    if self:current() then self:current():update(dt) end
+    if self:current() then 
+        self:current():update(dt) 
+    else
+        love.event.quit()
+    end
 end
 
 function GameStack:draw()

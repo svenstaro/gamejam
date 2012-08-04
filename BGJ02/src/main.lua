@@ -1,16 +1,23 @@
-require("intro")
 require("game")
-require("util/resources")
+require("intro")
+require("menu")
 require("util/gamestack")
+require("util/resources")
 
 resources = Resources("data/")
 
 function reset()
     -- start game
     intro = Intro()
+    menu = Menu()
     game = Game()
     stack = GameStack()
-    stack:push(game)
+
+    if debug then
+        stack:push(game)
+    else
+        stack:push(intro)
+    end
 end
 
 function love.load()
@@ -18,13 +25,18 @@ function love.load()
 
     -- load images
     resources:addImage("test", "test.jpg")
+    resources:addImage("rock", "rock.png")
 
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 14)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
+    resources:addFont("huge", "DejaVuSans.ttf", 30)
 
     -- load music
     -- resources:addMusic("background", "background.mp3")
+    
+    -- load shaders
+    resources:addShader("pixelate", "shader/pixelate.glsl")
 
     resources:load()
 

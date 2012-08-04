@@ -6,7 +6,7 @@ function love.conf(t)
     t.console = false
     t.release = false
     t.screen.width = 1000
-    t.screen.height = 600
+    t.screen.height = 640
     t.screen.fullscreen = false
     t.screen.vsync = true
     t.screen.fsaa = 0
