@@ -11,6 +11,10 @@ function Vector:__init(x, y)
     self.y = y or 0
 end
 
+function Vector:clone()
+    return Vector(self.x, self.y)
+end
+
 function Vector:unpack()
 	return self.x, self.y
 end
