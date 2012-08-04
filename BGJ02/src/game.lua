@@ -1,5 +1,6 @@
--- intro
+-- game
 
+require("arena")
 require("util/gamestate")
 require("util/resources")
 
@@ -11,7 +12,9 @@ function Game:__init()
     self.entities = {}
 
     ship = Ship()
+    arena = Arena()
     table.insert(self.entities, ship)
+    table.insert(self.entities, arena)
 end
 
 function Game:draw()
