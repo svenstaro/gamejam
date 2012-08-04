@@ -16,7 +16,7 @@ function Entity:update(dt)
     self.position = self.position + (self.velocity * dt)
     self.rotation = self.rotation + self.rotationSpeed * dt
 
-    if self.physicsObject ~= nil then
+    if self.physicsObject ~= nil and self.physicsObject.body ~= nil then
         self.position = Vector(self.physicsObject.body:getX(), self.physicsObject.body:getY())
     end
 end

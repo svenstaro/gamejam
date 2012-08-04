@@ -20,7 +20,7 @@ function World:add(entity)
 end
 
 function World:clear()
-    for k,v in self.phyicsObjects do
+    for k,v in pairs(self.physicsObjects) do
         v:destroy()
     end
 

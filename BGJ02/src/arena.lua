@@ -120,7 +120,7 @@ end
 function Arena:update(dt)
     if love.mouse.isDown("l") then
         if not self.dragging then
-            if self:findReferencePoint() and game.materialAvailable > materialValue(game.selectedAsteroid) then
+            if self:findReferencePoint() and game.materialAvailable >= materialValue(game.selectedAsteroid) then
                 -- start dragging
                 self.dragging = true
                 self.unspawnedAsteroid = Asteroid(game.selectedAsteroid)
@@ -138,12 +138,12 @@ function Arena:update(dt)
         -- stop dragging
         self.dragging = false
 
-        self.world:add(self.unspawnedAsteroid)
         game.materialAvailable = game.materialAvailable - materialValue(self.unspawnedAsteroid.size)
         local ref = self:getPointByDistance(self.reference_point)
         local d = ref - self:mouse()
         local speed = (6 - self.unspawnedAsteroid.size) * 0.5
         self.unspawnedAsteroid.velocity = d * speed 
+        self.world:add(self.unspawnedAsteroid)
         self.unspawnedAsteroid = nil
 
     end
