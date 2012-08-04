@@ -68,3 +68,13 @@ function Asteroid:crush()
 
     self.world:remove(self)
 end
+
+function Asteroid:draw()
+    love.graphics.setPixelEffect(resources.shaders.rock)
+    resources.shaders.rock:send("diffuseTexture", resources.images.rock)
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.polygon("fill", self:getDrawPoints())
+
+    love.graphics.setPixelEffect()
+end

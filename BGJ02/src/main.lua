@@ -25,6 +25,7 @@ function love.load()
 
     -- load images
     resources:addImage("test", "test.jpg")
+    resources:addImage("rock", "rock.png")
 
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 14)
@@ -33,6 +34,10 @@ function love.load()
 
     -- load music
     -- resources:addMusic("background", "background.mp3")
+    
+    -- load shaders
+    resources:addShader("pixelate", "shader/pixelate.glsl")
+    resources:addShader("rock", "shader/rock.glsl")
 
     resources:load()
 

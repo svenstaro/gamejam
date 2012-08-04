@@ -54,24 +54,23 @@ function Game:draw()
     love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 10)
 
     love.graphics.push()
-    love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
+    -- love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
+    love.graphics.translate(580, 320)
     self.world:draw(dt)
     love.graphics.pop()
 
     -- draw material bar
     
-    local bar_h = 400
-    local bar_w = 20
     local bar_b = 2
-    local bar_x = love.graphics.getWidth() - 50 - bar_w / 2
-    local bar_y = love.graphics.getHeight() / 2
-    local bar_v = self.materialAvailable / MAX_MATERIAL * bar_h
+    local bar_h = 10 
+    local bar_w = 140 - bar_b * 4
+    local bar_x = 10
+    local bar_y = love.graphics.getHeight() - 10 - bar_h
+    local bar_v = self.materialAvailable / MAX_MATERIAL * bar_w
+    love.graphics.setColor(255, 255, 255, 128)
+    love.graphics.rectangle("fill", bar_x, bar_y, bar_w, bar_h)
     love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle("line", bar_x - bar_w / 2 - bar_b * 2, 
-        bar_y - bar_h / 2 - bar_b * 2,
-        bar_w + bar_b * 4,
-        bar_h + bar_b * 4)
-    love.graphics.rectangle("fill", bar_x - bar_w / 2, bar_y - bar_v + bar_h / 2, bar_w, bar_v)
+    love.graphics.rectangle("fill", bar_x, bar_y, bar_v, bar_h)
 
     for i = 1,3 do
         local a = self.previewAsteroids[i]

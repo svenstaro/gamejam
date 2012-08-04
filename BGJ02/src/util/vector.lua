@@ -155,5 +155,5 @@ end
 -- returns the mouse position in entity space
 function getMouseVector()
     local x, y = love.mouse.getPosition()
-    return Vector(x - love.graphics.getWidth() / 2, y - love.graphics.getHeight() / 2)
+    return Vector(x - 580, y - 320)
 end
