@@ -137,3 +137,9 @@ function Vector:cross(v)
     assert_vector(v)
 	return self.x * v.y - self.y * v.x
 end
+
+-- returns the mouse position in entity space
+function getMouseVector()
+    local x, y = love.mouse.getPosition()
+    return Vector(x - love.graphics.getWidth() / 2, y - love.graphics.getHeight() / 2)
+end
