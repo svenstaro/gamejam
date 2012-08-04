@@ -19,8 +19,8 @@ function materialValue(size)
 end
 
 function randomRadius(size)
-    v1 = {5, 5, 30}
-    v2 = {15, 25, 50}
+    v1 = {5, 10, 15}
+    v2 = {10, 20, 30}
     return math.random(v1[size], v2[size])
 end
 
@@ -34,6 +34,16 @@ function Asteroid:__init(size)
     self.size = size
     self:generate()
     self.rotationSpeed = math.random(-1.0, 1.0)
+
+    self.physicsObject = {}
+end
+
+function Asteroid:enablePhysics()
+    self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
+    self.physicsObject.shape = love.physics.newCircleShape(randomRadius(self.size))
+    self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
+    self.physicsObject.body:setLinearVelocity(self.velocity.x, self.velocity.y)
+    table.insert(self.world.physicsObjects, self.physicsObject)
 end
 
 function Asteroid:generate()
@@ -50,14 +60,11 @@ function Asteroid:crush()
     if self.size > 1 then
         for i = 1,3 do
             local a = Asteroid(self.size - 1)
-            a.position = self.position + Vector(math.random(-20, 20), math.random(-20, 20))
-            a.velocity = Vector(math.random(-40, 40), math.random(-40, 40))
+            a.position = self.position
+            a.velocity = Vector(math.random(-40, 40), math.random(-40, 40)) + self.velocity * 0.7
             self.world:add(a)
         end
     end
 
     self.world:remove(self)
 end
-
-
-

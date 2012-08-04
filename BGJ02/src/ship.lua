@@ -14,10 +14,18 @@ function Ship:__init()
     self:addPoint(Vector(-3, 0))
     self:addPoint(Vector(-10, 7))
 
+    --self.physicsObject = {}
     self.timeUntilShoot = 0
 
     turn_speed = math.pi
 end
+
+--function Ship:enablePhysics()
+--    self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
+--    self.physicsObject.shape = love.physics.newPolygonShape(0, -10, 7, 10, 0, 3, -3, 10)
+--    self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
+--    table.insert(self.world.physicsObjects, self.physicsObject)
+--end
 
 function Ship:update(dt)
     PolygonEntity.update(self, dt)

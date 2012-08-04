@@ -44,3 +44,7 @@ end
 function GameStack:keypressed(k, u)
     if self:current() then self:current():keypressed(k, u) end
 end
+
+function GameStack:mousepressed(x, y, mb)
+    if self:current() then self:current():mousepressed(x, y, mb) end
+end
