@@ -26,21 +26,20 @@ function Game:__init()
     end
 
     self.world = World()
-    self:reset()
-
-    if debug then
-        ship = ShipPlayer()
-        self.world:add(ship)
-    end
-    self.world:add(ShipAI())
-
     arena = Arena()
-    self.world:add(arena)
+    self:reset()
 end
 
 function Game:reset()
     self.materialAvailable = MAX_MATERIAL
+    
+    ship = ShipAI()
+    if debug then player_ship = ShipPlayer() end
+
     self.world:clear()
+    self.world:add(arena)
+    self.world:add(ship)
+    if debug then self.world:add(player_ship) end
 end
 
 function Game:draw()
@@ -130,7 +129,7 @@ function Game:keypressed(k, u)
             self.materialAvailable = 80
         elseif k == " " then
             local a = Asteroid(math.random(1,3))
-            a.position = ship.position
+            a.position = getMouseVector()
             a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
             self.world:add(a)
         elseif k == "lshift" then
@@ -143,3 +142,6 @@ function Game:keypressed(k, u)
     end
 end
 
+function Game:shipCrashed()
+    self:reset()
+end

@@ -49,6 +49,11 @@ function Asteroid:enablePhysics()
     table.insert(self.world.physicsObjects, self.physicsObject)
 end
 
+function Asteroid:update(dt)
+    self.__super.update(self, dt)
+    if self.crushScheduled then self:crush() end
+end
+
 function Asteroid:generate()
     self:clear()
     c = pointCount(self.size)
@@ -69,5 +74,9 @@ function Asteroid:crush()
         end
     end
 
-    self.world:remove(self)
+    self:kill()
+end
+
+function Asteroid:scheduleCrush()
+    self.crushScheduled = true
 end

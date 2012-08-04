@@ -16,7 +16,7 @@ end
 
 function Bullet:enablePhysics()
     self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
-    self.physicsObject.shape = love.physics.newPolygonShape(0, -10, 7, 10, 0, 3, -3, 10)
+    self.physicsObject.shape = love.physics.newCircleShape(5)
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setSensor(true)
     self.physicsObject.fixture:setUserData(self)
@@ -26,7 +26,7 @@ end
 function Bullet:update(dt)
     PolygonEntity.update(self, dt)
     if self.lifetime >= 3 then
-        self.world:remove(self)
+        self:kill()
     end
 end
 

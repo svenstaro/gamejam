@@ -59,17 +59,17 @@ function ShipAI:update(dt)
         self.idleTime = self.idleTime + dt
         if self.idleTime >= 3 then
             local speed = self.velocity:len()
-            if speed < 3 then
-                local rot = Vector(1,0):rotated(self.rotation):angleTo(Vector(1,0))
-                local angle = math.abs(Vector(1,0):angleTo(-self.velocity) - rot)
+            local rot = Vector(1,0):rotated(self.rotation):angleTo(Vector(1,0))
+            local angle = math.abs(Vector(1,0):angleTo(-self.velocity) - rot)
+            if speed > 5 then
                 if angle > 0.1 then
                     local rotate = math.min(angle, turn_speed * dt)
                     self.rotation = self.rotation + rotate
                 else
                     self:move(math.min(1,speed), dt)
                 end
-            else
-                self.rotation = self.rotation + turn_speed
+            elseif shortestDistance < 400 then
+                self.rotation = self.rotation + turn_speed * dt
             end
         end
     end
@@ -79,7 +79,9 @@ function ShipAI:update(dt)
 
     Ship.update(self, dt)
 
-    self:shoot()
+    if shortestDistance < 700 then
+        self:shoot()
+    end
 end
 
 function ShipAI:draw()
