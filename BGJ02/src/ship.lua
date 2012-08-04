@@ -15,6 +15,7 @@ function Ship:__init()
     self:addPoint(Vector(-7, 10))
 
     --self.physicsObject = {}
+    self.timeUntilShoot = 0
 end
 
 --function Ship:enablePhysics()
@@ -25,26 +26,6 @@ end
 --end
 
 function Ship:update(dt)
-    speed_add = 0
-    if love.keyboard.isDown("up") then
-        speed_add = 500
-    elseif  love.keyboard.isDown("down") then
-        speed_add = -500
-    end
-    self.velocity = self.velocity + Vector(0, -speed_add * dt):rotated(self.rotation)
-    max = 200
-    if self.velocity:len() > max then
-        self.velocity:normalize()
-        self.velocity = self.velocity * max
-    end
-
-    turn_speed = math.pi
-    if love.keyboard.isDown("left") then
-        self.rotation = self.rotation - turn_speed * dt
-    elseif love.keyboard.isDown("right") then
-        self.rotation = self.rotation + turn_speed * dt
-    end
-
     PolygonEntity.update(self, dt)
 
     max_x = 300
@@ -53,6 +34,10 @@ function Ship:update(dt)
     if self.position.x <-max_x then self.position.x =-max_x end
     if self.position.y > max_y then self.position.y = max_y end
     if self.position.y <-max_y then self.position.y =-max_y end
+
+    if self.timeUntilShoot > 0 then
+        self.timeUntilShoot = self.timeUntilShoot - dt
+    end
 end
 
 function Ship:draw()
@@ -61,7 +46,9 @@ function Ship:draw()
 end
 
 function Ship:shoot()
-    local v = Vector(0, 1):rotated(self.rotation) * 150 --bulletspeed
-    local b = Bullet(self.position, self.velocity - v)
-    self.world:add(b)
+    if self.timeUntilShoot <= 0 then
+        local b = Bullet(self.position, self.velocity, self.rotation)
+        self.world:add(b)
+        self.timeUntilShoot = 0.5
+    end
 end
