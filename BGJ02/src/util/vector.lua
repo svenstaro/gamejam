@@ -53,7 +53,7 @@ end
 
 function Vector.__div(a, b)
     assert_vector(a)
-    assert(type(a) == "number", "Not a number: " .. b)
+    assert(type(b) == "number", "Not a number: " .. b)
 	return Vector(a.x / b, a.y / b)
 end
 
@@ -86,7 +86,7 @@ function Vector:len2()
 end
 
 function Vector:len()
-	return math.sqrt(self.x * self.x + self.y * self.y)
+	return math.sqrt(self:len2())
 end
 
 function Vector.dist(a, b)
@@ -118,6 +118,16 @@ end
 function Vector:rotated(phi)
 	local c, s = math.cos(phi), math.sin(phi)
 	return Vector(c * self.x - s * self.y, s * self.x + c * self.y)
+end
+
+function Vector:angleTo(v2)
+    local quotient = (self:len() * v2:len())
+    if quotient ~= 0 then
+        local input = (self * v2) / quotient
+        return math.acos(input)
+    else
+        return 0
+    end
 end
 
 function Vector:perpendicular()

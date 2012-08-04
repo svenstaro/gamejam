@@ -6,6 +6,7 @@ require("util/resources")
 
 require("ship")
 require("ship_player")
+require("ship_ai")
 require("asteroid")
 require("world")
 
@@ -16,10 +17,9 @@ function Game:__init()
 
     if debug then
         ship = ShipPlayer()
-    else
-        --ship = ShipAI()
+        self.world:add(ship)
     end
-    self.world:add(ship)
+    self.world:add(ShipAI())
 
     arena = Arena()
     self.world:add(arena)
@@ -49,16 +49,18 @@ function Game:keypressed(k, u)
     if k == "escape" then
         stack:pop() -- game
         stack:pop() -- menu
-    elseif k == " " then
-        local a = Asteroid(math.random(1,3))
-        a.position = ship.position
-        a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
-        self.world:add(a)
-    elseif k == "lshift" then
-        ship:shoot()
-    elseif k == "b" then
-        for k,e in pairs(self.world:findByType("Asteroid")) do
-            e:crush()
+    elseif debug then
+        if k == " " then
+            local a = Asteroid(math.random(1,3))
+            a.position = ship.position
+            a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
+            self.world:add(a)
+        elseif k == "lshift" then
+            ship:shoot()
+        elseif k == "b" then
+            for k,e in pairs(self.world:findByType("Asteroid")) do
+                e:crush()
+            end
         end
     end
 end
