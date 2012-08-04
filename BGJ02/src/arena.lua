@@ -19,6 +19,30 @@ function Arena:__init()
     self:addPoint(Vector(-self.size.x/2,  self.size.y/2))
     self:addPoint(Vector( self.size.x/2,  self.size.y/2))
     self:addPoint(Vector( self.size.x/2, -self.size.y/2))
+
+    self.physicsObject = {}
+end
+
+function Arena:enablePhysics()
+    self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "static")
+    local dp = self:getDrawPoints()
+    self.physicsObject.shape1 = love.physics.newEdgeShape(dp[1], dp[2], dp[3], dp[4])
+    self.physicsObject.fixture1 = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape1, 1)
+    self.physicsObject.fixture1:setUserData(self)
+    self.physicsObject.fixture1:setCategory(2) -- don't collide with arena walls
+    self.physicsObject.shape2 = love.physics.newEdgeShape(dp[3], dp[4], dp[5], dp[6])
+    self.physicsObject.fixture2 = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape2, 1)
+    self.physicsObject.fixture2:setCategory(2) -- don't collide with arena walls
+    self.physicsObject.fixture2:setUserData(self)
+    self.physicsObject.shape3 = love.physics.newEdgeShape(dp[5], dp[6], dp[7], dp[8])
+    self.physicsObject.fixture3 = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape3, 1)
+    self.physicsObject.fixture3:setCategory(2) -- don't collide with arena walls
+    self.physicsObject.fixture3:setUserData(self)
+    self.physicsObject.shape4 = love.physics.newEdgeShape(dp[7], dp[8], dp[1], dp[2])
+    self.physicsObject.fixture4 = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape4, 1)
+    self.physicsObject.fixture4:setCategory(2) -- don't collide with arena walls
+    self.physicsObject.fixture4:setUserData(self)
+    table.insert(self.world.physicsObjects, self.physicsObject)
 end
 
 function Arena:mouse()

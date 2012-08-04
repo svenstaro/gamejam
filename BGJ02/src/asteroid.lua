@@ -43,6 +43,8 @@ function Asteroid:enablePhysics()
     self.physicsObject.shape = love.physics.newCircleShape(randomRadius(self.size))
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setUserData(self)
+    self.physicsObject.fixture:setCategory(1) -- don't collide with arena walls
+    self.physicsObject.fixture:setMask(2) -- don't collide with arena walls
     self.physicsObject.body:setLinearVelocity(self.velocity.x, self.velocity.y)
     table.insert(self.world.physicsObjects, self.physicsObject)
 end
