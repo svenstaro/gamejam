@@ -24,5 +24,9 @@ function Entity:update(dt)
     end
 end
 
+function Entity:kill()
+    if self.world then self.world:remove(self) end
+end
+
 function Entity:draw()
 end

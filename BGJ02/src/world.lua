@@ -2,16 +2,31 @@ require("util/helper")
 
 World = class("World")
 
+function areUserData(uA, uB, typeA, typeB)
+    return (uA.__name == typeA and uB.__name == typeB) or (uA.__name == typeB and uB.__name == typeA)
+end
+
 function World:beginContact(a, b, coll)
-    print(a:getUserData().__name)
-    print(b:getUserData().__name)
-    if (a:getUserData().__super == "Ship" and b:getUserData().__name == "Asteroid") or
-        (a:getUserData().__name == "Asteroid" and b:getUserData().__super == "Ship") then
-        print("ship-asteroid collision")
-    end
-    if (a:getUserData().__name == "Bullet" and b:getUserData().__name == "Asteroid") or
-        (a:getUserData().__name == "Asteroid" and b:getUserData().__name == "Bullet") then
-        print("bullet-asteroid collision")
+    local uA = a:getUserData()
+    local uB = b:getUserData()
+    
+    -- print("collision : " .. uA.__name .. " / " .. uB.__name)
+    if areUserData(uA, uB, "Bullet", "Asteroid") then
+        if uA.__name == "Asteroid" then
+            uA:scheduleCrush()
+            uB:kill()
+        else
+            uB:scheduleCrush()
+            uA:kill()
+        end
+    elseif areUserData(uA, uB, "ShipPlayer", "Asteroid") or areUserData(uA, uB, "ShipAI", "Asteroid") then
+        if uA.__name == "Asteroid" then
+            uA:scheduleCrush()
+            uB:hitByAsteroid(uA)
+        else
+            uB:scheduleCrush()
+            uA:hitByAsteroid(uB)
+        end
     end
 end
 
@@ -46,11 +61,9 @@ function World:add(entity)
 end
 
 function World:clear()
-    for k,v in pairs(self.physicsObjects) do
-        v:destroy()
+    for k,v in pairs(self.entities) do
+        v:kill()
     end
-
-    self.entities = {}
 end
 
 function World:remove(entity)

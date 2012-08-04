@@ -57,7 +57,7 @@ function ShipAI:update(dt)
         self.idleTime = 0
     else
         self.idleTime = self.idleTime + dt
-        if self.idleTime >= 3 then
+        if self.idleTime >= 1 then
             local speed = self.velocity:len()
             if speed < 3 then
                 local rot = Vector(1,0):rotated(self.rotation):angleTo(Vector(1,0))
@@ -93,4 +93,8 @@ function ShipAI:draw()
         to = self.position + self.directionVector * 5000
         love.graphics.line(self.position.x, self.position.y, to.x, to.y)
     end
+end
+
+function ShipAI:hitByAsteroid(asteroid)
+    self.crashScheduled = true
 end

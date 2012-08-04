@@ -7,7 +7,7 @@ Ship = class("Ship", PolygonEntity)
 
 function Ship:__init()
     PolygonEntity.__init(self)
-    self.velocity = Vector(20, 10)
+    self.rotation = -math.pi / 2
 
     self:addPoint(Vector(10, 0))
     self:addPoint(Vector(-10, -7))
@@ -55,6 +55,11 @@ function Ship:update(dt)
     if self.timeUntilShoot > 0 then
         self.timeUntilShoot = self.timeUntilShoot - dt
     end
+
+
+    if self.crashScheduled then
+        game:shipCrashed()
+    end
 end
 
 function Ship:draw()
@@ -80,3 +85,5 @@ function Ship:shoot()
         self.timeUntilShoot = 0.5
     end
 end
+
+function Ship:hitByAsteroid(asteroid) end
