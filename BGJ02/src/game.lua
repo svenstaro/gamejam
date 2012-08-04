@@ -113,19 +113,6 @@ end
 function Game:keypressed(k, u)
     if k == "escape" then
         stack:pop() 
-    elseif debug then
-        if k == " " then
-            local a = Asteroid(math.random(1,3))
-            a.position = ship.position
-            a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
-            self.world:add(a)
-        elseif k == "lshift" then
-            ship:shoot()
-        elseif k == "b" then
-            for k,e in pairs(self.world:findByType("Asteroid")) do
-                e:crush()
-            end
-        end
     elseif k == "1" then
         self.selectedAsteroid = 1
     elseif k == "2" then
@@ -138,6 +125,17 @@ function Game:keypressed(k, u)
     if debug then
         if k == "r" then
             self.materialAvailable = 80
+        elseif k == " " then
+            local a = Asteroid(math.random(1,3))
+            a.position = ship.position
+            a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
+            self.world:add(a)
+        elseif k == "lshift" then
+            ship:shoot()
+        elseif k == "b" then
+            for k,e in pairs(self.world:findByType("Asteroid")) do
+                e:crush()
+            end
         end
     end
 end
