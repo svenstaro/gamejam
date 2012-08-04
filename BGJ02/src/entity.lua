@@ -5,12 +5,14 @@ Entity = class("Entity")
 
 function Entity:__init()
     self.position = Vector()
-    self.rotation = 0
     self.velocity = Vector()
+    self.rotation = 0
+    self.rotationSpeed = 0
 end
 
 function Entity:update(dt)
     self.position = self.position + (self.velocity * dt)
+    self.rotation = self.rotation + self.rotationSpeed * dt
 end
 
 function Entity:draw()
