@@ -1,4 +1,5 @@
 require("intro")
+require("game")
 require("util/resources")
 require("util/gamestack")
 
@@ -7,6 +8,7 @@ resources = Resources("data/")
 function reset()
     -- start game
     intro = Intro()
+    game = Game()
     stack = GameStack()
     stack:push(intro)
 end

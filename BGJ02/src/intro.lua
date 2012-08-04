@@ -33,18 +33,17 @@ function Intro:draw()
 
     love.graphics.clear()
     love.graphics.draw(resources.images.test, 0, 0)
-    love.graphics.setFont(resources.fonts.normal)
-    love.graphics.print("Press Escape to skip intro", 10, 10)
-
-
 
     love.graphics.setCanvas()
     love.graphics.setPixelEffect(self.effect)
     love.graphics.draw(self.canvas, 0, 0)
     love.graphics.setPixelEffect()
+
+    love.graphics.setFont(resources.fonts.normal)
+    love.graphics.print("Press Escape to skip intro", 10, 10)
 end
 
 function Intro:keypressed(k, u)
-    stack:pop()
+    stack:push(game)
 end
 
