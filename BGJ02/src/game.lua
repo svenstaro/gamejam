@@ -275,10 +275,12 @@ function Game:addPowerup(i)
 end
 
 function Game:update(dt)
-    self.timer = self.timer - dt
-    if self.timer <= 0 then
-        self.timer = 0
-        self.over = true
+    if not self:isResettingShip() then
+        self.timer = self.timer - dt
+        if self.timer <= 0 then
+            self.timer = 0
+            self.over = true
+        end
     end
 
     if self.over then
