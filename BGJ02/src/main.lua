@@ -34,7 +34,7 @@ function love.load()
     resources:addFont("huge", "DejaVuSans.ttf", 30)
 
     -- load music
-    -- resources:addMusic("background", "background.mp3")
+     resources:addMusic("background", "THA-emptychasms.mp3", true)
     
     -- load shaders
     resources:addShader("pixelate", "shader/pixelate.glsl")

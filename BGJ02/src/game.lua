@@ -40,6 +40,8 @@ function Game:reset()
     self.world:add(arena)
     self.world:add(ship)
     if debug then self.world:add(player_ship) end
+
+    love.audio.play(resources.music.background)
 end
 
 function Game:draw()
