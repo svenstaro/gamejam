@@ -10,7 +10,7 @@ require("ship_ai")
 require("util/gamestate")
 require("util/resources")
 require("world")
-require("explosion")
+require("shipexplosion")
 
 Game = class("Game", GameState)
 
@@ -39,7 +39,7 @@ function Game:__init()
     self.multiplierLabel.maxAlpha = 50
     self.powerLabel = Label("power 20", Vector(0, 110), nil, resources.fonts.normal)
     self.powerLabel.maxAlpha = 50
-    self.materialLabel = Label("material 0", Vector(0, 130), nil, resources.fonts.normal)
+    self.materialLabel = Label("material 0", Vector(0, 136), nil, resources.fonts.normal)
     self.materialLabel.maxAlpha = 50
     self.levelLabel = Label("Level 1", Vector(0, -80), nil, resources.fonts.huge)
     self.levelLabel.scaleFactor = 2
@@ -64,6 +64,8 @@ function Game:reset()
 
     self.over = false
 
+    self.reset_ship_time = 0
+
     self.level = 1
     self.score = 0
     self.multiplier = 1
@@ -85,12 +87,15 @@ function Game:addShake(shake)
     self.shake = self.shake + shake
 end
 
-function Game:resetShip()
+function Game:destroyShip()
     for k,e in pairs(self.world:findByType("Asteroid")) do
         self.materialAvailable = self.materialAvailable + materialValue(e.size)
         e:kill()
     end
     if ship then ship:kill() end
+end
+
+function Game:resetShip()
     ship = ShipAI()
     --if debug then player_ship = ShipPlayer() end
 
@@ -206,6 +211,8 @@ function Game:draw()
         local names = {"small", "medium", "large"}
         local name = names[i]
         love.graphics.print(name, a.position.x - love.graphics.getFont():getWidth(name) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2)
+
+        love.graphics.print(i, a.position.x-94, a.position.y-30)
     end
 
     local my = self.previewAsteroids[self.selectedAsteroid].position.y
@@ -289,6 +296,14 @@ function Game:update(dt)
     self.powerLabel:update(dt)
     self.materialLabel:update(dt)
 
+    --ship respawning
+    if self.reset_ship_time > 0 then
+        self.reset_ship_time = self.reset_ship_time - dt
+        if self.reset_ship_time <= 0 then
+            self:resetShip()
+        end
+    end
+
     local shake_time = 0.4
     self.shake = self.shake * (1 - dt / shake_time)
 
@@ -368,12 +383,15 @@ function Game:shipCrashed()
     resources.audio.explosion_player:play()
     local ship_ai = self.world:findByType("ShipAI")[1]
     self:addScore(self.materialAvailable)
-    explosion = Explosion(ship_ai.position, 1)
+    explosion = ShipExplosion(ship_ai.position, 0.01)
     self.world:add(explosion)
-    self:resetShip()
+
     self:addShake(20)
     self.level = self.level + 1
-    self:resetShip()
+    --ssshhhhhh, not now
+    --self:resetShip()
+    self:destroyShip()
+    self.reset_ship_time = 2.5
 end
 
 function Game:setDifficulty()
@@ -386,4 +404,8 @@ end
 function Game:isOver()
     self.over = true
     self:stop()
+end
+
+function Game:isResettingShip()
+    return self.reset_ship_time > 0
 end
