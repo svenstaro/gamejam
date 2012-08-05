@@ -57,6 +57,8 @@ function Game:reset()
 
     self.over = false
 
+    self.reset_ship_time = 0
+
     self.level = 1
     self.score = 0
     self.multiplier = 1
@@ -78,11 +80,14 @@ function Game:addShake(shake)
     self.shake = self.shake + shake
 end
 
-function Game:resetShip()
+function Game:destroyShip()
     for k,e in pairs(self.world:findByType("Asteroid")) do
         e:kill()
     end
     if ship then ship:kill() end
+end
+
+function Game:resetShip()
     ship = ShipAI()
     --if debug then player_ship = ShipPlayer() end
 
@@ -262,6 +267,14 @@ function Game:update(dt)
     self.multiplierLabel:update(dt)
     self.levelLabel:update(dt)
 
+    --ship respawning
+    if self.reset_ship_time > 0 then
+        self.reset_ship_time = self.reset_ship_time - dt
+        if self.reset_ship_time <= 0 then
+            self:resetShip()
+        end
+    end
+
     local shake_time = 0.4
     self.shake = self.shake * (1 - dt / shake_time)
 
@@ -343,10 +356,13 @@ function Game:shipCrashed()
     self:addScore(self.materialAvailable)
     explosion = Explosion(ship_ai.position, 1)
     self.world:add(explosion)
-    self:resetShip()
+
     self:addShake(20)
     self.level = self.level + 1
-    self:resetShip()
+    --ssshhhhhh, not now
+    --self:resetShip()
+    self:destroyShip()
+    self.reset_ship_time = 2
 end
 
 function Game:setDifficulty()
