@@ -18,7 +18,7 @@ function Ship:__init()
     self.timeUntilShoot = 0
 
     turn_speed = math.pi
-    ai_turn_speed = math.pi * 3
+    ai_turn_speed = math.pi * 2
 
     self.lastVelocity = Vector(0, 0) -- the velocity from last frame so we know whether we accelerated
 
@@ -101,7 +101,7 @@ function Ship:move(forward, dt)
     local f = math.max(0, math.min(2, forward))
 
     self.velocity = self.velocity + Vector(f * 500 * dt, 0):rotated(self.rotation)
-    max = 200
+    max = 120
     if self.velocity:len() > max then
         self.velocity:normalize()
         self.velocity = self.velocity * max
