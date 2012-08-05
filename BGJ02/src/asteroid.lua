@@ -1,3 +1,4 @@
+require("asteroidexplosion")
 require("polygonentity")
 
 Asteroid = class("Asteroid", PolygonEntity)
@@ -99,6 +100,9 @@ function Asteroid:crush()
     end
 
     resources.audio.explosion_asteroid:play()
+
+    explosion = AsteroidExplosion(self.position, 1)
+    self.world:add(explosion)
 
     self:kill()
 end

@@ -10,7 +10,7 @@ require("ship_player")
 require("util/gamestate")
 require("util/resources")
 require("world")
-require("explosion")
+require("shipexplosion")
 
 Game = class("Game", GameState)
 
@@ -287,9 +287,8 @@ function Game:shipCrashed()
     resources.audio.explosion_player:play()
     local ship_ai = self.world:findByType("ShipAI")[1]
     self:addScore(self.materialAvailable)
-    explosion = Explosion(ship_ai.position, 1)
+    explosion = ShipExplosion(ship_ai.position, 0.01)
     self.world:add(explosion)
-    self:resetShip()
     self:addShake(20)
     self.level = self.level + 1
     self:resetShip()
