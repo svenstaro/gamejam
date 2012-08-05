@@ -33,8 +33,7 @@ function Intro:draw()
 end
 
 function Intro:skip()
-    stack:pop()
-    stack:push(menu)
+    currentState = menu
 end
 
 function Intro:keypressed(k, u)

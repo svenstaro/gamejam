@@ -4,3 +4,6 @@
 [submodule "BGJ02/src/externals/HardonCollider"]
 	path = BGJ02/src/externals/HardonCollider
 	url = git://github.com/vrld/HardonCollider.git
+[submodule "BGJ02/src/externals/tween"]
+	path = BGJ02/src/externals/tween
+	url = https://github.com/kikito/tween.lua

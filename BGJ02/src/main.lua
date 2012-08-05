@@ -1,22 +1,21 @@
 require("game")
 require("intro")
 require("menu")
-require("util/gamestack")
 require("util/resources")
 
 resources = Resources("data/")
+currentState = nil
 
 function reset()
     -- start game
     intro = Intro()
     menu = Menu()
     game = Game()
-    stack = GameStack()
 
     if debug then
-        stack:push(game)
+        currentState = game
     else
-        stack:push(intro)
+        currentState = intro
     end
 end
 
@@ -33,8 +32,8 @@ function love.load()
     resources:addFont("normal", "DejaVuSans.ttf", 20)
     resources:addFont("huge", "DejaVuSans.ttf", 30)
 
-    -- load music
-    -- resources:addMusic("background", "background.mp3")
+    -- load music / sounds
+    resources:addAudio("swipe", "sound/swipe.ogg", false) -- no stream
     
     -- load shaders
     resources:addShader("pixelate", "shader/pixelate.glsl")
@@ -45,27 +44,28 @@ function love.load()
 end
 
 function love.update(dt)
-    stack:update(dt)
+    if currentState then
+        currentState:update(dt)
+    else
+        love.event.quit()
+    end
 end
 
 function love.draw()
-    stack:draw()
+    if currentState then currentState:draw() end
 
     -- love.graphics.setFont(resources.fonts.tiny)
     -- love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
 end
 
 function love.keypressed(k, u)
-    stack:keypressed(k, u)
+    if currentState then currentState:keypressed(k, u) end
 end
 
 function love.mousepressed(x, y, mb)
-    stack:mousepressed(x, y, mb)
+    if currentState then currentState:mousepressed(x, y, mb) end
 end
 
 function love.keypressed(k, u)
-    stack:keypressed(k, u)
-end
-
-function love.quit()
+    if currentState then currentState:keypressed(k, u) end
 end

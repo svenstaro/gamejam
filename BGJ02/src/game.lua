@@ -122,7 +122,11 @@ end
 
 function Game:keypressed(k, u)
     if k == "escape" then
-        stack:pop() 
+        if debug then
+            currentState = nil
+        else
+            currentState = menu
+        end
     elseif k == "1" then
         self.selectedAsteroid = 1
     elseif k == "2" then
