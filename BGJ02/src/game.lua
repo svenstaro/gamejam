@@ -102,7 +102,11 @@ function Game:draw()
         - love.graphics.getFont():getHeight() / 2 + 80)
 
     self.world:draw(dt)
+    --reset scissor
     love.graphics.setScissor()
+
+    --draw new asteroids
+    self.world:drawNewAsteroids()
 
     arena:draw()
     love.graphics.pop()

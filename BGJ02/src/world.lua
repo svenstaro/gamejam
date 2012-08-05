@@ -48,6 +48,7 @@ end
 
 function World:__init()
     self.entities = {}
+    self.newAsteroids = {}
 
     love.physics.setMeter(64)
     self.physicsWorld = love.physics.newWorld(0, 0, false)
@@ -67,6 +68,13 @@ function World:add(entity)
     end
 end
 
+function World:addNewAsteroid(asteroid)
+    if asteroid.__name == "Asteroid" then
+        table.insert(self.newAsteroids, asteroid)
+        self:add(asteroid) 
+    end
+end
+
 function World:clear()
     for k,v in pairs(self.entities) do
         v:kill()
@@ -79,6 +87,14 @@ function World:remove(entity)
             self.entities[k] = nil 
             entity.world = nil
             if entity.physicsObject and entity.physicsObject.body then entity.physicsObject.body:destroy() end
+        end
+    end
+
+    if entity.__name == "Asteroid" then
+        for k,v in pairs(self.newAsteroids) do
+            if v == entity then 
+                self.newAsteroids[k] = nil 
+            end
         end
     end
 end
@@ -94,6 +110,16 @@ end
 function World:draw()
     for k, v in pairs(self.entities) do
         v:draw()
+    end
+end
+
+function World:drawNewAsteroids()
+    for k, v in pairs(self.newAsteroids) do
+        if not v:finishedBeingTransparent() then
+            v:drawTransparent()
+        else
+            self.newAsteroids[k] = nil
+        end
     end
 end
 

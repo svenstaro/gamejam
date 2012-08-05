@@ -35,7 +35,13 @@ function Asteroid:__init(size)
     self:generate()
     self.rotationSpeed = math.random(-1.0, 1.0)
 
+    self.alpha = 0
+
     self.physicsObject = {}
+end
+
+function Asteroid:startBeingTransparent()
+    self.alpha = 255
 end
 
 function Asteroid:enablePhysics()
@@ -52,10 +58,13 @@ end
 function Asteroid:update(dt)
     self.__super.update(self, dt)
 
+    if self.alpha > 0 then
+        self.alpha = self.alpha - dt * 200
+    end
+
     if self.crushScheduled then 
-        self:crush() 
+        self:crush()
     elseif self.world then
-        --local arena = self.world:findByType("Arena")[1]
         local inside = math.abs(self.position.x) < arena.size.x / 2 and math.abs(self.position.y) < arena.size.y / 2
 
         if self.wasInside and not inside then
@@ -95,4 +104,18 @@ end
 
 function Asteroid:scheduleCrush()
     self.crushScheduled = true
+end
+
+function Asteroid:draw()
+    love.graphics.setColor(255,255,255)
+    PolygonEntity.draw(self)
+end
+
+function Asteroid:finishedBeingTransparent()
+    return self.alpha <= 0
+end
+
+function Asteroid:drawTransparent()
+    love.graphics.setColor(255,255,255,self.alpha)
+    PolygonEntity.draw(self)
 end
