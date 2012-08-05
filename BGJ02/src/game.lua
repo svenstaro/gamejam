@@ -124,9 +124,11 @@ function Game:draw()
     love.graphics.translate(580, 320)
     love.graphics.translate(math.random() * self.shake, math.random() * self.shake)
 
+    --background image
+    love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
+
     --scissor things
     love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
-    love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
 
 
     self.scoreLabel:setText(tonumber(self.score))
@@ -209,7 +211,6 @@ function Game:draw()
 
         love.graphics.setFont(resources.fonts.normal)
 
-    print(math.abs(math.sin(self.gameOverAlpha * 5)))
         love.graphics.setColor(255, 255, 255, (0.5 + math.abs(math.sin(self.gameOverAlpha * 3)) * 0.5) * 255)
         s = "Press ENTER to continue"
         love.graphics.print(s,
