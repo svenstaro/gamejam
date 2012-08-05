@@ -13,7 +13,7 @@ function Menu:__init()
 
     self.menu.callback = function(index, text) 
         if index == 1 then
-            currentState = game
+            self:transitionTo(game)
         elseif index == 3 then
             currentState = nil
         end
@@ -21,8 +21,8 @@ function Menu:__init()
 end
 
 function Menu:draw()
-    love.graphics.setBackgroundColor(17, 17, 17)
-    love.graphics.clear()
+    love.graphics.setColor(17, 17, 17)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
     self.menu:draw()
 end

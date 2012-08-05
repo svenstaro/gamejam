@@ -50,8 +50,8 @@ function Game:resetShip()
 end
 
 function Game:draw()
-    love.graphics.setBackgroundColor(0, 0, 0)
-    love.graphics.clear()
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.normal)
@@ -127,7 +127,7 @@ function Game:keypressed(k, u)
         if debug then
             currentState = nil
         else
-            currentState = menu
+            self:transitionTo(menu, "left")
         end
     elseif k == "1" then
         self.selectedAsteroid = 1
