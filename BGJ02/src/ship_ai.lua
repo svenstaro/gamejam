@@ -56,8 +56,9 @@ function ShipAI:update(dt)
             speed = -1
         end
 
-        if shortestDistance > 100 then shortestDistance = 1 end
-        self:move(speed / math.max((shortestDistance * 0.01) -1, 1), dt)
+        local sd = shortestDistance
+        if sd > 100 then sd = 1 end
+        self:move(speed / math.max((sd * 0.01) -1, 1), dt)
 
         self.idleTime = 0
     else
@@ -84,7 +85,7 @@ function ShipAI:update(dt)
 
     Ship.update(self, dt)
 
-    if shortestDistance < 700 then
+    if shortestDistance < 400 then
         self:shoot()
     end
 end

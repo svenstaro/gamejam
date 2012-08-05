@@ -12,10 +12,10 @@ require("world")
 
 Game = class("Game", GameState)
 
-MAX_MATERIAL = 80
+MAX_MATERIAL = 25
 
 function Game:__init()
-    self.selectedAsteroid = 3
+    self.selectedAsteroid = 2
 
     self.previewAsteroids = {}
     for i = 1,3 do
@@ -31,6 +31,11 @@ function Game:__init()
 end
 
 function Game:reset()
+    self.score = 0
+    self:resetShip()
+end
+
+function Game:resetShip()
     self.materialAvailable = MAX_MATERIAL
     
     ship = ShipAI()
@@ -50,6 +55,9 @@ function Game:draw()
     love.graphics.setFont(resources.fonts.normal)
 
     local s = love.timer.getFPS() .. " FPS"
+    love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 40)
+
+    s = tonumber(self.score)
     love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 10)
 
     love.graphics.push()
@@ -133,7 +141,7 @@ function Game:keypressed(k, u)
             a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
             self.world:add(a)
         elseif k == "lshift" then
-            ship:shoot()
+            player_ship:shoot()
         elseif k == "b" then
             for k,e in pairs(self.world:findByType("Asteroid")) do
                 e:crush()
