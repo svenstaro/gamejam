@@ -94,6 +94,7 @@ function Game:resetShip()
     --if debug then self.world:add(player_ship) end
 
     self:setDifficulty()
+    self.timer = 120
 end
 
 function Game:start()
