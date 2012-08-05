@@ -171,5 +171,6 @@ function Game:keypressed(k, u)
 end
 
 function Game:shipCrashed()
+    resources.audio.explosion_player:play()
     self:reset()
 end
