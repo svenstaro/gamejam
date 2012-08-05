@@ -391,7 +391,7 @@ function Game:shipCrashed()
     --ssshhhhhh, not now
     --self:resetShip()
     self:destroyShip()
-    self.reset_ship_time = 2
+    self.reset_ship_time = 2.5
 end
 
 function Game:setDifficulty()
@@ -404,4 +404,8 @@ end
 function Game:isOver()
     self.over = true
     self:stop()
+end
+
+function Game:isResettingShip()
+    return self.reset_ship_time > 0
 end

@@ -58,7 +58,9 @@ end
 function Arena:isValidMouse()
     local mouse = getMouseVector()
     local b = 20
-    return math.abs(mouse.x) - b > self.size.x / 2 or math.abs(mouse.y) - b > self.size.y / 2
+    return (math.abs(mouse.x) - b > self.size.x / 2
+           or math.abs(mouse.y) - b > self.size.y / 2)
+           and not game:isResettingShip()
 end
 
 function Arena:ref()
