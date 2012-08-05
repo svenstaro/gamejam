@@ -29,7 +29,7 @@ function Ship:__init()
     self.particleSystem:setColors(
         240, 250, 50, 250, 
         250, 10, 10, 0)
-    self.particleSystem:setEmissionRate(50)
+    self.particleSystem:setEmissionRate(100)
     self.particleSystem:setParticleLife(0.5)
     self.particleSystem:setSpread(0.5)
 end
@@ -95,9 +95,11 @@ function Ship:update(dt)
 end
 
 function Ship:draw()
+    love.graphics.setBlendMode("additive")
     love.graphics.setColor(255, 255, 255)
     love.graphics.polygon("line", self:getDrawPoints())
     love.graphics.draw(self.particleSystem)
+    love.graphics.setBlendMode("alpha")
 end
 
 function Ship:move(forward, dt)
