@@ -48,9 +48,14 @@ function love.load()
     resources:addFont("huge", "DejaVuSans.ttf", 30)
 
     -- load music / sounds
-    resources:addAudio("swipe", "sound/swipe.ogg", false) -- no stream
-    resources:addAudio("click", "sound/click.ogg", false) -- no stream
-    resources:addAudio("background", "THA-emptychasms.mp3", true)
+    resources:addAudio("click", "sound/click.ogg", false)
+    resources:addAudio("swipe", "sound/swipe.ogg", false)
+    resources:addAudio("explosion_player", "sound/explosion_player.ogg", false)
+    resources:addAudio("explosion_asteroid", "sound/explosion_asteroid.ogg", false)
+    resources:addAudio("shot", "sound/shot.ogg", false)
+    resources:addAudio("sling", "sound/shot.ogg", false)
+    resources:addAudio("game_music", "sound/THA-emptychasms.ogg", true)
+    resources:addAudio("menu_music", "sound/THA-simplythink.ogg", true)
     
     -- load shaders
     resources:addShader("pixelate", "shader/pixelate.glsl")

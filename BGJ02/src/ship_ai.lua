@@ -82,11 +82,12 @@ function ShipAI:update(dt)
     --for debug purposes
     self.directionVector = v
 
-    Ship.update(self, dt)
-
-    if shortestDistance < math.huge and self:wouldHitAsteroid() then
-        self:shoot()
+    if shortestDistance < math.huge then
+        local target = Vector(500, 0):rotated(self.rotation) + self.position
+        self.world.physicsWorld:rayCast(self.position.x, self.position.y, target.x, target.y, function(fixture, x, y, xn, yn, fraction) return self:wouldHitAsteroid(fixture, x, y, xn, yn, fraction) end)
     end
+
+    Ship.update(self, dt)
 end
 
 function ShipAI:draw()
@@ -123,6 +124,10 @@ function ShipAI:checkAsteroids(v, shortestDistance, asteroids, x, y)
     return v, shortestDistance
 end
 
-function ShipAI:wouldHitAsteroid()
-    return true
+function ShipAI:wouldHitAsteroid(fixture, x, y, xn, yn, fraction)
+    if fixture:getUserData().__name == "Asteroid" then
+        self:shoot()
+    end
+
+    return 0
 end
