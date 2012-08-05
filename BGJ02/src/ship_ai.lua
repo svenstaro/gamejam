@@ -43,14 +43,13 @@ function ShipAI:update(dt)
                 if not clockwise then
                     factor = -1
                 end
-                --
-                if angle >= math.pi / 6 then
+                --if angle >= math.pi / 6 then
                     --self.rotation = self.rotation + ai_turn_speed * factor * dt
                     self.rotation = self.rotation + math.min(ai_turn_speed * dt, angle) * factor
-                end
+                --end
             end
 
-            --angeblich hat sascha das raus genommen gehabt. dunno
+            --go forward or dont
             if angle < math.pi / 2 then
                 speed = 1
             else
