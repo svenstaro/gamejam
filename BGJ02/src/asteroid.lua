@@ -15,7 +15,7 @@ Asteroid = class("Asteroid", PolygonEntity)
 ]]
 
 function materialValue(size)
-    v = {1, 5, 20}
+    v = {1, 3, 9}
     return v[size]
 end
 
@@ -69,7 +69,7 @@ function Asteroid:update(dt)
         local inside = math.abs(self.position.x) < arena.size.x / 2 and math.abs(self.position.y) < arena.size.y / 2
 
         if self.wasInside and not inside then
-            game.materialAvailable = game.materialAvailable + materialValue(self.size)
+            game.materialAvailable = game.materialAvailable + math.random(0, materialValue(self.size))
             self:kill()
         end
 
@@ -94,7 +94,7 @@ function Asteroid:crush()
         for i = 1,3 do
             local a = Asteroid(self.size - 1)
             a.position = self.position
-            a.velocity = Vector(math.random(-40, 40), math.random(-40, 40)) + self.velocity * 0.7
+            a.velocity = Vector(math.random(-40, 40), math.random(-40, 40)) * game.power * game.power / 400 + self.velocity * 0.7
             self.world:add(a)
         end
     end
@@ -105,6 +105,18 @@ function Asteroid:crush()
     self.world:add(explosion)
 
     self:kill()
+end
+
+function Asteroid:kill()
+    --check gameover condition
+    local all_asteroids = self.world:findByType("Asteroid")
+    if #all_asteroids - 1 <= 0 then
+        if game.materialAvailable <= 0 then
+            game:isOver()
+        end
+    end
+
+    PolygonEntity.kill(self)
 end
 
 function Asteroid:scheduleCrush()
