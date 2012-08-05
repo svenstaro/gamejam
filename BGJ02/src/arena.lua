@@ -12,6 +12,7 @@ function Arena:__init()
     self.dragging = false
     self.unspawnedAsteroid = nil
 
+    self.cachedMouse = Vector()
     self.nearest = Vector()
 
     self.size = Vector(600, 400)
@@ -54,6 +55,12 @@ function Arena:mouse()
     return self:ref() - diff
 end
 
+function Arena:isValidMouse()
+    local mouse = getMouseVector()
+    local b = 20
+    return math.abs(mouse.x) - b > self.size.x / 2 or math.abs(mouse.y) - b > self.size.y / 2
+end
+
 function Arena:ref()
     return self:getPointByDistance(self.reference_point)
 end
@@ -75,7 +82,7 @@ function Arena:draw()
     love.graphics.setColor(255,255,255)
     self.__super.draw(self)
 
-    if self.dragging then
+    if self.dragging and self:isValidMouse() then
         local ref = self:ref()
         local right = self:right()
         local left = self:left()
@@ -142,6 +149,8 @@ function Arena:findReferencePoint()
 end
 
 function Arena:update(dt)
+    local valid = self:isValidMouse()
+
     if love.mouse.isDown("l") then
         if not self.dragging then
             if self:findReferencePoint() and game.materialAvailable >= materialValue(game.selectedAsteroid) then
@@ -158,7 +167,7 @@ function Arena:update(dt)
             self.unspawnedAsteroid.position = self:mouse()
             self.unspawnedAsteroid:update(dt)
         end
-    elseif self.dragging then
+    elseif self.dragging and valid then
         -- stop dragging
         self.dragging = false
 
