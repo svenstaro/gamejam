@@ -41,6 +41,7 @@ function love.load()
     resources:addImage("test", "test.jpg")
     resources:addImage("rock", "rock.png")
     resources:addImage("particle", "particle.png")
+    resources:addImage("background", "background.png")
 
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 14)
