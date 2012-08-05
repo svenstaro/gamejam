@@ -45,6 +45,12 @@ function Menu:draw()
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
     self.menu:draw()
+
+    love.graphics.setColor(100, 100, 100)
+    love.graphics.setFont(resources.fonts.huge)
+    local s = "S.D.I.O.R.E.T.S.A"
+    love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 50, 50)
+
 end
 
 function Menu:keypressed(k, u)
