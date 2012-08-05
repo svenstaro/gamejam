@@ -268,7 +268,6 @@ end
 
 function Game:setDifficulty()
     local factor = self.level - 1
-    factor = 5
     ai_turn_speed = math.pi * (0.2 + factor * 0.3)
     max_ship_speed = 30 + factor * 30
     shoot_delay = math.max(0.8 - factor * 0.15, 0.1)
