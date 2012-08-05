@@ -119,7 +119,7 @@ function Ship:shoot()
         local b = Bullet(self.position, self.velocity, self.rotation)
         self.world:add(b)
         game:addScore(1)
-        self.timeUntilShoot = 0.3
+        self.timeUntilShoot = shoot_delay
     end
 
     resources.audio.shot:play()
