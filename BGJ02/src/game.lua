@@ -6,7 +6,7 @@ require("label")
 require("powerup")
 require("ship")
 require("ship_ai")
-require("ship_player")
+--require("ship_player")
 require("util/gamestate")
 require("util/resources")
 require("world")
@@ -103,6 +103,7 @@ end
 
 function Game:stop()
     resources.audio.game_music:stop()
+    self.shake = 0
 end
 
 function Game:draw()
