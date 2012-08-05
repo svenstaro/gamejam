@@ -42,7 +42,8 @@ function Game:resetShip()
     if debug then player_ship = ShipPlayer() end
 
     self.world:clear()
-    self.world:add(arena)
+    --we draw that on our own
+    --self.world:add(arena)
     self.world:add(ship)
     if debug then self.world:add(player_ship) end
 
@@ -72,7 +73,12 @@ function Game:draw()
     love.graphics.push()
     -- love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
     love.graphics.translate(580, 320)
-    self.world:draw(dt)
+
+    --scissor things
+    love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
+        self.world:draw(dt)
+    love.graphics.setScissor()
+    arena:draw()
     love.graphics.pop()
 
     -- draw material bar
@@ -123,6 +129,7 @@ end
 
 function Game:update(dt)
     self.world:update(dt)
+    arena:update(dt)
 
     for i = 1,3 do
         self.previewAsteroids[i]:update(dt)

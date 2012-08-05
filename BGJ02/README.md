@@ -67,6 +67,7 @@ This game is distributed under the zlib license. See the attached LICENSE file.
 The following files and directories are not part of this project and were redistributed under their respective licenses:
 
 * data/DejaVuSans.ttf [LICENSE](http://dejavu-fonts.org/wiki/License)
+* data/THA-emptychasms.mp3 [CC-BY-NC-ND](http://creativecommons.org/licenses/by-nc-nd/3.0/)
 * lib/linux_x86 (license file included)
 * lib/linux_x64 (license file included)
 * lib/windows_x86 (license file included)

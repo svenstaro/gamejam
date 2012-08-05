@@ -55,7 +55,7 @@ function Asteroid:update(dt)
     if self.crushScheduled then 
         self:crush() 
     elseif self.world then
-        local arena = self.world:findByType("Arena")[1]
+        --local arena = self.world:findByType("Arena")[1]
         local inside = math.abs(self.position.x) < arena.size.x / 2 and math.abs(self.position.y) < arena.size.y / 2
 
         if self.wasInside and not inside then

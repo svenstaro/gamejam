@@ -10,7 +10,7 @@ function ShipAI:__init()
 end
 
 function ShipAI:update(dt)
-    local arena = self.world:findByType("Arena")[1]
+    --local arena = self.world:findByType("Arena")[1]
     local asteroids = self.world:findByType("Asteroid")
 
     local v = Vector(0,0)
@@ -21,56 +21,49 @@ function ShipAI:update(dt)
         end
     end
 
-    -- fear the mouse
-    local distance = getMouseVector() - self.position
-    local dist = distance / distance:len2()
-    --v = v - dist * 2
-
-    if v:len2() > 0 then
-        --go towards center
-        v = v - self.position:normalized() * v:len()
-
-        local rotatedVector = Vector(1,0):rotated(self.rotation)
-        local angle = rotatedVector:angleTo(v)
-        if angle then
-            local clockwise = rotatedVector:rotated(0.0001):angleTo(v) < angle
-            local factor = 1
-            if not clockwise then
-                factor = -1
-            end
-            --self.rotation = self.rotation + math.min(turn_speed, angle) * factor * dt
-            if angle >= math.pi / 6 then
-                self.rotation = self.rotation + turn_speed * 3 * factor * dt
-            end
+    -- fear the mouse if its dragging shit
+    if arena.dragging then
+        local distance = arena:ref() - self.position
+        if distance:len() < 150 then
+            local dist = distance / distance:len2()
+            v = v - dist * 2
         end
+    end
 
-        if angle < math.pi / 2 then
-            speed = 1
-        else
-            speed = -1
-        end
+    if shortestDistance < 200 then
+        if v:len2() > 0 then
+            --go towards center
+            v = v - self.position:normalized() * v:len()
 
-        local sd = shortestDistance
-        if sd > 100 then sd = 1 end
-        self:move(speed / math.max((sd * 0.01) -1, 1), dt)
-
-        self.idleTime = 0
-    else
-        self.idleTime = self.idleTime + dt
-        if self.idleTime >= 3 then
-            local speed = self.velocity:len()
-            local rot = Vector(1,0):rotated(self.rotation):angleTo(Vector(1,0))
-            local angle = math.abs(Vector(1,0):angleTo(-self.velocity) - rot)
-            if speed > 5 then
-                if angle > 0.1 then
-                    local rotate = math.min(angle, turn_speed * dt)
-                    self.rotation = self.rotation + rotate
-                else
-                    self:move(math.min(1,speed), dt)
+            local rotatedVector = Vector(1,0):rotated(self.rotation)
+            local angle = rotatedVector:angleTo(v)
+            if angle then
+                local clockwise = rotatedVector:rotated(0.0001):angleTo(v) < angle
+                local factor = 1
+                if not clockwise then
+                    factor = -1
                 end
-            elseif shortestDistance < 400 then
-                self.rotation = self.rotation + turn_speed * dt
+                --self.rotation = self.rotation + math.min(turn_speed, angle) * factor * dt
+                if angle >= math.pi / 6 then
+                    self.rotation = self.rotation + turn_speed * 3 * factor * dt
+                end
             end
+
+            --angeblich hat sascha das raus genommen gehabt. dunno
+            if angle < math.pi / 2 then
+                speed = 1
+            else
+                speed = -1
+            end
+
+            local sd = shortestDistance
+            if sd > 100 then sd = 1 end
+            self:move(speed / math.max((sd * 0.01) -1, 1), dt)
+        end
+    else
+        if shortestDistance < math.huge then
+            self.rotation = self.rotation + turn_speed * dt
+            --local direction asteroids[1].position
         end
     end
 
@@ -79,7 +72,7 @@ function ShipAI:update(dt)
 
     Ship.update(self, dt)
 
-    if shortestDistance < 400 then
+    if shortestDistance < math.huge then
         self:shoot()
     end
 end
@@ -111,9 +104,9 @@ function ShipAI:checkAsteroids(v, shortestDistance, asteroids, x, y)
             v = v - dist
             --adapt to asteroid movement
             v = v + a.velocity / distance:len2()
-            --find shortest distance
-            shortestDistance = math.min(shortestDistance, distance:len())
         end
+        --find shortest distance
+        shortestDistance = math.min(shortestDistance, distance:len())
     end
     return v, shortestDistance
 end
