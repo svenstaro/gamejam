@@ -78,6 +78,7 @@ function Game:draw()
 
     --scissor things
     love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
+        love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
         self.world:draw(dt)
     love.graphics.setScissor()
     arena:draw()
