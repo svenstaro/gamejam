@@ -47,6 +47,7 @@ function love.load()
     resources:addFont("tiny", "DejaVuSans.ttf", 14)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
     resources:addFont("huge", "DejaVuSans.ttf", 30)
+    resources:addFont("epic", "DejaVuSans.ttf", 140)
 
     -- load music / sounds
     resources:addAudio("click", "sound/click.ogg", false)
@@ -59,7 +60,9 @@ function love.load()
     resources:addAudio("menu_music", "sound/THA-simplythink.ogg", true)
     
     -- load shaders
-    resources:addShader("pixelate", "shader/pixelate.glsl")
+    if love.graphics.isSupported("pixeleffect") then
+        resources:addShader("pixelate", "shader/pixelate.glsl")
+    end
 
     resources:load()
 

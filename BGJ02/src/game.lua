@@ -14,6 +14,7 @@ require("world")
 Game = class("Game", GameState)
 
 MAX_MATERIAL = 25
+MULTIPLIER_DELAY = 10
 
 function Game:__init()
     self.selectedAsteroid = 2
@@ -33,7 +34,13 @@ end
 
 function Game:reset()
     self.score = 0
+    self.multiplier = 1
+    self.multiplierTimer = 0
     self:resetShip()
+end
+
+function Game:addScore(score)
+    self.score = self.score + score * self.multiplier
 end
 
 function Game:resetShip()
@@ -66,23 +73,40 @@ function Game:draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.normal)
 
-    local s = love.timer.getFPS() .. " FPS"
-    love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 40)
+    if debug then
+        local fps = love.timer.getFPS() .. " FPS"
+        love.graphics.print(fps, love.graphics.getWidth() - love.graphics.getFont():getWidth(fps) - 10, 10)
+    end
 
-    s = tonumber(self.score)
-    love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 10, 10)
-
+    love.graphics.setColor(255, 255, 255)
     love.graphics.push()
     -- love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
     love.graphics.translate(580, 320)
 
     --scissor things
     love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
-        love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
-        self.world:draw(dt)
+    love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
+
+
+    love.graphics.setFont(resources.fonts.epic)
+    love.graphics.setColor(255, 255, 255, 20)
+    local s = tonumber(self.score)
+    love.graphics.print(s, 
+        - love.graphics.getFont():getWidth(s) / 2,
+        - love.graphics.getFont():getHeight() / 2)
+
+    love.graphics.setFont(resources.fonts.huge)
+    s = "x" .. tonumber(self.multiplier)
+    love.graphics.print(s, 
+        - love.graphics.getFont():getWidth(s) / 2,
+        - love.graphics.getFont():getHeight() / 2 + 80)
+
+    self.world:draw(dt)
     love.graphics.setScissor()
+
     arena:draw()
     love.graphics.pop()
+
 
     -- draw material bar
     
@@ -96,6 +120,14 @@ function Game:draw()
     love.graphics.rectangle("fill", bar_x, bar_y, bar_w, bar_h)
     love.graphics.setColor(255, 255, 255)
     love.graphics.rectangle("fill", bar_x, bar_y, bar_v, bar_h)
+
+    local m = Powerup(Vector(20, love.graphics.getHeight() - 40), "multiplier")
+    m.dieAt = math.huge
+    m:update(self.lifetime)
+    for i = 1, self.multiplier do
+        m.position.x = m.position.x + 15 
+        m:draw()
+    end
 
     for i = 1,3 do
         local a = self.previewAsteroids[i]
@@ -141,6 +173,14 @@ end
 function Game:update(dt)
     if 0 == math.random(0, 10 / dt) then
         self:addPowerup()
+    end
+
+    if self.multiplierTimer > 0 then
+        self.multiplierTimer = self.multiplierTimer - dt
+    end
+    if self.multiplierTimer <= 0 and self.multiplier > 1 then
+        self.multiplier = self.multiplier - 1
+        self.multiplierTimer = MULTIPLIER_DELAY
     end
 
     self.world:update(dt)
@@ -193,5 +233,5 @@ end
 
 function Game:shipCrashed()
     resources.audio.explosion_player:play()
-    self:reset()
+    self:resetShip()
 end

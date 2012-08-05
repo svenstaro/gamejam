@@ -10,9 +10,11 @@ function ShipAI:__init()
 end
 
 function ShipAI:update(dt)
-    --local arena = self.world:findByType("Arena")[1]
     local asteroids = self.world:findByType("Asteroid")
 
+    --find the flee vector and the shortest distance to asteroids
+    --flee vector v will be the movement target, shortest distance is for speed
+    --if shortest distance is pretty high, we enter turret mode instead
     local v = Vector(0,0)
     local shortestDistance = math.huge
     for x = -1, 1 do
@@ -21,7 +23,8 @@ function ShipAI:update(dt)
         end
     end
 
-    -- fear the mouse if its dragging shit
+    --fear the mouse if its dragging shit
+    --manipulate flee vector for that
     if arena.dragging then
         local distance = arena:ref() - self.position
         if distance:len() < 150 then
@@ -30,6 +33,7 @@ function ShipAI:update(dt)
         end
     end
 
+    --if were endangered, flee
     if shortestDistance < 200 then
         if v:len2() > 0 then
             --go towards center
@@ -38,30 +42,30 @@ function ShipAI:update(dt)
             local rotatedVector = Vector(1,0):rotated(self.rotation)
             local angle = rotatedVector:angleTo(v)
             if angle > 0.01 then --???
-                local clockwise = rotatedVector:rotated(0.0001):angleTo(v) < angle
+                local clockwise = rotatedVector:rotated(angle / 2.0):angleTo(v) < angle
                 local factor = 1
                 if not clockwise then
                     factor = -1
                 end
-                --
-                if angle >= math.pi / 6 then
+                --if angle >= math.pi / 6 then
                     --self.rotation = self.rotation + ai_turn_speed * factor * dt
                     self.rotation = self.rotation + math.min(ai_turn_speed * dt, angle) * factor
-                end
+                --end
             end
 
-            --angeblich hat sascha das raus genommen gehabt. dunno
+            --go forward or dont
             if angle < math.pi / 2 then
                 speed = 1
             else
                 speed = -1
             end
 
+            --move!
             local sd = shortestDistance
             if sd > 100 then sd = 1 end
             self:move(speed / math.max((sd * 0.01) -1, 1), dt)
 
-            --shoot if theres something
+            --shoot if there is something
             if shortestDistance < math.huge then
                 local target = Vector(500, 0):rotated(self.rotation) + self.position
                 self.world.physicsWorld:rayCast(self.position.x, self.position.y, target.x, target.y, 
@@ -71,18 +75,21 @@ function ShipAI:update(dt)
             end
         end
     else
+    --if we're not close to an asteroid, enter turret mode
+    --only if we're having asteroids at all
         if shortestDistance < math.huge then
+            --calculate where to shoot. doesn't work perfectly, but that's ok
             local asteroid_position = asteroids[1].position
             local asteroid_direction = asteroid_position - self.position
             asteroid_position = asteroid_position + (asteroids[1].velocity * asteroid_direction:len() * 0.01)
 
             local direction = asteroid_position - self.position
---self.directionVector = direction
             local rotatedVector = Vector(1,0):rotated(self.rotation)
---self.directionVector = rotatedVector * 300
+
+            --rotate towards target and shoot
             local angle = rotatedVector:angleTo(direction)
             if angle > 0 then
-                local clockwise = rotatedVector:rotated(0.001):angleTo(direction) < angle
+                local clockwise = rotatedVector:rotated(angle / 2.0):angleTo(direction) < angle
                 local factor = 1
                 if not clockwise then
                     factor = -1

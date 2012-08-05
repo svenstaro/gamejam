@@ -4,10 +4,12 @@ require("util/helper")
 
 GameState = class("GameState")
 GameState.transition = 0
+GameState.lifetime = 0
 
 function GameState:__init()end
 
 function GameState:doUpdate(dt)
+    self.lifetime = self.lifetime + dt
     if self.transition > 0 then
         self.transitionState:update(dt)
         if self.transition == 1 then
