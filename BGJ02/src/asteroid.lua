@@ -68,7 +68,7 @@ function Asteroid:update(dt)
         local inside = math.abs(self.position.x) < arena.size.x / 2 and math.abs(self.position.y) < arena.size.y / 2
 
         if self.wasInside and not inside then
-            game.materialAvailable = game.materialAvailable + materialValue(self.size)
+            game.materialAvailable = game.materialAvailable + math.random(0, materialValue(self.size))
             self:kill()
         end
 

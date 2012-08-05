@@ -30,10 +30,17 @@ function Game:__init()
 
     self.gameOverAlpha = 0
 
+    self.timerLabel = Label("0", Vector(0, -120), nil, resources.fonts.huge)
+    self.timerLabel.maxAlpha = 20
+    self.timerLabel.scaleFactor = 0
     self.scoreLabel = Label("0", Vector(), nil, resources.fonts.epic)
     self.scoreLabel.maxAlpha = 50
-    self.multiplierLabel = Label("x1 / power 20", Vector(0, 80), nil, resources.fonts.huge)
+    self.multiplierLabel = Label("x1", Vector(0, 80), nil, resources.fonts.huge)
     self.multiplierLabel.maxAlpha = 50
+    self.powerLabel = Label("power 20", Vector(0, 110), nil, resources.fonts.normal)
+    self.powerLabel.maxAlpha = 50
+    self.materialLabel = Label("material 0", Vector(0, 130), nil, resources.fonts.normal)
+    self.materialLabel.maxAlpha = 50
     self.levelLabel = Label("Level 1", Vector(0, -80), nil, resources.fonts.huge)
     self.levelLabel.scaleFactor = 2
     self.levelLabel.fadeTime = 1
@@ -80,6 +87,7 @@ end
 
 function Game:resetShip()
     for k,e in pairs(self.world:findByType("Asteroid")) do
+        self.materialAvailable = self.materialAvailable + materialValue(e.size)
         e:kill()
     end
     if ship then ship:kill() end
@@ -94,7 +102,7 @@ function Game:resetShip()
     --if debug then self.world:add(player_ship) end
 
     self:setDifficulty()
-    self.timer = 120
+    self.timer = 100 * math.pow(0.8, self.level - 1) + 20
 end
 
 function Game:start()
@@ -131,12 +139,23 @@ function Game:draw()
     --scissor things
     love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
 
+    local m = (self.timer - self.timer % 60) / 60
+    local ms = (self.timer - m * 60) % 1
+    local s = self.timer - m * 60 - ms
+    local cs = ms * 100
+    cs = cs - (cs % 1)
 
+    self.timerLabel:setText(string.format("%i:%02i:%02i", m, s, cs))
     self.scoreLabel:setText(tonumber(self.score))
-    self.multiplierLabel:setText("x" .. tonumber(self.multiplier) .. " / power " .. tonumber(self.power))
+    self.multiplierLabel:setText("x" .. tonumber(self.multiplier))
+    self.powerLabel:setText("power " .. tonumber(self.power))
+    self.materialLabel:setText("material " .. tonumber(self.materialAvailable))
     self.levelLabel:setText("Level " .. self.level)
 
+    self.timerLabel:draw()
     self.scoreLabel:draw()
+    self.powerLabel:draw()
+    self.materialLabel:draw()
     self.multiplierLabel:draw()
     self.levelLabel:draw()
 
@@ -247,6 +266,11 @@ function Game:addPowerup(i)
 end
 
 function Game:update(dt)
+    self.timer = self.timer - dt
+    if self.timer <= 0 then
+        self.timer = 0
+        self.over = true
+    end
 
     if self.over then
         self.gameOverAlpha = self.gameOverAlpha + dt
@@ -257,9 +281,12 @@ function Game:update(dt)
         self:addPowerup()
     end
 
+    self.timerLabel:update(dt)
     self.scoreLabel:update(dt)
     self.multiplierLabel:update(dt)
     self.levelLabel:update(dt)
+    self.powerLabel:update(dt)
+    self.materialLabel:update(dt)
 
     local shake_time = 0.4
     self.shake = self.shake * (1 - dt / shake_time)
@@ -269,7 +296,7 @@ function Game:update(dt)
     end
     if self.powerupTimer <= 0 then
         self:addPowerup()
-        self.powerupTimer = math.random()  + 2.5 -- 2.5 to 3.5
+        self.powerupTimer = math.random() + 3 -- 3 to 4
     end
 
     if self.multiplierTimer > 0 then
