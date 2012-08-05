@@ -46,7 +46,14 @@ function Game:resetShip()
     self.world:add(ship)
     if debug then self.world:add(player_ship) end
 
-    love.audio.play(resources.audio.background)
+end
+
+function Game:start()
+    resources.audio.background:play()
+end
+
+function Game:stop()
+    resources.audio.background:stop()
 end
 
 function Game:draw()
@@ -125,7 +132,7 @@ end
 function Game:keypressed(k, u)
     if k == "escape" then
         if debug then
-            currentState = nil
+            stopGame()
         else
             self:transitionTo(menu, "left")
         end

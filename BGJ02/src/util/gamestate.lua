@@ -12,7 +12,7 @@ function GameState:doUpdate(dt)
         self.transitionState:update(dt)
         if self.transition == 1 then
             -- done, switch states
-            currentState = self.transitionState
+            setState(self.transitionState)
             self.transition = 0
         end
     end

@@ -15,9 +15,13 @@ function Menu:__init()
         if index == 1 then
             self:transitionTo(game)
         elseif index == 3 then
-            currentState = nil
+            stopGame()
         end
     end
+end
+
+function Menu:update(dt)
+    self.menu:update(dt)
 end
 
 function Menu:draw()
@@ -31,7 +35,7 @@ function Menu:keypressed(k, u)
     self.menu:keypressed(k, u)
 
     if k == "escape" then
-        currentState = nil
+        stopGame()
     end
 end
 

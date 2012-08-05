@@ -10,6 +10,19 @@ tween = require("externals/tween/tween")
 resources = Resources("data/")
 currentState = nil
 
+function stopGame()
+    setState(nil)
+end
+
+function setState(state)
+    if currentState == state then return end
+
+    if currentState then currentState:stop() end
+    currentState = state
+
+    if currentState then currentState:start() end
+end
+
 function reset()
     -- start game
     intro = Intro()
@@ -17,9 +30,9 @@ function reset()
     game = Game()
 
     if debug then
-        currentState = game
+        setState(game)
     else
-        currentState = intro
+        setState(intro)
     end
 end
 
@@ -38,6 +51,7 @@ function love.load()
 
     -- load music / sounds
     resources:addAudio("swipe", "sound/swipe.ogg", false) -- no stream
+    resources:addAudio("click", "sound/click.ogg", false) -- no stream
     resources:addAudio("background", "THA-emptychasms.mp3", true)
     
     -- load shaders
