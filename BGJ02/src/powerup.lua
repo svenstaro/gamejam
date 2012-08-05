@@ -15,7 +15,7 @@ function Powerup:__init(position, reward)
     self.position = position
 
     self.reward = reward
-    self.dieAt = math.random() * 10 + 10 -- 10 to 20 seconds
+    self.dieAt = math.random() * 4 + 13 -- 13 to 17 seconds
 
     self.physicsObject = {}
 end
@@ -73,7 +73,7 @@ function Powerup:perform()
 
         self:makeToast("+1 power", {50, 80, 255})
     elseif self.reward == "material" then
-        local add = math.random(3, 10)
+        local add = math.random(1, 4)
         game.materialAvailable = game.materialAvailable + add
         MAX_MATERIAL = MAX_MATERIAL + add
 

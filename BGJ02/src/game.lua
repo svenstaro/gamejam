@@ -1,15 +1,16 @@
 -- game
 
 require("arena")
-require("util/gamestate")
-require("util/resources")
-
 require("asteroid")
+require("label")
 require("powerup")
 require("ship")
 require("ship_ai")
---require("ship_player")
+require("ship_player")
+require("util/gamestate")
+require("util/resources")
 require("world")
+require("explosion")
 
 Game = class("Game", GameState)
 
@@ -29,6 +30,16 @@ function Game:__init()
 
     self.gameOverAlpha = 0
 
+    self.scoreLabel = Label("0", Vector(), nil, resources.fonts.epic)
+    self.scoreLabel.maxAlpha = 50
+    self.multiplierLabel = Label("x1 / power 20", Vector(0, 80), nil, resources.fonts.huge)
+    self.multiplierLabel.maxAlpha = 50
+    self.levelLabel = Label("Level 1", Vector(0, -80), nil, resources.fonts.huge)
+    self.levelLabel.scaleFactor = 2
+    self.levelLabel.fadeTime = 1
+
+    self.powerupTimer = 0
+
     self.world = World()
     arena = Arena()
     
@@ -36,6 +47,12 @@ function Game:__init()
 end
 
 function Game:reset()
+    self.world:clear()
+
+    for i = 1, math.random(4,6) do
+        self:addPowerup(i)
+    end
+
     self.materialAvailable = MAX_MATERIAL
 
     self.over = false
@@ -62,12 +79,17 @@ function Game:addShake(shake)
 end
 
 function Game:resetShip()
+    for k,e in pairs(self.world:findByType("Asteroid")) do
+        e:kill()
+    end
+    if ship then ship:kill() end
     ship = ShipAI()
     --if debug then player_ship = ShipPlayer() end
 
-    self.world:clear()
+    --self.world:clear()
     --we draw that on our own
     --self.world:add(arena)
+
     self.world:add(ship)
     --if debug then self.world:add(player_ship) end
 
@@ -84,7 +106,6 @@ function Game:stop()
 end
 
 function Game:draw()
-    love.graphics.translate(math.random() * self.shake, math.random() * self.shake)
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
@@ -101,29 +122,20 @@ function Game:draw()
     love.graphics.push()
     -- love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
     love.graphics.translate(580, 320)
+    love.graphics.translate(math.random() * self.shake, math.random() * self.shake)
 
     --scissor things
     love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
     love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
 
 
-    love.graphics.setFont(resources.fonts.epic)
-    love.graphics.setColor(255, 255, 255, 20)
-    local s = tonumber(self.score)
-    love.graphics.print(s, 
-        - love.graphics.getFont():getWidth(s) / 2,
-        - love.graphics.getFont():getHeight() / 2)
+    self.scoreLabel:setText(tonumber(self.score))
+    self.multiplierLabel:setText("x" .. tonumber(self.multiplier) .. " / power " .. tonumber(self.power))
+    self.levelLabel:setText("Level " .. self.level)
 
-    love.graphics.setFont(resources.fonts.huge)
-    s = "x" .. tonumber(self.multiplier) .. " / power " .. tonumber(self.power)
-    love.graphics.print(s, 
-        - love.graphics.getFont():getWidth(s) / 2,
-        - love.graphics.getFont():getHeight() / 2 + 80)
-
-    s = "Level " .. self.level
-    love.graphics.print(s, 
-        - love.graphics.getFont():getWidth(s) / 2,
-        - love.graphics.getFont():getHeight() / 2 - 80)
+    self.scoreLabel:draw()
+    self.multiplierLabel:draw()
+    self.levelLabel:draw()
 
     self.world:draw(dt)
     --reset scissor
@@ -161,19 +173,22 @@ function Game:draw()
         local a = self.previewAsteroids[i]
         a:draw()
 
-        love.graphics.setFont(resources.fonts.normal)
-        local n = tonumber(math.floor(self.materialAvailable / materialValue(i)))
-        love.graphics.print(n, a.position.x - love.graphics.getFont():getWidth(n) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2 - 10)
+        if i == self.selectedAsteroid then
+            love.graphics.setFont(resources.fonts.normal)
+            local n = tonumber(math.floor(self.materialAvailable / materialValue(i)))
+            love.graphics.print(n, a.position.x + 35 , a.position.y - love.graphics.getFont():getHeight() / 2)
+        end
 
         love.graphics.setFont(resources.fonts.tiny)
         local names = {"small", "medium", "large"}
         local name = names[i]
-        love.graphics.print(name, a.position.x - love.graphics.getFont():getWidth(name) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2 + 10)
+        love.graphics.print(name, a.position.x - love.graphics.getFont():getWidth(name) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2)
     end
 
     local my = self.previewAsteroids[self.selectedAsteroid].position.y
     love.graphics.setColor(255, 255, 255, 30)
-    love.graphics.rectangle("fill", 20, my - 40, 140, 80)
+
+    love.graphics.rectangle("fill", 20, my - 40, 170, 80)
 
     if self.over then
         love.graphics.setColor(0, 0, 0, 150)
@@ -217,15 +232,20 @@ function Game:mousepressed(x, y, mb)
     end
 end
 
-function Game:addPowerup()
+function Game:addPowerup(i)
     local rewards = {"material", "multiplier", "power"}
-    self.world:add(Powerup(Vector(
+    local p = Powerup(Vector(
         arena.size.x * (math.random() * 0.5 - 0.25), 
         arena.size.y * (math.random() * 0.5 - 0.25)
-        ), rewards[math.random(1,3)]))
+        ), rewards[math.random(1,3)])
+    if i then
+        p.dieAt = i * 5
+    end
+    self.world:add(p)
 end
 
 function Game:update(dt)
+
     if self.over then
         self.gameOverAlpha = self.gameOverAlpha + dt
         return
@@ -235,8 +255,20 @@ function Game:update(dt)
         self:addPowerup()
     end
 
+    self.scoreLabel:update(dt)
+    self.multiplierLabel:update(dt)
+    self.levelLabel:update(dt)
+
     local shake_time = 0.4
     self.shake = self.shake * (1 - dt / shake_time)
+
+    if self.powerupTimer > 0 then
+        self.powerupTimer = self.powerupTimer - dt
+    end
+    if self.powerupTimer <= 0 then
+        self:addPowerup()
+        self.powerupTimer = math.random()  + 2.5 -- 2.5 to 3.5
+    end
 
     if self.multiplierTimer > 0 then
         self.multiplierTimer = self.multiplierTimer - dt
@@ -304,9 +336,12 @@ end
 
 function Game:shipCrashed()
     resources.audio.explosion_player:play()
+    local ship_ai = self.world:findByType("ShipAI")[1]
     self:addScore(self.materialAvailable)
-    self:addShake(100)
-
+    explosion = Explosion(ship_ai.position, 1)
+    self.world:add(explosion)
+    self:resetShip()
+    self:addShake(20)
     self.level = self.level + 1
     self:resetShip()
 end
