@@ -1,14 +1,14 @@
 -- game
 
 require("arena")
-require("util/gamestate")
-require("util/resources")
-
 require("asteroid")
+require("label")
 require("powerup")
 require("ship")
 require("ship_ai")
 require("ship_player")
+require("util/gamestate")
+require("util/resources")
 require("world")
 require("explosion")
 
@@ -27,6 +27,14 @@ function Game:__init()
         a.position = Vector(120, love.graphics.getHeight() / 2 + 100 * (i - 2))
         self.previewAsteroids[i] = a
     end
+
+    self.scoreLabel = Label("0", Vector(), nil, resources.fonts.epic)
+    self.scoreLabel.maxAlpha = 50
+    self.multiplierLabel = Label("x1 / power 20", Vector(0, 80), nil, resources.fonts.huge)
+    self.multiplierLabel.maxAlpha = 50
+    self.levelLabel = Label("Level 1", Vector(0, -80), nil, resources.fonts.huge)
+    self.levelLabel.scaleFactor = 2
+    self.levelLabel.fadeTime = 1
 
     self.world = World()
     arena = Arena()
@@ -63,6 +71,7 @@ function Game:resetShip()
     end
     if ship then ship:kill() end
     ship = ShipAI()
+    --if debug then player_ship = ShipPlayer() end
 
     --self.world:clear()
     --we draw that on our own
@@ -71,6 +80,7 @@ function Game:resetShip()
     self.world:add(ship)
     --if debug then self.world:add(player_ship) end
 
+    self:setDifficulty()
 end
 
 function Game:start()
@@ -83,7 +93,6 @@ function Game:stop()
 end
 
 function Game:draw()
-    love.graphics.translate(math.random() * self.shake, math.random() * self.shake)
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
@@ -100,29 +109,20 @@ function Game:draw()
     love.graphics.push()
     -- love.graphics.translate(love.graphics.getWidth() / 2, love.graphics.getHeight() / 2)
     love.graphics.translate(580, 320)
+    love.graphics.translate(math.random() * self.shake, math.random() * self.shake)
 
     --scissor things
     love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
     love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
 
 
-    love.graphics.setFont(resources.fonts.epic)
-    love.graphics.setColor(255, 255, 255, 20)
-    local s = tonumber(self.score)
-    love.graphics.print(s, 
-        - love.graphics.getFont():getWidth(s) / 2,
-        - love.graphics.getFont():getHeight() / 2)
+    self.scoreLabel:setText(tonumber(self.score))
+    self.multiplierLabel:setText("x" .. tonumber(self.multiplier) .. " / power " .. tonumber(self.power))
+    self.levelLabel:setText("Level " .. self.level)
 
-    love.graphics.setFont(resources.fonts.huge)
-    s = "x" .. tonumber(self.multiplier) .. " / power " .. tonumber(self.power)
-    love.graphics.print(s, 
-        - love.graphics.getFont():getWidth(s) / 2,
-        - love.graphics.getFont():getHeight() / 2 + 80)
-
-    s = "Level " .. self.level
-    love.graphics.print(s, 
-        - love.graphics.getFont():getWidth(s) / 2,
-        - love.graphics.getFont():getHeight() / 2 - 80)
+    self.scoreLabel:draw()
+    self.multiplierLabel:draw()
+    self.levelLabel:draw()
 
     self.world:draw(dt)
     --reset scissor
@@ -202,6 +202,10 @@ function Game:update(dt)
         self:addPowerup()
     end
 
+    self.scoreLabel:update(dt)
+    self.multiplierLabel:update(dt)
+    self.levelLabel:update(dt)
+
     local shake_time = 0.4
     self.shake = self.shake * (1 - dt / shake_time)
 
@@ -250,7 +254,7 @@ function Game:keypressed(k, u)
             a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
             self.world:add(a)
         elseif k == "lshift" then
-            player_ship:shoot()
+            --player_ship:shoot()
         elseif k == "b" then
             for k,e in pairs(self.world:findByType("Asteroid")) do
                 e:crush()
@@ -268,6 +272,14 @@ function Game:shipCrashed()
     explosion = Explosion(ship_ai.position, 1)
     self.world:add(explosion)
     self:resetShip()
+    self:addShake(20)
     self.level = self.level + 1
-    self:addShake(100)
+    self:resetShip()
+end
+
+function Game:setDifficulty()
+    local factor = self.level - 1
+    ai_turn_speed = math.pi * (0.2 + factor * 0.3)
+    max_ship_speed = 30 + factor * 30
+    shoot_delay = math.max(0.8 - factor * 0.15, 0.1)
 end
