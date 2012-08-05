@@ -49,6 +49,7 @@ function ShipAI:update(dt)
                 end
             end
 
+            --angeblich hat sascha das raus genommen gehabt. dunno
             if angle < math.pi / 2 then
                 speed = 1
             else

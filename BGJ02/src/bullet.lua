@@ -15,8 +15,8 @@ function Bullet:__init(position, ship_velocity, ship_rotation)
 
     self.particleSystem = love.graphics.newParticleSystem(resources.images["particle"], 128)
     self.particleSystem:start()
-    self.particleSystem:setSizes(0.5, 0.01)
-    self.particleSystem:setColors(255, 0, 0, 70)
+    self.particleSystem:setSizes(0.1, 0.01)
+    self.particleSystem:setColors(0, 255, 0, 70)
     self.particleSystem:setEmissionRate(20)
     self.particleSystem:setParticleLife(0.5)
 end
@@ -42,7 +42,7 @@ function Bullet:update(dt)
 end
 
 function Bullet:draw()
-    love.graphics.setColor(255, 20, 20, alpha)
-    love.graphics.circle("line", self.position.x, self.position.y, 5)
+    love.graphics.setColor(0, 255, 0, alpha)
+    love.graphics.circle("fill", self.position.x, self.position.y, 2)
     love.graphics.draw(self.particleSystem)
 end

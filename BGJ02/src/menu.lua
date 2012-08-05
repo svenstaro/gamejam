@@ -13,9 +13,9 @@ function Menu:__init()
 
     self.menu.callback = function(index, text) 
         if index == 1 then
-            stack:push(game)
+            currentState = game
         elseif index == 3 then
-            stack:pop()
+            currentState = nil
         end
     end
 end
@@ -31,7 +31,7 @@ function Menu:keypressed(k, u)
     self.menu:keypressed(k, u)
 
     if k == "escape" then
-        stack:pop()
+        currentState = nil
     end
 end
 

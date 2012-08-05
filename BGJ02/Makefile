@@ -6,7 +6,7 @@ clean:
 
 build:
 	@zip -0r game.love data/
-	@cd src/ && zip -0r ../game.love *
+	@cd src/ && find . -iname '*.lua' | xargs zip -0r ../game.love
 
 run:
 	@love game.love
