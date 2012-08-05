@@ -167,6 +167,7 @@ function Arena:update(dt)
         local d = ref - self:mouse()
         local speed = (6 - self.unspawnedAsteroid.size) * 0.5
         self.unspawnedAsteroid.velocity = d * speed 
+        self.unspawnedAsteroid.lifetime = 0
         self.world:add(self.unspawnedAsteroid)
         self.unspawnedAsteroid = nil
 

@@ -51,7 +51,17 @@ end
 
 function Asteroid:update(dt)
     self.__super.update(self, dt)
-    if self.crushScheduled then self:crush() end
+
+    if self.crushScheduled then 
+        self:crush() 
+    elseif self.world and self.lifetime > 1 then
+        local arena = self.world:findByType("Arena")[1]
+        if math.abs(self.position.x) > arena.size.x / 2 or
+                math.abs(self.position.y) > arena.size.y / 2 then
+            game.materialAvailable = game.materialAvailable + materialValue(self.size)
+            self:kill()
+        end
+    end
 end
 
 function Asteroid:generate()

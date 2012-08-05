@@ -27,6 +27,11 @@ function ShipAI:update(dt)
         end
     end
 
+    -- fear the mouse
+    local distance = getMouseVector() - self.position
+    local dist = distance / distance:len2()
+    v = v - dist * 2
+
     if v:len2() > 0 then
         --go towards center
         v = v - self.position:normalized() * v:len()
@@ -95,4 +100,8 @@ function ShipAI:draw()
         to = self.position + self.directionVector * 5000
         love.graphics.line(self.position.x, self.position.y, to.x, to.y)
     end
+end
+
+function ShipAI:hitByAsteroid(asteroid)
+    self.crashScheduled = true
 end

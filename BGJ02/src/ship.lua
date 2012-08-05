@@ -39,12 +39,22 @@ function Ship:enablePhysics()
 end
 
 function Ship:update(dt)
+    local arena = self.world:findByType("Arena")[1]
+    if math.abs(self.position.x) > arena.size.x / 2 then
+        self.position.x = - self.position.x
+        self.physicsObject.body:setPosition(self.position.x, self.position.y)
+    end
+    if math.abs(self.position.y) > arena.size.y / 2 then
+        self.position.y = - self.position.y
+        self.physicsObject.body:setPosition(self.position.x, self.position.y)
+    end
+
     PolygonEntity.update(self, dt)
 
     self.particleSystem:setDirection(self.rotation - math.pi)
     self.particleSystem:setSpeed(100)
 
-    if self.velocity:len() > self.lastVelocity:len() then
+    if self.velocity ~= self.lastVelocity then
         self.particleSystem:start()
     else
         self.particleSystem:stop()
@@ -56,27 +66,6 @@ function Ship:update(dt)
 
     local vec_behind_ship = self.position - Vector(7, 0):rotate(self.rotation)
     self.particleSystem:setPosition(vec_behind_ship.x, vec_behind_ship.y)
-
-    local bouncy = 0.8
-    local arena = self.world:findByType("Arena")[1]
-    max_x = arena.size.x / 2
-    max_y = arena.size.y / 2
-    if self.position.x > max_x then
-        self.position.x = max_x
-        self.velocity.x = -self.velocity.x * bouncy
-    end
-    if self.position.x <-max_x then
-        self.position.x =-max_x
-        self.velocity.x = -self.velocity.x * bouncy
-    end
-    if self.position.y > max_y then
-        self.position.y = max_y
-        self.velocity.y = -self.velocity.y * bouncy
-    end
-    if self.position.y <-max_y then
-        self.position.y =-max_y
-        self.velocity.y = -self.velocity.y * bouncy
-    end
 
     if self.timeUntilShoot > 0 then
         self.timeUntilShoot = self.timeUntilShoot - dt
@@ -106,7 +95,7 @@ function Ship:move(forward, dt)
 end
 
 function Ship:shoot()
-    if self.timeUntilShoot <= 0 then
+    if self.timeUntilShoot <= 0 and self.world then
         local b = Bullet(self.position, self.velocity, self.rotation)
         self.world:add(b)
         self.timeUntilShoot = 0.5
