@@ -39,7 +39,7 @@ function Ship:enablePhysics()
 end
 
 function Ship:update(dt)
-    local arena = self.world:findByType("Arena")[1]
+    --local arena = self.world:findByType("Arena")[1]
     if math.abs(self.position.x) > arena.size.x / 2 then
         --self.position.x = - self.position.x
         if self.position.x > 0 then
@@ -97,7 +97,8 @@ function Ship:draw()
 end
 
 function Ship:move(forward, dt)
-    local f = math.max(0, math.min(1, forward))
+    --local f = math.max(0, math.min(1, forward))
+    local f = math.max(0, math.min(2, forward))
 
     self.velocity = self.velocity + Vector(f * 500 * dt, 0):rotated(self.rotation)
     max = 200
