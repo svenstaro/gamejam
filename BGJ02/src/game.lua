@@ -30,7 +30,7 @@ function Game:__init()
 
     self.gameOverAlpha = 0
 
-    self.timerLabel = Label("0", Vector(0, -120), nil, resources.fonts.huge)
+    self.timerLabel = Label("0", Vector(0, -280), {255,255,255,220}, resources.fonts.huge)
     self.timerLabel.maxAlpha = 20
     self.timerLabel.scaleFactor = 0
     self.scoreLabel = Label("0", Vector(), nil, resources.fonts.epic)
@@ -158,7 +158,6 @@ function Game:draw()
     self.materialLabel:setText("material " .. tonumber(self.materialAvailable))
     self.levelLabel:setText("Level " .. self.level)
 
-    self.timerLabel:draw()
     self.scoreLabel:draw()
     self.powerLabel:draw()
     self.materialLabel:draw()
@@ -168,6 +167,8 @@ function Game:draw()
     self.world:draw(dt)
     --reset scissor
     love.graphics.setScissor()
+
+    self.timerLabel:drawWithStandardColor()
 
     --draw new asteroids
     self.world:drawNewAsteroids()
