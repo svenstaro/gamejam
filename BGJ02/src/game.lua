@@ -66,14 +66,15 @@ end
 
 function Game:resetShip()
     ship = ShipAI()
-    if debug then player_ship = ShipPlayer() end
+    --if debug then player_ship = ShipPlayer() end
 
     self.world:clear()
     --we draw that on our own
     --self.world:add(arena)
     self.world:add(ship)
-    if debug then self.world:add(player_ship) end
+    --if debug then self.world:add(player_ship) end
 
+    self:setDifficulty()
 end
 
 function Game:start()
@@ -247,7 +248,7 @@ function Game:keypressed(k, u)
             a.velocity = Vector(math.random(-20, 20), math.random(-20, 20))
             self.world:add(a)
         elseif k == "lshift" then
-            player_ship:shoot()
+            --player_ship:shoot()
         elseif k == "b" then
             for k,e in pairs(self.world:findByType("Asteroid")) do
                 e:crush()
@@ -261,7 +262,15 @@ end
 function Game:shipCrashed()
     resources.audio.explosion_player:play()
     self:addScore(self.materialAvailable)
-    self:resetShip()
-    self.level = self.level + 1
     self:addShake(20)
+    self.level = self.level + 1
+    self:resetShip()
+end
+
+function Game:setDifficulty()
+    local factor = self.level - 1
+    factor = 5
+    ai_turn_speed = math.pi * (0.2 + factor * 0.3)
+    max_ship_speed = 30 + factor * 30
+    shoot_delay = math.max(0.8 - factor * 0.15, 0.1)
 end

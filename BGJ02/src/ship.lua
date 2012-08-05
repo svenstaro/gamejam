@@ -18,7 +18,8 @@ function Ship:__init()
     self.timeUntilShoot = 0
 
     turn_speed = math.pi
-    ai_turn_speed = math.pi * 2
+    --ai_turn_speed = math.pi * 2
+    --max_ship_speed = 2
 
     self.lastVelocity = Vector(0, 0) -- the velocity from last frame so we know whether we accelerated
 
@@ -103,13 +104,13 @@ end
 
 function Ship:move(forward, dt)
     --local f = math.max(0, math.min(1, forward))
-    local f = math.max(0, math.min(2, forward))
+    local f = math.max(0, math.min(1, forward))
 
     self.velocity = self.velocity + Vector(f * 500 * dt, 0):rotated(self.rotation)
-    max = 120
-    if self.velocity:len() > max then
+    --max = 120
+    if self.velocity:len() > max_ship_speed then
         self.velocity:normalize()
-        self.velocity = self.velocity * max
+        self.velocity = self.velocity * max_ship_speed
     end
 end
 
@@ -118,7 +119,7 @@ function Ship:shoot()
         local b = Bullet(self.position, self.velocity, self.rotation)
         self.world:add(b)
         game:addScore(1)
-        self.timeUntilShoot = 0.3
+        self.timeUntilShoot = shoot_delay
     end
 
     resources.audio.shot:play()

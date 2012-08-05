@@ -54,7 +54,7 @@ function ShipAI:update(dt)
             end
 
             --go forward or dont
-            if angle < math.pi / 2 then
+            if angle < math.pi * 0.7 then
                 speed = 1
             else
                 speed = -1
