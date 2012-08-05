@@ -37,7 +37,7 @@ function ShipAI:update(dt)
 
             local rotatedVector = Vector(1,0):rotated(self.rotation)
             local angle = rotatedVector:angleTo(v)
-            if angle then
+            if angle > 0.01 then --???
                 local clockwise = rotatedVector:rotated(0.0001):angleTo(v) < angle
                 local factor = 1
                 if not clockwise then
@@ -45,7 +45,7 @@ function ShipAI:update(dt)
                 end
                 --self.rotation = self.rotation + math.min(turn_speed, angle) * factor * dt
                 if angle >= math.pi / 6 then
-                    self.rotation = self.rotation + turn_speed * 3 * factor * dt
+                    self.rotation = self.rotation + ai_turn_speed * factor * dt
                 end
             end
 
@@ -62,8 +62,20 @@ function ShipAI:update(dt)
         end
     else
         if shortestDistance < math.huge then
-            self.rotation = self.rotation + turn_speed * dt
-            --local direction asteroids[1].position
+            --self.rotation = self.rotation + turn_speed * dt
+            local direction = asteroids[1].position - self.position
+            
+            --local rotatedVector = Vector(0,-1):rotated(self.rotation)
+            local rotatedVector = Vector(1,0):rotated(self.rotation)
+            local angle = rotatedVector:angleTo(direction)
+            if angle > 0.01 then
+                local clockwise = rotatedVector:rotated(0.001):angleTo(v) < angle
+                local factor = 1
+                if not clockwise then
+                    factor = -1
+                end
+                self.rotation = self.rotation + math.min(angle, ai_turn_speed * factor * dt)
+            end
         end
     end
 
@@ -72,7 +84,7 @@ function ShipAI:update(dt)
 
     Ship.update(self, dt)
 
-    if shortestDistance < math.huge then
+    if shortestDistance < math.huge and self:wouldHitAsteroid() then
         self:shoot()
     end
 end
@@ -109,4 +121,8 @@ function ShipAI:checkAsteroids(v, shortestDistance, asteroids, x, y)
         shortestDistance = math.min(shortestDistance, distance:len())
     end
     return v, shortestDistance
+end
+
+function ShipAI:wouldHitAsteroid()
+    return true
 end
