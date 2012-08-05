@@ -279,7 +279,7 @@ function Game:update(dt)
         self.timer = self.timer - dt
         if self.timer <= 0 then
             self.timer = 0
-            self.over = true
+            self.isOver()
         end
     end
 
@@ -406,7 +406,7 @@ end
 
 function Game:isOver()
     self.over = true
-    self:stop()
+    --self:stop()
 end
 
 function Game:isResettingShip()
