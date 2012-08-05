@@ -12,6 +12,13 @@ function Bullet:__init(position, ship_velocity, ship_rotation)
     self.velocity = ship_velocity * 0.2 + self.own_velocity
 
     self.physicsObject = {}
+
+    self.particleSystem = love.graphics.newParticleSystem(resources.images["particle"], 128)
+    self.particleSystem:start()
+    self.particleSystem:setSizes(0.5, 0.01)
+    self.particleSystem:setColors(255, 0, 0, 70)
+    self.particleSystem:setEmissionRate(20)
+    self.particleSystem:setParticleLife(0.5)
 end
 
 function Bullet:enablePhysics()
@@ -28,18 +35,14 @@ function Bullet:update(dt)
     if self.lifetime >= 3 then
         self:kill()
     end
+
+    self.particleSystem:setPosition(self.position.x, self.position.y)
+
+    self.particleSystem:update(dt)
 end
 
 function Bullet:draw()
-    for i = 5, 1, -1 do
-        self:drawPart(i)
-    end
-end
-
-function Bullet:drawPart(size)
-    local alpha = math.max(255 * math.min(self.lifetime * 3, 1) - (5-size) * 50, 0)
     love.graphics.setColor(255, 20, 20, alpha)
-    local pos = Vector(self.position.x, self.position.y)
-    pos = pos - self.own_velocity:normalized() * (5 - size) * 8
-    love.graphics.circle("line", pos.x, pos.y, size, 5)
+    love.graphics.circle("line", self.position.x, self.position.y, 5)
+    love.graphics.draw(self.particleSystem)
 end

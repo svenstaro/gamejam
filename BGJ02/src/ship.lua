@@ -18,6 +18,15 @@ function Ship:__init()
     self.timeUntilShoot = 0
 
     turn_speed = math.pi
+
+    self.lastVelocity = Vector(0, 0) -- the velocity from last frame so we know whether we accelerated
+
+    self.particleSystem = love.graphics.newParticleSystem(resources.images["particle"], 128)
+    self.particleSystem:stop()
+    self.particleSystem:setSizes(0.2, 0.01)
+    self.particleSystem:setColors(240, 250, 50, 255, 250, 10, 10, 0)
+    self.particleSystem:setEmissionRate(100)
+    self.particleSystem:setParticleLife(0.5)
 end
 
 function Ship:enablePhysics()
@@ -31,6 +40,22 @@ end
 
 function Ship:update(dt)
     PolygonEntity.update(self, dt)
+
+    self.particleSystem:setDirection(self.rotation - math.pi)
+    self.particleSystem:setSpeed(100)
+
+    if self.velocity:len() > self.lastVelocity:len() then
+        self.particleSystem:start()
+    else
+        self.particleSystem:stop()
+    end
+
+    self.lastVelocity = self.velocity
+
+    self.particleSystem:update(dt)
+
+    local vec_behind_ship = self.position - Vector(7, 0):rotate(self.rotation)
+    self.particleSystem:setPosition(vec_behind_ship.x, vec_behind_ship.y)
 
     local bouncy = 0.8
     local arena = self.world:findByType("Arena")[1]
@@ -66,6 +91,7 @@ end
 function Ship:draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.polygon("line", self:getDrawPoints())
+    love.graphics.draw(self.particleSystem)
 end
 
 function Ship:move(forward, dt)
