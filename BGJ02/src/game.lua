@@ -406,7 +406,7 @@ end
 
 function Game:isOver()
     self.over = true
-    self:stop()
+    --self:stop()
 end
 
 function Game:isResettingShip()
