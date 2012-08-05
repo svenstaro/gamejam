@@ -33,6 +33,9 @@ function Game:__init()
 end
 
 function Game:reset()
+    self.materialAvailable = MAX_MATERIAL
+    
+    self.level = 1
     self.score = 0
     self.multiplier = 1
     self.power = 20
@@ -54,8 +57,6 @@ function Game:addShake(shake)
 end
 
 function Game:resetShip()
-    self.materialAvailable = MAX_MATERIAL
-    
     ship = ShipAI()
     if debug then player_ship = ShipPlayer() end
 
@@ -112,6 +113,11 @@ function Game:draw()
     love.graphics.print(s, 
         - love.graphics.getFont():getWidth(s) / 2,
         - love.graphics.getFont():getHeight() / 2 + 80)
+
+    s = "Level " .. self.level
+    love.graphics.print(s, 
+        - love.graphics.getFont():getWidth(s) / 2,
+        - love.graphics.getFont():getHeight() / 2 - 80)
 
     self.world:draw(dt)
     --reset scissor
@@ -252,6 +258,8 @@ end
 
 function Game:shipCrashed()
     resources.audio.explosion_player:play()
+    self:addScore(self.materialAvailable)
     self:resetShip()
+    self.level = self.level + 1
     self:addShake(100)
 end

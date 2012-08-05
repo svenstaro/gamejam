@@ -5,6 +5,8 @@ require("util/resources")
 
 tween = require("externals/tween/tween")
 
+-- debug = false
+
 resources = Resources("data/")
 currentState = nil
 
