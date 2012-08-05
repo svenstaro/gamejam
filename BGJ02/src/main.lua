@@ -34,6 +34,7 @@ function love.load()
 
     -- load music / sounds
     resources:addAudio("swipe", "sound/swipe.ogg", false) -- no stream
+    resources:addAudio("background", "THA-emptychasms.mp3", true)
     
     -- load shaders
     resources:addShader("pixelate", "shader/pixelate.glsl")

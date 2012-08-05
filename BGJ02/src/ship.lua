@@ -41,11 +41,21 @@ end
 function Ship:update(dt)
     local arena = self.world:findByType("Arena")[1]
     if math.abs(self.position.x) > arena.size.x / 2 then
-        self.position.x = - self.position.x
+        --self.position.x = - self.position.x
+        if self.position.x > 0 then
+            self.position.x = - arena.size.x / 2
+        else
+            self.position.x = arena.size.x / 2
+        end
         self.physicsObject.body:setPosition(self.position.x, self.position.y)
     end
     if math.abs(self.position.y) > arena.size.y / 2 then
-        self.position.y = - self.position.y
+        --self.position.y = - self.position.y
+        if self.position.y > 0 then
+            self.position.y = - arena.size.y / 2
+        else
+            self.position.y = arena.size.y / 2
+        end
         self.physicsObject.body:setPosition(self.position.x, self.position.y)
     end
 
@@ -60,6 +70,9 @@ function Ship:update(dt)
         self.particleSystem:stop()
     end
 
+    --let it slow down
+    self.velocity = self.velocity:normalized() * math.max(0, self.velocity:len() - 30 * dt)
+    --save velocity for speed comparison for particles
     self.lastVelocity = self.velocity
 
     self.particleSystem:update(dt)
