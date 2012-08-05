@@ -1,4 +1,5 @@
 require("util/helper")
+require("util/vector")
 
 ListMenu = class("ListMenu")
 
@@ -12,14 +13,20 @@ function ListMenu:__init(entries, position, width, font, line_height)
     self.callback = function(index, text) end -- empty callback
 
     self.selected = 1
-    self.prev_selected= 1
+    self.prev_selected = 1
+
+    self.selected_with_mouse = false
+
+    self.last_mouse_position = Vector(0,0)
 end
 
 function ListMenu:keypressed(k, u)
     if k == "up" then
         self.selected = self.selected - 1
+        self.selected_with_mouse = false
     elseif k == "down" then
         self.selected = self.selected + 1
+        self.selected_with_mouse = false
     elseif k == "return" or k == " " or k == "right" then
         self.callback(self.selected, self.entries[self.selected])
     end
@@ -36,6 +43,31 @@ function ListMenu:update(dt)
         love.audio.play(resources.audio.click)
     end
     self.prev_selected = self.selected
+
+    local x,y = love.mouse.getPosition()
+    local mouse_position = Vector(x,y)
+    --hardcoded as fuck
+    local offset = 8
+    local side_padding = 20
+
+    if mouse_position ~= self.last_mouse_position then
+        if x >= self.position.x - side_padding
+        and x <= self.position.x + self.width + side_padding then
+            for i = 1, #self.entries do
+                if y >= self.position.y + self.line_height * (i-1) - offset
+                and y <= self.position.y + self.line_height * i - offset then
+                    self.selected = i
+                    self.selected_with_mouse = true
+                    break
+                end
+            end
+        end
+        self.last_mouse_position = mouse_position
+    end
+
+    if self.selected_with_mouse and love.mouse.isDown('l') then
+        self.callback(self.selected, self.entries[self.selected])
+    end
 end
 
 function ListMenu:draw()

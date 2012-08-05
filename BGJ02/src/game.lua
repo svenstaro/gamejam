@@ -39,7 +39,7 @@ function Game:__init()
     self.multiplierLabel.maxAlpha = 50
     self.powerLabel = Label("power 20", Vector(0, 110), nil, resources.fonts.normal)
     self.powerLabel.maxAlpha = 50
-    self.materialLabel = Label("material 0", Vector(0, 130), nil, resources.fonts.normal)
+    self.materialLabel = Label("material 0", Vector(0, 136), nil, resources.fonts.normal)
     self.materialLabel.maxAlpha = 50
     self.levelLabel = Label("Level 1", Vector(0, -80), nil, resources.fonts.huge)
     self.levelLabel.scaleFactor = 2
