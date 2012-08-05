@@ -18,6 +18,7 @@ function Ship:__init()
     self.timeUntilShoot = 0
 
     turn_speed = math.pi
+    ai_turn_speed = math.pi * 3
 
     self.lastVelocity = Vector(0, 0) -- the velocity from last frame so we know whether we accelerated
 
