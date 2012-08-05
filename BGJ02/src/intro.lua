@@ -14,13 +14,12 @@ function Intro:__init()
 end
 
 function Intro:draw()
-    self.canvas:clear()
     love.graphics.setCanvas(self.canvas)
 
-    love.graphics.setBackgroundColor(17, 17, 17)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(17, 17, 17)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
-    love.graphics.clear()
+    love.graphics.setColor(255, 255, 255)
     love.graphics.draw(resources.images.test, 0, 0)
 
     love.graphics.setCanvas()
@@ -33,7 +32,7 @@ function Intro:draw()
 end
 
 function Intro:skip()
-    currentState = menu
+    self:transitionTo(menu)
 end
 
 function Intro:keypressed(k, u)

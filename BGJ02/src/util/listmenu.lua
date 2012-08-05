@@ -12,6 +12,7 @@ function ListMenu:__init(entries, position, width, font, line_height)
     self.callback = function(index, text) end -- empty callback
 
     self.selected = 1
+    self.prev_selected= 1
 end
 
 function ListMenu:keypressed(k, u)
@@ -28,6 +29,13 @@ function ListMenu:keypressed(k, u)
     elseif self.selected < 1 then
         self.selected = #self.entries
     end
+end
+
+function ListMenu:update(dt)
+    if self.prev_selected ~= self.selected then
+        love.audio.play(resources.audio.click)
+    end
+    self.prev_selected = self.selected
 end
 
 function ListMenu:draw()

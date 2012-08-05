@@ -13,16 +13,20 @@ function Menu:__init()
 
     self.menu.callback = function(index, text) 
         if index == 1 then
-            currentState = game
+            self:transitionTo(game)
         elseif index == 3 then
-            currentState = nil
+            stopGame()
         end
     end
 end
 
+function Menu:update(dt)
+    self.menu:update(dt)
+end
+
 function Menu:draw()
-    love.graphics.setBackgroundColor(17, 17, 17)
-    love.graphics.clear()
+    love.graphics.setColor(17, 17, 17)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
     self.menu:draw()
 end
@@ -31,7 +35,7 @@ function Menu:keypressed(k, u)
     self.menu:keypressed(k, u)
 
     if k == "escape" then
-        currentState = nil
+        stopGame()
     end
 end
 

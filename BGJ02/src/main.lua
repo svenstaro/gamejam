@@ -3,8 +3,25 @@ require("intro")
 require("menu")
 require("util/resources")
 
+debug = false
+
+tween = require("externals/tween/tween")
+
 resources = Resources("data/")
 currentState = nil
+
+function stopGame()
+    setState(nil)
+end
+
+function setState(state)
+    if currentState == state then return end
+
+    if currentState then currentState:stop() end
+    currentState = state
+
+    if currentState then currentState:start() end
+end
 
 function reset()
     -- start game
@@ -13,9 +30,9 @@ function reset()
     game = Game()
 
     if debug then
-        currentState = game
+        setState(game)
     else
-        currentState = intro
+        setState(intro)
     end
 end
 
@@ -34,6 +51,7 @@ function love.load()
 
     -- load music / sounds
     resources:addAudio("swipe", "sound/swipe.ogg", false) -- no stream
+    resources:addAudio("click", "sound/click.ogg", false) -- no stream
     resources:addAudio("background", "THA-emptychasms.mp3", true)
     
     -- load shaders
@@ -45,28 +63,29 @@ function love.load()
 end
 
 function love.update(dt)
+    tween.update(dt)
     if currentState then
-        currentState:update(dt)
+        currentState:doUpdate(dt)
     else
         love.event.quit()
     end
 end
 
 function love.draw()
-    if currentState then currentState:draw() end
+    if currentState then currentState:doDraw() end
 
     -- love.graphics.setFont(resources.fonts.tiny)
     -- love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
 end
 
 function love.keypressed(k, u)
-    if currentState then currentState:keypressed(k, u) end
+    if currentState and currentState.transition == 0 then currentState:keypressed(k, u) end
 end
 
 function love.mousepressed(x, y, mb)
-    if currentState then currentState:mousepressed(x, y, mb) end
+    if currentState and currentState.transition == 0 then currentState:mousepressed(x, y, mb) end
 end
 
 function love.keypressed(k, u)
-    if currentState then currentState:keypressed(k, u) end
+    if currentState and currentState.transition == 0 then currentState:keypressed(k, u) end
 end
