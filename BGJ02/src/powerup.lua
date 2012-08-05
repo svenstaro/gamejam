@@ -18,6 +18,8 @@ function Powerup:__init(position, reward)
     self.dieAt = math.random() * 4 + 13 -- 13 to 17 seconds
 
     self.physicsObject = {}
+
+    self.diedTime = 0
 end
 
 function Powerup:enablePhysics()
@@ -34,6 +36,10 @@ function Powerup:update(dt)
 
     local left = self.dieAt - self.lifetime
 
+    if self.diedTime ~= 0 and self.diedTime + 1 <= self.lifetime then
+        self:kill()
+    end
+
     if left <= 0 then
         self:kill()
     end
@@ -41,8 +47,18 @@ end
 
 function Powerup:draw()
     local left = self.dieAt - self.lifetime
+    local d = self.lifetime - self.diedTime
+    if self.diedTime == 0 then d = 0 end
 
-    if left > 2 or math.sin(self.lifetime * 30) > -0.4 then
+    local s = 1 + d * 4
+
+    if self.diedTime == 0 then
+        s = math.abs(math.sin(self.lifetime * 5))
+    end
+
+    local a = 255 - d * 255
+
+    if left > 2 or math.sin(self.lifetime * 30) > -0.4 or self.diedTime ~= 0 then
         local particle_image_size = Vector(resources.images.particle:getWidth(), resources.images.particle:getHeight())
         local particle_size = 0.5
         if self.reward == "multiplier" then
@@ -52,7 +68,7 @@ function Powerup:draw()
                                self.position.y -((particle_image_size.y * particle_size) / 2),
                                0,
                                particle_size)
-            love.graphics.setColor(255, 128, 0)
+            love.graphics.setColor(255, 128, 0, a)
         elseif self.reward == "power" then
             love.graphics.setColor(50, 80, 255, 100)
             love.graphics.draw(resources.images.particle,
@@ -60,7 +76,7 @@ function Powerup:draw()
                                self.position.y -((particle_image_size.y * particle_size) / 2),
                                0,
                                particle_size)
-            love.graphics.setColor(50, 80, 255)
+            love.graphics.setColor(50, 80, 255, a)
         elseif self.reward == "material" then
             love.graphics.setColor(20, 240, 20, 100)
             love.graphics.draw(resources.images.particle,
@@ -68,7 +84,7 @@ function Powerup:draw()
                                self.position.y -((particle_image_size.y * particle_size) / 2),
                                0,
                                particle_size)
-            love.graphics.setColor(20, 240, 20)
+            love.graphics.setColor(20, 240, 20, a)
         end
 
         local n = 3
@@ -78,11 +94,13 @@ function Powerup:draw()
             n = 5
         end
 
-        love.graphics.circle("line", self.position.x, self.position.y, 2 + 3 * math.abs(math.sin(self.lifetime * 5)), n)
+        love.graphics.circle("line", self.position.x, self.position.y, 2 + 3 * s, n)
     end
 end
 
 function Powerup:perform()
+    if self.diedTime ~= 0 then return end
+
     if self.reward == "multiplier" then
         game.multiplier = game.multiplier + 1
         game.multiplierTimer = MULTIPLIER_DELAY
@@ -99,5 +117,5 @@ function Powerup:perform()
 
         self:makeToast("+" .. add .. " material", {20, 240, 20})
     end
-    self:kill()
+    self.diedTime = self.lifetime
 end
