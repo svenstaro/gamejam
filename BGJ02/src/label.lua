@@ -40,3 +40,11 @@ function Label:draw()
     love.graphics.setFont(f)
     love.graphics.print(self.text, self.position.x - s * f:getWidth(self.text) / 2, self.position.y - s * f:getHeight() / 2, 0, s, s)
 end
+
+--bad evil workaround. no time left.
+function Label:drawWithStandardColor()
+    local f = self.font or love.graphics.getFont()
+    love.graphics.setColor(self.color[1], self.color[2], self.color[3], self.color[4])
+    love.graphics.setFont(f)
+    love.graphics.print(self.text, self.position.x - f:getWidth(self.text) / 2, self.position.y - f:getHeight() / 2, 0, s, s)
+end

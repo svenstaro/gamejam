@@ -59,11 +59,31 @@ function Powerup:draw()
     local a = 255 - d * 255
 
     if left > 2 or math.sin(self.lifetime * 30) > -0.4 or self.diedTime ~= 0 then
+        local particle_image_size = Vector(resources.images.particle:getWidth(), resources.images.particle:getHeight())
+        local particle_size = 0.5
         if self.reward == "multiplier" then
+            love.graphics.setColor(255, 128, 0, 100)
+            love.graphics.draw(resources.images.particle,
+                               self.position.x -((particle_image_size.x * particle_size) / 2),
+                               self.position.y -((particle_image_size.y * particle_size) / 2),
+                               0,
+                               particle_size)
             love.graphics.setColor(255, 128, 0, a)
         elseif self.reward == "power" then
+            love.graphics.setColor(50, 80, 255, 100)
+            love.graphics.draw(resources.images.particle,
+                               self.position.x -((particle_image_size.x * particle_size) / 2),
+                               self.position.y -((particle_image_size.y * particle_size) / 2),
+                               0,
+                               particle_size)
             love.graphics.setColor(50, 80, 255, a)
         elseif self.reward == "material" then
+            love.graphics.setColor(20, 240, 20, 100)
+            love.graphics.draw(resources.images.particle,
+                               self.position.x -((particle_image_size.x * particle_size) / 2),
+                               self.position.y -((particle_image_size.y * particle_size) / 2),
+                               0,
+                               particle_size)
             love.graphics.setColor(20, 240, 20, a)
         end
 
