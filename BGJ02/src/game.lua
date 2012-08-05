@@ -28,6 +28,8 @@ function Game:__init()
         self.previewAsteroids[i] = a
     end
 
+    self.gameOverAlpha = 0
+
     self.scoreLabel = Label("0", Vector(), nil, resources.fonts.epic)
     self.scoreLabel.maxAlpha = 50
     self.multiplierLabel = Label("x1 / power 20", Vector(0, 80), nil, resources.fonts.huge)
@@ -40,6 +42,7 @@ function Game:__init()
 
     self.world = World()
     arena = Arena()
+    
     self:reset()
 end
 
@@ -51,7 +54,9 @@ function Game:reset()
     end
 
     self.materialAvailable = MAX_MATERIAL
-    
+
+    self.over = false
+
     self.level = 1
     self.score = 0
     self.multiplier = 1
@@ -120,9 +125,11 @@ function Game:draw()
     love.graphics.translate(580, 320)
     love.graphics.translate(math.random() * self.shake, math.random() * self.shake)
 
+    --background image
+    love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
+
     --scissor things
     love.graphics.setScissor(580-arena.size.x / 2, 320-arena.size.y / 2, arena.size.x, arena.size.y)
-    love.graphics.draw(resources.images.background, -arena.size.x / 2, -arena.size.y / 2)
 
 
     self.scoreLabel:setText(tonumber(self.score))
@@ -183,7 +190,34 @@ function Game:draw()
 
     local my = self.previewAsteroids[self.selectedAsteroid].position.y
     love.graphics.setColor(255, 255, 255, 30)
+
     love.graphics.rectangle("fill", 20, my - 40, 170, 80)
+
+    if self.over then
+        love.graphics.setColor(0, 0, 0, 150)
+        love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+        
+        love.graphics.setFont(resources.fonts.epic)
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.print("Game Over",
+                            (love.graphics.getWidth() - love.graphics.getFont():getWidth("Game Over")) / 2,
+                            (love.graphics.getHeight() - love.graphics.getFont():getHeight()) / 2 - 100)
+        
+        love.graphics.setFont(resources.fonts.huge)
+
+        local s = self.score .. " points"
+        love.graphics.print(s,
+                            (love.graphics.getWidth() - love.graphics.getFont():getWidth(s)) / 2,
+                            (love.graphics.getHeight() - love.graphics.getFont():getHeight()) / 2)
+
+        love.graphics.setFont(resources.fonts.normal)
+
+        love.graphics.setColor(255, 255, 255, (0.5 + math.abs(math.sin(self.gameOverAlpha * 3)) * 0.5) * 255)
+        s = "Press ENTER to continue"
+        love.graphics.print(s,
+                            (love.graphics.getWidth() - love.graphics.getFont():getWidth(s)) / 2,
+                            (love.graphics.getHeight() - love.graphics.getFont():getHeight()) / 2 + 60)
+    end
 end
 
 function Game:mousepressed(x, y, mb)
@@ -213,6 +247,16 @@ function Game:addPowerup(i)
 end
 
 function Game:update(dt)
+
+    if self.over then
+        self.gameOverAlpha = self.gameOverAlpha + dt
+        return
+    end
+
+    if 0 == math.random(0, 10 / dt) then
+        self:addPowerup()
+    end
+
     self.scoreLabel:update(dt)
     self.multiplierLabel:update(dt)
     self.levelLabel:update(dt)
@@ -249,18 +293,26 @@ function Game:update(dt)
 end
 
 function Game:keypressed(k, u)
-    if k == "escape" then
-        if debug then
-            stopGame()
-        else
+    if not self.over then
+        if k == "escape" then
+            if debug then
+                stopGame()
+            else
+                self:transitionTo(menu, "left")
+            end
+        elseif debug and k == "0" then
+            self:isOver()
+        elseif k == "1" then
+            self.selectedAsteroid = 1
+        elseif k == "2" then
+            self.selectedAsteroid = 2
+        elseif k == "3" then
+            self.selectedAsteroid = 3
+        end
+    else
+        if k == "escape" or k == "enter" or k == "return" then
             self:transitionTo(menu, "left")
         end
-    elseif k == "1" then
-        self.selectedAsteroid = 1
-    elseif k == "2" then
-        self.selectedAsteroid = 2
-    elseif k == "3" then
-        self.selectedAsteroid = 3
     end
 
     -- DEBUG CONTROLS
@@ -301,4 +353,9 @@ function Game:setDifficulty()
     ai_turn_speed = math.pi * (0.2 + factor * 0.3)
     max_ship_speed = 30 + factor * 30
     shoot_delay = math.max(0.8 - factor * 0.15, 0.1)
+end
+
+function Game:isOver()
+    self.over = true
+    self:stop()
 end

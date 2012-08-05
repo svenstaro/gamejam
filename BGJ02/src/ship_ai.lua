@@ -33,7 +33,7 @@ function ShipAI:update(dt)
         end
     end
 
-    --if were endangered, flee
+    --if we're endangered, flee
     if shortestDistance < 200 then
         if v:len2() > 0 then
             --go towards center
@@ -110,7 +110,7 @@ end
 
 function ShipAI:draw()
     Ship.draw(self)
-    if debug then
+    --[[if debug then
         love.graphics.setColor(0,255,0)
         local to = self.position + self.directionVector:normalized() * 30
         love.graphics.line(self.position.x, self.position.y, to.x, to.y)
@@ -118,7 +118,7 @@ function ShipAI:draw()
         love.graphics.setColor(255,0,0)
         to = self.position + self.directionVector * 5000
         love.graphics.line(self.position.x, self.position.y, to.x, to.y)
-    end
+    end]]
 end
 
 function ShipAI:hitByAsteroid(asteroid)

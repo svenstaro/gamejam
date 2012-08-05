@@ -13,6 +13,7 @@ function Menu:__init()
 
     self.menu.callback = function(index, text) 
         if index == 1 then
+            game:reset()
             self:transitionTo(game)
         elseif index == 3 then
             stopGame()
