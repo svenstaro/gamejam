@@ -42,7 +42,7 @@ function ShipAI:update(dt)
             local rotatedVector = Vector(1,0):rotated(self.rotation)
             local angle = rotatedVector:angleTo(v)
             if angle > 0.01 then --???
-                local clockwise = rotatedVector:rotated(0.0001):angleTo(v) < angle
+                local clockwise = rotatedVector:rotated(angle / 2.0):angleTo(v) < angle
                 local factor = 1
                 if not clockwise then
                     factor = -1
@@ -89,7 +89,7 @@ function ShipAI:update(dt)
             --rotate towards target and shoot
             local angle = rotatedVector:angleTo(direction)
             if angle > 0 then
-                local clockwise = rotatedVector:rotated(0.001):angleTo(direction) < angle
+                local clockwise = rotatedVector:rotated(angle / 2.0):angleTo(direction) < angle
                 local factor = 1
                 if not clockwise then
                     factor = -1

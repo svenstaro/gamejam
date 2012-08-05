@@ -59,7 +59,9 @@ function love.load()
     resources:addAudio("menu_music", "sound/THA-simplythink.ogg", true)
     
     -- load shaders
-    resources:addShader("pixelate", "shader/pixelate.glsl")
+    if love.graphics.isSupported("pixeleffect") then
+        resources:addShader("pixelate", "shader/pixelate.glsl")
+    end
 
     resources:load()
 
