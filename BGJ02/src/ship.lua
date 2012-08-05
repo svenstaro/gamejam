@@ -85,7 +85,6 @@ function Ship:update(dt)
         self.timeUntilShoot = self.timeUntilShoot - dt
     end
 
-
     if self.crashScheduled then
         game:shipCrashed()
     end

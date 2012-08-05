@@ -50,11 +50,11 @@ function Game:resetShip()
 end
 
 function Game:start()
-    resources.audio.background:play()
+    resources.audio.game_music:play()
 end
 
 function Game:stop()
-    resources.audio.background:stop()
+    resources.audio.game_music:stop()
 end
 
 function Game:draw()

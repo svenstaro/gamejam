@@ -20,6 +20,14 @@ function Menu:__init()
     end
 end
 
+function Menu:start()
+    resources.audio.menu_music:play()
+end
+
+function Menu:stop()
+    resources.audio.menu_music:stop()
+end
+
 function Menu:update(dt)
     self.menu:update(dt)
 end
