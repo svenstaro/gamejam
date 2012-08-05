@@ -51,6 +51,14 @@ function Menu:draw()
     local s = "S.D.I.O.R.E.T.S.A"
     love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 50, 50)
 
+    love.graphics.setColor(80,80,80)
+    love.graphics.setFont(resources.fonts.tiny)
+    local words = {"super", "duper", "inverse", "or", "reverse", "extreme", "tactical", "space", "application"}
+    for i = 1, #words do
+        s = words[i]
+        love.graphics.print(s, love.graphics.getWidth() - love.graphics.getFont():getWidth(s) - 50, 90+i*28)    
+    end
+
 end
 
 function Menu:keypressed(k, u)
