@@ -35,12 +35,20 @@ function Game:__init()
     self.levelLabel.scaleFactor = 2
     self.levelLabel.fadeTime = 1
 
+    self.powerupTimer = 0
+
     self.world = World()
     arena = Arena()
     self:reset()
 end
 
 function Game:reset()
+    self.world:clear()
+
+    for i = 1, math.random(4,6) do
+        self:addPowerup()
+    end
+
     self.materialAvailable = MAX_MATERIAL
     
     self.level = 1
@@ -192,16 +200,20 @@ function Game:addPowerup()
 end
 
 function Game:update(dt)
-    if 0 == math.random(0, 10 / dt) then
-        self:addPowerup()
-    end
-
     self.scoreLabel:update(dt)
     self.multiplierLabel:update(dt)
     self.levelLabel:update(dt)
 
     local shake_time = 0.4
     self.shake = self.shake * (1 - dt / shake_time)
+
+    if self.powerupTimer > 0 then
+        self.powerupTimer = self.powerupTimer - dt
+    end
+    if self.powerupTimer <= 0 then
+        self:addPowerup()
+        self.powerupTimer = math.random()  + 2.5 -- 2.5 to 3.5
+    end
 
     if self.multiplierTimer > 0 then
         self.multiplierTimer = self.multiplierTimer - dt

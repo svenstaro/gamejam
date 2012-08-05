@@ -15,7 +15,7 @@ function Powerup:__init(position, reward)
     self.position = position
 
     self.reward = reward
-    self.dieAt = math.random() * 10 + 10 -- 10 to 20 seconds
+    self.dieAt = math.random() * 4 + 13 -- 13 to 17 seconds
 
     self.physicsObject = {}
 end
