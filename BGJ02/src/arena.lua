@@ -176,4 +176,3 @@ function Arena:update(dt)
     end
 end
 
-

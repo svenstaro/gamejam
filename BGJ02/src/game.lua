@@ -10,6 +10,7 @@ require("ship")
 require("ship_ai")
 require("ship_player")
 require("world")
+require("explosion")
 
 Game = class("Game", GameState)
 
@@ -57,14 +58,18 @@ function Game:addShake(shake)
 end
 
 function Game:resetShip()
+    for k,e in pairs(self.world:findByType("Asteroid")) do
+        e:kill()
+    end
+    if ship then ship:kill() end
     ship = ShipAI()
-    if debug then player_ship = ShipPlayer() end
 
-    self.world:clear()
+    --self.world:clear()
     --we draw that on our own
     --self.world:add(arena)
+
     self.world:add(ship)
-    if debug then self.world:add(player_ship) end
+    --if debug then self.world:add(player_ship) end
 
 end
 
@@ -258,7 +263,10 @@ end
 
 function Game:shipCrashed()
     resources.audio.explosion_player:play()
+    local ship_ai = self.world:findByType("ShipAI")[1]
     self:addScore(self.materialAvailable)
+    explosion = Explosion(ship_ai.position, 1)
+    self.world:add(explosion)
     self:resetShip()
     self.level = self.level + 1
     self:addShake(100)

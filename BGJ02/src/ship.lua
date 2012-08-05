@@ -24,12 +24,10 @@ function Ship:__init()
 
     self.particleSystem = love.graphics.newParticleSystem(resources.images["particle"], 128)
     self.particleSystem:stop()
-    self.particleSystem:setSizes(0.01, 0.2, 0.1, 0.01)
+    self.particleSystem:setSizes(0.2, 0.01)
     self.particleSystem:setColors(
-        255, 255, 255, 0, 
-        240, 250, 50, 200, 
-        240, 100, 20, 100, 
-        250, 0, 0, 0)
+        240, 250, 50, 250, 
+        250, 10, 10, 0)
     self.particleSystem:setEmissionRate(50)
     self.particleSystem:setParticleLife(0.5)
     self.particleSystem:setSpread(0.5)
@@ -68,7 +66,7 @@ function Ship:update(dt)
     PolygonEntity.update(self, dt)
 
     self.particleSystem:setDirection(self.rotation - math.pi)
-    self.particleSystem:setSpeed(20)
+    self.particleSystem:setSpeed(100)
 
     if self.velocity ~= self.lastVelocity then
         self.particleSystem:start()
@@ -83,7 +81,7 @@ function Ship:update(dt)
 
     self.particleSystem:update(dt)
 
-    local vec_behind_ship = self.position - Vector(4, 0):rotate(self.rotation)
+    local vec_behind_ship = self.position - Vector(6, 0):rotate(self.rotation)
     self.particleSystem:setPosition(vec_behind_ship.x, vec_behind_ship.y)
 
     if self.timeUntilShoot > 0 then
