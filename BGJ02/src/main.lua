@@ -47,6 +47,7 @@ function love.load()
     resources:addFont("tiny", "DejaVuSans.ttf", 14)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
     resources:addFont("huge", "DejaVuSans.ttf", 30)
+    resources:addFont("epic", "DejaVuSans.ttf", 140)
 
     -- load music / sounds
     resources:addAudio("click", "sound/click.ogg", false)

@@ -15,6 +15,8 @@ function Powerup:__init(position, reward)
 
     self.reward = reward
     self.dieAt = math.random() * 10 + 10 -- 10 to 20 seconds
+
+    self.physicsObject = {}
 end
 
 function Powerup:enablePhysics()
@@ -60,6 +62,11 @@ function Powerup:draw()
 end
 
 function Powerup:perform()
+    if self.reward == "multiplier" then
+        game.multiplier = game.multiplier + 1
+        game.multiplierTimer = MULTIPLIER_DELAY
+    end
+
 
     self:kill()
 end
