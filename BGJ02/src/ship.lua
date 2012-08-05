@@ -100,6 +100,18 @@ function Ship:draw()
     love.graphics.polygon("line", self:getDrawPoints())
     love.graphics.draw(self.particleSystem)
     love.graphics.setBlendMode("alpha")
+
+    if self.particleSystem:isActive() then
+        local vec_behind_ship = self.position - Vector(6, 0):rotate(self.rotation)
+        local particle_image_size = Vector(resources.images.particle:getWidth(), resources.images.particle:getHeight())
+        local particle_size = 1
+        love.graphics.setColor(200, 100, 100, 50)
+        love.graphics.draw(resources.images.particle,
+                           vec_behind_ship.x -((particle_image_size.x * particle_size) / 2),
+                           vec_behind_ship.y -((particle_image_size.y * particle_size) / 2),
+                           0,
+                           particle_size)
+    end
 end
 
 function Ship:move(forward, dt)

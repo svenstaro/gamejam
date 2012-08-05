@@ -45,4 +45,13 @@ function Bullet:draw()
     love.graphics.setColor(0, 255, 0, alpha)
     love.graphics.circle("fill", self.position.x, self.position.y, 2)
     love.graphics.draw(self.particleSystem)
+
+    love.graphics.setColor(0, 200, 0, 50)
+    local particle_image_size = Vector(resources.images.particle:getWidth(), resources.images.particle:getHeight())
+    local particle_size = 0.2
+    love.graphics.draw(resources.images.particle,
+                       self.position.x -((particle_image_size.x * particle_size) / 2),
+                       self.position.y -((particle_image_size.y * particle_size) / 2),
+                       0,
+                       particle_size)
 end
