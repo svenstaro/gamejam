@@ -88,6 +88,8 @@ function Asteroid:crush()
         end
     end
 
+    resources.audio.explosion_asteroid:play()
+
     self:kill()
 end
 
