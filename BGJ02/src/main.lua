@@ -3,8 +3,6 @@ require("intro")
 require("menu")
 require("util/resources")
 
-debug = false
-
 tween = require("externals/tween/tween")
 
 resources = Resources("data/")

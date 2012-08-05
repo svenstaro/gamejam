@@ -4,10 +4,11 @@ require("arena")
 require("util/gamestate")
 require("util/resources")
 
-require("ship")
-require("ship_player")
-require("ship_ai")
 require("asteroid")
+require("powerup")
+require("ship")
+require("ship_ai")
+require("ship_player")
 require("world")
 
 Game = class("Game", GameState)
@@ -51,6 +52,7 @@ end
 
 function Game:start()
     resources.audio.game_music:play()
+    resources.audio.game_music:setVolume(1)
 end
 
 function Game:stop()
@@ -127,12 +129,28 @@ function Game:mousepressed(x, y, mb)
     end
 end
 
+function Game:addPowerup()
+    local rewards = {"material", "multiplier", "power"}
+    self.world:add(Powerup(Vector(
+        arena.size.x * (math.random() * 0.5 - 0.25), 
+        arena.size.y * (math.random() * 0.5 - 0.25)
+        ), rewards[math.random(1,3)]))
+end
+
 function Game:update(dt)
+    if 0 == math.random(0, 10 / dt) then
+        self:addPowerup()
+    end
+
     self.world:update(dt)
     arena:update(dt)
 
     for i = 1,3 do
         self.previewAsteroids[i]:update(dt)
+    end
+
+    if self.transition then
+        resources.audio.game_music:setVolume(1 - self.transition)
     end
 end
 
@@ -166,6 +184,8 @@ function Game:keypressed(k, u)
             for k,e in pairs(self.world:findByType("Asteroid")) do
                 e:crush()
             end
+        elseif k == "p" then
+            self:addPowerup()
         end
     end
 end

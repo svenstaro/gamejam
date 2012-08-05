@@ -22,6 +22,7 @@ end
 
 function Menu:start()
     resources.audio.menu_music:play()
+    resources.audio.menu_music:setVolume(1)
 end
 
 function Menu:stop()
@@ -30,6 +31,10 @@ end
 
 function Menu:update(dt)
     self.menu:update(dt)
+
+    if self.transition then
+        resources.audio.menu_music:setVolume(1 - self.transition)
+    end
 end
 
 function Menu:draw()
