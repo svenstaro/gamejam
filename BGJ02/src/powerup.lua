@@ -73,7 +73,7 @@ function Powerup:perform()
 
         self:makeToast("+1 power", {50, 80, 255})
     elseif self.reward == "material" then
-        local add = math.random(3, 10)
+        local add = math.random(1, 4)
         game.materialAvailable = game.materialAvailable + add
         MAX_MATERIAL = MAX_MATERIAL + add
 

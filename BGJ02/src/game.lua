@@ -47,7 +47,7 @@ function Game:reset()
     self.world:clear()
 
     for i = 1, math.random(4,6) do
-        self:addPowerup()
+        self:addPowerup(i)
     end
 
     self.materialAvailable = MAX_MATERIAL
@@ -168,19 +168,21 @@ function Game:draw()
         local a = self.previewAsteroids[i]
         a:draw()
 
-        love.graphics.setFont(resources.fonts.normal)
-        local n = tonumber(math.floor(self.materialAvailable / materialValue(i)))
-        love.graphics.print(n, a.position.x - love.graphics.getFont():getWidth(n) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2 - 10)
+        if i == self.selectedAsteroid then
+            love.graphics.setFont(resources.fonts.normal)
+            local n = tonumber(math.floor(self.materialAvailable / materialValue(i)))
+            love.graphics.print(n, a.position.x + 35 , a.position.y - love.graphics.getFont():getHeight() / 2)
+        end
 
         love.graphics.setFont(resources.fonts.tiny)
         local names = {"small", "medium", "large"}
         local name = names[i]
-        love.graphics.print(name, a.position.x - love.graphics.getFont():getWidth(name) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2 + 10)
+        love.graphics.print(name, a.position.x - love.graphics.getFont():getWidth(name) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2)
     end
 
     local my = self.previewAsteroids[self.selectedAsteroid].position.y
     love.graphics.setColor(255, 255, 255, 30)
-    love.graphics.rectangle("fill", 20, my - 40, 140, 80)
+    love.graphics.rectangle("fill", 20, my - 40, 170, 80)
 end
 
 function Game:mousepressed(x, y, mb)
@@ -197,12 +199,16 @@ function Game:mousepressed(x, y, mb)
     end
 end
 
-function Game:addPowerup()
+function Game:addPowerup(i)
     local rewards = {"material", "multiplier", "power"}
-    self.world:add(Powerup(Vector(
+    local p = Powerup(Vector(
         arena.size.x * (math.random() * 0.5 - 0.25), 
         arena.size.y * (math.random() * 0.5 - 0.25)
-        ), rewards[math.random(1,3)]))
+        ), rewards[math.random(1,3)])
+    if i then
+        p.dieAt = i * 5
+    end
+    self.world:add(p)
 end
 
 function Game:update(dt)

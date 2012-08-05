@@ -18,7 +18,6 @@ function Explosion:__init(position, size)
     self.particleSystem:setEmissionRate(20)
     self.particleSystem:setParticleLife(2)
     self.particleSystem:setSpeed(50)
-    print("const")
 end
 
 function Explosion:update(dt)
@@ -28,8 +27,6 @@ function Explosion:update(dt)
     end
 
     self.particleSystem:update(dt)
-
-    print(self.particleSystem:count())
 end
 
 function Explosion:draw()
