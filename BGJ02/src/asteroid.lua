@@ -100,6 +100,10 @@ function Asteroid:crush()
 
     resources.audio.explosion_asteroid:play()
 
+    self:kill()
+end
+
+function Asteroid:kill()
     --check gameover condition
     local all_asteroids = self.world:findByType("Asteroid")
     if #all_asteroids - 1 <= 0 then
@@ -108,7 +112,7 @@ function Asteroid:crush()
         end
     end
 
-    self:kill()
+    PolygonEntity.kill(self)
 end
 
 function Asteroid:scheduleCrush()
