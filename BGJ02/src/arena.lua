@@ -172,7 +172,6 @@ function Arena:update(dt)
         game.world:add(self.unspawnedAsteroid)
         self.unspawnedAsteroid = nil
         resources.audio.sling:play()
-
     end
 end
 

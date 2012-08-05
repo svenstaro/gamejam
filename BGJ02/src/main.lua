@@ -44,6 +44,7 @@ function love.load()
     resources:addImage("background", "background.png")
 
     -- load fonts
+    resources:addFont("toast", "DejaVuSans.ttf", 10)
     resources:addFont("tiny", "DejaVuSans.ttf", 14)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
     resources:addFont("huge", "DejaVuSans.ttf", 30)

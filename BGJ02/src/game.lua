@@ -42,7 +42,9 @@ function Game:reset()
 end
 
 function Game:addScore(score)
-    self.score = self.score + score * self.multiplier
+    local s = score * self.multiplier
+    ship:makeToast("+" .. s, {255, 255, 128})
+    self.score = self.score + s
 end
 
 function Game:addShake(shake)
