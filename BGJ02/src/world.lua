@@ -27,6 +27,13 @@ function World:beginContact(a, b, coll)
             uB:scheduleCrush()
             uA:hitByAsteroid(uB)
         end
+    elseif areUserData(uA, uB, "Powerup", "Asteroid") then
+        if uA.__name == "Powerup" then
+            uA:perform()
+        else
+            uB:perform()
+        end
+
     end
 end
 
