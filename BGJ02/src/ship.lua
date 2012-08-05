@@ -111,7 +111,8 @@ function Ship:shoot()
     if self.timeUntilShoot <= 0 and self.world then
         local b = Bullet(self.position, self.velocity, self.rotation)
         self.world:add(b)
-        self.timeUntilShoot = 0.5
+        game.score = game.score + 1
+        self.timeUntilShoot = 0.3
     end
 end
 
