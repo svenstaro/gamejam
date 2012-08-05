@@ -10,27 +10,21 @@ function ShipAI:__init()
 end
 
 function ShipAI:update(dt)
+    local arena = self.world:findByType("Arena")[1]
     local asteroids = self.world:findByType("Asteroid")
 
     local v = Vector(0,0)
     local shortestDistance = math.huge
-    for i, a in pairs(asteroids) do
-        local distance = a.position - self.position
-        if distance:len2() > 0 and distance:len() < 200 then
-            local dist = distance / distance:len2()
-            --fly away
-            v = v - dist
-            --adapt to asteroid movement
-            v = v + a.velocity / distance:len2()
-            --find shortest distance
-            shortestDistance = math.min(shortestDistance, distance:len())
+    for x = -1, 1 do
+        for y = -1, 1 do
+            v, shortestDistance = self:checkAsteroids(v, shortestDistance, asteroids, x * arena.size.x, y * arena.size.y)
         end
     end
 
     -- fear the mouse
     local distance = getMouseVector() - self.position
     local dist = distance / distance:len2()
-    v = v - dist * 2
+    --v = v - dist * 2
 
     if v:len2() > 0 then
         --go towards center
@@ -104,4 +98,21 @@ end
 
 function ShipAI:hitByAsteroid(asteroid)
     self.crashScheduled = true
+end
+
+function ShipAI:checkAsteroids(v, shortestDistance, asteroids, x, y)
+    local offset = Vector(x, y)
+    for i, a in pairs(asteroids) do
+        local distance = (a.position + offset) - self.position
+        if distance:len2() > 0 and distance:len() < 200 then
+            local dist = distance / distance:len2()
+            --fly away
+            v = v - dist
+            --adapt to asteroid movement
+            v = v + a.velocity / distance:len2()
+            --find shortest distance
+            shortestDistance = math.min(shortestDistance, distance:len())
+        end
+    end
+    return v, shortestDistance
 end
