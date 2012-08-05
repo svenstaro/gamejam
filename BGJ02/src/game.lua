@@ -50,6 +50,7 @@ function Game:resetShip()
 end
 
 function Game:start()
+    resources.audio.background:setVolume(1)
     resources.audio.background:play()
 end
 
@@ -133,6 +134,10 @@ function Game:update(dt)
 
     for i = 1,3 do
         self.previewAsteroids[i]:update(dt)
+    end
+
+    if self.transition then
+        resources.audio.background:setVolume(1 - self.transition)
     end
 end
 
