@@ -15,6 +15,8 @@ function Menu:__init()
         if index == 1 then
             game:reset()
             self:transitionTo(game)
+        elseif index == 2 then
+            self:transitionTo(credits)
         elseif index == 3 then
             stopGame()
         end

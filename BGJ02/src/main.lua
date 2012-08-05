@@ -1,11 +1,12 @@
 require("game")
 require("intro")
+require("credits")
 require("menu")
 require("util/resources")
 
 tween = require("externals/tween/tween")
 
--- debug = false
+debug = false
 
 resources = Resources("data/")
 currentState = nil
@@ -27,6 +28,7 @@ function reset()
     -- start game
     intro = Intro()
     menu = Menu()
+    credits = Credits()
     game = Game()
 
     if debug then
