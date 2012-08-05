@@ -84,8 +84,7 @@ function ShipAI:update(dt)
 
     Ship.update(self, dt)
 
-    if shortestDistance < math.huge then
-        
+    if shortestDistance < math.huge and self:wouldHitAsteroid() then
         self:shoot()
     end
 end
@@ -122,4 +121,8 @@ function ShipAI:checkAsteroids(v, shortestDistance, asteroids, x, y)
         shortestDistance = math.min(shortestDistance, distance:len())
     end
     return v, shortestDistance
+end
+
+function ShipAI:wouldHitAsteroid()
+    return true
 end
