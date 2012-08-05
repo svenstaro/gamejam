@@ -62,30 +62,31 @@ function ShipAI:update(dt)
         end
     else
         if shortestDistance < math.huge then
-            --self.rotation = self.rotation + turn_speed * dt
-            local direction = asteroids[1].position - self.position
-            
-            --local rotatedVector = Vector(0,-1):rotated(self.rotation)
+            local asteroid_position = asteroids[1].position
+            local asteroid_direction = asteroid_position - self.position
+            asteroid_position = asteroid_position + (asteroids[1].velocity * asteroid_direction:len() * 0.01)
+
+            local direction = asteroid_position - self.position
+--self.directionVector = direction
             local rotatedVector = Vector(1,0):rotated(self.rotation)
+--self.directionVector = rotatedVector * 300
             local angle = rotatedVector:angleTo(direction)
-            if angle > 0.01 then
-                local clockwise = rotatedVector:rotated(0.001):angleTo(v) < angle
+            if angle > 0 then
+                local clockwise = rotatedVector:rotated(0.001):angleTo(direction) < angle
                 local factor = 1
                 if not clockwise then
                     factor = -1
                 end
-                self.rotation = self.rotation + math.min(angle, ai_turn_speed * factor * dt)
+                self.rotation = self.rotation + math.min(angle, ai_turn_speed * dt) * factor
+            end
+            if angle < 0.1 then
+                self:shoot()
             end
         end
     end
 
     --for debug purposes
     self.directionVector = v
-
-    if shortestDistance < math.huge then
-        local target = Vector(500, 0):rotated(self.rotation) + self.position
-        self.world.physicsWorld:rayCast(self.position.x, self.position.y, target.x, target.y, function(fixture, x, y, xn, yn, fraction) return self:wouldHitAsteroid(fixture, x, y, xn, yn, fraction) end)
-    end
 
     Ship.update(self, dt)
 end
@@ -112,7 +113,7 @@ function ShipAI:checkAsteroids(v, shortestDistance, asteroids, x, y)
     for i, a in pairs(asteroids) do
         local distance = (a.position + offset) - self.position
         if distance:len2() > 0 and distance:len() < 200 then
-            local dist = distance / distance:len2()
+            local dist = (distance / distance:len2()) / distance:len2()
             --fly away
             v = v - dist
             --adapt to asteroid movement
