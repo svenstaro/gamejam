@@ -1,6 +1,7 @@
 require("util/helper")
 require("util/vector")
 require("entity")
+require("toast")
 
 Powerup = class("Powerup", Entity)
 
@@ -65,14 +66,18 @@ function Powerup:perform()
     if self.reward == "multiplier" then
         game.multiplier = game.multiplier + 1
         game.multiplierTimer = MULTIPLIER_DELAY
+
+        self:makeToast("+1 multiplier", {255, 128, 0})
     elseif self.reward == "power" then
         game.power = game.power + 1
+
+        self:makeToast("+1 power", {50, 80, 255})
     elseif self.reward == "material" then
         local add = math.random(3, 10)
         game.materialAvailable = game.materialAvailable + add
         MAX_MATERIAL = MAX_MATERIAL + add
+
+        self:makeToast("+" .. add .. " material", {20, 240, 20})
     end
-
-
     self:kill()
 end
