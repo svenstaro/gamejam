@@ -43,7 +43,9 @@ end
 
 function Game:addScore(score)
     local s = score * self.multiplier
-    ship:makeToast("+" .. s, {255, 255, 128})
+    local f = resources.fonts.toast
+    if s > 20 then f = resources.fonts.normal end
+    ship:makeToast("+" .. s, {255, 255, 128}, f)
     self.score = self.score + s
 end
 

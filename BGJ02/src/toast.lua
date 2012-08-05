@@ -22,6 +22,9 @@ function Toast:draw()
     if self.lifetime > 1.5 then
         a = 1 - (self.lifetime - 1.5) * 2
     end
+
+    a = a * (1 - math.abs(math.sin(self.lifetime * 10)) * 0.4)
+
     local v = self.color[4] or 255
     love.graphics.setColor(self.color[1], self.color[2], self.color[3], v * a)
 
