@@ -100,6 +100,14 @@ function Asteroid:crush()
 
     resources.audio.explosion_asteroid:play()
 
+    --check gameover condition
+    local all_asteroids = self.world:findByType("Asteroid")
+    if #all_asteroids - 1 <= 0 then
+        if game.materialAvailable <= 0 then
+            game:isOver()
+        end
+    end
+
     self:kill()
 end
 
