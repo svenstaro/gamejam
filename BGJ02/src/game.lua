@@ -211,6 +211,8 @@ function Game:draw()
         local names = {"small", "medium", "large"}
         local name = names[i]
         love.graphics.print(name, a.position.x - love.graphics.getFont():getWidth(name) - 35 , a.position.y - love.graphics.getFont():getHeight() / 2)
+
+        love.graphics.print(i, a.position.x-94, a.position.y-30)
     end
 
     local my = self.previewAsteroids[self.selectedAsteroid].position.y
