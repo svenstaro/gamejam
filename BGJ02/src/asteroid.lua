@@ -88,6 +88,7 @@ function Asteroid:generate()
 end
 
 function Asteroid:crush()
+    game:addShake(self.size + 2)
     if self.size > 1 then
         for i = 1,3 do
             local a = Asteroid(self.size - 1)

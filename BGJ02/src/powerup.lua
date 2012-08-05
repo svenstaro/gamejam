@@ -65,6 +65,12 @@ function Powerup:perform()
     if self.reward == "multiplier" then
         game.multiplier = game.multiplier + 1
         game.multiplierTimer = MULTIPLIER_DELAY
+    elseif self.reward == "power" then
+        game.power = game.power + 1
+    elseif self.reward == "material" then
+        local add = math.random(3, 10)
+        game.materialAvailable = game.materialAvailable + add
+        MAX_MATERIAL = MAX_MATERIAL + add
     end
 
 

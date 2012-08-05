@@ -35,12 +35,18 @@ end
 function Game:reset()
     self.score = 0
     self.multiplier = 1
+    self.power = 20
     self.multiplierTimer = 0
+    self.shake = 0
     self:resetShip()
 end
 
 function Game:addScore(score)
     self.score = self.score + score * self.multiplier
+end
+
+function Game:addShake(shake)
+    self.shake = self.shake + shake
 end
 
 function Game:resetShip()
@@ -67,6 +73,8 @@ function Game:stop()
 end
 
 function Game:draw()
+    love.graphics.translate(math.random() * self.shake, math.random() * self.shake)
+
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
@@ -96,7 +104,7 @@ function Game:draw()
         - love.graphics.getFont():getHeight() / 2)
 
     love.graphics.setFont(resources.fonts.huge)
-    s = "x" .. tonumber(self.multiplier)
+    s = "x" .. tonumber(self.multiplier) .. " / power " .. tonumber(self.power)
     love.graphics.print(s, 
         - love.graphics.getFont():getWidth(s) / 2,
         - love.graphics.getFont():getHeight() / 2 + 80)
@@ -179,6 +187,9 @@ function Game:update(dt)
         self:addPowerup()
     end
 
+    local shake_time = 0.4
+    self.shake = self.shake * (1 - dt / shake_time)
+
     if self.multiplierTimer > 0 then
         self.multiplierTimer = self.multiplierTimer - dt
     end
@@ -238,4 +249,5 @@ end
 function Game:shipCrashed()
     resources.audio.explosion_player:play()
     self:resetShip()
+    self:addShake(100)
 end
