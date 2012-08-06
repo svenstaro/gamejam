@@ -132,9 +132,8 @@ function Ship:shoot()
         self.world:add(b)
         game:addScore(1)
         self.timeUntilShoot = shoot_delay
+        resources.audio.shot:play()
     end
-
-    resources.audio.shot:play()
 end
 
 function Ship:hitByAsteroid(asteroid) end
