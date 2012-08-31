@@ -4,3 +4,14 @@ body {
     color: #FFF;
     background: #333;
 }
+
+#canvas {
+    display: inline-block;
+}
+
+#info {
+    display: inline-block;
+    margin: 0;
+    margin-left: 10px;
+    vertical-align: top;
+}
