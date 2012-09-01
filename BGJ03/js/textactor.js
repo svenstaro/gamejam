@@ -30,7 +30,8 @@ LevelName = TextActor.extend(
         var st = gamvas.state.getCurrentState();
         
         st.c.fillStyle = '#000';
-        st.c.fillRect(0,575,800,25); 
+        //st.c.fillRect(this.position.x,575,800,25); 
+        st.c.fillRect(this.position.x - 120,this.position.y - 594 + 575,800,25); 
         
         st.c.fillStyle = this.color;
         st.c.font = this.font;
