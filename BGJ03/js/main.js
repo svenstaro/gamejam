@@ -1,20 +1,16 @@
-mainState = gamvas.State.extend({
+MainState = gamvas.State.extend({
         init: function() {
             gamvas.physics.pixelsPerMeter = 32;
 
             // disable object sleeping (third parameter is false)
-            var w = gamvas.physics.resetWorld(0, 9.8, false);
+            var w = gamvas.physics.resetWorld(0, 0, false);
+            gamvas.physics.setGravity(new gamvas.Vector2D(0, 1));
+
+            this.addActor(new Player("player", 0, 0));
         },
 
         draw: function(t) {
-            if (gamvas.key.isPressed(gamvas.key.LEFT)) {
-            }
-            if (gamvas.key.isPressed(gamvas.key.RIGHT)) {
-            }
-            if (gamvas.key.isPressed(gamvas.key.UP)) {
-            }
-            if (gamvas.key.isPressed(gamvas.key.DOWN)) {
-            }
+            gamvas.physics.drawDebug();
         },
 
         onMouseDown: function(b, x, y) {
@@ -32,6 +28,6 @@ mainState = gamvas.State.extend({
 //
 // fire up our game
 gamvas.event.addOnLoad(function() {
-    gamvas.state.addState(new mainState('mainState'));
+    gamvas.state.addState(new MainState('MainState'));
     gamvas.start('gameCanvas', true);
 });
