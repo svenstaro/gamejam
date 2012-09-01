@@ -4,14 +4,11 @@ Player = gamvas.Actor.extend({
             this._super(name, x, y);
 
             var st = gamvas.state.getCurrentState();
-            this.setFile(st.resource.getImage('gfx/anim.png'), 32, 32, 4, 10);
+            this.setFile(st.resource.getImage('gfx/player.png'));
 
             // create a static (non moving) rectangle
             this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
-			
-			//not so hacky anymore
-			this.setFixedRotation(true);
-			
+
             this.getCurrentState().update = function(t) {
                 var f = 1;
 
@@ -29,8 +26,11 @@ Player = gamvas.Actor.extend({
                 }
                 if (gamvas.key.isPressed(gamvas.key.DOWN)
                     || gamvas.key.isPressed(gamvas.key.S)) {
-					this.actor.setFile(st.resource.getImage('gfx/anim.png'), 32, 32, 4, 10);
                 }
+
+                // oh so hacky
+                this.actor.body.m_torque = 0;
+                this.actor.body.m_angularVelocity = 0;
             };
         }
 });
