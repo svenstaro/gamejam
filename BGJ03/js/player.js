@@ -8,9 +8,9 @@ Player = gamvas.Actor.extend({
         this.gun = new Gun("gun", this);
         st.addActor(this.gun);
 
-        this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10));
-        this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
-        this.setAnimation("anim1");
+        this.addAnimation(new gamvas.Animation("right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10));
+        this.addAnimation(new gamvas.Animation("left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
+        this.setAnimation("right");
 
         // create a static (non moving) rectangle
         //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
@@ -48,6 +48,19 @@ Player = gamvas.Actor.extend({
                 this.actor.body.m_linearVelocity.x = f;
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
+            }
+            
+            if(this.actor.body.m_linearVelocity.x > 0.5)
+            {
+                this.actor.setAnimation("right");
+            }
+            else if(this.actor.body.m_linearVelocity.x < -0.5)
+            {
+                this.actor.setAnimation("left");
+            }
+            else
+            {
+                
             }
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
