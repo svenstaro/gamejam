@@ -57,12 +57,12 @@ Player = gamvas.Actor.extend({
         
         this.getCurrentState().onCollisionEnter = function(collider)
         {
-            if(collider.type == "tile" && collider.position.y - this.actor.position.y - TILESIZE > Math.abs(collider.position.x - this.actor.position.x))
-            //if(collider.type == "tile")
+            //if(collider.type == "tile" && collider.position.y - this.actor.position.y - TILESIZE > Math.abs(collider.position.x - this.actor.position.x))
+            if(collider.type == "tile")
             {
                 this.actor.contacts.push(collider);
             }
-            println((collider.position.y - this.actor.position.y)+" > "+Math.abs(collider.position.x - this.actor.position.x));
+            //println((collider.position.y - this.actor.position.y - TILESIZE/2)+" > "+Math.abs(collider.position.x - this.actor.position.x));
         };
         
         this.getCurrentState().onCollisionLeave = function(collider)
@@ -74,7 +74,13 @@ Player = gamvas.Actor.extend({
     isOnGround: function() {
         if(this.contacts.length > 0)
         {
-            return true;
+            for(var i = 0; i < this.contacts.length; ++i)
+            {
+                if(this.contacts[i].position.y - this.position.y - TILESIZE > Math.abs(this.contacts[i].position.x - this.position.x))
+                {
+                    return true;
+                }
+            }
         }
         return false;
     },
