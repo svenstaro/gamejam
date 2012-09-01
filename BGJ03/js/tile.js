@@ -3,7 +3,6 @@ Tile = gamvas.Actor.extend({
     create: function(name, x, y, xOffset, yOffset, tileset, layer)
     {
         this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
-        this.type = "tile";
 
         var st = gamvas.state.getCurrentState();
 
@@ -30,6 +29,7 @@ CollisionTile = gamvas.Actor.extend({
     create: function(name, x, y, collisionindex)
     {
         this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+        this.type = "tile";
 
         // create a static (non moving) rectangle
         this.bodyRect(this.position.x, this.position.y, TILESIZE, TILESIZE, gamvas.physics.STATIC);

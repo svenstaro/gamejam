@@ -51,7 +51,6 @@ Gun = gamvas.Actor.extend({
                         else if(angle == 1) n.y = -1;
                         else if(angle == 2 || angle == -2) n.x = 1;
                         else if(angle == -1) n.y = 1;
-                        println(n);
                         first = [d, actor, n];
                     }
                 }

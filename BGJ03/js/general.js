@@ -3,6 +3,8 @@ var TILESIZE = 32;
 var LEFT_KEYS = [gamvas.key.LEFT, gamvas.key.A];
 var RIGHT_KEYS = [gamvas.key.RIGHT, gamvas.key.D];
 var JUMP_KEYS = [gamvas.key.UP, gamvas.key.W, gamvas.key.SPACE];
+var WINDS_PER_BLAST = 50;
+var WINDS_PER_SECOND = 30;
 
 function print() {
     var textArea = document.getElementById('log');
@@ -44,15 +46,17 @@ function isKey(k, keys) {
     return false;
 }
 
-//returns 0 when failing
-function tryParseInt(value)
-{
-    try
-    {
+LAST_ID = 0;
+function nextId(prefix) {
+    LAST_ID++;
+    return prefix + LAST_ID;
+}
+
+// returns 0 when failing
+function tryParseInt(value) {
+    try {
         return parseInt(value);
-    }
-    catch(e)
-    {
+    } catch(e) {
         return 0;
     }
 }

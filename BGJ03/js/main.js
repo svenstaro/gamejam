@@ -14,26 +14,20 @@ MainState = gamvas.State.extend({
         this.keysPressed = {};
         
         var temp_state = this;
-        $.getJSON('levels/test.json', function(json)
-        {
+        $.getJSON('levels/test.json', function(json) {
             var width = json.width;
             var height = json.height;  
             
-            for(var layerindex = 0; layerindex < json.layers.length; ++layerindex)
-            {
+            for(var layerindex = 0; layerindex < json.layers.length; ++layerindex) {
                 var data = json.layers[layerindex].data;
 
-                for(var y = 0; y < height; y++)
-                {
-                    for(var x = 0; x < width; x++)
-                    {
+                for(var y = 0; y < height; y++) {
+                    for(var x = 0; x < width; x++) {
                         var tileindex = data[x+width*y];
 
-                        if(tileindex !== 0)
-                        {
+                        if(tileindex !== 0) {
                             var tilesetindex = 0;
-                            while(tilesetindex < json.tilesets.length && json.tilesets[tilesetindex].firstgid > tileindex)
-                            {
+                            while(tilesetindex < json.tilesets.length && json.tilesets[tilesetindex].firstgid > tileindex) {
                                 ++tilesetindex;
                             }
 
@@ -42,16 +36,13 @@ MainState = gamvas.State.extend({
                             var tileX = (tileindex-1) % tilesetLineWidth;
                             var tileY = Math.floor((tileindex-1) / tilesetLineWidth);
 
-                            if(json.layers[layerindex].name != "collision")
-                            {
+                            if(json.layers[layerindex].name != "collision") {
                                 temp_state.addActor(new Tile("tile-" + x + "-" + y + "-onlayer-"+layerindex, 
                                                                 x, y,
                                                                 tileX, tileY,
                                                                 'levels/'+json.tilesets[tilesetindex].image,
                                                                 tryParseInt(json.layers[layerindex].name)));
-                            }
-                            else
-                            {
+                            } else {
                                 temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileindex));
                             }
                         }
@@ -70,9 +61,9 @@ MainState = gamvas.State.extend({
         gamvas.config.preventMouseEvents = false;
     },
 
-    //draw: function(t) {
+    draw: function(t) {
         //gamvas.physics.drawDebug();
-    //},
+    },
 
     onMouseDown: function(b, x, y) {
         if (b == gamvas.mouse.LEFT || b == gamvas.mouse.RIGHT) {
