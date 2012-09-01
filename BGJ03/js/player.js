@@ -62,7 +62,7 @@ Player = gamvas.Actor.extend({
             {
                 this.actor.contacts.push(collider);
             }
-            println((collider.position.y - this.actor.position.y)+" > "+Math.abs(collider.position.x - this.actor.position.x));
+            // println((collider.position.y - this.actor.position.y)+" > "+Math.abs(collider.position.x - this.actor.position.x));
         };
         
         this.getCurrentState().onCollisionLeave = function(collider)

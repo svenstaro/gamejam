@@ -6,15 +6,27 @@ BlastEmissionState = gamvas.ActorState.extend({
 
     update: function(t) {
         this.lifetime += t;
+
+        var t = this.lifetime / 2.0;
+        var min = -0.8 * t * t + 1.6 * t;
+        var max = min + 0.2;
         
         var targets = this.actor.castRays();
         for(var i = 0; i < targets.length; ++i) {
             var actor = targets[i][0];
             var d = targets[i][1];
 
+            // over lifetime, the range of d's varies
+            // p   -> min - max
+            // 0.0 -> 0 - 0.2
+            // 1.0 -> 0.8 - 1
+            var p = d / 2.0;
+            if(p < min || p > max) continue;
+
             var diff = new b2Vec2(
                 gamvas.physics.toWorld(actor.position.x - this.actor.position.x),
                 gamvas.physics.toWorld(actor.position.y - this.actor.position.y));
+
             diff.Normalize();
             diff.Multiply((1 - d) * this.actor.windForce);
             actor.body.ApplyForce(diff, new b2Vec2());
@@ -73,6 +85,9 @@ Blast = gamvas.Actor.extend({
         this.addState(new BlastEmissionState());
         this.addState(new DyingState(1));
         this.setState("emission");
+
+        this.particles = new Wind(this.position.x, this.position.y, this.rotation);
+        gamvas.state.getCurrentState().addActor(this.particles);
     },
 
     // returns a list of pairs like [actor, fraction]
