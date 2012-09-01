@@ -14,7 +14,7 @@ Player = gamvas.Actor.extend({
         this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
         this.setFixedRotation(true);
         this.fixture.SetFriction(0);
-		this.fixture.SetRestitution(0);
+        this.fixture.SetRestitution(0);
 
         this.inAirJump = false;
 
