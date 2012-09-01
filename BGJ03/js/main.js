@@ -16,10 +16,13 @@ MainState = gamvas.State.extend({
                     this.addActor(new Tile("tile-" + x + "-" + y, x, y));
                 }
             }
+			
+			gamvas.config.preventKeyEvents = false;
+			gamvas.config.preventMouseEvents = false;
         },
 
         draw: function(t) {
-            gamvas.physics.drawDebug();
+            //gamvas.physics.drawDebug();
         },
 
         onMouseDown: function(b, x, y) {

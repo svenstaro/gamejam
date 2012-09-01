@@ -4,7 +4,7 @@ Tile = gamvas.Actor.extend({
             this._super(name, x * TILESIZE, y * TILESIZE);
 
             var st = gamvas.state.getCurrentState();
-            this.setFile(st.resource.getImage('gfx/tile.png'));
+            this.setFile(st.resource.getImage('gfx/wall.png'));
 
             // create a static (non moving) rectangle
             this.bodyRect(this.position.x, this.position.y, TILESIZE, TILESIZE, gamvas.physics.STATIC);
