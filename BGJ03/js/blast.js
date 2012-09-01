@@ -13,7 +13,21 @@ Blast = gamvas.Actor.extend({
         this.setAnimation("idle");
         this.center = new gamvas.Vector2D(0, 16);
 
+        this.accumulator = 0;
+        this.winds = 0;
+
         this.getCurrentState().update = function(t) {
+            this.actor.accumulator += t;
+            var dt = 1 / WINDS_PER_SECOND;
+            while(this.actor.accumulator > dt && this.actor.winds < WINDS_PER_BLAST) {
+                // spawn a wind particle
+                var w = new Wind(nextId("wind"), this.actor.position.x, this.actor.position.y, this.actor.rotation);
+                gamvas.state.getCurrentState().addActor(w);
+                this.actor.winds++;
+                this.actor.accumulator -= dt;
+            }
+
+
         };
     }
 });

@@ -57,9 +57,9 @@ MainState = gamvas.State.extend({
         gamvas.config.preventMouseEvents = false;
     },
 
-    //draw: function(t) {
-        //gamvas.physics.drawDebug();
-    //},
+    draw: function(t) {
+        gamvas.physics.drawDebug();
+    },
 
     onMouseDown: function(b, x, y) {
         if (b == gamvas.mouse.LEFT || b == gamvas.mouse.RIGHT) {
