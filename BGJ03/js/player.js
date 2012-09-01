@@ -4,14 +4,17 @@ Player = gamvas.Actor.extend({
         this._super(name, x, y);
 
         var st = gamvas.state.getCurrentState();
-        this.gun = new Gun("gun", x, y);
+        this.gun = new Gun("gun", this);
 
         this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/player.png'), 32, 32, 1, 10));
         this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/player.png'), 32, 32, 1, 40));
         this.setAnimation("anim1");
 
         // create a static (non moving) rectangle
-        this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
+        //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
+        this.bodyRect(this.position.x, this.position.y, 16, 32, gamvas.physics.DYNAMIC);
+        this.center.x = 16;
+        this.center.y = 16;
         this.setFixedRotation(true);
         this.fixture.SetFriction(0);
         this.fixture.SetRestitution(0);
@@ -56,7 +59,7 @@ Player = gamvas.Actor.extend({
         }
         this.inAirJump = false;
 
-        this.body.ApplyImpulse(new b2Vec2(0, -9), new b2Vec2(0, 0));
+        this.body.ApplyImpulse(new b2Vec2(0, -4.7), new b2Vec2(0, 0));
         // this.actor.body.m_linearVelocity.y = -8;
     }
 });

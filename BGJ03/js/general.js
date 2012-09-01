@@ -4,15 +4,31 @@ var LEFT_KEYS = [gamvas.key.LEFT, gamvas.key.A];
 var RIGHT_KEYS = [gamvas.key.RIGHT, gamvas.key.D];
 var JUMP_KEYS = [gamvas.key.UP, gamvas.key.W, gamvas.key.SPACE];
 
-function print(t, no_newline) {
+function print() {
     var textArea = document.getElementById('log');
-    if(no_newline === "true") {
-        textArea.innerHTML += t;
-    } else {
-        textArea.innerHTML += t + "\n";
+
+    for(var i = 0; i < arguments.length; i++) {
+        try {
+            if(typeof arguments[i] == "object")
+                textArea.innerHTML += JSON.stringify(arguments[i]);
+            else
+                textArea.innerHTML += arguments[i];
+        } catch(e) {
+            textArea.innerHTML += arguments[i];
+        }
     }
     textArea.scrollTop += 1000;
 }
+
+function println() {
+    var x = [];
+    for(var i = 0; i < arguments.length; i++) {
+        x.push(arguments[i]);
+    }
+    x.push("\n");
+    print.apply({}, x);
+}
+
 
 function isKeyDown(keys) {
     for(var i = 0; i < keys.length; ++i) {

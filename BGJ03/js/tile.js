@@ -3,6 +3,7 @@ Tile = gamvas.Actor.extend({
     create: function(name, x, y, xOffset, yOffset, tileset)
     {
         this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+        this.type = "tile";
 
         var st = gamvas.state.getCurrentState();
 
