@@ -5,11 +5,12 @@ Gun = gamvas.Actor.extend({
         this.player = player;
 
         var st = gamvas.state.getCurrentState();
-        this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/gun.png'), 32, 32, 1, 40));
-        this.setAnimation("idle");
-        this.center = new gamvas.Vector2D(16, 16);
+        //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/gun.png'), 32, 32, 1, 40));
+        //this.setAnimation("idle");
+        this.setFile(st.resource.getImage('gfx/gun.png'));
+        this.center = new gamvas.Vector2D(3, 15);
         
-        this.layer = -0.5;
+        this.layer = -0.1;
 
         this.getCurrentState().update = function(t) {
             this.actor.aim();
