@@ -16,14 +16,14 @@ Player = gamvas.Actor.extend({
         //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
         //this.bodyRect(this.position.x, this.position.y, 32, 64, gamvas.physics.DYNAMIC);
         var vertices = Array();
-        vertices.push(new b2Vec2(0.4, 0.9));
+        vertices.push(new b2Vec2(0.4, 0.7));
         vertices.push(new b2Vec2(0.3, 1.0));
         vertices.push(new b2Vec2(-0.3, 1.0));
-        vertices.push(new b2Vec2(-0.4, 0.9));
-        vertices.push(new b2Vec2(-0.4, -0.9));
+        vertices.push(new b2Vec2(-0.4, 0.7));
+        vertices.push(new b2Vec2(-0.4, -0.7));
         vertices.push(new b2Vec2(-0.3, -1.0));
         vertices.push(new b2Vec2(0.3, -1.0));
-        vertices.push(new b2Vec2(0.4, -0.9));
+        vertices.push(new b2Vec2(0.4, -0.7));
         var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
         polygon.SetAsArray(vertices, vertices.length);
         this.createBody(gamvas.physics.DYNAMIC, polygon);
@@ -57,7 +57,7 @@ Player = gamvas.Actor.extend({
         
         this.getCurrentState().onCollisionEnter = function(collider)
         {
-            if(collider.type == "tile" && collider.position.y - this.actor.position.y > Math.abs(collider.position.x - this.actor.position.x))
+            if(collider.type == "tile" && collider.position.y - this.actor.position.y - TILESIZE > Math.abs(collider.position.x - this.actor.position.x))
             //if(collider.type == "tile")
             {
                 this.actor.contacts.push(collider);
