@@ -3,6 +3,8 @@ Player = gamvas.Actor.extend({
     create: function(name, x, y) {
         this._super(name, x, y);
 
+        this.inAirJump = false;
+
         var st = gamvas.state.getCurrentState();
         this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/anim.png'), 32, 32, 4, 10));
         this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/anim.png'), 32, 32, 4, 40));
@@ -15,7 +17,7 @@ Player = gamvas.Actor.extend({
 		this.fixture.SetRestitution(0);
 
         this.getCurrentState().update = function(t) {
-            var f = 4;
+            var f = 6;
 
             if (gamvas.key.isPressed(gamvas.key.LEFT) 
                 || gamvas.key.isPressed(gamvas.key.A)) {
@@ -36,6 +38,10 @@ Player = gamvas.Actor.extend({
                     || gamvas.key.isPressed(gamvas.key.S)) {
                         this.actor.setAnimation("anim1");
                     }
+
+            if (this.actor.isOnGround() && this.actor.inAirJump) {
+                this.actor.jump();
+            }
         };
     },
 
@@ -52,9 +58,13 @@ Player = gamvas.Actor.extend({
     },
 
     jump: function() {
-        if(!this.isOnGround()) return;
+        if(!this.isOnGround()) {
+            this.inAirJump = true;
+            return;
+        }
+        this.inAirJump = false;
 
-        this.body.ApplyImpulse(new b2Vec2(0, -4), new b2Vec2(0, 0));
+        this.body.ApplyImpulse(new b2Vec2(0, -9), new b2Vec2(0, 0));
         // this.actor.body.m_linearVelocity.y = -8;
     }
 });
