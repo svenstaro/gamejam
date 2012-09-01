@@ -47,17 +47,19 @@ Player = gamvas.Actor.extend({
         this.getCurrentState().update = function(t) {
             var f = 6;
 
-            this.actor.gun.position = new gamvas.Vector2D(this.actor.position.x - 4, this.actor.position.y+6);
+            this.actor.gun.position = new gamvas.Vector2D(this.actor.position.x - 1, this.actor.position.y+10);
 
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
                 this.lookDirectionRight = false;
                 this.actor.gun.layer = 0.1;
+                this.actor.gun.image.setScaleXY(1,-1);
                 this.actor.setAnimation("walk-left");
             } else if (isKeyDown(RIGHT_KEYS)) {
                 this.actor.body.m_linearVelocity.x = f;
                 this.lookDirectionRight = true;
                 this.actor.gun.layer = -0.1;
+                this.actor.gun.image.setScaleXY(1,1);
                 this.actor.setAnimation("walk-right");
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
@@ -66,7 +68,7 @@ Player = gamvas.Actor.extend({
             this.actor.setAnimation(
                     (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk")
                     + "-" +
-                    (this.lookDirectionRight == 1 ? "right" : "left"));
+                    (this.lookDirectionRight ? "right" : "left"));
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
                 this.actor.jump();

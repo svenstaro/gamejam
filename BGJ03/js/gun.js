@@ -7,14 +7,27 @@ Gun = gamvas.Actor.extend({
         var st = gamvas.state.getCurrentState();
         //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/gun.png'), 32, 32, 1, 40));
         //this.setAnimation("idle");
-        this.setFile(st.resource.getImage('gfx/gun.png'));
+        
+        this.image = new gamvas.Image(st.resource.getImage('gfx/gun.png'));
+        //this.setFile(st.resource.getImage('gfx/gun.png'));
+        
         this.center = new gamvas.Vector2D(3, 15);
+        this.image.center = new gamvas.Vector2D(3, 15);
         
         this.layer = -0.1;
 
-        this.getCurrentState().update = function(t) {
+        /*this.getCurrentState().update = function(t) {
             this.actor.aim();
-        };
+        };*/
+    },
+    
+    draw: function(t)
+    {
+        this.aim();
+        // and you thought YOU were hacking
+        this.image.setPosition(this.position.x, this.position.y);
+        this.image.setRotation(this.rotation);
+        this.image.draw();
     },
 
     aim: function() {

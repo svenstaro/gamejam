@@ -61,7 +61,8 @@ Tile = gamvas.Actor.extend({
         var st = gamvas.state.getCurrentState();
 
         this.image = new gamvas.Image(st.resource.getImage(tileset));
-        this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
+        //this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
+        this.image.position = this.position;
         this.image.move(-(xOffset + 0.5) * TILESIZE, -(yOffset + 0.5) * TILESIZE);
         this.image.setClipRect(xOffset * TILESIZE, yOffset * TILESIZE, TILESIZE, TILESIZE);
 
