@@ -3,8 +3,13 @@ var TILESIZE = 32;
 var LEFT_KEYS = [gamvas.key.LEFT, gamvas.key.A];
 var RIGHT_KEYS = [gamvas.key.RIGHT, gamvas.key.D];
 var JUMP_KEYS = [gamvas.key.UP, gamvas.key.W, gamvas.key.SPACE];
-var WINDS_PER_BLAST = 50;
-var WINDS_PER_SECOND = 30;
+var BLAST_ANGLE = Math.PI / 4;
+var BLAST_DISTANCE = 8;
+var BLAST_RAYS = 10;
+var WIND_FORCE_VERTICAL = 20;
+var WIND_FORCE_HORIZONTAL = 80;
+var WIND_FORCE_PLAYER = 30;
+var RECOIL = 2;
 
 function print() {
     var textArea = document.getElementById('log');

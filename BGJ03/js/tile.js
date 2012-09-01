@@ -22,6 +22,7 @@ Tile = gamvas.Actor.extend({
 });
 
 CollisionTile = gamvas.Actor.extend({
+    blockWind: true,
     create: function(name, x, y, collisionindex)
     {
         this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
