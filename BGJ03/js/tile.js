@@ -33,3 +33,14 @@ CollisionTile = gamvas.Actor.extend({
         this.fixture.SetRestitution(0);
     }
 });
+
+DeathTile = gamvas.Actor.extend({
+    create: function(name, x, y, collisionindex)
+    {
+        this._super(name, (x + 0.5) * TILESIZE, (y + 0.75) * TILESIZE);
+
+        // create a static (non moving) rectangle
+        this.bodyRect(this.position.x, this.position.y, TILESIZE, TILESIZE / 2, gamvas.physics.STATIC);
+        this.setSensor(true);
+    }
+});
