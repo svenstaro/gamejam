@@ -39,7 +39,7 @@ Player = gamvas.Actor.extend({
                         this.actor.setAnimation("anim1");
                     }
 
-            if (this.actor.isOnGround() && this.actor.inAirJump) {
+            if (this.actor.isOnGround() && this.actor.inAirJump && gamvas.key.isPressed(gamvas.key.UP)) {
                 this.actor.jump();
             }
         };
