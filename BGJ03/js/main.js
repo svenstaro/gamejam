@@ -25,7 +25,8 @@ MainState = gamvas.State.extend({
     },
 
     draw: function(t) {
-        gamvas.physics.drawDebug();
+        this.camera.position = this.player.position;
+        // gamvas.physics.drawDebug();
     },
 
     onMouseDown: function(b, x, y) {

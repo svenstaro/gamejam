@@ -31,7 +31,7 @@ Gun = gamvas.Actor.extend({
     },
 
     aim: function() {
-        var m = gamvas.mouse.getPosition();
+        var m = mousePosition();
         var p = this.position;
         this.rotation = Math.atan2(m.y - p.y, m.x - p.x);
     },
@@ -73,9 +73,9 @@ Gun = gamvas.Actor.extend({
                 return true;
             };
 
-            var mouse = new b2Vec2(
-                    gamvas.physics.toWorld(gamvas.mouse.getX()),
-                    gamvas.physics.toWorld(gamvas.mouse.getY()));
+            var mouse = mousePosition();
+            mouse.x = gamvas.physics.toWorld(mouse.x);
+            mouse.y = gamvas.physics.toWorld(mouse.y);
 
             var end = new b2Vec2(mouse.x, mouse.y);
             end.Subtract(start);

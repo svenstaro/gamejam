@@ -56,14 +56,14 @@ function makeDeathShape(id, x, y) {
 Tile = gamvas.Actor.extend({
     create: function(name, x, y, xOffset, yOffset, tileset, layer)
     {
-        this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+        this._super(name, (x) * TILESIZE, (y) * TILESIZE);
 
         var st = gamvas.state.getCurrentState();
 
         this.image = new gamvas.Image(st.resource.getImage(tileset));
         //this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
         this.image.position = this.position;
-        this.image.move(-(xOffset + 0.5) * TILESIZE, -(yOffset + 0.5) * TILESIZE);
+        this.image.move(-xOffset  * TILESIZE, -yOffset * TILESIZE);
         this.image.setClipRect(xOffset * TILESIZE, yOffset * TILESIZE, TILESIZE, TILESIZE);
 
         this.layer = layer;
@@ -72,7 +72,17 @@ Tile = gamvas.Actor.extend({
     draw: function(t)
     {
         // and you thought YOU were hacking
-        this.image.draw();
+        var s = gamvas.state.getCurrentState();
+        var c = s.camera.position;
+        var d = s.dimension;
+        var b = TILESIZE;
+
+        if (this.position.x > c.x - d.w / 2 - TILESIZE * 3 &&
+            this.position.x < c.x + d.w / 2 + TILESIZE * 3 &&
+            this.position.y > c.y - d.h / 2 - TILESIZE * 3 &&
+            this.position.y < c.y + d.h / 2 + TILESIZE * 3)
+            
+            this.image.draw();
     }
 });
 
