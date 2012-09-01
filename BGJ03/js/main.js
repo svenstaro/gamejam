@@ -3,16 +3,20 @@ MainState = gamvas.State.extend({
         gamvas.physics.pixelsPerMeter = 32;
 
         // disable object sleeping (third parameter is false)
-        var w = gamvas.physics.resetWorld(0, 9.81, false);
+        var w = gamvas.physics.resetWorld(0, 20, false);
 
-        this.camera.setPosition(this.dimension.x / 2, this.dimension.y / 2);
+        this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
 
-        this.player = new Player("player", 0, 0);
+        this.player = new Player("player", this.dimension.w / 2, 100);
         this.addActor(this.player);
 
         for(var x = 0; x < 25; x++) {
             for(var y = 0; y < 18; y++) {
-                if(x == 0 || y > 5) {
+                if(x == 0 || x == 24 || y == 0 || y == 17 ||
+                    (x > 20 && y > 15) ||
+                    (x + 18 - y < 10) ||
+                    (x >= 16 && x < 20 && y == 13)
+                    ) {
                     this.addActor(new Tile("tile-" + x + "-" + y, x, y));
                 }
             }
