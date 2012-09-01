@@ -69,7 +69,7 @@ Gun = gamvas.Actor.extend({
 
             gamvas.physics.getWorld().RayCast(wrapper, start, end);
             if(first[1]) 
-                gamvas.state.getCurrentState().addActor(new Blast("blast", first[1], first[2]));
+                gamvas.state.getCurrentState().addActor(new Blast(nextId("blast-"), first[1], first[2]));
         } else if(mode == "secondary") {
 
         }
