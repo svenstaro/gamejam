@@ -412,9 +412,9 @@ gamvas.config = {
 	 * are not given to the browser, everything else is put through
          *
          * Default:
-         * true
+         * false
          */
-	preventKeyEvents: true,
+	preventKeyEvents: false,
 
         /*
          * Variable: preventMouseEvents
@@ -427,9 +427,9 @@ gamvas.config = {
 	 * returns false, the mouse event will not be put through to the browser.
          *
          * Default:
-         * true
+         * false
          */
-	preventMouseEvents: true,
+	preventMouseEvents: false
 };
 /**
  * Copyright (C) 2012 Heiko Irrgang <hi@93i.de>
@@ -1827,6 +1827,7 @@ gamvas.mouse = {
 gamvas.State = gamvas.Class.extend({
         create: function(name) {
             this._isInitialized = false;
+	    this._removeQueue = [];
 
             /*
              * Variable: disableCamera
@@ -2304,6 +2305,22 @@ gamvas.State = gamvas.Class.extend({
         },
 
         /*
+         * Function: removeActor
+         *
+         * Description:
+         *
+         * Add a <gamvas.Actor> to the state.
+         * Actors added to a state are drawn automatically.
+         *
+         * Parameters:
+         *
+         * act - a <gamvas.Actor> object or a string with the actor name
+         */
+        removeActor: function(act) {
+            this._removeQueue.push(act);
+        },
+
+        /*
          * Function: registerInputEvents
          *
          * Description:
@@ -2415,7 +2432,59 @@ gamvas.State = gamvas.Class.extend({
             }
             sorted.sort(function(a,b) {return (b.layer - a.layer);});
             return sorted;
-        }
+        },
+
+	cleanUp: function() {
+		if (this._removeQueue.length < 1) {
+			return;
+		}
+
+		var world = gamvas.physics.getWorld();
+		var removeNames = [];
+		for (var i in this._removeQueue) {
+			var toremove = null;
+			if (typeof this._removeQueue[i] == 'string') {
+				toremove = this._removeQueue[i];
+			} else {
+				toremove = this._removeQueue[i].name;
+			}
+			removeNames.push(toremove);
+		}
+		var newActors = [];
+		var deleteObj = [];
+		for (var i in this.actors) {
+			if (removeNames.indexOf(i) != -1) {
+				if (this.actors[i].usePhysics) {
+					world.DestroyBody(this.actors[i].body);
+					this.actors[i].body = null;
+				}
+				deleteObj.push(this.actors[i]);
+			} else {
+				newActors[i] = this.actors[i];
+			}
+		}
+		this.actors = newActors;
+
+		var newEventActors = [];
+		for (var i in this.eventActors) {
+			if (removeNames.indexOf(i) != -1) {
+				if ( (this.eventActors[i].usePhysics) && (this.eventActors[i].body !== null) ) {
+					world.DestroyBody(this.eventActors[i].body);
+				}
+				if (deleteObj.indexOf(this.eventActors[i]) < 0) {
+					delete(this.eventActors[i]);
+				}
+			} else {
+				newEventActors[i] = this.eventActors[i];
+			}
+		}
+		this.eventActors = newEventActors;
+
+		for (var i in deleteObj) {
+			delete deleteObj[i];
+		}
+		this._removeQueue = [];
+	}
 });
 /**
  * Copyright (C) 2012 Heiko Irrgang <hi@93i.de>
@@ -2548,6 +2617,7 @@ gamvas.state = {
                         }
                     }
                 }
+                world.ClearForces();
             }
 
             var allActors = cur.getActors();
@@ -2587,9 +2657,7 @@ gamvas.state = {
                 }
                 cur.postDraw(t);
             }
-            if ( (gamvas._usePhys) && (world) ) {
-                world.ClearForces();
-            }
+            cur.cleanUp();
         }
     },
 
@@ -2600,7 +2668,6 @@ gamvas.state = {
             for (var i in cur.eventActors) {
                 cur.eventActors[i].onKeyDown(ev.keyCode, ev.charCode, ev);
             }
-	    console.log('return on state');
             return cur.onKeyDown(ev.keyCode, ev.charCode, ev);
         }
 	return gamvas.key.exitEvent();
@@ -2619,9 +2686,6 @@ gamvas.state = {
     },
 
     onMouseDown: function(ev) {
-        if (ev.preventDefault) {
-            ev.preventDefault();
-        }
         gamvas.key.setPressed(ev.button, true);
         var cur = gamvas.state.getCurrentState();
         if (cur) {
@@ -2639,9 +2703,6 @@ gamvas.state = {
     },
 
     onMouseUp: function(ev) {
-        if (ev.preventDefault) {
-            ev.preventDefault();
-        }
         gamvas.key.setPressed(ev.button, false);
         var cur = gamvas.state.getCurrentState();
         if (cur) {
@@ -2659,9 +2720,6 @@ gamvas.state = {
     },
 
     onMouseMove: function(ev) {
-        if (ev.preventDefault) {
-            ev.preventDefault();
-        }
         gamvas.mouse.setPosition(ev.pageX, ev.pageY);
         var cur = gamvas.state.getCurrentState();
         if (cur) {
@@ -5452,6 +5510,7 @@ gamvas.Actor = gamvas.Class.extend({
      */
     setScale: function(s) {
         this.scaleFactor = s;
+        this.scaleFactor2 = s;
     },
 
     /*
@@ -5477,6 +5536,7 @@ gamvas.Actor = gamvas.Class.extend({
      */
     scale: function(s) {
         this.scaleFactor += s;
+        this.scaleFactor2 += s;
     },
 
     /*
