@@ -6,14 +6,14 @@
  <tileset firstgid="145" name="collision" tilewidth="32" tileheight="32">
   <image source="tilesets/tiles_collision.png" width="160" height="96"/>
  </tileset>
- <layer name="1" width="25" height="18" visible="0">
+ <layer name="1" width="25" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjILBDVroYMcEOtgxlAAfFjwU7SAGAAC/vgGh
+   eJxjYBgFo2AUjILBDVroYMcEOtgxGAEfCXgw20EJAABDDQJJ
   </data>
  </layer>
  <layer name="-1" width="25" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIw0w08EO/mFgByMd7OAdJHaA/EpJusBnB8hsJiDmI8IdpNqBbDYMU2oHH9RMGObDgkF2sCBhYsIPm1sJYWzuYMKDSTGbEEYPR14qmk2KHVV0wAC8LxDR
+   eJxjYBgFIw0w08EO/mFgByMd7OAdJHaA/EpJusBnB8hsJiDmI8IdpNqBbDYMU2oHH9RMGObDgkF2sCBhYsIPm1sJYWzuYMKDSTGb1PCChQ297aiiAwYAO78QKQ==
   </data>
  </layer>
  <layer name="collision" width="25" height="18" opacity="0.59">

@@ -8,7 +8,7 @@ Player = gamvas.Actor.extend({
         this.gun = new Gun("gun", this);
         st.addActor(this.gun);
 
-        this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
+        this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10));
         this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
         this.setAnimation("anim1");
 
