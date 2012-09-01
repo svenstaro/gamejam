@@ -25,7 +25,7 @@ MainState = gamvas.State.extend({
     },
 
     draw: function(t) {
-        //gamvas.physics.drawDebug();
+        gamvas.physics.drawDebug();
     },
 
     onMouseDown: function(b, x, y) {
