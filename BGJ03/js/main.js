@@ -44,11 +44,15 @@ MainState = gamvas.State.extend({
 
                             if(json.layers[layerindex].name != "collision")
                             {
-                                temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, tileX, tileY, 'levels/'+json.tilesets[tilesetindex].image));
+                                temp_state.addActor(new Tile("tile-" + x + "-" + y + "-onlayer-"+layerindex, 
+                                                                x, y,
+                                                                tileX, tileY,
+                                                                'levels/'+json.tilesets[tilesetindex].image,
+                                                                tryParseInt(json.layers[layerindex].name)));
                             }
                             else
                             {
-                                temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileX, tileY));
+                                temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileindex));
                             }
                         }
                     }

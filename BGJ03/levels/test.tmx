@@ -6,9 +6,19 @@
  <tileset firstgid="145" name="collision" tilewidth="32" tileheight="32">
   <image source="tilesets/tiles_collision.png" width="160" height="96"/>
  </tileset>
+ <layer name="-1" width="25" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKRAXKBOJ/GdlQCcfWoHUMKAACNMwO5
+  </data>
+ </layer>
  <layer name="0" width="25" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BoAmY62MGPxp8OxTNpaMcMKKaWHYxY7KA24B1BdoDCk9y010LADpDZTEDMR4Q7cIEJOOxANhuGsakh5Dd0c5iQMB8WDLKDBYoZcehDx9jMoSUGAH1vB/s=
+   eJxjYBgFo2BoAmY62ME/DOxgpIMdvCPIDlB4kpv2WgjYATKbCYj5iHAHLjABhx3IZsMwNjWE/IZuDhMS5sOCQXawQDEjDn3oGJs5tMQAi/wEaw==
+  </data>
+ </layer>
+ <layer name="1" width="25" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQE2QC8T5NLajEoirh4EdgwEAAI5xAsU=
   </data>
  </layer>
  <layer name="collision" width="25" height="18" opacity="0.59">

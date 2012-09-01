@@ -1,6 +1,6 @@
 
 Tile = gamvas.Actor.extend({
-    create: function(name, x, y, xOffset, yOffset, tileset)
+    create: function(name, x, y, xOffset, yOffset, tileset, layer)
     {
         this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
         this.type = "tile";
@@ -11,6 +11,8 @@ Tile = gamvas.Actor.extend({
         this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
         this.image.move(-(xOffset + 0.5) * TILESIZE, -(yOffset + 0.5) * TILESIZE);
         this.image.setClipRect(xOffset * TILESIZE, yOffset * TILESIZE, TILESIZE, TILESIZE);
+        
+        this.layer = layer;
 
         // create a static (non moving) rectangle
         //this.bodyRect(this.position.x, this.position.y, TILESIZE, TILESIZE, gamvas.physics.STATIC);
@@ -25,7 +27,7 @@ Tile = gamvas.Actor.extend({
 });
 
 CollisionTile = gamvas.Actor.extend({
-    create: function(name, x, y, xOffset, yOffset)
+    create: function(name, x, y, collisionindex)
     {
         this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
 

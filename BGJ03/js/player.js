@@ -41,7 +41,8 @@ Player = gamvas.Actor.extend({
     },
 
     isOnGround: function() {
-        for (var ce = this.body.m_contactList; ce; ce = ce.next) {
+        for (var ce = this.body.m_contactList; ce; ce = ce.next)
+        {
             var other = ce.contact.m_nodeA.other.GetUserData().data;
             if(other == this)
                 var other = ce.contact.m_nodeB.other.GetUserData().data;

@@ -43,3 +43,16 @@ function isKey(k, keys) {
     }
     return false;
 }
+
+//returns 0 when failing
+function tryParseInt(value)
+{
+    try
+    {
+        return parseInt(value);
+    }
+    catch(e)
+    {
+        return 0;
+    }
+}
