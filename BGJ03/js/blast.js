@@ -16,11 +16,7 @@ BlastEmissionState = gamvas.ActorState.extend({
                 gamvas.physics.toWorld(actor.position.x - this.actor.position.x),
                 gamvas.physics.toWorld(actor.position.y - this.actor.position.y));
             diff.Normalize();
-            diff.Multiply(1 - d);
-            if(Math.abs(this.actor.normal.x) > Math.abs(this.actor.normal.y))
-                diff.Multiply(WIND_FORCE_HORIZONTAL);
-            else
-                diff.Multiply(WIND_FORCE_VERTICAL);
+            diff.Multiply((1 - d) * this.actor.windForce);
             actor.body.ApplyForce(diff, new b2Vec2());
         }
 
@@ -50,14 +46,23 @@ DyingState = gamvas.ActorState.extend({
 });
 
 Blast = gamvas.Actor.extend({
-    create: function(name, tile, normal) {
+    create: function(name, parent, normal, freeMode) {
         this._super(name, 
-            tile.position.x + normal.x * TILESIZE / 2, 
-            tile.position.y + normal.y * TILESIZE / 2);
-            //gamvas.physics.toScreen(tile.x), 
-            //gamvas.physics.toScreen(tile.y));
+            parent.position.x + normal.x * TILESIZE / 2, 
+            parent.position.y + normal.y * TILESIZE / 2);
         this.rotation = Math.atan2(normal.y, normal.x);
         this.normal = normal;
+        this.freeMode = freeMode;
+
+        if(freeMode) {
+            this.windForce = WIND_FORCE_PLAYER;
+        } else {
+            if(Math.abs(normal.x) > Math.abs(normal.y)) {
+                this.windForce = WIND_FORCE_HORIZONTAL;
+            } else {
+                this.windForce = WIND_FORCE_VERTICAL;
+            }
+        }
 
         var st = gamvas.state.getCurrentState();
         this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/blaster.png'), 32, 32, 1, 40));

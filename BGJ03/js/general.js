@@ -8,6 +8,8 @@ var BLAST_DISTANCE = 8;
 var BLAST_RAYS = 10;
 var WIND_FORCE_VERTICAL = 20;
 var WIND_FORCE_HORIZONTAL = 80;
+var WIND_FORCE_PLAYER = 30;
+var RECOIL = 2;
 
 function print() {
     var textArea = document.getElementById('log');

@@ -71,7 +71,13 @@ Gun = gamvas.Actor.extend({
             if(first[1]) 
                 gamvas.state.getCurrentState().addActor(new Blast(nextId("blast-"), first[1], first[2]));
         } else if(mode == "secondary") {
+            var norm = new b2Vec2(
+                    Math.cos(this.rotation),
+                    Math.sin(this.rotation));
+            gamvas.state.getCurrentState().addActor(new Blast(nextId("user-blast-"), this.player, norm, true));
 
+            norm.Multiply(-1 * RECOIL);
+            this.player.body.ApplyImpulse(norm, new b2Vec2());
         }
     }
 });
