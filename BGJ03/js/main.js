@@ -12,19 +12,29 @@ MainState = gamvas.State.extend({
         this.addActor(this.player);
         this.addActor(this.player.gun);
         this.keysPressed = {};
-
-        for(var x = 0; x < 25; x++) {
-            for(var y = 0; y < 18; y++) {
-                if(x == 0 || x == 24 || y == 0 || y == 17 ||
-                    (x > 20 && y > 15) ||
-                    (x + 18 - y < 10) ||
-                    (x >= 16 && x < 20 && y == 13)
-                    ) {
-                    this.addActor(new Tile("tile-" + x + "-" + y, x, y, 1, 1));
+        
+        var temp_state = this;
+        $.getJSON('levels/test.json', function(json) {
+			var tilesetLineWidth = 12;
+            var width = json.width;
+            var height = json.height;
+            var data = json.layers[0].data;
+            for(var y = 0; y < height; y++) {
+                for(var x = 0; x < width; x++) {
+					var tileData = data[x+width*y]-1;
+                    if(tileData !== -1) {
+						var tileX = tileData % tilesetLineWidth;
+						var tileY = Math.floor(tileData / tilesetLineWidth);
+                        temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, tileX, tileY, tileY < 6));
+                    }
                 }
             }
-        }
-		
+        });
+
+		this.addActor(new DecoGear("gear1", 200, 200, 0, 0.1));
+		this.addActor(new DecoGear("gear2", 323, 200, 0, -0.1));
+		this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.1));
+		this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.1));
 		this.addActor(new LevelName("Hard as hell"));
 
         gamvas.config.preventKeyEvents = false;
