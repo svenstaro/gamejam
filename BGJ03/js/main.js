@@ -10,7 +10,6 @@ MainState = gamvas.State.extend({
 
         this.player = new Player("player", this.dimension.w / 2, 100);
         this.addActor(this.player);
-        this.addActor(this.player.gun);
         this.keysPressed = {};
         
         var temp_state = this;
@@ -62,7 +61,7 @@ MainState = gamvas.State.extend({
     },
 
     draw: function(t) {
-        //gamvas.physics.drawDebug();
+        gamvas.physics.drawDebug();
     },
 
     onMouseDown: function(b, x, y) {

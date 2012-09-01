@@ -6,21 +6,35 @@ Player = gamvas.Actor.extend({
 
         var st = gamvas.state.getCurrentState();
         this.gun = new Gun("gun", this);
+        st.addActor(this.gun);
 
-        this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/player.png'), 32, 32, 1, 10));
-        this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/player.png'), 32, 32, 1, 40));
+        this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
+        this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
         this.setAnimation("anim1");
 
         // create a static (non moving) rectangle
         //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
-        this.bodyRect(this.position.x, this.position.y, 16, 32, gamvas.physics.DYNAMIC);
-        this.center.x = 16;
-        this.center.y = 16;
+        //this.bodyRect(this.position.x, this.position.y, 32, 64, gamvas.physics.DYNAMIC);
+        var vertices = Array();
+        vertices.push(new b2Vec2(0.4, 0.9));
+        vertices.push(new b2Vec2(0.3, 1.0));
+        vertices.push(new b2Vec2(-0.3, 1.0));
+        vertices.push(new b2Vec2(-0.4, 0.9));
+        vertices.push(new b2Vec2(-0.4, -0.9));
+        vertices.push(new b2Vec2(-0.3, -1.0));
+        vertices.push(new b2Vec2(0.3, -1.0));
+        vertices.push(new b2Vec2(0.4, -0.9));
+        var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
+        polygon.SetAsArray(vertices, vertices.length);
+        this.createBody(gamvas.physics.DYNAMIC, polygon);
+        
+        this.center.x = 32;
+        this.center.y = 32;
         this.setFixedRotation(true);
         this.fixture.SetFriction(0);
         this.fixture.SetRestitution(0);
 
-        this.groundContacts = new Array();
+        this.contacts = new Array();
         this.inAirJump = false;
 
         this.getCurrentState().update = function(t) {
@@ -41,23 +55,28 @@ Player = gamvas.Actor.extend({
             }
         };
         
-        this.getCurrentState().onCollisionEnter = function(collider, contact)
+        this.getCurrentState().onCollisionEnter = function(collider)
         {
-            print("type:"+collider.type);
-            if(collider.position.y > this.actor.position.y + TILESIZE - 1)
+            if(collider.type == "tile" && collider.position.y - this.actor.position.y > Math.abs(collider.position.x - this.actor.position.x))
+            //if(collider.type == "tile")
             {
-                this.actor.groundContacts.push(collider);
+                this.actor.contacts.push(collider);
             }
+            println((collider.position.y - this.actor.position.y)+" > "+Math.abs(collider.position.x - this.actor.position.x));
         };
         
-        this.getCurrentState().onCollisionLeave = function(collider, contact)
+        this.getCurrentState().onCollisionLeave = function(collider)
         {
-            deleteFromArray(this.actor.groundContacts, collider);
+            deleteFromArray(this.actor.contacts, collider);
         };
     },
 
     isOnGround: function() {
-        return this.groundContacts.length > 0;
+        if(this.contacts.length > 0)
+        {
+            return true;
+        }
+        return false;
     },
 
     jump: function() {
@@ -67,7 +86,7 @@ Player = gamvas.Actor.extend({
         }
         this.inAirJump = false;
 
-        this.body.ApplyImpulse(new b2Vec2(0, -4.7), new b2Vec2(0, 0));
+        this.body.ApplyImpulse(new b2Vec2(0, -4.7 * 4), new b2Vec2(0, 0));
         // this.actor.body.m_linearVelocity.y = -8;
     }
 });

@@ -12,10 +12,6 @@ Tile = gamvas.Actor.extend({
         this.image.setClipRect(xOffset * TILESIZE, yOffset * TILESIZE, TILESIZE, TILESIZE);
         
         this.layer = layer;
-
-        // create a static (non moving) rectangle
-        //this.bodyRect(this.position.x, this.position.y, TILESIZE, TILESIZE, gamvas.physics.STATIC);
-        //this.fixture.SetRestitution(0);
     },
     
     draw: function(t)

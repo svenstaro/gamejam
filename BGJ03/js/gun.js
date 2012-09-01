@@ -8,6 +8,8 @@ Gun = gamvas.Actor.extend({
         this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/gun.png'), 32, 32, 1, 40));
         this.setAnimation("idle");
         this.center = new gamvas.Vector2D(16, 16);
+        
+        this.layer = -0.5;
 
         this.getCurrentState().update = function(t) {
             this.actor.aim();
