@@ -17,7 +17,7 @@ MainState = gamvas.State.extend({
                     (x + 18 - y < 10) ||
                     (x >= 16 && x < 20 && y == 13)
                     ) {
-                    this.addActor(new Tile("tile-" + x + "-" + y, x, y));
+                    this.addActor(new Tile("tile-" + x + "-" + y, x, y, 1, 1));
                 }
             }
         }
