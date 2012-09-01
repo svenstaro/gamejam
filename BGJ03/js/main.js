@@ -6,9 +6,11 @@ MainState = gamvas.State.extend({
         var w = gamvas.physics.resetWorld(0, 20, false);
 
         this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
+        this.clearColor = "#222";
 
         this.player = new Player("player", this.dimension.w / 2, 100);
         this.addActor(this.player);
+        this.addActor(this.player.gun);
         this.keysPressed = {};
 
         for(var x = 0; x < 25; x++) {
@@ -49,9 +51,10 @@ MainState = gamvas.State.extend({
     onKeyPushedDown: function(k, c, e) {
         if(k == gamvas.key.R) {
             document.location.reload(true);
-        } else if(k == gamvas.key.UP || k == gamvas.key.W) {
+        } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
-        }    },
+        }    
+    },
 
     onKeyDown: function(k, c, e) {
         if (!(k in this.keysPressed) || !this.keysPressed[k]) {
