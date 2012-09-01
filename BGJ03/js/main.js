@@ -16,30 +16,39 @@ MainState = gamvas.State.extend({
         var temp_state = this;
         $.getJSON('levels/test.json', function(json)
         {
-            var tilesetLineWidth = 12;
             var width = json.width;
-            var height = json.height;
-            var data = json.layers[0].data;
-            for(var y = 0; y < height; y++)
+            var height = json.height;  
+            
+            for(var layerindex = 0; layerindex < json.layers.length; ++layerindex)
             {
-                for(var x = 0; x < width; x++)
+                var data = json.layers[layerindex].data;
+
+                for(var y = 0; y < height; y++)
                 {
-                    var tileData = data[x+width*y]-1;
-                    if(tileData !== -1)
+                    for(var x = 0; x < width; x++)
                     {
-                        var tileX = tileData % tilesetLineWidth;
-                        var tileY = Math.floor(tileData / tilesetLineWidth);
-                        if(tileX != 11)
+                        var tileindex = data[x+width*y];
+
+                        if(tileindex !== 0)
                         {
-                            temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, tileX, tileY, tileY < 6));
-                        }
-                        else
-                        {
-                            switch(tileY)
+                            var tilesetindex = 0;
+                            while(tilesetindex < json.tilesets.length && json.tilesets[tilesetindex].firstgid > tileindex)
                             {
-                                case 0:
-                                    temp_state.player.setPosition(32 * x, 32 * y);
-                                break;
+                                ++tilesetindex;
+                            }
+
+                            var tilesetLineWidth = json.tilesets[tilesetindex].imagewidth / TILESIZE;
+
+                            var tileX = (tileindex-1) % tilesetLineWidth;
+                            var tileY = Math.floor((tileindex-1) / tilesetLineWidth);
+
+                            if(json.layers[layerindex].name != "collision")
+                            {
+                                temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, tileX, tileY, 'levels/'+json.tilesets[tilesetindex].image));
+                            }
+                            else
+                            {
+                                temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileX, tileY));
                             }
                         }
                     }
