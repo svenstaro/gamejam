@@ -35,7 +35,12 @@ MainState = gamvas.State.extend({
                         }
                         else
                         {
-                            
+                            switch(tileY)
+                            {
+                                case 0:
+                                    temp_state.player.setPosition(32 * x, 32 * y);
+                                break;
+                            }
                         }
                     }
                 }
