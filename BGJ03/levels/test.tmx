@@ -6,24 +6,19 @@
  <tileset firstgid="145" name="collision" tilewidth="32" tileheight="32">
   <image source="tilesets/tiles_collision.png" width="160" height="96"/>
  </tileset>
+ <layer name="1" width="25" height="18" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjILBDVroYMcEOtgxlAAfFjwU7SAGAAC/vgGh
+  </data>
+ </layer>
  <layer name="-1" width="25" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIKRAXKBOJ/GdlQCcfWoHUMKAACNMwO5
-  </data>
- </layer>
- <layer name="0" width="25" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BoAmY62ME/DOxgpIMdvCPIDlB4kpv2WgjYATKbCYj5iHAHLjABhx3IZsMwNjWE/IZuDhMS5sOCQXawQDEjDn3oGJs5tMQAi/wEaw==
-  </data>
- </layer>
- <layer name="1" width="25" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRQE2QC8T5NLajEoirh4EdgwEAAI5xAsU=
+   eJxjYBgFIw0w08EO/mFgByMd7OAdJHaA/EpJusBnB8hsJiDmI8IdpNqBbDYMU2oHH9RMGObDgkF2sCBhYsIPm1sJYWzuYMKDSTGbEEYPR14qmk2KHVV0wAC8LxDR
   </data>
  </layer>
  <layer name="collision" width="25" height="18" opacity="0.59">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2BogomjdhBt/qgd1LODEnfMIaB/Ihqmhh2zcZiNzQ5S/E8Kng7F5OilBwYAe3YwUg==
+   eJxjYBgFIw1MHLWDaPNHih2UugOffmr4cQ6aObPRzKa2HfgwzN7pSJiUMCbFDlpiSsFgsYMaGABylj3w
   </data>
  </layer>
 </map>

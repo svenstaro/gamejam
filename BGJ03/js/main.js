@@ -15,7 +15,7 @@ MainState = gamvas.State.extend({
         var temp_state = this;
         $.getJSON('levels/test.json', function(json) {
             var width = json.width;
-            var height = json.height;  
+            var height = json.height;
             
             for(var layerindex = 0; layerindex < json.layers.length; ++layerindex) {
                 var data = json.layers[layerindex].data;
@@ -26,11 +26,14 @@ MainState = gamvas.State.extend({
 
                         if(tileindex !== 0) {
                             var tilesetindex = 0;
-                            while(tilesetindex < json.tilesets.length && json.tilesets[tilesetindex].firstgid > tileindex) {
+                            
+                            while(tilesetindex < json.tilesets.length-1 && json.tilesets[tilesetindex+1].firstgid <= tileindex) {
                                 ++tilesetindex;
                             }
 
                             var tilesetLineWidth = json.tilesets[tilesetindex].imagewidth / TILESIZE;
+                            
+                            tileindex -= json.tilesets[tilesetindex].firstgid-1;
 
                             var tileX = (tileindex-1) % tilesetLineWidth;
                             var tileY = Math.floor((tileindex-1) / tilesetLineWidth);
@@ -42,7 +45,18 @@ MainState = gamvas.State.extend({
                                                                 'levels/'+json.tilesets[tilesetindex].image,
                                                                 tryParseInt(json.layers[layerindex].name)));
                             } else {
-                                temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileindex));
+                                switch(tileindex)
+                                {
+                                    case 1:
+                                        temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileindex));
+                                    break;
+                                    case 6: case 7:
+                                        temp_state.addActor(new DeathTile("deathtile-" + x + "-" + y, x, y, tileindex));
+                                    break;
+                                    case 11:
+                                        temp_state.player.setPosition((x + 0.5) * TILESIZE, y * TILESIZE);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -61,7 +75,7 @@ MainState = gamvas.State.extend({
     },
 
     draw: function(t) {
-        gamvas.physics.drawDebug();
+        //gamvas.physics.drawDebug();
     },
 
     onMouseDown: function(b, x, y) {
