@@ -7,7 +7,7 @@ DecoGear = gamvas.Actor.extend({
 		this.setFile(st.resource.getImage('gfx/biggear.png'));
 		this.setCenter(64,64);
 		
-		this.layer = 1;
+		this.layer = 5;
 
         this.rotationSpeed = rotationSpeed;
 		this.rotate(startRotation);

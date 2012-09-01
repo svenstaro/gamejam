@@ -15,13 +15,17 @@ MainState = gamvas.State.extend({
         
         var temp_state = this;
         $.getJSON('levels/test.json', function(json) {
+			var tilesetLineWidth = 12;
             var width = json.width;
             var height = json.height;
             var data = json.layers[0].data;
             for(var y = 0; y < height; y++) {
                 for(var x = 0; x < width; x++) {
-                    if(data[x+width*y] !== 0) {
-                        temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, 0, 0));
+					var tileData = data[x+width*y]-1;
+                    if(tileData !== -1) {
+						var tileX = tileData % tilesetLineWidth;
+						var tileY = Math.floor(tileData / tilesetLineWidth);
+                        temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, tileX, tileY, tileY < 6));
                     }
                 }
             }
