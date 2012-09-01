@@ -4,7 +4,9 @@ Player = gamvas.Actor.extend({
             this._super(name, x, y);
 
             var st = gamvas.state.getCurrentState();
-            this.setFile(st.resource.getImage('gfx/anim.png'), 32, 32, 4, 10);
+			this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/anim.png'), 32, 32, 4, 10));
+			this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/anim.png'), 32, 32, 4, 40));
+			this.setAnimation("anim1");
 
             // create a static (non moving) rectangle
             this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
@@ -26,10 +28,11 @@ Player = gamvas.Actor.extend({
                 }
                 if (gamvas.key.isPressed(gamvas.key.UP)
                     || gamvas.key.isPressed(gamvas.key.W)) {
+					this.actor.setAnimation("anim2");
                 }
                 if (gamvas.key.isPressed(gamvas.key.DOWN)
                     || gamvas.key.isPressed(gamvas.key.S)) {
-					this.actor.setFile(st.resource.getImage('gfx/anim.png'), 32, 32, 4, 10);
+					this.actor.setAnimation("anim1");
                 }
             };
         }
