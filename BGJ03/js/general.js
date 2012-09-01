@@ -6,9 +6,9 @@ var JUMP_KEYS = [gamvas.key.UP, gamvas.key.W, gamvas.key.SPACE];
 var BLAST_ANGLE = Math.PI / 4;
 var BLAST_DISTANCE = 8;
 var BLAST_RAYS = 10;
-var WIND_FORCE_VERTICAL = 20;
-var WIND_FORCE_HORIZONTAL = 80;
-var WIND_FORCE_PLAYER = 30;
+var WIND_FORCE_VERTICAL = 100;
+var WIND_FORCE_HORIZONTAL = 200;
+var WIND_FORCE_PLAYER = 150;
 var RECOIL = 2;
 
 function print() {

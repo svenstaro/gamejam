@@ -8,10 +8,16 @@ Player = gamvas.Actor.extend({
         this.gun = new Gun("gun", this);
         st.addActor(this.gun);
 
+        this.addAnimation(new gamvas.Animation("walk-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 20));
+        this.addAnimation(new gamvas.Animation("walk-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 20));
+        var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10);
+        idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
+        this.addAnimation(idleLeft);
+        var idleLeft = new gamvas.Animation("idle-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10);
+        idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
+        this.addAnimation(idleLeft);
+        this.setAnimation("idle-right");
         this.lookDirectionRight = true;
-        this.addAnimation(new gamvas.Animation("runright", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10));
-        this.addAnimation(new gamvas.Animation("runleft", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
-        this.setAnimation("runright");
 
         // create a static (non moving) rectangle
         //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
@@ -45,24 +51,24 @@ Player = gamvas.Actor.extend({
 
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
-                lookDirectionRight = false;
+                this.lookDirectionRight = false;
                 this.actor.gun.layer = 0.1;
                 this.actor.gun.image.setScaleXY(1,-1);
-                this.actor.setAnimation("runleft");
+                this.actor.setAnimation("walk-left");
             } else if (isKeyDown(RIGHT_KEYS)) {
                 this.actor.body.m_linearVelocity.x = f;
-                lookDirectionRight = true;
+                this.lookDirectionRight = true;
                 this.actor.gun.layer = -0.1;
                 this.actor.gun.image.setScaleXY(1,1);
-                this.actor.setAnimation("runright");
+                this.actor.setAnimation("walk-right");
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
             }
-            
-            if(Math.abs(this.actor.body.m_linearVelocity.x) < 0.3)
-            {
-                //this.actor.setAnimation("idle"+(lookDirectionRight ? "right" : "left"));
-            }
+
+            this.actor.setAnimation(
+                    (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk")
+                    + "-" +
+                    (this.lookDirectionRight == 1 ? "right" : "left"));
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
                 this.actor.jump();
@@ -76,7 +82,7 @@ Player = gamvas.Actor.extend({
             {
                 this.actor.contacts.push(collider);
             }
-            //println((collider.position.y - this.actor.position.y - TILESIZE/2)+" > "+Math.abs(collider.position.x - this.actor.position.x));
+            // println((collider.position.y - this.actor.position.y - TILESIZE/2)+" > "+Math.abs(collider.position.x - this.actor.position.x));
         };
         
         this.getCurrentState().onCollisionLeave = function(collider)
