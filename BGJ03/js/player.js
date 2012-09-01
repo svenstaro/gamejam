@@ -8,9 +8,10 @@ Player = gamvas.Actor.extend({
         this.gun = new Gun("gun", this);
         st.addActor(this.gun);
 
-        this.addAnimation(new gamvas.Animation("right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10));
-        this.addAnimation(new gamvas.Animation("left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
-        this.setAnimation("right");
+        this.lookDirectionRight = true;
+        this.addAnimation(new gamvas.Animation("runright", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10));
+        this.addAnimation(new gamvas.Animation("runleft", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10));
+        this.setAnimation("runright");
 
         // create a static (non moving) rectangle
         //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
@@ -44,23 +45,19 @@ Player = gamvas.Actor.extend({
 
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
+                lookDirectionRight = false;
+                this.actor.setAnimation("runleft");
             } else if (isKeyDown(RIGHT_KEYS)) {
                 this.actor.body.m_linearVelocity.x = f;
+                lookDirectionRight = true;
+                this.actor.setAnimation("runright");
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
             }
             
-            if(this.actor.body.m_linearVelocity.x > 0.5)
+            if(Math.abs(this.actor.body.m_linearVelocity.x) < 0.3)
             {
-                this.actor.setAnimation("right");
-            }
-            else if(this.actor.body.m_linearVelocity.x < -0.5)
-            {
-                this.actor.setAnimation("left");
-            }
-            else
-            {
-                
+                //this.actor.setAnimation("idle"+(lookDirectionRight ? "right" : "left"));
             }
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
