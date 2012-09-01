@@ -6,9 +6,11 @@ MainState = gamvas.State.extend({
         var w = gamvas.physics.resetWorld(0, 20, false);
 
         this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
+        this.clearColor = "#222";
 
         this.player = new Player("player", this.dimension.w / 2, 100);
         this.addActor(this.player);
+        this.addActor(this.player.gun);
         this.keysPressed = {};
         
         var temp_state = this;
@@ -18,35 +20,26 @@ MainState = gamvas.State.extend({
             var data = json.layers[0].data;
             for(var y = 0; y < height; y++) {
                 for(var x = 0; x < width; x++) {
-                    print(data[x+width*y], "true");
-                    temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, 1, 1));
+                    if(data[x+width*y] !== 0) {
+                        temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, 0, 0));
+                    }
                 }
-                print("");
             }
         });
 
-        //for(var x = 0; x < 25; x++) {
-        //    for(var y = 0; y < 18; y++) {
-        //        if(x == 0 || x == 24 || y == 0 || y == 17 ||
-        //            (x > 20 && y > 15) ||
-        //            (x + 18 - y < 10) ||
-        //            (x >= 16 && x < 20 && y == 13)
-        //            ) {
-        //            this.addActor(new Tile("tile-" + x + "-" + y, x, y, 1, 1));
-        //        }
-        //    }
-        //}
+		this.addActor(new DecoGear("gear1", 200, 200, 0, 0.1));
+		this.addActor(new DecoGear("gear2", 323, 200, 0, -0.1));
+		this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.1));
+		this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.1));
+		this.addActor(new LevelName("Hard as hell"));
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
     },
 
-    draw: function(t) {
+    //draw: function(t) {
         //gamvas.physics.drawDebug();
-        //this.c.fillStyle = '#fff';
-        //this.c.font = 'bold 20px sans-serif';
-		//this.c.fillText("This level is hard as hell.", 0, 0);
-    },
+    //},
 
     onMouseDown: function(b, x, y) {
         if (b == gamvas.mouse.LEFT) {
@@ -63,9 +56,10 @@ MainState = gamvas.State.extend({
     onKeyPushedDown: function(k, c, e) {
         if(k == gamvas.key.R) {
             document.location.reload(true);
-        } else if(k == gamvas.key.UP || k == gamvas.key.W) {
+        } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
-        }    },
+        }    
+    },
 
     onKeyDown: function(k, c, e) {
         if (!(k in this.keysPressed) || !this.keysPressed[k]) {
