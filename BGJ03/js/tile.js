@@ -1,3 +1,57 @@
+/*
+ *     COLLISION=1  DEATH=2
+ * 1 = Square       Square
+ * 2 = Bottom Left  Bottom
+ * 3 = Bottom Right Top
+ * 4 = Top Left     Left
+ * 5 = Top Right    Right
+ */
+
+function makeCollisionShape(id, x, y) {
+    var v = [];
+    var c = 0.5;
+
+    x /= TILESIZE;
+    y /= TILESIZE;
+
+    if(id != 3)
+        v.push(new b2Vec2(x - c, y - c));
+    if(id != 2)
+        v.push(new b2Vec2(x + c, y - c));
+    if(id != 4)
+        v.push(new b2Vec2(x + c, y + c));
+    if(id != 5)
+        v.push(new b2Vec2(x - c, y + c));
+
+    return v;
+}
+
+function makeDeathShape(id, x, y) {
+    var v = [];
+    var c = 0.5;
+
+    x /= TILESIZE;
+    y /= TILESIZE;
+
+    if(id == 1 || id == 3 || id == 4)
+        v.push(new b2Vec2(x - c, y - c));
+    if(id == 4 || id == 5)
+        v.push(new b2Vec2(x + 0, y - c));
+    if(id == 1 || id == 3 || id == 5)
+        v.push(new b2Vec2(x + c, y - c));
+    if(id == 2 || id == 3)
+        v.push(new b2Vec2(x + c, y + 0));
+    if(id == 1 || id == 2 || id == 5)
+        v.push(new b2Vec2(x + c, y + c));
+    if(id == 4 || id == 5)
+        v.push(new b2Vec2(x + 0, y + c));
+    if(id == 1 || id == 2 || id == 3)
+        v.push(new b2Vec2(x - c, y + c));
+    if(id == 2 || id == 3)
+        v.push(new b2Vec2(x - c, y + 0));
+    return v;
+}
+
 
 Tile = gamvas.Actor.extend({
     create: function(name, x, y, xOffset, yOffset, tileset, layer)
@@ -11,7 +65,7 @@ Tile = gamvas.Actor.extend({
         this.image.position = this.position;
         this.image.move(-(xOffset + 0.5) * TILESIZE, -(yOffset + 0.5) * TILESIZE);
         this.image.setClipRect(xOffset * TILESIZE, yOffset * TILESIZE, TILESIZE, TILESIZE);
-        
+
         this.layer = layer;
     },
     
@@ -24,24 +78,29 @@ Tile = gamvas.Actor.extend({
 
 CollisionTile = gamvas.Actor.extend({
     blockWind: true,
-    create: function(name, x, y, collisionindex)
-    {
-        this._super(name, (x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+    create: function(name, x, y, id) {
+        this._super(name, 0, 0);
         this.type = "tile";
 
-        // create a static (non moving) rectangle
-        this.bodyRect(this.position.x, this.position.y, TILESIZE, TILESIZE, gamvas.physics.STATIC);
+        var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
+        var vertices = makeCollisionShape(id, this.position.x, this.position.y);
+        polygon.SetAsArray(vertices, vertices.length);
+        this.createBody(gamvas.physics.STATIC, polygon);
         this.fixture.SetRestitution(0);
+        this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
     }
 });
 
 DeathTile = gamvas.Actor.extend({
-    create: function(name, x, y, collisionindex)
-    {
-        this._super(name, (x + 0.5) * TILESIZE, (y + 0.75) * TILESIZE);
+    create: function(name, x, y, id) {
+        this._super(name, 0, 0);
 
-        // create a static (non moving) rectangle
-        this.bodyRect(this.position.x, this.position.y, TILESIZE, TILESIZE / 2, gamvas.physics.STATIC);
+        var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
+        var vertices = makeDeathShape(id, 0, 0);
+        polygon.SetAsArray(vertices, vertices.length);
+        this.createBody(gamvas.physics.STATIC, polygon);
         this.setSensor(true);
+
+        this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
     }
 });
