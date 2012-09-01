@@ -21,17 +21,16 @@ MainState = gamvas.State.extend({
                 }
             }
         }
+		
+		this.addActor(new LevelName("Hard as hell"));
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
     },
 
-    draw: function(t) {
+    //draw: function(t) {
         //gamvas.physics.drawDebug();
-        //this.c.fillStyle = '#fff';
-        //this.c.font = 'bold 20px sans-serif';
-		//this.c.fillText("This level is hard as hell.", 0, 0);
-    },
+    //},
 
     onMouseDown: function(b, x, y) {
         if (b == gamvas.mouse.LEFT) {
