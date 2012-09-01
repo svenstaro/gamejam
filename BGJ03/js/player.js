@@ -11,7 +11,10 @@ Player = gamvas.Actor.extend({
         this.setAnimation("anim1");
 
         // create a static (non moving) rectangle
-        this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
+        //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
+        this.bodyRect(this.position.x, this.position.y, 16, 32, gamvas.physics.DYNAMIC);
+        this.center.x = 16;
+        this.center.y = 16;
         this.setFixedRotation(true);
         this.fixture.SetFriction(0);
         this.fixture.SetRestitution(0);
@@ -56,7 +59,7 @@ Player = gamvas.Actor.extend({
         }
         this.inAirJump = false;
 
-        this.body.ApplyImpulse(new b2Vec2(0, -9), new b2Vec2(0, 0));
+        this.body.ApplyImpulse(new b2Vec2(0, -4.7), new b2Vec2(0, 0));
         // this.actor.body.m_linearVelocity.y = -8;
     }
 });

@@ -4,8 +4,9 @@ Blast = gamvas.Actor.extend({
         this._super(name, 
             tile.position.x + normal.x * TILESIZE / 2, 
             tile.position.y + normal.y * TILESIZE / 2);
+            //gamvas.physics.toScreen(tile.x), 
+            //gamvas.physics.toScreen(tile.y));
         this.rotation = Math.atan2(normal.y, normal.x);
-        println(normal, this.rotation);
 
         var st = gamvas.state.getCurrentState();
         this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/blaster.png'), 32, 32, 1, 40));

@@ -35,11 +35,24 @@ Gun = gamvas.Actor.extend({
                 var actor = fixture.GetBody().GetUserData().data;
 
                 if(actor.type == "tile") {
-                    var dist = new b2Vec2(point.x, point.y);
-                    dist.Subtract(start);
+                    var dist = new b2Vec2(point.x - start.x, point.y - start.y);
+                    var d = dist.Length();
 
-                    if(!first[0] || first[0] > dist) {
-                        first = [dist, actor, normal];
+                    if(!first[0] || first[0] > d) {
+                        // calculate better normal
+                        var diff = new b2Vec2(
+                                gamvas.physics.toWorld(actor.position.x) - point.x,
+                                gamvas.physics.toWorld(actor.position.y) - point.y);
+                        var angle = Math.atan2(diff.y, diff.x);
+                        angle /= (Math.PI / 2);
+                        angle = Math.round(angle);
+                        var n = new b2Vec2(0, 0);
+                        if(angle == 0) n.x = -1;
+                        else if(angle == 1) n.y = -1;
+                        else if(angle == 2 || angle == -2) n.x = 1;
+                        else if(angle == -1) n.y = 1;
+                        println(n);
+                        first = [d, actor, n];
                     }
                 }
                 return true;
