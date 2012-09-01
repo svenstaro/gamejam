@@ -9,6 +9,7 @@ MainState = gamvas.State.extend({
 
         this.player = new Player("player", this.dimension.w / 2, 100);
         this.addActor(this.player);
+        this.keysPressed = {};
 
         for(var x = 0; x < 25; x++) {
             for(var y = 0; y < 18; y++) {
@@ -36,11 +37,23 @@ MainState = gamvas.State.extend({
         }
     },
 
-    onKeyDown: function(k, c, e) {
+    onKeyUp: function(k, c, e) {
+        if (k in this.keysPressed) {
+            this.keysPressed[k] = false;
+        }
+    },
+
+    onKeyPushedDown: function(k, c, e) {
         if(k == gamvas.key.R) {
             document.location.reload(true);
         } else if(k == gamvas.key.UP || k == gamvas.key.W) {
             this.player.jump();
+        }    },
+
+    onKeyDown: function(k, c, e) {
+        if (!(k in this.keysPressed) || !this.keysPressed[k]) {
+            this.keysPressed[k] = true;
+            this.onKeyPushedDown(k, c, e);
         }
     }
 });
