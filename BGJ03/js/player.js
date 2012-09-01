@@ -17,13 +17,13 @@ Player = gamvas.Actor.extend({
                 var f = 4;
 
                 if (gamvas.key.isPressed(gamvas.key.LEFT) 
-                    || gamvas.key.isPressed(gamvas.key.A)) {
-                        this.actor.body.m_linearVelocity.x = -f;
+                        || gamvas.key.isPressed(gamvas.key.A)) {
+                    this.actor.body.m_linearVelocity.x = -f;
                 } else if (gamvas.key.isPressed(gamvas.key.RIGHT)
-                    || gamvas.key.isPressed(gamvas.key.D)) {
-                        this.actor.body.m_linearVelocity.x = f;
+                        || gamvas.key.isPressed(gamvas.key.D)) {
+                    this.actor.body.m_linearVelocity.x = f;
                 } else {
-                        this.actor.body.m_linearVelocity.x = 0;
+                    this.actor.body.m_linearVelocity.x *= (1 - t * 8);
                 }
 
                 if (gamvas.key.isPressed(gamvas.key.UP)
@@ -55,6 +55,5 @@ Player = gamvas.Actor.extend({
 
             this.body.ApplyImpulse(new b2Vec2(0, -4), new b2Vec2(0, 0));
             // this.actor.body.m_linearVelocity.y = -8;
-            this.body.position.y -= 1;
         }
 });
