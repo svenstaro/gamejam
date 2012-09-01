@@ -19,6 +19,7 @@ Player = gamvas.Actor.extend({
         this.fixture.SetFriction(0);
         this.fixture.SetRestitution(0);
 
+        this.groundContacts = new Array();
         this.inAirJump = false;
 
         this.getCurrentState().update = function(t) {
@@ -38,19 +39,24 @@ Player = gamvas.Actor.extend({
                 this.actor.jump();
             }
         };
+        
+        this.getCurrentState().onCollisionEnter = function(collider, contact)
+        {
+            print("type:"+collider.type);
+            if(collider.position.y > this.actor.position.y + TILESIZE - 1)
+            {
+                this.actor.groundContacts.push(collider);
+            }
+        };
+        
+        this.getCurrentState().onCollisionLeave = function(collider, contact)
+        {
+            deleteFromArray(this.actor.groundContacts, collider);
+        };
     },
 
     isOnGround: function() {
-        for (var ce = this.body.m_contactList; ce; ce = ce.next)
-        {
-            var other = ce.contact.m_nodeA.other.GetUserData().data;
-            if(other == this)
-                var other = ce.contact.m_nodeB.other.GetUserData().data;
-
-            if(ce.contact.IsTouching() && other.position.y > this.position.y + TILESIZE - 1)
-                return true;
-        }
-        return false;
+        return this.groundContacts.length > 0;
     },
 
     jump: function() {

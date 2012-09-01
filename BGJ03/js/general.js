@@ -56,3 +56,16 @@ function tryParseInt(value)
         return 0;
     }
 }
+
+//deletes the first occurence of o from a
+function deleteFromArray(a, o)
+{
+    for(var i = 0; i < a.length; ++i)
+    {
+        if(a[i] == o)
+        {
+            a.splice(i, 1);
+            return;
+        }
+    }
+}
