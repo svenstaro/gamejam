@@ -41,17 +41,19 @@ Player = gamvas.Actor.extend({
         this.getCurrentState().update = function(t) {
             var f = 6;
 
-            this.actor.gun.position = new gamvas.Vector2D(this.actor.position.x - 4, this.actor.position.y+6);
+            this.actor.gun.position = new gamvas.Vector2D(this.actor.position.x - 1, this.actor.position.y+10);
 
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
                 lookDirectionRight = false;
                 this.actor.gun.layer = 0.1;
+                this.actor.gun.image.setScaleXY(1,-1);
                 this.actor.setAnimation("runleft");
             } else if (isKeyDown(RIGHT_KEYS)) {
                 this.actor.body.m_linearVelocity.x = f;
                 lookDirectionRight = true;
                 this.actor.gun.layer = -0.1;
+                this.actor.gun.image.setScaleXY(1,1);
                 this.actor.setAnimation("runright");
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
