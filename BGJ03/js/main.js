@@ -36,8 +36,10 @@ MainState = gamvas.State.extend({
     //},
 
     onMouseDown: function(b, x, y) {
-        if (b == gamvas.mouse.LEFT) {
-            var worldMouse = this.camera.toWorld(x, y);
+        if (b == gamvas.mouse.LEFT || b == gamvas.mouse.RIGHT) {
+            var fireMode = "primary";
+            if(b == gamvas.mouse.RIGHT) fireMode = "secondary";
+            this.player.gun.shoot(fireMode);
         }
     },
 

@@ -4,7 +4,7 @@ Player = gamvas.Actor.extend({
         this._super(name, x, y);
 
         var st = gamvas.state.getCurrentState();
-        this.gun = new Gun("gun", x, y);
+        this.gun = new Gun("gun", this);
 
         this.addAnimation(new gamvas.Animation("anim1", st.resource.getImage('gfx/player.png'), 32, 32, 1, 10));
         this.addAnimation(new gamvas.Animation("anim2", st.resource.getImage('gfx/player.png'), 32, 32, 1, 40));
