@@ -68,7 +68,7 @@ Player = gamvas.Actor.extend({
             this.actor.setAnimation(
                     (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk")
                     + "-" +
-                    (this.lookDirectionRight == 1 ? "right" : "left"));
+                    (this.lookDirectionRight ? "right" : "left"));
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
                 this.actor.jump();

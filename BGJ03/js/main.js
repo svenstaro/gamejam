@@ -18,7 +18,7 @@ MainState = gamvas.State.extend({
         this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
         this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
         this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
-        this.addActor(new LevelName("Hard as hell"));
+        this.addActor(new LevelName("The level that makes you understand the basics of running and such."));
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
