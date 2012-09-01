@@ -16,7 +16,11 @@ Player = gamvas.Actor.extend({
         var idleLeft = new gamvas.Animation("idle-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10);
         idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
         this.addAnimation(idleLeft);
+        
         this.setAnimation("idle-right");
+        
+        //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/idle.png'), 64, 64, 2, 6));
+        
         this.lookDirectionRight = true;
 
         // create a static (non moving) rectangle
@@ -51,16 +55,16 @@ Player = gamvas.Actor.extend({
 
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
-                this.lookDirectionRight = false;
+                this.actor.lookDirectionRight = false;
                 this.actor.gun.layer = 0.1;
                 this.actor.gun.image.setScaleXY(1,-1);
-                this.actor.setAnimation("walk-left");
+                //this.actor.setAnimation("walk-left");
             } else if (isKeyDown(RIGHT_KEYS)) {
                 this.actor.body.m_linearVelocity.x = f;
-                this.lookDirectionRight = true;
+                this.actor.lookDirectionRight = true;
                 this.actor.gun.layer = -0.1;
                 this.actor.gun.image.setScaleXY(1,1);
-                this.actor.setAnimation("walk-right");
+                //this.actor.setAnimation("walk-right");
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
             }
@@ -68,7 +72,7 @@ Player = gamvas.Actor.extend({
             this.actor.setAnimation(
                     (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk")
                     + "-" +
-                    (this.lookDirectionRight ? "right" : "left"));
+                    (this.actor.lookDirectionRight ? "right" : "left"));
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
                 this.actor.jump();
@@ -77,12 +81,10 @@ Player = gamvas.Actor.extend({
         
         this.getCurrentState().onCollisionEnter = function(collider)
         {
-            //if(collider.type == "tile" && collider.position.y - this.actor.position.y - TILESIZE > Math.abs(collider.position.x - this.actor.position.x))
             if(collider.type == "tile")
             {
                 this.actor.contacts.push(collider);
             }
-            // println((collider.position.y - this.actor.position.y - TILESIZE/2)+" > "+Math.abs(collider.position.x - this.actor.position.x));
         };
         
         this.getCurrentState().onCollisionLeave = function(collider)
