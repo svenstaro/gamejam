@@ -14,32 +14,36 @@ MainState = gamvas.State.extend({
         this.keysPressed = {};
         
         var temp_state = this;
-        $.getJSON('levels/test.json', function(json)
-        {
-            var tilesetLineWidth = 12;
+        $.getJSON('levels/test.json', function(json) {
             var width = json.width;
-            var height = json.height;
-            var data = json.layers[0].data;
-            for(var y = 0; y < height; y++)
-            {
-                for(var x = 0; x < width; x++)
-                {
-                    var tileData = data[x+width*y]-1;
-                    if(tileData !== -1)
-                    {
-                        var tileX = tileData % tilesetLineWidth;
-                        var tileY = Math.floor(tileData / tilesetLineWidth);
-                        if(tileX != 11)
-                        {
-                            temp_state.addActor(new Tile("tile-" + x + "-" + y, x, y, tileX, tileY, tileY < 6));
-                        }
-                        else
-                        {
-                            switch(tileY)
-                            {
-                                case 0:
-                                    temp_state.player.setPosition(32 * x, 32 * y);
-                                break;
+            var height = json.height;  
+            
+            for(var layerindex = 0; layerindex < json.layers.length; ++layerindex) {
+                var data = json.layers[layerindex].data;
+
+                for(var y = 0; y < height; y++) {
+                    for(var x = 0; x < width; x++) {
+                        var tileindex = data[x+width*y];
+
+                        if(tileindex !== 0) {
+                            var tilesetindex = 0;
+                            while(tilesetindex < json.tilesets.length && json.tilesets[tilesetindex].firstgid > tileindex) {
+                                ++tilesetindex;
+                            }
+
+                            var tilesetLineWidth = json.tilesets[tilesetindex].imagewidth / TILESIZE;
+
+                            var tileX = (tileindex-1) % tilesetLineWidth;
+                            var tileY = Math.floor((tileindex-1) / tilesetLineWidth);
+
+                            if(json.layers[layerindex].name != "collision") {
+                                temp_state.addActor(new Tile("tile-" + x + "-" + y + "-onlayer-"+layerindex, 
+                                                                x, y,
+                                                                tileX, tileY,
+                                                                'levels/'+json.tilesets[tilesetindex].image,
+                                                                tryParseInt(json.layers[layerindex].name)));
+                            } else {
+                                temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileindex));
                             }
                         }
                     }
@@ -58,7 +62,7 @@ MainState = gamvas.State.extend({
     },
 
     draw: function(t) {
-        gamvas.physics.drawDebug();
+        //gamvas.physics.drawDebug();
     },
 
     onMouseDown: function(b, x, y) {

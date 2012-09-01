@@ -51,3 +51,12 @@ function nextId(prefix) {
     LAST_ID++;
     return prefix + LAST_ID;
 }
+
+// returns 0 when failing
+function tryParseInt(value) {
+    try {
+        return parseInt(value);
+    } catch(e) {
+        return 0;
+    }
+}
