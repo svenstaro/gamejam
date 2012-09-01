@@ -78,3 +78,11 @@ function deleteFromArray(a, o)
         }
     }
 }
+
+function mousePosition() {
+    var m = gamvas.mouse.getPosition();
+    var s = gamvas.state.getCurrentState();
+    m.x += s.camera.position.x - s.dimension.w / 2;
+    m.y += s.camera.position.y - s.dimension.h / 2;
+    return m;
+}
