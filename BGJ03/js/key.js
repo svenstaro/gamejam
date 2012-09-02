@@ -45,7 +45,7 @@ Bubble = gamvas.Actor.extend({
         this.image.position = this.position;
 
         this.layer = -10000;
-        this.image.layer = -20000;
+        this.image.layer = -10000;
 
 
         if(this.lifetime > 4.5)
