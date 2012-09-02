@@ -20,12 +20,17 @@ DecoGear = gamvas.Actor.extend({
 });
 
 MegaGear = gamvas.Actor.extend({
-    create: function(name, x, y, startRotation, rotationSpeed, scale)
+    create: function(name, x, y, startRotation, rotationSpeed, scale, blurry)
     {
         this._super(name, x, y);
 
         var st = gamvas.state.getCurrentState();
-        this.setFile(st.resource.getImage('gfx/megagear.png'));
+        if(blurry === true) {
+            this.setFile(st.resource.getImage('gfx/megagear-blurry.png'));
+        } else {
+            this.setFile(st.resource.getImage('gfx/megagear.png'));
+        }
+
         this.setScale(scale);
         this.setCenter(250,250);
         
