@@ -29,5 +29,6 @@ Box = gamvas.Actor.extend({
         this.center.y = TILESIZE * 0.5;
         this.fixture.SetRestitution(0.1);
         this.body.SetSleepingAllowed(false);
+        this.setBullet(true);
     }
 });
