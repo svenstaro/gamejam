@@ -10,8 +10,8 @@ function tileVisible(tile) {
     }
 
     return (
-        tile.position.x / TILESIZE > c.x - d.w / 2 - TILESIZE * 3 &&
-        tile.position.x / TILESIZE < c.x + d.w / 2 + TILESIZE * 3 &&
+        tile.position.x > c.x - d.w / 2 - TILESIZE * 3 &&
+        tile.position.x < c.x + d.w / 2 + TILESIZE * 3 &&
         tile.position.y > c.y - d.h / 2 - TILESIZE * 3 &&
         tile.position.y < c.y + d.h / 2 + TILESIZE * 3)
 }
@@ -46,7 +46,7 @@ function makeCollisionShape(id, x, y) {
 
 function makeTriggerShape(id, x, y) {
     var v = [];
-    var c = 0.5;
+    var c = 0.45;
 
     x /= TILESIZE;
     y /= TILESIZE;
@@ -82,7 +82,8 @@ Tile = gamvas.Actor.extend({
         //this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
         this.image.position = this.position;
         this.image.move(-xOffset  * TILESIZE, -yOffset * TILESIZE);
-        this.image.setClipRect(xOffset * TILESIZE, yOffset * TILESIZE, TILESIZE, TILESIZE);
+        var halfskin = 0.25;
+        this.image.setClipRect(xOffset * TILESIZE + halfskin, yOffset * TILESIZE + halfskin, TILESIZE - halfskin * 2, TILESIZE - halfskin * 2);
 
         this.layer = layer;
     },
