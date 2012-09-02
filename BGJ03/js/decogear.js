@@ -58,8 +58,7 @@ MegaGear = gamvas.Actor.extend({
 });
 
 Background = gamvas.Actor.extend({
-    create: function(name, x, y)
-    {
+    create: function(name, x, y) {
         this._super(name, x, y);
 
         var st = gamvas.state.getCurrentState();
@@ -68,10 +67,9 @@ Background = gamvas.Actor.extend({
         
         this.layer = 1000;
         
-        this.getCurrentState().update = function(t)
-        {
+        this.getCurrentState().update = function(t) {
             var campos = gamvas.state.getCurrentState().camera.position;
-            this.actor.setPosition(campos.x * 1/3 - 300, campos.y * 1/3 - 300);
+            this.actor.setPosition(campos.x * 1/2 - 300, campos.y * 1/2 - 300);
         }
     }
 });
