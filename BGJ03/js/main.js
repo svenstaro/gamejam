@@ -22,7 +22,7 @@ MainState = gamvas.State.extend({
         
         this.levelname = new LevelName("Wait");
 
-        this.level = 1;
+        this.level = 0;
         this.scheduleChangeLevel = true;
     },
 
@@ -48,7 +48,7 @@ MainState = gamvas.State.extend({
             this.player.gun.shoot("secondary");
         }
         
-        if(DEBUG === true) {
+        if(DEBUG_DRAWS === true) {
             gamvas.physics.drawDebug();
         }
 
@@ -104,6 +104,11 @@ MainState = gamvas.State.extend({
             this.addActor(this.levelname);
 
             loadLevel(this, "levels/level3.json");
+        }
+        if(level === 4) {
+            this.levelname.text = "Use your shit";
+
+            loadLevel(this, "levels/level4.json");
         }
     },
     

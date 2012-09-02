@@ -1,5 +1,6 @@
 var b2Vec2 = Box2D.Common.Math.b2Vec2;
 var DEBUG = true;
+var DEBUG_DRAWS = false && DEBUG;
 MUSIC = new Audio("snd/clocksong1.ogg"); // fuck the police
 var TILESIZE = 32;
 var LEFT_KEYS = [gamvas.key.LEFT, gamvas.key.A];
