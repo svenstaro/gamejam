@@ -17,21 +17,11 @@ MainState = gamvas.State.extend({
 
         this.keysPressed = {};
         
-        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
-        this.addActor(this.player);
-        this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
-        this.addActor(this.levelname);
-
-        this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
-        this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-        this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-        this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
-
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
 
-        // this loads the level asynchronous, watch out!
-        loadLevel(this, "levels/level2.json");
+        this.level = 0;
+        this.changeLevel(this.level);
     },
 
     resetPlayer: function() {
@@ -55,6 +45,55 @@ MainState = gamvas.State.extend({
         }
     },
 
+    changeLevel: function(level) {
+        for(var actor in this.actors) {
+            this.removeActor(this.actors[actor]);
+        }
+
+        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
+        this.addActor(this.player);
+
+        if(level === 0) {
+            this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
+            this.addActor(this.levelname);
+
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            this.resetPlayer();
+
+            loadLevel(this, "levels/test.json");
+        }
+        if(level === 1) {
+            this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
+            this.addActor(this.levelname);
+
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            this.resetPlayer();
+
+            loadLevel(this, "levels/level1.json");
+        }
+        if(level === 2) {
+            this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
+            this.addActor(this.levelname);
+
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            this.resetPlayer();
+
+            loadLevel(this, "levels/level2.json");
+        }
+    },
+
     onMouseDown: function(b, x, y) {
         if (b == gamvas.mouse.LEFT || b == gamvas.mouse.RIGHT) {
             var fireMode = "primary";
@@ -74,7 +113,18 @@ MainState = gamvas.State.extend({
             document.location.reload(true);
         } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
-        }    
+        } else if(k == gamvas.key.PAGE_UP) {
+            if(this.level < 2) {
+                this.level += 1;
+                this.changeLevel(this.level);        
+            }
+        } else if(k == gamvas.key.PAGE_DOWN) {
+            if(this.level > 0) {
+                this.level -= 1;
+                this.changeLevel(this.level);        
+            }
+        }
+
     },
 
     onKeyDown: function(k, c, e) {
