@@ -119,7 +119,7 @@ MainState = gamvas.State.extend({
             this.levelname.text = "Press R to restart the very level. That is of greatest importance!";
             loadLevel(this, "levels/level5.json");
         }
-        if(level === 5) {
+        if(level === 6) {
             this.levelname.text = "Awesome box";
             loadLevel(this, "levels/level6.json");
         }
