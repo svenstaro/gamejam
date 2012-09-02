@@ -67,13 +67,13 @@ function loadLevel(state, level, additionalActors) {
         state.flashAlpha = 1;
 
         for(var x = 0; x < width; x++) {
-            state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1));
-            state.addActor(new CollisionTile(nextId("walls-"), x, height + 1, 1));
+            state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1, true));
+            state.addActor(new CollisionTile(nextId("walls-"), x, height + 1, 1, true));
         }
 
         for(var y = 0; y < height; y++) {
-            state.addActor(new CollisionTile(nextId("walls-"), -1, y, 1));
-            state.addActor(new CollisionTile(nextId("walls-"), width + 1, y, 1));
+            state.addActor(new CollisionTile(nextId("walls-"), -1, y, 1, true));
+            state.addActor(new CollisionTile(nextId("walls-"), width + 1, y, 1, true));
         }
         
         
