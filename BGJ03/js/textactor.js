@@ -6,8 +6,8 @@ TextActor = gamvas.Actor.extend(
 		this.text = text;
         this.scale = typeof scale !== 'undefined' ? scale : 1;
         this.color = typeof color !== 'undefined' ? color : '#fff';
-        size = typeof size !== 'undefined' ? size : 16;
-		this.font = 'bold ' + size + 'px sans-serif';
+        size = typeof size !== 'undefined' ? size * 3 : 16;
+		this.font = '' + size + 'px Steamwreck';
 	},
 	
 	draw: function(t)

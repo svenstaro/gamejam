@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Steamwreck";
+    src: url("Steamwreck.ttf");
+}
+
 body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 8pt;
