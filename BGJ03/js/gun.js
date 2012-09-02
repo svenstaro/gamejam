@@ -5,17 +5,34 @@ Gun = gamvas.Actor.extend({
         this.player = player;
 
         var st = gamvas.state.getCurrentState();
-        this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/gun.png'), 32, 32, 1, 40));
-        this.setAnimation("idle");
-        this.center = new gamvas.Vector2D(16, 16);
+        //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/gun.png'), 32, 32, 1, 40));
+        //this.setAnimation("idle");
+        
+        this.image = new gamvas.Image(st.resource.getImage('gfx/gun.png'));
+        //this.setFile(st.resource.getImage('gfx/gun.png'));
+        
+        this.center = new gamvas.Vector2D(3, 15);
+        this.image.center = new gamvas.Vector2D(3, 15);
+        
+        this.layer = -0.1;
 
-        this.getCurrentState().update = function(t) {
+        /*this.getCurrentState().update = function(t) {
             this.actor.aim();
-        };
+        };*/
+    },
+    
+    draw: function(t)
+    {
+        this.position = this.player.position;
+        this.aim();
+        // and you thought YOU were hacking
+        this.image.setPosition(this.position.x, this.position.y);
+        this.image.setRotation(this.rotation);
+        this.image.draw();
     },
 
     aim: function() {
-        var m = gamvas.mouse.getPosition();
+        var m = mousePosition();
         var p = this.position;
         this.rotation = Math.atan2(m.y - p.y, m.x - p.x);
     },
@@ -57,9 +74,9 @@ Gun = gamvas.Actor.extend({
                 return true;
             };
 
-            var mouse = new b2Vec2(
-                    gamvas.physics.toWorld(gamvas.mouse.getX()),
-                    gamvas.physics.toWorld(gamvas.mouse.getY()));
+            var mouse = mousePosition();
+            mouse.x = gamvas.physics.toWorld(mouse.x);
+            mouse.y = gamvas.physics.toWorld(mouse.y);
 
             var end = new b2Vec2(mouse.x, mouse.y);
             end.Subtract(start);
@@ -71,7 +88,13 @@ Gun = gamvas.Actor.extend({
             if(first[1]) 
                 gamvas.state.getCurrentState().addActor(new Blast(nextId("blast-"), first[1], first[2]));
         } else if(mode == "secondary") {
+            var norm = new b2Vec2(
+                    Math.cos(this.rotation),
+                    Math.sin(this.rotation));
+            gamvas.state.getCurrentState().addActor(new Blast(nextId("user-blast-"), this.player, norm, true));
 
+            norm.Multiply(-1 * RECOIL);
+            this.player.body.ApplyImpulse(norm, new b2Vec2());
         }
     }
 });

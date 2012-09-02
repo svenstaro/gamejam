@@ -1,21 +1,38 @@
 BlastEmissionState = gamvas.ActorState.extend({
     create: function() {
         this._super("emission");
-        this.accumulator = 0;
+        this.lifetime = 0;
     },
 
     update: function(t) {
-        this.accumulator += t;
-        var dt = 1 / WINDS_PER_SECOND;
-        while(this.accumulator > dt && this.actor.winds < WINDS_PER_BLAST) {
-            // spawn a wind particle
-            var w = new Wind(nextId("wind"), this.actor.position.x, this.actor.position.y, this.actor.rotation);
-            gamvas.state.getCurrentState().addActor(w);
-            this.actor.winds++;
-            this.accumulator -= dt;
+        this.lifetime += t;
+
+        var t = this.lifetime / 2.0;
+        var min = -0.8 * t * t + 1.6 * t;
+        var max = min + 0.2;
+        
+        var targets = this.actor.castRays();
+        for(var i = 0; i < targets.length; ++i) {
+            var actor = targets[i][0];
+            var d = targets[i][1];
+
+            // over lifetime, the range of d's varies
+            // p   -> min - max
+            // 0.0 -> 0 - 0.2
+            // 1.0 -> 0.8 - 1
+            var p = d / 2.0;
+            if(p < min || p > max) continue;
+
+            var diff = new b2Vec2(
+                gamvas.physics.toWorld(actor.position.x - this.actor.position.x),
+                gamvas.physics.toWorld(actor.position.y - this.actor.position.y));
+
+            diff.Normalize();
+            diff.Multiply((1 - d) * this.actor.windForce);
+            actor.body.ApplyForce(diff, new b2Vec2());
         }
 
-        if(this.actor.winds >= WINDS_PER_BLAST) {
+        if(this.lifetime > 2) {
             this.actor.setState("die");
         }
     }
@@ -41,13 +58,23 @@ DyingState = gamvas.ActorState.extend({
 });
 
 Blast = gamvas.Actor.extend({
-    create: function(name, tile, normal) {
+    create: function(name, parent, normal, freeMode) {
         this._super(name, 
-            tile.position.x + normal.x * TILESIZE / 2, 
-            tile.position.y + normal.y * TILESIZE / 2);
-            //gamvas.physics.toScreen(tile.x), 
-            //gamvas.physics.toScreen(tile.y));
+            parent.position.x + normal.x * TILESIZE / 2, 
+            parent.position.y + normal.y * TILESIZE / 2);
         this.rotation = Math.atan2(normal.y, normal.x);
+        this.normal = normal;
+        this.freeMode = freeMode;
+
+        if(freeMode) {
+            this.windForce = WIND_FORCE_PLAYER;
+        } else {
+            if(Math.abs(normal.x) > Math.abs(normal.y)) {
+                this.windForce = WIND_FORCE_HORIZONTAL;
+            } else {
+                this.windForce = WIND_FORCE_VERTICAL;
+            }
+        }
 
         var st = gamvas.state.getCurrentState();
         this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/blaster.png'), 32, 32, 1, 40));
@@ -58,6 +85,48 @@ Blast = gamvas.Actor.extend({
         this.addState(new BlastEmissionState());
         this.addState(new DyingState(1));
         this.setState("emission");
+
+        this.particles = new Wind(this.position.x, this.position.y, this.rotation);
+        gamvas.state.getCurrentState().addActor(this.particles);
+    },
+
+    // returns a list of pairs like [actor, fraction]
+    castRays: function() {
+        var list = [];
+
+        var start = new b2Vec2(
+                gamvas.physics.toWorld(this.position.x), 
+                gamvas.physics.toWorld(this.position.y));
+
+        for(var angle = this.rotation - BLAST_ANGLE / 2; 
+                angle <= this.rotation + BLAST_ANGLE / 2; 
+                angle += BLAST_ANGLE / BLAST_RAYS) {
+
+            var wrapper = function(fixture, point, normal, fraction) {
+                var actor = fixture.GetBody().GetUserData().data;
+
+                if(actor.moveByWind) {
+                    var inList = false;
+                    for(var i in list) {
+                        if(list[i][0] == actor) {
+                            inList = true;
+                            if(list[i][1] > fraction) list[i][1] = fraction;
+                        }
+                    }
+                    if(!inList) {
+                        list.push([actor, fraction]);
+                    }
+                }
+                return !actor.blockWind;
+            };
+
+            var end = new b2Vec2(
+                    start.x + Math.cos(angle) * BLAST_DISTANCE, 
+                    start.y + Math.sin(angle) * BLAST_DISTANCE);
+
+            gamvas.physics.getWorld().RayCast(wrapper, start, end);
+        }
+        return list;
     }
 });
 

@@ -1,4 +1,7 @@
 MainState = gamvas.State.extend({
+    levelWidth: 0,
+    levelHeight: 0,
+
     init: function() {
         gamvas.physics.pixelsPerMeter = 32;
 
@@ -10,59 +13,25 @@ MainState = gamvas.State.extend({
 
         this.player = new Player("player", this.dimension.w / 2, 100);
         this.addActor(this.player);
-        this.addActor(this.player.gun);
         this.keysPressed = {};
         
-        var temp_state = this;
-        $.getJSON('levels/test.json', function(json) {
-            var width = json.width;
-            var height = json.height;  
-            
-            for(var layerindex = 0; layerindex < json.layers.length; ++layerindex) {
-                var data = json.layers[layerindex].data;
+        loadLevel(this, "levels/test.json");
 
-                for(var y = 0; y < height; y++) {
-                    for(var x = 0; x < width; x++) {
-                        var tileindex = data[x+width*y];
-
-                        if(tileindex !== 0) {
-                            var tilesetindex = 0;
-                            while(tilesetindex < json.tilesets.length && json.tilesets[tilesetindex].firstgid > tileindex) {
-                                ++tilesetindex;
-                            }
-
-                            var tilesetLineWidth = json.tilesets[tilesetindex].imagewidth / TILESIZE;
-
-                            var tileX = (tileindex-1) % tilesetLineWidth;
-                            var tileY = Math.floor((tileindex-1) / tilesetLineWidth);
-
-                            if(json.layers[layerindex].name != "collision") {
-                                temp_state.addActor(new Tile("tile-" + x + "-" + y + "-onlayer-"+layerindex, 
-                                                                x, y,
-                                                                tileX, tileY,
-                                                                'levels/'+json.tilesets[tilesetindex].image,
-                                                                tryParseInt(json.layers[layerindex].name)));
-                            } else {
-                                temp_state.addActor(new CollisionTile("collisiontile-" + x + "-" + y, x, y, tileindex));
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        this.addActor(new DecoGear("gear1", 200, 200, 0, 0.1));
-        this.addActor(new DecoGear("gear2", 323, 200, 0, -0.1));
-        this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.1));
-        this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.1));
-        this.addActor(new LevelName("Hard as hell"));
+        this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+        this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+        this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+        this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+        this.addActor(new LevelName("The level that makes you understand the basics of running and such."));
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
     },
 
     draw: function(t) {
-        //gamvas.physics.drawDebug();
+        var d = this.dimension;
+        this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
+        this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
+        // gamvas.physics.drawDebug();
     },
 
     onMouseDown: function(b, x, y) {
