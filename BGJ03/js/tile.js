@@ -102,6 +102,8 @@ CollisionTile = gamvas.Actor.extend({
     create: function(name, x, y, id, wall) {
         this._super(name, 0, 0);
         this.type = wall ? "walltile" : "collisiontile";
+        this.x = x;
+        this.y = y;
 
         var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
         var vertices = makeCollisionShape(id, this.position.x, this.position.y);

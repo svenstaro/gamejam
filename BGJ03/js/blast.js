@@ -59,7 +59,7 @@ DyingState = gamvas.ActorState.extend({
         this.timeLeft -= t;
 
         if(!this.actor.freeMode) {
-            this.actor.center.x = this.actor.dyingProgress * TILESIZE * 2;
+            this.actor.center.x = this.actor.dyingProgress * TILESIZE;
         }
 
         if(this.timeLeft < 0) {
@@ -68,6 +68,18 @@ DyingState = gamvas.ActorState.extend({
         }
     }
 });
+
+function isBlastOnTile(x, y, nx, ny) {
+    var actors = gamvas.state.getCurrentState().actors;
+    for(var i in actors) {
+        var actor = actors[i];
+        if(actor.type == "blast" && !actor.freeMode) {
+            if(actor.tile.x == x && actor.tile.y == y && actor.normal.x == nx && actor.normal.y == ny)
+                return true;
+        }
+    }
+    return false;
+}
 
 Blast = gamvas.Actor.extend({
     create: function(name, parent, normal, freeMode) {
@@ -78,6 +90,7 @@ Blast = gamvas.Actor.extend({
         this.type = "blast";
         this.rotation = Math.atan2(normal.y, normal.x);
         this.normal = normal;
+        if(!this.freeMode) this.tile = parent;
         this.freeMode = freeMode;
         this.layer = 120;
 
@@ -100,7 +113,7 @@ Blast = gamvas.Actor.extend({
 
         this.winds = 0;
         this.addState(new BlastEmissionState());
-        this.addState(new DyingState(1));
+        this.addState(new DyingState(0.2));
         this.setState("emission");
 
         this.particles = new Wind(this.position.x, this.position.y, this.rotation, this.normal);
