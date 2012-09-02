@@ -41,6 +41,6 @@ LevelName = TextActor.extend({
         s.c.fillStyle = this.color;
         s.c.font = this.font;
         s.c.textAlign = "center";
-		s.c.fillText(this.text, offset.x + w / 2 , offset.y + h - 4);
+		s.c.fillText(this.text, offset.x + w / 2, offset.y + h - 4);
     }
 });

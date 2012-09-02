@@ -1,6 +1,8 @@
 MainState = gamvas.State.extend({
     levelWidth: 0,
     levelHeight: 0,
+    resetPosition: new gamvas.Vector2D(),
+    died: false,
 
     init: function() {
         MUSIC = new Audio("snd/One-eyed Maestro.ogg");
@@ -13,11 +15,10 @@ MainState = gamvas.State.extend({
         this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
         this.clearColor = "#222";
 
-        this.player = new Player("player", this.dimension.w / 2, 100);
-        this.addActor(this.player);
         this.keysPressed = {};
         
-        loadLevel(this, "levels/level2.json");
+        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
+        this.addActor(this.player);
         this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
         this.addActor(this.levelname);
 
@@ -28,6 +29,13 @@ MainState = gamvas.State.extend({
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
+
+        // this loads the level asynchronous, watch out!
+        loadLevel(this, "levels/level2.json");
+    },
+
+    resetPlayer: function() {
+        this.player.setPosition(this.resetPosition.x, this.resetPosition.y);
     },
 
     draw: function(t) {        
@@ -39,6 +47,11 @@ MainState = gamvas.State.extend({
 
         if(DEBUG !== true) {
             MUSIC.play();
+        }
+
+        if(this.died) {
+            this.resetPlayer();
+            this.died = false;
         }
     },
 
@@ -69,6 +82,16 @@ MainState = gamvas.State.extend({
             this.keysPressed[k] = true;
             this.onKeyPushedDown(k, c, e);
         }
+    },
+
+    playerWins: function(tile) {
+        var state = gamvas.state.getCurrentState();
+        print("WIN");
+    },
+
+    playerDied: function(tile) {
+        var state = gamvas.state.getCurrentState();
+        state.died = true;
     }
 });
 

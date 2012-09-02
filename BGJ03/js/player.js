@@ -1,6 +1,8 @@
 // create our collision objects
 Player = gamvas.Actor.extend({
     moveByWind: true,
+    isPlayer: true,
+
     create: function(name, x, y) {
         this._super(name, x, y);
 
