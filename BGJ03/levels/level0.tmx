@@ -8,7 +8,7 @@
  </tileset>
  <layer name="100" width="50" height="18">
   <data encoding="base64" compression="zlib">
-   eJztlVsKhDAMResD0QEV/FO36wJmyWPQQgixJn2IA71w8cc296ShNSYr61BNvv8oyF7sLk9Xxp+nUNSM3TOoPRBXnnv1wrW2byE94zTvXiPsAxyj8L/QnqWUlAMEvVtMnP7Flobjzcoc79LTHPi94Bxy76bmwNnpe0GtzbKd3yc48J3dMQ7h+KIaqTjsOWAGTphHmoXOp63hmlnf2aXncCfLIsnCzSR31lf+3GRpL9ZNAo5JmYWroXHjsGudRNos2D+Vhglm
+   eJztlmEKwjAMhTsn4gYq9AB6WQ/gkW1YAyHENsm2MqEPHv2zNe9LyroQuroWndn6j4LsQ/Ipewx+nsFQc+ueXZMn5tm51y0sfagJ+7amZ5Keya8N9gGOh+I52jsNd2tpOUAx2zv7PWXhOLI6x7HUmoPeF5K935AWHDT7vWJrlndeW3BADczJ770prOP4kBp7ceAcKIMkyqPNws8n1iidWe/Z5XOoCVk0WaQzKc36l2t3oPTPBI4KjmjMItWw+FJw6T2NrFmovxY/CTo=
   </data>
  </layer>
  <layer name="-50" width="50" height="18">
@@ -21,7 +21,7 @@
    eJztzjEBAAAIA6Clsn80l0IfSEACAABcm+8A1AKWwAA3
   </data>
  </layer>
- <layer name="collision" width="50" height="18">
+ <layer name="collision" width="50" height="18" visible="0">
   <data encoding="base64" compression="zlib">
    eJztlr0KwCAMhH3/LVOH9mGLuMhhi5efkkI+kDqYeDktsbWiGBzw/SNdu8DQ1iPEnt6eCcyl7etZ5dqJ9fDMsr9XHvQuG4wf1rOPJKsulqojF1/Xgf1iNSx5I2E0Zq8jYm3nmuLm2JPM84bGI00PeHoXeN1d6x3x/ocYbZl7JRLpk4Ub4hs5dQ==
   </data>
