@@ -31,6 +31,7 @@ Player = gamvas.Actor.extend({
         //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/idle.png'), 64, 64, 2, 6));
         
         this.lookDirectionRight = true;
+        this.walkDirectionRight = true;
 
         //activatePhysics is the thing now
         
@@ -48,27 +49,35 @@ Player = gamvas.Actor.extend({
 
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
-                this.actor.lookDirectionRight = false;
+                this.actor.walkDirectionRight = false;
                 this.actor.gun.layer = 0.1;
                 this.actor.gun.image.setScaleXY(1,-1);
-                //this.actor.setAnimation("walk-left");
                 this.actor.gun.setActive(true);
             } else if (isKeyDown(RIGHT_KEYS)) {
                 this.actor.body.m_linearVelocity.x = f;
-                this.actor.lookDirectionRight = true;
+                this.actor.walkDirectionRight = true;
                 this.actor.gun.layer = -0.1;
                 this.actor.gun.image.setScaleXY(1,1);
-                //this.actor.setAnimation("walk-right");
                 this.actor.gun.setActive(true);
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
             }
 
+
+            this.actor.lookDirectionRight = (this.actor.gun.rotation > -Math.PI / 2 && this.actor.gun.rotation < Math.PI / 2);
+
             if(this.actor.gun.isActive()) {
+                var a = (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk");
                 this.actor.setAnimation(
-                        (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk")
-                        + "-" +
-                        (this.actor.lookDirectionRight ? "right" : "left"));
+                        a + "-" + (this.actor.lookDirectionRight ? "right" : "left"));
+
+                if(a == "walk") {
+                    var frames = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                    if(this.actor.walkDirectionRight != this.actor.lookDirectionRight)
+                        frames.reverse();
+
+                    this.actor.setFrameList(frames);
+                }
             }
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
