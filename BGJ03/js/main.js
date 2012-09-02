@@ -283,7 +283,7 @@ MenuState = gamvas.State.extend({
         this.addActor(new MegaGear("gear3", 300, -150, 0, -0.1, 3, true));
         this.addActor(new MegaGear("gear1", 250, 250, 0, 0.1, 1.5));
         this.addActor(new MegaGear("gear2", 300, -150, 0, -0.1, 1));
-        this.addActor(new TextActor("title", "Airy Viktor", -350, -200, 100, "#999"));
+        this.addActor(new TextActor("title", "Sir Viktor Breeze", -350, -200, 100, "#999"));
         this.addActor(new Viktor("viktor", 80, -50));
 
         // this is shown at pseudoState === 0
