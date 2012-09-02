@@ -88,7 +88,7 @@ MainState = gamvas.State.extend({
         var additionalActors = [];
         
         if(level === 0) {
-            this.levelname.text = "The level that makes you understand the basics of running and such.";
+            this.levelname.text = "The level that makes you understand the basics of running and such. Press WASD or arrow keys to do it.";
 
             additionalActors.push(new DecoGear("gear1", 200, 200, 0, 0.3));
             additionalActors.push(new DecoGear("gear2", 323, 200, 0, -0.3));

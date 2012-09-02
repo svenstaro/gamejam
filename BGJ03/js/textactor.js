@@ -4,8 +4,8 @@ TextActor = gamvas.Actor.extend( {
 		this.text = text;
         this.scale = typeof scale !== 'undefined' ? scale : 1;
         this.color = typeof color !== 'undefined' ? color : '#fff';
-        size = typeof size !== 'undefined' ? size : 30;
-		this.font = '' + size + 'px Steamwreck';
+        this.size = typeof size !== 'undefined' ? size : 30;
+		this.font = '' + this.size + 'px Steamwreck';
 	},
 	
 	draw: function(t) {
@@ -21,6 +21,7 @@ LevelName = TextActor.extend({
     create: function(text) {
 		this._super("levelname", text, 0, 0, 20);
         this.layer = -10000;
+        this.font = this.size+'px Skranji';
 	},
     
     draw: function(t) {
