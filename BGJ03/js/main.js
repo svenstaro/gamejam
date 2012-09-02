@@ -34,7 +34,7 @@ MainState = gamvas.State.extend({
         gamvas.config.preventMouseEvents = false;
 
         // this loads the level asynchronous, watch out!
-        loadLevel(this, "levels/test.json");
+        loadLevel(this, "levels/level4.json");
     },
 
     resetPlayer: function() {
