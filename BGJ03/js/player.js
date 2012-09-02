@@ -93,7 +93,7 @@ Player = gamvas.Actor.extend({
         };
         
         this.getCurrentState().onCollisionEnter = function(collider) {
-            if(collider.type == "collisiontile") {
+            if(collider.type == "collisiontile" || collider.type == "box") {
                 this.actor.contacts.push(collider);
             }
         };
