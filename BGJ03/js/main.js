@@ -123,6 +123,10 @@ MainState = gamvas.State.extend({
             this.levelname.text = "You may now use your right mouse button well to perform an environmental action!";
             loadLevel(this, "levels/level6.json");
         }
+        if(level === 7) {
+            this.levelname.text = "Blowing boxes is one of the most gentlemanly sports ever invented, don't you think?";
+            loadLevel(this, "levels/level7.json");
+        }
     },
     
     spawnPlayer: function()
@@ -151,7 +155,7 @@ MainState = gamvas.State.extend({
         } else if(DEBUG)
         {
             if(k == gamvas.key.PAGE_UP) {
-                if(this.level < 5) {
+                if(this.level < 7) {
                     this.level += 1;
                     this.scheduleChangeLevel = true;
                 }
