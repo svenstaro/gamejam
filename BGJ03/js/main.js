@@ -47,8 +47,13 @@ MainState = gamvas.State.extend({
 
         if(this.player) {
             var d = this.dimension;
+            var h = d.h;
+            if(this.levelHeight <= 19 * TILESIZE)
+            {
+                h = this.levelHeight;
+            }
             this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
-            this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
+            this.camera.position.y = Math.min(this.levelHeight - h / 2, Math.max(this.player.position.y, h / 2));
         }
 
         if(gamvas.mouse.isPressed(gamvas.mouse.LEFT) && this.gunMode >= 1) {
@@ -107,12 +112,16 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/level3.json");
         }
         if(level === 4) {
-            this.levelname.text = "You have been granted the use of a terrificly useful device. Use the left mouse button to push things.";
+            this.levelname.text = "You have been granted the use of a terrificly practical device. Use the left mouse button to push things.";
             loadLevel(this, "levels/level4.json");
         }
         if(level === 5) {
-            this.levelname.text = "Awesome box";
+            this.levelname.text = "Press R to restart the very level. That is of greatest importance!";
             loadLevel(this, "levels/level5.json");
+        }
+        if(level === 6) {
+            this.levelname.text = "You may now use your right mouse button well to perform an environmental action!";
+            loadLevel(this, "levels/level6.json");
         }
     },
     
