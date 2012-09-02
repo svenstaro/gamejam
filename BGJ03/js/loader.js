@@ -38,7 +38,7 @@ function loadLevel(state, level) {
                             } else if(tileindex >= 5 && tileindex <= 10) {
                                 state.addActor(new DeathTile(nextId("deathtile-"), x, y, tileindex - 5));
                             } else if(tileindex == 11) {
-                                state.player.setPosition((x + 0.5) * TILESIZE, y * TILESIZE - 100);
+                                state.player.setPosition((x + 0.5) * TILESIZE, y * TILESIZE);
                             }
                         }
                     }
