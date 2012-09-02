@@ -154,10 +154,13 @@ MainState = gamvas.State.extend({
 
             loadLevel(this, "levels/level8.json", additionalActors);
         }
-        
         if(level === 9) {
             this.levelname.text = "A gentleman without a pile of crates is still a gentleman. Just without crates.";
             loadLevel(this, "levels/above.json", additionalActors);
+        }
+        if(level === 10) {
+            this.levelname.text = "Make me a final text here.";
+            loadLevel(this, "levels/final.json", additionalActors);
         }
         
         if(level === 10) {
@@ -209,7 +212,7 @@ MainState = gamvas.State.extend({
         } else if(DEBUG)
         {
             if(k == gamvas.key.PAGE_UP) {
-                if(this.level < 11) {
+                if(this.level < 12) {
                     this.level += 1;
                     this.scheduleChangeLevel = true;
                 }
