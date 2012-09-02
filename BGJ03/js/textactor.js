@@ -1,11 +1,13 @@
 TextActor = gamvas.Actor.extend(
 {
-    create: function(name, text, x, y)
+    create: function(name, text, x, y, size, color)
 	{
 		this._super(name, x, y);
 		this.text = text;
-		this.color = '#fff';
-		this.font = 'bold 16px sans-serif';
+        this.scale = typeof scale !== 'undefined' ? scale : 1;
+        this.color = typeof color !== 'undefined' ? color : '#fff';
+        size = typeof size !== 'undefined' ? size : 16;
+		this.font = 'bold ' + size + 'px sans-serif';
 	},
 	
 	draw: function(t)
