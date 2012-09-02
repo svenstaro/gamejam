@@ -5,10 +5,10 @@ function tileVisible(tile) {
     //var b = TILESIZE;
 
     return (
-        tile.position.x > c.x - d.w / 2 - TILESIZE * 3 &&
-        tile.position.x < c.x + d.w / 2 + TILESIZE * 3 &&
-        tile.position.y > c.y - d.h / 2 - TILESIZE * 3 &&
-        tile.position.y < c.y + d.h / 2 + TILESIZE * 3
+        tile.position.x > c.x - d.w / 2 - TILESIZE &&
+        tile.position.x < c.x + d.w / 2 + TILESIZE &&
+        tile.position.y > c.y - d.h / 2 - TILESIZE &&
+        tile.position.y < c.y + d.h / 2 + TILESIZE
         )
 }
 
