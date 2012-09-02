@@ -122,6 +122,7 @@ Player = gamvas.Actor.extend({
         this.setFixedRotation(true);
         this.fixture.SetFriction(0);
         this.fixture.SetRestitution(0.01);
+        this.setBullet(true);
     },
 
     isOnGround: function() {
