@@ -40,12 +40,13 @@ MainState = gamvas.State.extend({
     resetPlayer: function() {
         this.player.body.m_linearVelocity = new b2Vec2(0,0);
         this.player.setPosition(this.resetPosition.x, this.resetPosition.y);
-        //this.player.setAnimation("start-idle");
+        this.player.gun.setActive(false);
+        this.player.setAnimation("start-idle");
         this.flashAlpha = 1;
     },
 
     draw: function(t) {        
-        var d = this.dimension;w
+        var d = this.dimension;
         this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
         this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
         
