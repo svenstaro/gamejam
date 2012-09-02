@@ -1,4 +1,4 @@
-// create our collision objects
+
 Player = gamvas.Actor.extend({
     moveByWind: true,
     isPlayer: true,
@@ -32,9 +32,7 @@ Player = gamvas.Actor.extend({
         
         this.lookDirectionRight = true;
 
-        // create a static (non moving) rectangle
-        //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
-        //this.bodyRect(this.position.x, this.position.y, 32, 64, gamvas.physics.DYNAMIC);
+        //create body
         var vertices = Array();
         vertices.push(new b2Vec2(0.4, 0.5));
         vertices.push(new b2Vec2(0.3, 1.0));
