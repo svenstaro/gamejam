@@ -165,7 +165,14 @@ MainState = gamvas.State.extend({
         if(level === 10) {
             this.levelname.text = "Make me a final text here.";
 
-
+            additionalActors.push(new MegaGear("gear1", 850, 100, 1, 0.1, 2, true));
+            additionalActors.push(new MegaGear("gear2", 50, 200, 0, -0.1, 2, true));
+            additionalActors.push(new MegaGear("gear3", 600, 2200, 1, 0.2, 0.7));
+            additionalActors.push(new MegaGear("gear4", 400, 2150, 0, -0.1, 0.5));
+            additionalActors.push(new DecoGear("gear5", 400, 2150, 0, 0.3));
+            additionalActors.push(new DecoGear("gear6", 523, 2100, 0, -0.5, 1.2));
+            additionalActors.push(new DecoGear("gear7", 550, 2200, 0.08, 0.9));
+            additionalActors.push(new DecoGear("gear8", 490, 2150, 0.1, -2.3));
 
             loadLevel(this, "levels/final.json", additionalActors);
         }
