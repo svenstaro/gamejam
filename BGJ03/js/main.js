@@ -6,6 +6,7 @@ MainState = gamvas.State.extend({
     flashAlpha: 1,
     keys: 0,
     keysLeft: 0,
+    gunMode: 0, // 0 = none, 1 = blow, 2 = pipe
 
     init: function() {
         MUSIC = new Audio("snd/One-eyed Maestro.ogg");
@@ -50,7 +51,7 @@ MainState = gamvas.State.extend({
             this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
         }
 
-        if(gamvas.mouse.isPressed(gamvas.mouse.LEFT)) {
+        if(gamvas.mouse.isPressed(gamvas.mouse.LEFT) && this.gunMode >= 1) {
             this.player.gun.shoot("secondary");
         }
         
@@ -122,7 +123,7 @@ MainState = gamvas.State.extend({
     },
 
     onMouseDown: function(b, x, y) {
-        if (b == gamvas.mouse.RIGHT) {
+        if (b == gamvas.mouse.RIGHT && this.gunMode >= 2) {
             this.player.gun.shoot("primary");
         }
     },

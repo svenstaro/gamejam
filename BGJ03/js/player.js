@@ -7,11 +7,13 @@ Player = gamvas.Actor.extend({
         this.type = "player";
 
         var st = gamvas.state.getCurrentState();
-        this.gun = new Gun("gun", this);
-        st.addActor(this.gun);
-        this.gun.setActive(false);
+        if(st.gunMode >= 1) {
+            this.gun = new Gun("gun", this);
+            st.addActor(this.gun);
+            this.gun.setActive();
+        }
 
-        this.addAnimation(new gamvas.Animation("start-idle", st.resource.getImage('gfx/idle.png'), 64, 64, 2, 3));
+        this.addAnimation(new gamvas.Animation("start-idle", st.resource.getImage('gfx/idle' + (st.gunMode == 0 ? "-nogun" : "") + '.png'), 64, 64, 2, 3));
         this.addAnimation(new gamvas.Animation("walk-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 20));
         this.addAnimation(new gamvas.Animation("walk-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 20));
         this.addAnimation(new gamvas.Animation("walk-left-big", st.resource.getImage('gfx/playerleft_big.png'), 64, 64, 10, 20));
@@ -27,6 +29,7 @@ Player = gamvas.Actor.extend({
         this.addAnimation(idleLeft);
         
         this.setAnimation("start-idle");
+        this.start = true;
         
         //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/idle.png'), 64, 64, 2, 6));
         
@@ -50,39 +53,48 @@ Player = gamvas.Actor.extend({
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
                 this.actor.walkDirectionRight = false;
-                this.actor.gun.layer = 0.1;
-                this.actor.gun.image.setScaleXY(1,-1);
-                this.actor.gun.setActive(true);
+                this.actor.start = false;
+                if(this.actor.gun) {
+                    this.actor.gun.layer = 0.1;
+                    this.actor.gun.image.setScaleXY(1,-1);
+                    this.actor.gun.setActive(true);
+                }
             } else if (isKeyDown(RIGHT_KEYS)) {
                 this.actor.body.m_linearVelocity.x = f;
                 this.actor.walkDirectionRight = true;
-                this.actor.gun.layer = -0.1;
-                this.actor.gun.image.setScaleXY(1,1);
-                this.actor.gun.setActive(true);
+                this.actor.start = false;
+                if(this.actor.gun) {
+                    this.actor.gun.layer = -0.1;
+                    this.actor.gun.image.setScaleXY(1,1);
+                    this.actor.gun.setActive(true);
+                }
             } else {
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
             }
 
+            if(this.actor.gun) {
+                this.actor.lookDirectionRight = (this.actor.gun.rotation > -Math.PI / 2 && this.actor.gun.rotation < Math.PI / 2);
+            } else {
+                this.actor.lookDirectionRight = this.actor.walkDirectionRight;
+            }
 
-            this.actor.lookDirectionRight = (this.actor.gun.rotation > -Math.PI / 2 && this.actor.gun.rotation < Math.PI / 2);
+            var a = (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk");
+            if(this.actor.start)
+                this.actor.setAnimation("start-idle");
+            else
+                this.actor.setAnimation(a + "-" + (this.actor.lookDirectionRight ? "right" : "left"));
 
-            if(this.actor.gun.isActive()) {
-                var a = (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk");
-                this.actor.setAnimation(
-                        a + "-" + (this.actor.lookDirectionRight ? "right" : "left"));
+            if(a == "walk") {
+                var frames = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                if(this.actor.walkDirectionRight != this.actor.lookDirectionRight)
+                    frames.reverse();
 
-                if(a == "walk") {
-                    var frames = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                    if(this.actor.walkDirectionRight != this.actor.lookDirectionRight)
-                        frames.reverse();
-
-                    this.actor.setFrameList(frames);
-                }
+                this.actor.setFrameList(frames);
             }
 
             if (this.actor.isOnGround() && this.actor.inAirJump && isKeyDown(JUMP_KEYS)) {
                 this.actor.jump();
-                this.actor.gun.setActive(true);
+                if(this.actor.gun) this.actor.gun.setActive(true);
             }
         };
         
@@ -100,7 +112,7 @@ Player = gamvas.Actor.extend({
     reset: function(pos) {
         this.body.m_linearVelocity = new b2Vec2(0,0);
         this.setPosition(pos.x, pos.y);
-        this.gun.setActive(false);
+        if(this.gun) this.gun.setActive(false);
         this.setAnimation("start-idle");
     },
     

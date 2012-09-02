@@ -65,6 +65,9 @@ function loadLevel(state, level, additionalActors) {
         state.keysLeft = keys;
         
         state.flashAlpha = 1;
+        if(state.level < LEVELS_WITHOUT) state.gunMode = 0;
+        else if(state.level < LEVELS_WITHOUT + LEVELS_WITHOUT_SECOND) state.gunMode = 1;
+        else state.gunMode = 2;
 
         for(var x = 0; x < width; x++) {
             state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1, true));

@@ -43,16 +43,19 @@ Gun = gamvas.Actor.extend({
         var newRotation = this.aim();
 
         if(this.position != newPosition || this.rotation != newRotation) {
-            var target = this.castShot();
-            var tile = target[0];
-            var normal = target[1];
 
-            var isGhostTile = tile && this.ghost && this.ghost.tile == tile;
-            if(tile && !isGhostTile && !isBlastOnTile(tile.x, tile.y, normal.x, normal.y)) {
-                if(this.ghost) gamvas.state.getCurrentState().removeActor(this.ghost);
+            if(gamvas.state.getCurrentState().gunMode == 2) {
+                var target = this.castShot();
+                var tile = target[0];
+                var normal = target[1];
 
-                this.ghost = new PipeGhost(nextId("pipeghost-"), tile, normal);
-                gamvas.state.getCurrentState().addActor(this.ghost);
+                var isGhostTile = tile && this.ghost && this.ghost.tile == tile;
+                if(tile && !isGhostTile && !isBlastOnTile(tile.x, tile.y, normal.x, normal.y)) {
+                    if(this.ghost) gamvas.state.getCurrentState().removeActor(this.ghost);
+
+                    this.ghost = new PipeGhost(nextId("pipeghost-"), tile, normal);
+                    gamvas.state.getCurrentState().addActor(this.ghost);
+                }
             }
 
             this.position = newPosition;

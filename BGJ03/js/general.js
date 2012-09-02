@@ -14,6 +14,9 @@ var WIND_FORCE_HORIZONTAL = 200;
 var WIND_FORCE_PLAYER = 150;
 var RECOIL = 2;
 
+var LEVELS_WITHOUT = 4;
+var LEVELS_WITHOUT_SECOND = 1;
+
 function print() {
     var textArea = document.getElementById('log');
 
