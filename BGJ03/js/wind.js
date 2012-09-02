@@ -1,6 +1,6 @@
 // create our collision objects
 Wind = gamvas.ParticleEmitter.extend({
-    create: function(x, y, dir) {
+    create: function(x, y, dir, normal) {
         var img = new gamvas.Image(gamvas.state.getCurrentState().resource.getImage('gfx/steam.png'))
         img.setCenter(32, 32);
 
@@ -11,7 +11,7 @@ Wind = gamvas.ParticleEmitter.extend({
         this.setParticleSpeed(500);
         this.setParticleSpeedRange(100);
         this.setRotationRange(BLAST_ANGLE / 2);
-        // this.setParticleStartPositionRange(new gamvas.Vector2D(10, 10));
+        this.setParticleStartPositionRange(new gamvas.Vector2D(normal.y * TILESIZE / 4, normal.x * TILESIZE / 4));
         // this.setGravity(0);
         this.setSpeedScaleTable([ [0, 1, 1], [300, 0.02, 2] ]);
         this.alignParticleToPath(true);

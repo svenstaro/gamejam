@@ -9,6 +9,7 @@ BlastEmissionState = gamvas.ActorState.extend({
 
         var t = this.lifetime / 2.0;
         var min = -0.8 * t * t + 1.6 * t;
+        min = t - 0.2;
         var max = min + 0.2;
         
         var targets = this.actor.castRays();
@@ -77,8 +78,8 @@ Blast = gamvas.Actor.extend({
         }
 
         var st = gamvas.state.getCurrentState();
-        this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/blaster.png'), 32, 32, 1, 40));
-        this.setAnimation("idle");
+        //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/blaster.png'), 32, 32, 1, 40));
+        //this.setAnimation("idle");
         this.center = new gamvas.Vector2D(0, 16);
 
         this.winds = 0;
@@ -86,7 +87,7 @@ Blast = gamvas.Actor.extend({
         this.addState(new DyingState(1));
         this.setState("emission");
 
-        this.particles = new Wind(this.position.x, this.position.y, this.rotation);
+        this.particles = new Wind(this.position.x, this.position.y, this.rotation, this.normal);
         gamvas.state.getCurrentState().addActor(this.particles);
     },
 

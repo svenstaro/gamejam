@@ -43,8 +43,11 @@ Player = gamvas.Actor.extend({
 
         this.contacts = new Array();
         this.inAirJump = false;
+        this.jumpTimeout = 0;
 
         this.getCurrentState().update = function(t) {
+            this.actor.jumpTimeout -= t;
+
             var f = 6;
 
             this.actor.gun.position = new gamvas.Vector2D(this.actor.position.x - 1, this.actor.position.y+10);
@@ -106,11 +109,15 @@ Player = gamvas.Actor.extend({
     },
 
     jump: function() {
+        if(this.jumpTimeout > 0) 
+            return;
+
         if(!this.isOnGround()) {
             this.inAirJump = true;
             return;
         }
         this.inAirJump = false;
+        this.jumpTimeout = 0.2;
 
         this.body.ApplyImpulse(new b2Vec2(0, -4.7 * 4), new b2Vec2(0, 0));
         // this.actor.body.m_linearVelocity.y = -8;

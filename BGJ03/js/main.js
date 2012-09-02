@@ -6,7 +6,7 @@ MainState = gamvas.State.extend({
         gamvas.physics.pixelsPerMeter = 32;
 
         // disable object sleeping (third parameter is false)
-        var w = gamvas.physics.resetWorld(0, 20, false);
+        var w = gamvas.physics.resetWorld(0, 30, false);
 
         this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
         this.clearColor = "#222";
