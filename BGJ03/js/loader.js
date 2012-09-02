@@ -65,10 +65,16 @@ function loadLevel(state, level, additionalActors) {
         
         
         state.addActor(state.levelname);
-        for(var i = 0; i < additionalActors.length; ++i)
-        {
+        for(var i = 0; i < additionalActors.length; ++i) {
             state.addActor(additionalActors[i]);
-        }
+        }   
+
         state.spawnPlayer();
+        
+        for(var actor in state.actors) {
+            if(state.actors[actor].body != null) {
+                state.actors[actor].setAwake(true);
+            }
+        }   
     });
 }

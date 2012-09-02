@@ -51,6 +51,8 @@ Player = gamvas.Actor.extend({
         this.setFixedRotation(true);
         this.fixture.SetFriction(0);
         this.fixture.SetRestitution(0);
+        
+        this.setAwake(false);
 
         this.contacts = new Array();
         this.inAirJump = false;
