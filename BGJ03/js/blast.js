@@ -148,7 +148,7 @@ Blast = gamvas.Actor.extend({
                         list.push([actor, fraction]);
                     }
                 }
-                return !actor.blockWind;
+                return true; // !actor.blockWind;
             };
 
             var end = new b2Vec2(

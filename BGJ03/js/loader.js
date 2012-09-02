@@ -1,4 +1,5 @@
 function loadLevel(state, level, additionalActors) {
+    additionalActors = additionalActors || [];
     $.getJSON(level, function(json) {
         var width = json.width;
         var height = json.height;

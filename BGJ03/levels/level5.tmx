@@ -8,22 +8,12 @@
  </tileset>
  <layer name="100" width="25" height="18">
   <data encoding="base64" compression="zlib">
-   eJzd0zEOgCAMBdCiLA7WxA29rgfwyErSLgbKF4kDJH8hHx4BZSLaKsISpLdQ3ZjBtWivR8PdGQi/5xojEP6WXgyWc2lG0NLzHUbHUfrbY9BR4zQ6QfbLzZec5x3k+nPBtxx9F83+0kAdZFhGK6dktHAQ46sTDQ8m9S8hiWumH7J2kgvKKAx9
-  </data>
- </layer>
- <layer name="0" width="25" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGLgAABwgAAQ==
-  </data>
- </layer>
- <layer name="-100" width="25" height="18">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGLgAABwgAAQ==
+   eJzjY2BgkKIS5sOB+RmoB3jpYAcue0btgABGIGZCwrSID0kGwumM2mGFDGDhBrKjhYrmgsKOGcqWRLJjAhXNB5kpjSQG8wsTFsyMbgCR5kuhiePKl6TGEyMDIp7RAbXswAcG2g5c8UQqBpnDSQcsNEwwAIdiDVw=
   </data>
  </layer>
  <layer name="collision" width="25" height="18" opacity="0.75">
   <data encoding="base64" compression="zlib">
-   eJxjYGBgmEgGhgFi1CGrJwWg20WpuoGwYzaN7SA1nGltx3Q0tdjSDDF2zSGghhw5atlBijwh/1NiD758SYodxKqhhn5K7CFFLyXlAS3VU6KH3DJ6FBAGACDBNEM=
+   eJxjYGBgmEgljAvgkyMV4DKLmnbgMm+o2DGbxnYQE+/UtgObfdSODxCYh2Y2LeIc3Wxa5A9s4URqviXWfGx8YuWwqcXlLnqUMQNtB0yeVmXxKMAOABK4MM4=
   </data>
  </layer>
 </map>

@@ -22,7 +22,7 @@ MainState = gamvas.State.extend({
         
         this.levelname = new LevelName("Wait");
 
-        this.level = 0;
+        this.level = 5;
         this.scheduleChangeLevel = true;
     },
 
@@ -92,25 +92,23 @@ MainState = gamvas.State.extend({
         }
         if(level === 1) {
             this.levelname.text = "The level that adds fancy spikes for a better challenge.";
-            
-            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-
-            loadLevel(this, "levels/level1.json", additionalActors);
+            loadLevel(this, "levels/level1.json");
         }
         if(level === 2) {
             this.levelname.text = "The level no one reached before because it is seen as very difficult and frustrating.";
-
-            loadLevel(this, "levels/level2.json", additionalActors);
+            loadLevel(this, "levels/level2.json");
         }
         if(level === 3) {
             this.levelname.text = "Level 3. Deal with it.";
-
-            loadLevel(this, "levels/level3.json", additionalActors);
+            loadLevel(this, "levels/level3.json");
         }
         if(level === 4) {
             this.levelname.text = "Use your shit";
-
-            loadLevel(this, "levels/level4.json", additionalActors);
+            loadLevel(this, "levels/level4.json");
+        }
+        if(level === 5) {
+            this.levelname.text = "Awesome box";
+            loadLevel(this, "levels/level5.json");
         }
     },
     
