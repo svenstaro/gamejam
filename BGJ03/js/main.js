@@ -3,37 +3,49 @@ MainState = gamvas.State.extend({
     levelHeight: 0,
     resetPosition: new gamvas.Vector2D(),
     died: false,
+    flashAlpha: 1,
 
     init: function() {
         MUSIC = new Audio("snd/One-eyed Maestro.ogg");
 
         gamvas.physics.pixelsPerMeter = 32;
 
-        // disable object sleeping (third parameter is false)
         var w = gamvas.physics.resetWorld(0, 30, false);
 
         this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
         this.clearColor = "#222";
 
         this.keysPressed = {};
-        
+
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
 
         this.level = 0;
-        this.changeLevel(this.level);
+        this.scheduleChangeLevel = true;
     },
 
     resetPlayer: function() {
+        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
+        this.addActor(this.player);
+
         this.player.setPosition(this.resetPosition.x, this.resetPosition.y);
+        this.flashAlpha = 1;
     },
 
     draw: function(t) {        
+        if(this.scheduleChangeLevel === true) {
+            this.scheduleChangeLevel = false;
+            this.changeLevel(this.level);
+        }
+
         var d = this.dimension;
         this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
         this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
         
-        // gamvas.physics.drawDebug();
+        gamvas.physics.drawDebug();
+        if(DEBUG === true) {
+            gamvas.physics.drawDebug();
+        }
 
         if(DEBUG !== true) {
             MUSIC.play();
@@ -43,12 +55,23 @@ MainState = gamvas.State.extend({
             this.resetPlayer();
             this.died = false;
         }
+
+        if(this.resource.done()) {
+            this.flashAlpha -= t * 2;
+        }
+
+        if(this.flashAlpha > 0) {
+            this.c.fillStyle = 'rgba(255, 255, 255, ' + (1 - Math.pow(1 - this.flashAlpha, 2)) + ')';
+            this.c.fillRect(this.camera.position.x - this.dimension.w / 2, this.camera.position.y - this.dimension.h / 2, this.dimension.w, this.dimension.h);
+        }
     },
 
     changeLevel: function(level) {
         for(var actor in this.actors) {
             this.removeActor(this.actors[actor]);
         }
+
+        gamvas.physics.resetWorld(0, 30, false);
 
         this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
         this.addActor(this.player);
@@ -62,8 +85,6 @@ MainState = gamvas.State.extend({
             this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
             this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
 
-            this.resetPlayer();
-
             loadLevel(this, "levels/test.json");
         }
         if(level === 1) {
@@ -74,8 +95,6 @@ MainState = gamvas.State.extend({
             this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
             this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
             this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
-
-            this.resetPlayer();
 
             loadLevel(this, "levels/level1.json");
         }
@@ -88,9 +107,18 @@ MainState = gamvas.State.extend({
             this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
             this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
 
-            this.resetPlayer();
-
             loadLevel(this, "levels/level2.json");
+        }
+        if(level === 3) {
+            this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
+            this.addActor(this.levelname);
+
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            loadLevel(this, "levels/level3.json");
         }
     },
 
@@ -110,11 +138,11 @@ MainState = gamvas.State.extend({
 
     onKeyPushedDown: function(k, c, e) {
         if(k == gamvas.key.R) {
-            document.location.reload(true);
+            this.resetPlayer();
         } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
         } else if(k == gamvas.key.PAGE_UP) {
-            if(this.level < 2) {
+            if(this.level < 3) {
                 this.level += 1;
                 this.changeLevel(this.level);        
             }
@@ -151,32 +179,32 @@ MenuState = gamvas.State.extend({
 
         this.addActor(new MegaGear("gear1", 250, 250, 0, 0.1, 1.5));
         this.addActor(new MegaGear("gear2", 300, -150, 0, -0.1, 1));
-        this.addActor(new TextActor("title", "Airy Viktor", -300, -200, 32, "#999"));
+        this.addActor(new TextActor("title", "Airy Viktor", -350, -200, 100, "#999"));
         this.addActor(new Viktor("viktor", 80, -50));
 
         // this is shown at pseudoState === 0
-        this.addActor(new TextActor("start", "start", -300, -100, 16, "#999"));
-        this.addActor(new TextActor("instructions", "instructions", -300, 0, 16, "#999"));
-        this.addActor(new TextActor("credits", "credits", -300, 100, 16, "#999"));
-        this.addActor(new TextActor("quit", "quit", -300, 200, 16, "#999"));
+        this.addActor(new TextActor("start", "start", -350, -100, 40, "#999"));
+        this.addActor(new TextActor("instructions", "instructions", -350, -60, 40, "#999"));
+        this.addActor(new TextActor("credits", "credits", -350, -20, 40, "#999"));
+        this.addActor(new TextActor("quit", "quit", -350, 20, 40, "#999"));
 
         // this is shown at pseudoState === 1
-        this.addActor(new TextActor("instructions_title", "Instructions", -300, -150, 24, "#bbb"));
-        this.addActor(new TextActor("instructions_line1", "You are Viktor, a dapper gentleman.", -300, -100, 16, "#999"));
-        this.addActor(new TextActor("instructions_line2", "You are trapped in a hideous steam machine.", -300, -50, 16, "#999"));
-        this.addActor(new TextActor("instructions_line3", "It is of utmost importance that you get home in time for tea.", -300, 0, 16, "#999"));
-        this.addActor(new TextActor("instructions_line4", "You are equipped with a steam weapon.", -300, 50, 16, "#999"));
+        this.addActor(new TextActor("instructions_title", "Instructions", -350, -100, 40, "#FFF"));
+        this.addActor(new TextActor("instructions_line1", "You are Viktor, a dapper gentleman.", -350, -40, 30, "#999"));
+        this.addActor(new TextActor("instructions_line2", "You are trapped in a hideous steam machine.", -350, 0, 30, "#999"));
+        this.addActor(new TextActor("instructions_line3", "It is of utmost importance that you get home in time for tea.", -350, 40, 30, "#999"));
+        this.addActor(new TextActor("instructions_line4", "You are equipped with a steam weapon.", -350, 80, 30, "#999"));
 
         // this is shown at pseudoState === 2
-        this.addActor(new TextActor("credits_title", "Credits", -300, -150, 24, "#bbb"));
-        this.addActor(new TextActor("credits_line2", "Paul Bienkowski", -300, -100, 24, "#999"));
-        this.addActor(new TextActor("credits_line1", "Sascha Graeff", -300, -50, 24, "#999"));
-        this.addActor(new TextActor("credits_line3", "Sven-Hendrik Haase", -300, 0, 24, "#999"));
-        this.addActor(new TextActor("credits_line4", "Janina Matz", -300, 50, 24, "#999"));
+        this.addActor(new TextActor("credits_title", "Credits", -350, -100, 40, "#FFF"));
+        this.addActor(new TextActor("credits_line2", "Paul Bienkowski", -350, -40, 30, "#999"));
+        this.addActor(new TextActor("credits_line1", "Sascha Graeff", -350, 0, 30, "#999"));
+        this.addActor(new TextActor("credits_line3", "Sven-Hendrik Haase", -350, 40, 30, "#999"));
+        this.addActor(new TextActor("credits_line4", "Janina Matz", -350, 80, 30, "#999"));
 
         // this is shown at pseudoState === 3
-        this.addActor(new TextActor("quit_line1", "This is a web game, good chap.", -300, -100, 16, "#999"));
-        this.addActor(new TextActor("quit_line2", "Why not just close the tab?", -300, 0, 16, "#999"));
+        this.addActor(new TextActor("quit_line1", "This is a web game, good chap.", -350, 100, 30, "#999"));
+        this.addActor(new TextActor("quit_line2", "Why not just close the tab?", -350, 140, 30, "#999"));
 
         this.currentMenuEntry = 0;
         this.pseudoState = 0;
@@ -203,11 +231,11 @@ MenuState = gamvas.State.extend({
             this.actors.quit._isActive = true;
 
             for(var actor in this.actors) {
-                this.actors[actor].color = "#999";
-
-                if(this.currentMenuEntry === 0) {
-                    this.actors.start.color = "#fff";
-                }
+                if(this.actors[actor]._isActive)
+                    this.actors[actor].color = "#999";
+            }
+            if(this.currentMenuEntry === 0) {
+                this.actors.start.color = "#fff";
             }
             if(this.currentMenuEntry === 1) {
                 this.actors.instructions.color = "#fff";
@@ -239,15 +267,6 @@ MenuState = gamvas.State.extend({
 
         if(DEBUG !== true) {
             MUSIC.play();
-        }
-    },
-
-    onKeyUp: function(k, c, e) {
-    },
-
-    onKeyPushedDown: function(k, c, e) {
-        if(k == gamvas.key.R) {
-            document.location.reload(true);
         }
     },
 

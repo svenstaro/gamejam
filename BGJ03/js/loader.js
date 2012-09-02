@@ -4,7 +4,7 @@ function loadLevel(state, level) {
         var height = json.height;
         state.levelWidth = width * TILESIZE;
         state.levelHeight = height * TILESIZE;
-
+        
         for(var layerindex = 0; layerindex < json.layers.length; ++layerindex) {
             var data = json.layers[layerindex].data;
 
@@ -27,11 +27,13 @@ function loadLevel(state, level) {
                         var tileY = Math.floor((tileindex-1) / tilesetLineWidth);
 
                         if(json.layers[layerindex].name != "collision") {
-                            state.addActor(new Tile("tile-" + x + "-" + y + "-onlayer-"+layerindex, 
-                                        x, y,
-                                        tileX, tileY,
-                                        'levels/'+json.tilesets[tilesetindex].image,
-                                        tryParseInt(json.layers[layerindex].name)));
+                            var tile =  new Tile("tile-" + x + "-" + y + "-onlayer-"+layerindex, 
+                                                x, y,
+                                                tileX, tileY,
+                                                'levels/'+json.tilesets[tilesetindex].image,
+                                                tryParseInt(json.layers[layerindex].name));
+                            tile.debug = tileindex == 144;
+                            state.addActor(tile);
                         } else {
                             if(tileindex >= 1 && tileindex <= 5) {
                                 state.addActor(new CollisionTile(nextId("collisiontile-"), x, y, tileindex));

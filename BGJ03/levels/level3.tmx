@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
+  <image source="tilesets/tileset.png" width="384" height="384"/>
+ </tileset>
+ <tileset firstgid="145" name="tiles_collision" tilewidth="32" tileheight="32">
+  <image source="tilesets/tiles_collision.png" width="160" height="160"/>
+ </tileset>
+ <layer name="100" width="25" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzdlNsKwjAMhjvtVAQnc1ebOF/WB/CRbaGBENIctLux8F/Mpfly+OcQQhg21jVsey5/xMjz2itxXdJOUO1+RAytF4iz7hDXZL3jYXSh7i+pZytDyp+1JN1/YGj5a7mtDC1/re+IZPVGrT5pttQbQ9D9qjEiyt3qf4feo3NdiOjecrzWD1fb7Kh5rrDxOSWdDbkikfXk2DFpMsT2SYeiozP+ZmSMJdYSD7XfiLT6JAauGdfOSarP0scjaS16CnfpTuGZ9m7ZCcfgZgZz8M6WY6yB7xP6986WMry+gr3CbHOvml+8jG/80oIh+aAlo5YHGC8nYyq/UZ9wuwHGW2Hg74t6j8bRd1Cf1Yfe0wf5G29xOM9voZz/A6hCFK0=
+  </data>
+ </layer>
+ <layer name="collision" width="25" height="32" opacity="0.42">
+  <data encoding="base64" compression="zlib">
+   eJy9lUsOwzAIRLn/risWbe9aZREJIT7DOBTJSmzjvDHxJCIir8Um5roVlrXNeIP5X5Jhr52Wru4+dMio+pWmyRqU0c1l8ygD3R/LmNaimo+0sB5U00782tWn08wwNBjz+dPoznDnNWQ/p7VActFnqWtodLWPtLD7Q9dE91FokoPUNGNUvmO/c4ifsvzr3r9T73NET6XPasn6DMfXbosxPVd2DDn/Jww7vslAdfyL8SHWT3yHMpBvVuVt5t+DROfxpxl3/+l2xw/WcIka
+  </data>
+ </layer>
+</map>
