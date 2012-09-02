@@ -300,8 +300,8 @@ MenuState = gamvas.State.extend({
         this.addActor(new TextActor("quit_line2", "Why not just close the tab?", -350, 140, 30, "#999"));
 
         // this is shown at pseudoState === 4
-        this.addActor(new TextActor("teatime_line1", "You managed to get home in time.", -350, 100, 30, "#999"));
-        this.addActor(new TextActor("teatime_line2", "TEATIME!!", -350, 140, 30, "#999"));
+        this.addActor(new TextActor("teatime_line1", "You managed to get home just right for teatime.", -350, 100, 30, "#999"));
+        this.addActor(new TextActor("teatime_line2", "Indubitably.", -350, 140, 30, "#999"));
         this.addActor(new Viktor("teatime", 80, -50));
 
         
