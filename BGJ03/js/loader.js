@@ -50,14 +50,17 @@ function loadLevel(state, level) {
                 }
             }
         }
+
         for(var x = 0; x < width; x++) {
             state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1));
             state.addActor(new CollisionTile(nextId("walls-"), x, height + 1, 1));
         }
+
         for(var y = 0; y < height; y++) {
             state.addActor(new CollisionTile(nextId("walls-"), -1, y, 1));
             state.addActor(new CollisionTile(nextId("walls-"), width + 1, y, 1));
         }
+
         state.resetPlayer();
     });
 }

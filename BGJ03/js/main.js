@@ -10,30 +10,18 @@ MainState = gamvas.State.extend({
 
         gamvas.physics.pixelsPerMeter = 32;
 
-        // disable object sleeping (third parameter is false)
         var w = gamvas.physics.resetWorld(0, 30, false);
 
         this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
         this.clearColor = "#222";
 
         this.keysPressed = {};
-        
-        //loadLevel(this, "levels/level3.json");
-        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
-        this.addActor(this.player);
-
-        this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
-        this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-        this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-        this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
 
-        // this loads the level asynchronous, watch out!
-        loadLevel(this, "levels/level1.json");
-        this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
-        this.addActor(this.levelname);
+        this.level = 0;
+        this.scheduleChangeLevel = true;
     },
 
     resetPlayer: function() {
@@ -45,6 +33,11 @@ MainState = gamvas.State.extend({
     },
 
     draw: function(t) {        
+        if(this.scheduleChangeLevel === true) {
+            this.scheduleChangeLevel = false;
+            this.changeLevel(this.level);
+        }
+
         var d = this.dimension;
         this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
         this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
@@ -53,7 +46,9 @@ MainState = gamvas.State.extend({
             this.player.gun.shoot("secondary");
         }
         
-        //gamvas.physics.drawDebug();
+        if(DEBUG === true) {
+            gamvas.physics.drawDebug();
+        }
 
         if(DEBUG !== true) {
             MUSIC.play();
@@ -74,6 +69,59 @@ MainState = gamvas.State.extend({
         }
     },
 
+    changeLevel: function(level) {
+        for(var actor in this.actors) {
+            this.removeActor(this.actors[actor]);
+        }
+
+        gamvas.physics.resetWorld(0, 30, false);
+
+        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
+        this.addActor(this.player);
+
+        if(level === 0) {
+            this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
+            this.addActor(this.levelname);
+
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            loadLevel(this, "levels/test.json");
+        }
+        if(level === 1) {
+            this.levelname.text = "";
+
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            loadLevel(this, "levels/level1.json");
+        }
+        if(level === 2) {
+            this.levelname.text = "";
+            
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            loadLevel(this, "levels/level2.json");
+        }
+        if(level === 3) {
+            this.levelname.text = "";
+
+            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
+            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
+            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+
+            loadLevel(this, "levels/level3.json");
+        }
+    },
+
     onMouseDown: function(b, x, y) {
         if (b == gamvas.mouse.RIGHT) {
             this.player.gun.shoot("primary");
@@ -91,7 +139,20 @@ MainState = gamvas.State.extend({
             this.resetPlayer();
         } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
-        }    
+        } else if(k == gamvas.key.PAGE_UP) {
+            if(this.level < 3) {
+                this.level += 1;
+                this.scheduleChangeLevel = true;
+                //this.changeLevel(this.level);        
+            }
+        } else if(k == gamvas.key.PAGE_DOWN) {
+            if(this.level > 0) {
+                this.level -= 1;
+                this.scheduleChangeLevel = true;
+                //this.changeLevel(this.level);        
+            }
+        }
+
     },
 
     onKeyDown: function(k, c, e) {
