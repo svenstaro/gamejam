@@ -82,7 +82,7 @@ MainState = gamvas.State.extend({
 
     onKeyPushedDown: function(k, c, e) {
         if(k == gamvas.key.R) {
-            document.location.reload(true);
+            this.resetPlayer();
         } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
         }    
@@ -200,15 +200,6 @@ MenuState = gamvas.State.extend({
 
         if(DEBUG !== true) {
             MUSIC.play();
-        }
-    },
-
-    onKeyUp: function(k, c, e) {
-    },
-
-    onKeyPushedDown: function(k, c, e) {
-        if(k == gamvas.key.R) {
-            document.location.reload(true);
         }
     },
 
