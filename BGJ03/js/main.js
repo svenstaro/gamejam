@@ -153,7 +153,7 @@ MainState = gamvas.State.extend({
         
         if(level === 9) {
             this.levelname.text = "A gentleman without a pile of crates is still a gentleman. Just without crates.";
-            loadLevel(this, "levels/above.json");
+            loadLevel(this, "levels/above.json", additionalActors);
         }
         
         /*if(level === xxx) {

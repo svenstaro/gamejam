@@ -11,7 +11,10 @@ Key = TriggerTile.extend({
 
         this.addAnimation(getKeyAnimation());
         this.setAnimation("sparkle");
-    },
+        
+        // this is fucking gamejam, we can do shit like this stupid crap
+        gamvas.state.getCurrentState().resource.getImage('gfx/speechbubble.png');
+    }
 });
 
 Bubble = gamvas.Actor.extend({
@@ -19,8 +22,6 @@ Bubble = gamvas.Actor.extend({
         this._super(name, 0, 0);
         this.parent = parent;
 
-        // this if fucking gamejam, we can do shit like this stupid crap
-        gamvas.state.getCurrentState().resource.getImage('gfx/speechbubble.png');
         this.image = new gamvas.Image(gamvas.state.getCurrentState().resource.getImage('gfx/speechbubble.png'));
         this.image.center.x = 32;
         this.image.center.y = 28;
