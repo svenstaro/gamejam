@@ -114,7 +114,8 @@ CollisionTile = gamvas.Actor.extend({
         this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
     },
     draw: function(t) {
-        this.body.SetActive(tileVisible(this));
+        if(gamvas.state.getCurrentState().removeCollisions === true)
+            this.body.SetActive(tileVisible(this));
     }
 });
 
