@@ -90,8 +90,8 @@ Blast = gamvas.Actor.extend({
         this.type = "blast";
         this.rotation = Math.atan2(normal.y, normal.x);
         this.normal = normal;
-        if(!this.freeMode) this.tile = parent;
         this.freeMode = freeMode;
+        if(!freeMode) this.tile = parent;
         this.layer = 120;
 
         if(freeMode) {
@@ -123,6 +123,7 @@ Blast = gamvas.Actor.extend({
     // returns a list of pairs like [actor, fraction]
     castRays: function() {
         var list = [];
+        var blast = this;
 
         var start = new b2Vec2(
                 gamvas.physics.toWorld(this.position.x), 
@@ -135,7 +136,7 @@ Blast = gamvas.Actor.extend({
             var wrapper = function(fixture, point, normal, fraction) {
                 var actor = fixture.GetBody().GetUserData().data;
 
-                if(actor.moveByWind && !(this.freeMode && actor.type == "player")) {
+                if(actor.moveByWind && !(blast.freeMode && actor.type == "player")) {
                     var inList = false;
                     for(var i in list) {
                         if(list[i][0] == actor) {

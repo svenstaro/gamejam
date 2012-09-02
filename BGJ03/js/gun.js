@@ -16,6 +16,7 @@ Gun = gamvas.Actor.extend({
     create: function(name, player) {
         this._super(name, player.x, player.y);
         this.player = player;
+        this.cooldown = 0;
 
         var st = gamvas.state.getCurrentState();
         //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/gun.png'), 32, 32, 1, 40));
@@ -37,6 +38,7 @@ Gun = gamvas.Actor.extend({
     
     draw: function(t)
     {
+        this.cooldown -= t;
         var newPosition = new gamvas.Vector2D(this.player.position.x - 1, this.player.position.y+10);
         var newRotation = this.aim();
 
@@ -45,7 +47,8 @@ Gun = gamvas.Actor.extend({
             var tile = target[0];
             var normal = target[1];
 
-            if(tile && (!this.ghost || this.ghost.tile != tile) && !isBlastOnTile(tile.x, tile.y, normal.x, normal.y)) {
+            var isGhostTile = tile && this.ghost && this.ghost.tile == tile;
+            if(tile && !isGhostTile && !isBlastOnTile(tile.x, tile.y, normal.x, normal.y)) {
                 if(this.ghost) gamvas.state.getCurrentState().removeActor(this.ghost);
 
                 this.ghost = new PipeGhost(nextId("pipeghost-"), tile, normal);
@@ -64,7 +67,7 @@ Gun = gamvas.Actor.extend({
     aim: function() {
         var m = mousePosition();
         var p = this.position;
-        this.rotation = Math.atan2(m.y - p.y, m.x - p.x);
+        return Math.atan2(m.y - p.y, m.x - p.x);
     },
 
     shoot: function(mode) {
@@ -74,8 +77,8 @@ Gun = gamvas.Actor.extend({
             var normal = target[1];
 
             if(tile && !isBlastOnTile(tile.x, tile.y, normal.x, normal.y))
-                gamvas.state.getCurrentState().addActor(new Blast(nextId("blast-"), tile, normal));
-        } else if(mode == "secondary") {
+                gamvas.state.getCurrentState().addActor(new Blast(nextId("blast-"), tile, normal, false));
+        } else if(mode == "secondary" && this.cooldown <= 0) {
             var norm = new b2Vec2(
                     Math.cos(this.rotation),
                     Math.sin(this.rotation));
@@ -83,6 +86,7 @@ Gun = gamvas.Actor.extend({
 
             norm.Multiply(-1 * RECOIL);
             this.player.body.ApplyImpulse(norm, new b2Vec2());
+            this.cooldown = 0.5;
         }
     },
 

@@ -48,6 +48,10 @@ MainState = gamvas.State.extend({
         var d = this.dimension;
         this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
         this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
+
+        if(gamvas.mouse.isPressed(gamvas.mouse.RIGHT)) {
+            this.player.gun.shoot("secondary");
+        }
         
         //gamvas.physics.drawDebug();
 
@@ -71,10 +75,8 @@ MainState = gamvas.State.extend({
     },
 
     onMouseDown: function(b, x, y) {
-        if (b == gamvas.mouse.LEFT || b == gamvas.mouse.RIGHT) {
-            var fireMode = "primary";
-            if(b == gamvas.mouse.RIGHT) fireMode = "secondary";
-            this.player.gun.shoot(fireMode);
+        if (b == gamvas.mouse.LEFT) {
+            this.player.gun.shoot("primary");
         }
     },
 
