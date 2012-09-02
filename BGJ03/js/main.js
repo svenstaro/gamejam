@@ -95,7 +95,147 @@ MainState = gamvas.State.extend({
     }
 });
 
+MenuState = gamvas.State.extend({
+    init: function() {
+        //this.music = this.resource.getSound("snd/clocksong1.ogg");
+        this.addActor(new MegaGear("gear1", 250, 250, 0, 0.1, 1.5));
+        this.addActor(new MegaGear("gear2", 300, -150, 0, -0.1, 1));
+        this.addActor(new TextActor("title", "Airy Viktor", -300, -200, 32, "#999"));
+
+        // this is shown at pseudoState === 0
+        this.addActor(new TextActor("start", "start", -300, -100, 16, "#999"));
+        this.addActor(new TextActor("instructions", "instructions", -300, 0, 16, "#999"));
+        this.addActor(new TextActor("credits", "credits", -300, 100, 16, "#999"));
+        this.addActor(new TextActor("quit", "quit", -300, 200, 16, "#999"));
+
+        // this is shown at pseudoState === 1
+        this.addActor(new TextActor("instructions_title", "Instructions", -300, -150, 24, "#bbb"));
+        this.addActor(new TextActor("instructions_line1", "You are Viktor, a dapper gentleman.", -300, -100, 16, "#999"));
+        this.addActor(new TextActor("instructions_line2", "You are trapped in a hideous steam machine.", -300, -50, 16, "#999"));
+        this.addActor(new TextActor("instructions_line3", "It is of utmost importance that you get home in time for tea.", -300, 0, 16, "#999"));
+        this.addActor(new TextActor("instructions_line4", "You are equipped with a steam weapon.", -300, 50, 16, "#999"));
+
+        // this is shown at pseudoState === 2
+        this.addActor(new TextActor("credits_title", "Credits", -300, -150, 24, "#bbb"));
+        this.addActor(new TextActor("credits_line2", "Paul Bienkowski", -300, -100, 24, "#999"));
+        this.addActor(new TextActor("credits_line1", "Sascha Graeff", -300, -50, 24, "#999"));
+        this.addActor(new TextActor("credits_line3", "Sven-Hendrik Haase", -300, 0, 24, "#999"));
+        this.addActor(new TextActor("credits_line4", "Janina ?", -300, 50, 24, "#999"));
+
+        // this is shown at pseudoState === 3
+        this.addActor(new TextActor("quit_line1", "This is a web game, good chap.", -300, -100, 16, "#999"));
+        this.addActor(new TextActor("quit_line2", "Why not just close the tab?", -300, 0, 16, "#999"));
+
+        this.currentMenuEntry = 0;
+        this.pseudoState = 0;
+    },
+
+    draw: function() {
+        for(var actor in this.actors) {
+            this.actors[actor].setActive(false);
+        }
+
+        this.actors.gear1._isActive = true;
+        this.actors.gear2._isActive = true;
+        this.actors.title._isActive = true;
+
+        // pseudoState 0 is normal main menu
+        // pseudoState 1 is instructions screen
+        // pseudoState 2 is credits screen
+        // pseudoState 3 is quit screen
+        if(this.pseudoState === 0) {
+            this.actors.start._isActive = true;
+            this.actors.instructions._isActive = true;
+            this.actors.credits._isActive = true;
+            this.actors.quit._isActive = true;
+
+            for(var actor in this.actors) {
+                this.actors[actor].color = "#999";
+
+                if(this.currentMenuEntry === 0) {
+                    this.actors.start.color = "#fff";
+                }
+            }
+            if(this.currentMenuEntry === 1) {
+                this.actors.instructions.color = "#fff";
+            }
+            if(this.currentMenuEntry === 2) {
+                this.actors.credits.color = "#fff";
+            }
+            if(this.currentMenuEntry === 3) {
+                this.actors.quit.color = "#fff";
+            }
+
+        } else if(this.pseudoState === 1) {
+            this.actors.instructions_title._isActive = true;
+            this.actors.instructions_line1._isActive = true;
+            this.actors.instructions_line2._isActive = true;
+            this.actors.instructions_line3._isActive = true;
+            this.actors.instructions_line4._isActive = true;
+        } else if(this.pseudoState === 2) {
+            this.actors.credits_title._isActive = true;
+            this.actors.credits_line1._isActive = true;
+            this.actors.credits_line2._isActive = true;
+            this.actors.credits_line3._isActive = true;
+            this.actors.credits_line4._isActive = true;
+        } else if(this.pseudoState === 3) {
+            this.actors.quit_line1._isActive = true;
+            this.actors.quit_line2._isActive = true;
+        }
+
+        //console.log(this.music);
+        //this.music.play();
+        MUSIC.play();
+    },
+
+    onKeyUp: function(k, c, e) {
+    },
+
+    onKeyPushedDown: function(k, c, e) {
+        if(k == gamvas.key.R) {
+            document.location.reload(true);
+        }
+    },
+
+    onKeyDown: function(k, c, e) {
+        if(k == gamvas.key.UP) {
+            if(this.currentMenuEntry > 0) {
+                this.currentMenuEntry -= 1;
+            }
+        }
+        if(k == gamvas.key.DOWN) {
+            if(this.currentMenuEntry < 3) {
+                this.currentMenuEntry += 1;
+            }
+        }
+
+        if(k == gamvas.key.ESCAPE) {
+            this.pseudoState = 0;
+        }
+
+        if(k == gamvas.key.RETURN) {
+            if(this.currentMenuEntry === 0) {
+                console.log(MUSIC);
+                MUSIC.pause();
+                gamvas.state.setState('MainState');
+            } else if(this.currentMenuEntry === 1) {
+                this.pseudoState = 1;
+            } else if(this.currentMenuEntry === 2) {
+                this.pseudoState = 2;
+            } else if(this.currentMenuEntry === 3) {
+                this.pseudoState = 3;
+            }
+        }
+    }
+});
+
 gamvas.event.addOnLoad(function() {
+    gamvas.state.addState(new MenuState('MenuState'));
     gamvas.state.addState(new MainState('MainState'));
     gamvas.start('gameCanvas', true);
+    if(DEBUG === true) {
+        gamvas.state.setState('MainState');
+    } else {
+        gamvas.state.setState('MenuState');
+    }
 });
