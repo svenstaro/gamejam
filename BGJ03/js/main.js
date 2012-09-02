@@ -17,7 +17,7 @@ MainState = gamvas.State.extend({
         this.addActor(this.player);
         this.keysPressed = {};
         
-        loadLevel(this, "levels/level2.json");
+        loadLevel(this, "levels/level3.json");
         this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
         this.addActor(this.levelname);
 

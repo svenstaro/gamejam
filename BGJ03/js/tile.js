@@ -2,11 +2,16 @@ function tileVisible(tile) {
     var s = gamvas.state.getCurrentState();
     var c = s.camera.position;
     var d = s.dimension;
-    var b = TILESIZE;
+    //var b = TILESIZE;
+    
+    if(tile.debug === true)
+    {
+        
+    }
 
     return (
-        tile.position.x > c.x - d.w / 2 - TILESIZE * 3 &&
-        tile.position.x < c.x + d.w / 2 + TILESIZE * 3 &&
+        tile.position.x / TILESIZE > c.x - d.w / 2 - TILESIZE * 3 &&
+        tile.position.x / TILESIZE < c.x + d.w / 2 + TILESIZE * 3 &&
         tile.position.y > c.y - d.h / 2 - TILESIZE * 3 &&
         tile.position.y < c.y + d.h / 2 + TILESIZE * 3)
 }
