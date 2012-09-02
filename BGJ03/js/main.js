@@ -43,7 +43,7 @@ MainState = gamvas.State.extend({
         this.keysLeft = this.keys;
     },
 
-    draw: function(t) {        
+    draw: function(t) {
         if(this.scheduleChangeLevel === true) {
             this.scheduleChangeLevel = false;
             this.changeLevel(this.level);
@@ -187,6 +187,7 @@ MenuState = gamvas.State.extend({
     init: function() {
         MUSIC = new Audio("snd/clocksong1.ogg");
 
+        this.addActor(new MegaGear("gear3", 300, -150, 0, -0.1, 3, true));
         this.addActor(new MegaGear("gear1", 250, 250, 0, 0.1, 1.5));
         this.addActor(new MegaGear("gear2", 300, -150, 0, -0.1, 1));
         this.addActor(new TextActor("title", "Airy Viktor", -350, -200, 100, "#999"));
@@ -227,6 +228,7 @@ MenuState = gamvas.State.extend({
 
         this.actors.gear1._isActive = true;
         this.actors.gear2._isActive = true;
+        this.actors.gear3._isActive = true;
         this.actors.title._isActive = true;
         this.actors.viktor._isActive = true;
 
