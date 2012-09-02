@@ -8,10 +8,10 @@
  </tileset>
  <layer name="100" width="25" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIw0w08EOfhqbzwjEfAzk+aWFSHW8UDvI8csEEu2QJtF8JiwYV1iA7CDHDzC3wbAUA+4wp8QOfigNCwNJqF3o9pBrhyQD8eFLbnyT4hZa2wECsLhDTx8sSJiRAX+6wQVg+vhwYGQ7cYljcxMjDn1VdMAAuQsQSA==
+   eJxjYBgFIw0w08EOfhqbzwjEfAzk+aWFSHW8UDvI8csEEu2QJtF8kP+Z0DCusADZQY4fYG6DYSkG3GFOiR3SULNhYSAJ5aPbQ64dkgzEhy+58U2KW2htBwjA4g49fbAgYUYG/OkGF4Dp48OBke3EJY7NTYw49FXRAQMA9GsQYA==
   </data>
  </layer>
- <layer name="collision" width="25" height="18">
+ <layer name="collision" width="25" height="18" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYBgFIw1MpJMd82hsPjJNCpgzDOyYiAPjU0sqQNeDz62U2jERCxub/eTaQaw+cu0gxS3I9Gw62IOMpyNhQukGn9n49BCKP1xuItc9xABC5gIAAJAm0A==
   </data>
