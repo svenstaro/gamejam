@@ -40,7 +40,7 @@ MegaGear = gamvas.Actor.extend({
         this.setScale(scale);
         this.setCenter(250,250);
         
-        this.layer = 150;
+        this.layer = 650;
         this.tickAccu = 0.05;
 
         this.rotationSpeed = rotationSpeed;
