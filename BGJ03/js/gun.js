@@ -23,6 +23,7 @@ Gun = gamvas.Actor.extend({
     
     draw: function(t)
     {
+        this.position = new gamvas.Vector2D(this.player.position.x - 1, this.player.position.y+10);
         this.aim();
         // and you thought YOU were hacking
         this.image.setPosition(this.position.x, this.position.y);

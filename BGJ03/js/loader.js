@@ -2,6 +2,8 @@ function loadLevel(state, level) {
     $.getJSON(level, function(json) {
         var width = json.width;
         var height = json.height;
+        state.levelWidth = width * TILESIZE;
+        state.levelHeight = height * TILESIZE;
 
         for(var layerindex = 0; layerindex < json.layers.length; ++layerindex) {
             var data = json.layers[layerindex].data;

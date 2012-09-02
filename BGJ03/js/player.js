@@ -51,8 +51,6 @@ Player = gamvas.Actor.extend({
         this.getCurrentState().update = function(t) {
             var f = 6;
 
-            this.actor.gun.position = new gamvas.Vector2D(this.actor.position.x - 1, this.actor.position.y+10);
-
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
                 this.actor.lookDirectionRight = false;
