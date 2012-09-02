@@ -27,13 +27,14 @@ MainState = gamvas.State.extend({
         gamvas.config.preventMouseEvents = false;
         
         this.levelname = new LevelName("Wait");
-
+    },
+    
+    enter: function() {
         if(DEBUG === true) {
             this.level = 10;
         } else {
             this.level = 0;
         }
-
         this.scheduleChangeLevel = true;
     },
 
@@ -165,13 +166,6 @@ MainState = gamvas.State.extend({
             this.levelname.text = "A gentleman without a pile of crates is still a gentleman. Just without crates.";
 
             loadLevel(this, "levels/above.json", additionalActors);
-        }
-        if(level === 10) {
-            this.levelname.text = "Make me a final text here.";
-
-
-
-            loadLevel(this, "levels/final.json", additionalActors);
         }
         
         if(level === 10) {
@@ -406,15 +400,22 @@ MenuState = gamvas.State.extend({
         }
 
         if(k == gamvas.key.RETURN) {
-            if(this.currentMenuEntry === 0) {
-                MUSIC.pause();
-                gamvas.state.setState('MainState');
-            } else if(this.currentMenuEntry === 1) {
-                this.pseudoState = 1;
-            } else if(this.currentMenuEntry === 2) {
-                this.pseudoState = 2;
-            } else if(this.currentMenuEntry === 3) {
-                this.pseudoState = 3;
+            if(this.pseudoState === 0)
+            {
+                if(this.currentMenuEntry === 0) {
+                    MUSIC.pause();
+                    gamvas.state.setState('MainState');
+                } else if(this.currentMenuEntry === 1) {
+                    this.pseudoState = 1;
+                } else if(this.currentMenuEntry === 2) {
+                    this.pseudoState = 2;
+                } else if(this.currentMenuEntry === 3) {
+                    this.pseudoState = 3;
+                }
+            }
+            else
+            {
+                this.pseudoState = 0;
             }
         }
     }

@@ -1,5 +1,5 @@
 var b2Vec2 = Box2D.Common.Math.b2Vec2;
-var DEBUG = false;
+var DEBUG = true;
 var DEBUG_DRAWS = false && DEBUG;
 var MUSIC = new Audio("snd/clocksong1.ogg"); // fuck the police
 var TILESIZE = 32;
