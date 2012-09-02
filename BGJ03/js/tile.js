@@ -129,11 +129,14 @@ TriggerTile = gamvas.Actor.extend({
         this.setSensor(true);
 
         this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+        this.center.x = 0.5 * TILESIZE;
+        this.center.y = 0.5 * TILESIZE;
         this.callback = callback;
     },
 
     draw: function(t) {
         this.body.SetActive(tileVisible(this));
+        this._super(t);
     },
 
     onCollisionEnter: function(a, c) {
