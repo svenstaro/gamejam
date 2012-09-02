@@ -128,14 +128,19 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/level7.json");
         }
         if(level === 8) {
-            this.levelname.text = "The level that looks familiar? Think again!";
+            this.levelname.text = "What a brilliant circumstance that you now have unlocked the full potential of this device!";
             loadLevel(this, "levels/level8.json");
         }
-        //SHOULD NOT BE LEVEL 9!!!
+        
         if(level === 9) {
+            this.levelname.text = "A gentleman without a pile of crates is still a gentleman. Just without crates.";
+            loadLevel(this, "levels/above.json");
+        }
+        
+        /*if(level === xxx) {
             this.levelname.text = "This room seems strange, but with a smell most refreshing coming from that door!";
             loadLevel(this, "levels/tube.json");
-        }
+        }*/
     },
     
     spawnPlayer: function()
