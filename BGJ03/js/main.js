@@ -89,7 +89,7 @@ MenuState = gamvas.State.extend({
         this.addActor(new TextActor("credits_line2", "Paul Bienkowski", -300, -100, 24, "#999"));
         this.addActor(new TextActor("credits_line1", "Sascha Graeff", -300, -50, 24, "#999"));
         this.addActor(new TextActor("credits_line3", "Sven-Hendrik Haase", -300, 0, 24, "#999"));
-        this.addActor(new TextActor("credits_line4", "Janina ?", -300, 50, 24, "#999"));
+        this.addActor(new TextActor("credits_line4", "Janina Matz", -300, 50, 24, "#999"));
 
         // this is shown at pseudoState === 3
         this.addActor(new TextActor("quit_line1", "This is a web game, good chap.", -300, -100, 16, "#999"));
