@@ -1,3 +1,16 @@
+function tileVisible(tile) {
+    var s = gamvas.state.getCurrentState();
+    var c = s.camera.position;
+    var d = s.dimension;
+    var b = TILESIZE;
+
+    return (
+        tile.position.x > c.x - d.w / 2 - TILESIZE * 3 &&
+        tile.position.x < c.x + d.w / 2 + TILESIZE * 3 &&
+        tile.position.y > c.y - d.h / 2 - TILESIZE * 3 &&
+        tile.position.y < c.y + d.h / 2 + TILESIZE * 3)
+}
+
 /*
  *     COLLISION=1  DEATH=2
  * 1 = Square       Square
@@ -72,16 +85,7 @@ Tile = gamvas.Actor.extend({
     draw: function(t)
     {
         // and you thought YOU were hacking
-        var s = gamvas.state.getCurrentState();
-        var c = s.camera.position;
-        var d = s.dimension;
-        var b = TILESIZE;
-
-        if (this.position.x > c.x - d.w / 2 - TILESIZE * 3 &&
-            this.position.x < c.x + d.w / 2 + TILESIZE * 3 &&
-            this.position.y > c.y - d.h / 2 - TILESIZE * 3 &&
-            this.position.y < c.y + d.h / 2 + TILESIZE * 3)
-            
+        if(tileVisible(this)) 
             this.image.draw();
     }
 });
@@ -98,6 +102,9 @@ CollisionTile = gamvas.Actor.extend({
         this.createBody(gamvas.physics.STATIC, polygon);
         this.fixture.SetRestitution(0);
         this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+    },
+    draw: function(t) {
+        this.body.SetActive(tileVisible(this));
     }
 });
 
@@ -112,5 +119,8 @@ DeathTile = gamvas.Actor.extend({
         this.setSensor(true);
 
         this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+    },
+    draw: function(t) {
+        this.body.SetActive(tileVisible(this));
     }
 });
