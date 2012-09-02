@@ -3,6 +3,8 @@ MainState = gamvas.State.extend({
     levelHeight: 0,
 
     init: function() {
+        //MUSIC = new Audio("snd/One-eyed Maestro.ogg");
+
         gamvas.physics.pixelsPerMeter = 32;
 
         // disable object sleeping (third parameter is false)
@@ -35,6 +37,8 @@ MainState = gamvas.State.extend({
         
         this.levelname.setPosition(this.camera.position.x - this.dimension.w / 2 + 120, this.camera.position.y + this.dimension.h / 2 - 6);
         // gamvas.physics.drawDebug();
+
+        //MUSIC.play();
     },
 
     onMouseDown: function(b, x, y) {
@@ -69,10 +73,12 @@ MainState = gamvas.State.extend({
 
 MenuState = gamvas.State.extend({
     init: function() {
-        //this.music = this.resource.getSound("snd/clocksong1.ogg");
+        MUSIC = new Audio("snd/clocksong1.ogg");
+
         this.addActor(new MegaGear("gear1", 250, 250, 0, 0.1, 1.5));
         this.addActor(new MegaGear("gear2", 300, -150, 0, -0.1, 1));
         this.addActor(new TextActor("title", "Airy Viktor", -300, -200, 32, "#999"));
+        this.addActor(new Viktor("viktor", 80, -50));
 
         // this is shown at pseudoState === 0
         this.addActor(new TextActor("start", "start", -300, -100, 16, "#999"));
@@ -110,6 +116,7 @@ MenuState = gamvas.State.extend({
         this.actors.gear1._isActive = true;
         this.actors.gear2._isActive = true;
         this.actors.title._isActive = true;
+        this.actors.viktor._isActive = true;
 
         // pseudoState 0 is normal main menu
         // pseudoState 1 is instructions screen
@@ -155,8 +162,6 @@ MenuState = gamvas.State.extend({
             this.actors.quit_line2._isActive = true;
         }
 
-        //console.log(this.music);
-        //this.music.play();
         MUSIC.play();
     },
 
@@ -187,7 +192,6 @@ MenuState = gamvas.State.extend({
 
         if(k == gamvas.key.RETURN) {
             if(this.currentMenuEntry === 0) {
-                console.log(MUSIC);
                 MUSIC.pause();
                 gamvas.state.setState('MainState');
             } else if(this.currentMenuEntry === 1) {

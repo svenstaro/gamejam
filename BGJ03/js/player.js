@@ -10,6 +10,7 @@ Player = gamvas.Actor.extend({
 
         this.addAnimation(new gamvas.Animation("walk-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 20));
         this.addAnimation(new gamvas.Animation("walk-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 20));
+        this.addAnimation(new gamvas.Animation("walk-left-big", st.resource.getImage('gfx/playerleft_big.png'), 64, 64, 10, 20));
         var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10);
         idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
         this.addAnimation(idleLeft);
@@ -114,5 +115,14 @@ Player = gamvas.Actor.extend({
 
         this.body.ApplyImpulse(new b2Vec2(0, -4.7 * 4), new b2Vec2(0, 0));
         // this.actor.body.m_linearVelocity.y = -8;
+    }
+});
+
+Viktor = gamvas.Actor.extend({
+    create: function(name, x, y) {
+        this._super(name, x, y);
+        var st = gamvas.state.getCurrentState();
+        this.addAnimation(new gamvas.Animation("walk-left", st.resource.getImage('gfx/playerleft_medium.png'), 341, 341, 10, 8));
+        this.setAnimation("walk-left");
     }
 });
