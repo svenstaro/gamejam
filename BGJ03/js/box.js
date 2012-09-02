@@ -7,14 +7,14 @@ Box = gamvas.Actor.extend({
 
         var st = gamvas.state.getCurrentState();
         this.setFile(st.resource.getImage('gfx/crate.png'));
-
+    },
+    
+    activatePhysics: function() {
         var halfskin = 1;
         this.bodyRect(this.position.x + halfskin,
                       this.position.y + halfskin,
                       TILESIZE - halfskin*2,
                       TILESIZE - halfskin*2, gamvas.physics.DYNAMIC);
         this.body.SetMassData({mass: 2, center: { x: 0, y: 0}});
-        
-        this.setAwake(false);
-    },
+    }
 });

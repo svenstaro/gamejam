@@ -43,7 +43,7 @@ function loadLevel(state, level, additionalActors) {
                                 state.addActor(new TriggerTile(nextId("triggertile-"), x, y, id, callback));
                             } else if(tileindex == 11) {
                                 state.resetPosition.x = (x + 0.5) * TILESIZE;
-                                state.resetPosition.y = (y - 0.5) * TILESIZE;
+                                state.resetPosition.y = y * TILESIZE;
                             } else if(tileindex == 14) {
                                 state.addActor(new Box(nextId("box-"), x, y));
                             }
@@ -70,6 +70,14 @@ function loadLevel(state, level, additionalActors) {
         }   
 
         state.spawnPlayer();
+        
+        for(var actor in state.actors) {
+            if("activatePhysics" in state.actors[actor] && typeof(state.actors[actor].activatePhysics) == "function") {
+                state.actors[actor].activatePhysics();
+            }
+        }
+        
+        state.resetPlayer();
         
         for(var actor in state.actors) {
             if(state.actors[actor].body != null) {

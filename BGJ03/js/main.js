@@ -118,7 +118,6 @@ MainState = gamvas.State.extend({
     {
         this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
         this.addActor(this.player);
-        this.resetPlayer();
     },
 
     onMouseDown: function(b, x, y) {
