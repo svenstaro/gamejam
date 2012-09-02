@@ -72,9 +72,7 @@ MainState = gamvas.State.extend({
             this.died = false;
         }
 
-        if(this.resource.done()) {
-            this.flashAlpha -= t * 2;
-        }
+        this.flashAlpha -= t * 2;
 
         if(this.flashAlpha > 0) {
             this.c.fillStyle = 'rgba(255, 255, 255, ' + (1 - Math.pow(1 - this.flashAlpha, 2)) + ')';
@@ -167,6 +165,7 @@ MainState = gamvas.State.extend({
 
     playerWins: function(tile) {
         if(this.keysLeft > 0) {
+            this.addActor(new Bubble("keybubble", this.player, getKeyAnimation()));
             println("Get the missing " + this.keysLeft + " keys!");
         } else {
             println("WIN");
