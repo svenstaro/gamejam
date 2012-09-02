@@ -11,9 +11,14 @@
    eJztld0KgCAMhe2HqKCC7qrX7QF65BwljCHldIaBBz68aXNnDadUVtalmpx/FNReaMqbSvn7KRh3SvcM7h4JlWeuwTHW9C2kZzYtmk0gD/iYHL8L7VlMufoAQe9WJdM/aXF8pKzsIy197QPvCxsh725sH7h2ui8o3Fr2+/zCB36zpX0c6I5YPmz7WsoHnU8T/zSzvrPL+Q8Yl1pscR2D/qX2lplPkplJ8wA3lyQnQ9MLMg==
   </data>
  </layer>
+ <layer name="-50" width="50" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBaNg6ABNINYCYu2BdgiFwByNHkxAB4h1gdgVSuvhUWuFRg8mgO4mFwaIf7D5aSj5A5ccKN7ciNCDDAAtUQT0
+  </data>
+ </layer>
  <layer name="collision" width="50" height="18">
   <data encoding="base64" compression="zlib">
-   eJztkzsKACAMQ3v/zVkP6y7+YhsUyQM3yae0ZkKIHul2gCCS/dFFPd5CPd5CPXx+s+fRZYJkRLOUxoMJoh/VI4M6M05mtPt/tIs7e8vKtMoYdUNItkgvNsw5eaiSuCu+
+   eJztkzsOACAIQ7n/5qyHNW4O/hAaielL2Pi0BEQIISPSawFOJPnDC33Egj5iQR+2eauw9EWi0RjdByK3Ubq6vjYr+6y42dFp/uwWT+4WpWmn0euHNNo8Z6FB7slCBSnqKyI=
   </data>
  </layer>
 </map>

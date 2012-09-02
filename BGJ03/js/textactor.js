@@ -21,7 +21,7 @@ LevelName = TextActor.extend({
     create: function(text) {
 		this._super("levelname", text, 0, 0, 20);
         this.layer = -10000;
-        this.font = this.size+'px Skranji';
+        this.font = '16px Skranji';
 	},
     
     draw: function(t) {

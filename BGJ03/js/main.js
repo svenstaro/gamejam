@@ -94,19 +94,19 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/level0.json", additionalActors);
         }
         if(level === 1) {
-            this.levelname.text = "The level that adds pointy spikes to enhance your personal jumping experience.";
+            this.levelname.text = "The level that wants you to think about what you have learned and gives you time for thoughts about tea.";
             loadLevel(this, "levels/level1.json");
         }
         if(level === 2) {
-            this.levelname.text = "The level no one reached before because it is seen as very difficult and frustrating.";
+            this.levelname.text = "The level that adds pointy spikes to enhance your personal jumping experience.";
             loadLevel(this, "levels/level2.json");
         }
         if(level === 3) {
-            this.levelname.text = "Level 3. Deal with it.";
+            this.levelname.text = "The third level which ultimatly shows you the importance of key possession.";
             loadLevel(this, "levels/level3.json");
         }
         if(level === 4) {
-            this.levelname.text = "Use your shit";
+            this.levelname.text = "You have been granted the use of a terrificly useful device. Use the left mouse button to push things.";
             loadLevel(this, "levels/level4.json");
         }
         if(level === 5) {
@@ -138,18 +138,20 @@ MainState = gamvas.State.extend({
             this.resetPlayer();
         } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
-        } else if(k == gamvas.key.PAGE_UP) {
-            if(this.level < 5) {
-                this.level += 1;
-                this.scheduleChangeLevel = true;
-            }
-        } else if(k == gamvas.key.PAGE_DOWN) {
-            if(this.level > 0) {
-                this.level -= 1;
-                this.scheduleChangeLevel = true;
+        } else if(DEBUG)
+        {
+            if(k == gamvas.key.PAGE_UP) {
+                if(this.level < 5) {
+                    this.level += 1;
+                    this.scheduleChangeLevel = true;
+                }
+            } else if(k == gamvas.key.PAGE_DOWN) {
+                if(this.level > 0) {
+                    this.level -= 1;
+                    this.scheduleChangeLevel = true;
+                }
             }
         }
-
     },
 
     onKeyDown: function(k, c, e) {
@@ -164,7 +166,8 @@ MainState = gamvas.State.extend({
             this.addActor(new Bubble("keybubble", this.player, getKeyAnimation()));
             println("Get the missing " + this.keysLeft + " keys!");
         } else {
-            println("WIN");
+            ++this.level;
+            this.scheduleChangeLevel = true;
         }
     },
 
