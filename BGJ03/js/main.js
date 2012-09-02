@@ -34,19 +34,14 @@ MainState = gamvas.State.extend({
     },
 
     resetPlayer: function() {
-        this.player.body.m_linearVelocity = new b2Vec2(0,0);
-        this.player.setPosition(this.resetPosition.x, this.resetPosition.y);
-        this.player.gun.setActive(false);
-        this.player.setAnimation("start-idle");
-        this.flashAlpha = 1;
-        
-        this.keysLeft = this.keys;
+        this.scheduleChangeLevel = true;
     },
 
     draw: function(t) {        
-        if(this.scheduleChangeLevel === true) {
-            this.scheduleChangeLevel = false;
+        if(this.scheduleChangeLevel) {
             this.changeLevel(this.level);
+            this.scheduleChangeLevel = false;
+            return;
         }
 
         if(this.player) {
@@ -81,6 +76,7 @@ MainState = gamvas.State.extend({
     },
 
     changeLevel: function(level) {
+        // this.flashAlpha = 1;
         for(var actor in this.actors) {
             this.removeActor(this.actors[actor]);
         }
