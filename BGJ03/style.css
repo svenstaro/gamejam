@@ -9,11 +9,22 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 8pt;
     color: #FFF;
-    background: #333;
+    background: #000;
 }
 
 #canvas {
     display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+#gameCanvas {
+    position: absolute;
+    left: -400px;
+    top: -300px;
+    width: 800px;
+    height: 600px;
 }
 
 #info {
