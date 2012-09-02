@@ -35,7 +35,6 @@ MainState = gamvas.State.extend({
         this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
         this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
         
-        this.levelname.setPosition(this.camera.position.x - this.dimension.w / 2 + 120, this.camera.position.y + this.dimension.h / 2 - 6);
         // gamvas.physics.drawDebug();
 
         if(DEBUG !== true) {
