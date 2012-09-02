@@ -170,12 +170,23 @@ MainState = gamvas.State.extend({
         
         if(level === 10) {
             this.levelname.text = "Even a door which has to be opened with two keys is not challenging a true gentleman.";
+
             this.removeCollisions = false;
             loadLevel(this, "levels/secondkey.json", additionalActors);
         }
         
         if(level === 11) {
             this.levelname.text = "The smell of tea gets stronger every step the gentleman takes. And it's almost time, isn't it?";
+
+            additionalActors.push(new MegaGear("gear1", 850, 100, 1, 0.1, 2, true));
+            additionalActors.push(new MegaGear("gear2", 50, 200, 0, -0.1, 2, true));
+            additionalActors.push(new MegaGear("gear3", 600, 2200, 1, 0.2, 0.7));
+            additionalActors.push(new MegaGear("gear4", 400, 2150, 0, -0.1, 0.5));
+            additionalActors.push(new DecoGear("gear5", 400, 2150, 0, 0.3));
+            additionalActors.push(new DecoGear("gear6", 523, 2100, 0, -0.5, 1.2));
+            additionalActors.push(new DecoGear("gear7", 550, 2200, 0.08, 0.9));
+            additionalActors.push(new DecoGear("gear8", 490, 2150, 0.1, -2.3));
+
             this.removeCollisions = false;
             loadLevel(this, "levels/final.json", additionalActors);
         }
@@ -300,8 +311,8 @@ MenuState = gamvas.State.extend({
         this.addActor(new TextActor("quit_line2", "Why not just close the tab?", -350, 140, 30, "#999"));
 
         // this is shown at pseudoState === 4
-        this.addActor(new TextActor("teatime_line1", "You managed to get home in time.", -350, 100, 30, "#999"));
-        this.addActor(new TextActor("teatime_line2", "TEATIME!!", -350, 140, 30, "#999"));
+        this.addActor(new TextActor("teatime_line1", "You managed to get home just right for teatime.", -350, 100, 30, "#999"));
+        this.addActor(new TextActor("teatime_line2", "Indubitably.", -350, 140, 30, "#999"));
         this.addActor(new Viktor("teatime", 80, -50));
 
         
