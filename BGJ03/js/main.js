@@ -89,6 +89,8 @@ MainState = gamvas.State.extend({
 
         var additionalActors = [];
         
+        additionalActors.push(new Background("background", -100, 0));
+        
         if(level === 0) {
             this.levelname.text = "The level that makes you understand the basics of running and such. Press WASD or arrow keys to do it.";
 
@@ -96,14 +98,12 @@ MainState = gamvas.State.extend({
             additionalActors.push(new DecoGear("gear2", 323, 200, 0, -0.3));
             additionalActors.push(new DecoGear("gear3", 365, 315, 0.08, 0.3));
             additionalActors.push(new DecoGear("gear4", 488, 315, 0.08, -0.3));
-            additionalActors.push(new Background("background", -100, 0));
             
             loadLevel(this, "levels/level0.json", additionalActors);
         }
         if(level === 1) {
             this.levelname.text = "The level that wants you to think about what you have learned and gives you time for thoughts about tea.";
 
-            additionalActors.push(new Background("background", -100, 0));
             additionalActors.push(new Prop("prop1", 500, 100, Math.PI / 2));
             additionalActors.push(new Prop("prop2", 200, 100, -Math.PI / 2));
 
@@ -112,21 +112,16 @@ MainState = gamvas.State.extend({
         if(level === 2) {
             this.levelname.text = "The level that adds pointy spikes to enhance your personal jumping experience.";
 
-            additionalActors.push(new Background("background", -100, 0));
-
             loadLevel(this, "levels/level2.json", additionalActors);
         }
         if(level === 3) {
             this.levelname.text = "The third level which ultimatly shows you the importance of key possession.";
-
-            additionalActors.push(new Background("background", -100, 0));
 
             loadLevel(this, "levels/level3.json", additionalActors);
         }
         if(level === 4) {
             this.levelname.text = "You have been granted the use of a terrificly practical device. Use the left mouse button to push things.";
 
-            additionalActors.push(new Background("background", -100, 0));
             additionalActors.push(new MegaGear("gear1", 850, 100, 1, 0.1, 2, true));
             additionalActors.push(new MegaGear("gear2", 50, 200, 0, -0.1, 2, true));
 
@@ -134,8 +129,7 @@ MainState = gamvas.State.extend({
         }
         if(level === 5) {
             this.levelname.text = "Press R to restart the very level. That is of greatest importance!";
-
-            additionalActors.push(new Background("background", -100, 0));
+            
             additionalActors.push(new Prop("prop1", 530, 100, Math.PI+0.1));
             additionalActors.push(new Prop("prop2", 130, 100, Math.PI-0.1));
 
@@ -144,21 +138,15 @@ MainState = gamvas.State.extend({
         if(level === 6) {
             this.levelname.text = "You may now use your right mouse button well to perform an environmental action!";
 
-            additionalActors.push(new Background("background", -100, 0));
-
             loadLevel(this, "levels/level6.json", additionalActors);
         }
         if(level === 7) {
             this.levelname.text = "Blowing boxes is one of the most gentlemanly sports ever invented, don't you think?";
 
-            additionalActors.push(new Background("background", -100, 0));
-
             loadLevel(this, "levels/level7.json", additionalActors);
         }
         if(level === 8) {
             this.levelname.text = "What a brilliant circumstance that you now have unlocked the full potential of this device!";
-
-            additionalActors.push(new Background("background", -100, 0));
 
             loadLevel(this, "levels/level8.json", additionalActors);
         }
