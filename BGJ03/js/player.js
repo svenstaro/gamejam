@@ -50,7 +50,7 @@ Player = gamvas.Actor.extend({
         this.center.y = 32;
         this.setFixedRotation(true);
         this.fixture.SetFriction(0);
-        this.fixture.SetRestitution(0);
+        this.fixture.SetRestitution(0.01);
         
         this.setAwake(false);
 
