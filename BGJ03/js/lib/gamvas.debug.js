@@ -3867,7 +3867,7 @@ gamvas.Animation = gamvas.Class.extend({
         c.save();
         c.translate(x, y);
         c.rotate(rot);
-        c.scale(tScale, this.scaleFactor2);
+        c.scale(tScale, tScale);
         c.drawImage(this.sprite, px, py, this.width, this.height, -tOffX, -tOffY, this.width, this.height);
         c.restore();
     },

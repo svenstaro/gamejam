@@ -1,11 +1,13 @@
 TextActor = gamvas.Actor.extend(
 {
-    create: function(name, text, x, y)
+    create: function(name, text, x, y, size, color)
 	{
 		this._super(name, x, y);
 		this.text = text;
-		this.color = '#fff';
-		this.font = 'bold 16px sans-serif';
+        this.scale = typeof scale !== 'undefined' ? scale : 1;
+        this.color = typeof color !== 'undefined' ? color : '#fff';
+        size = typeof size !== 'undefined' ? size : 16;
+		this.font = 'bold ' + size + 'px sans-serif';
 	},
 	
 	draw: function(t)
@@ -21,6 +23,20 @@ LevelName = TextActor.extend(
 {
     create: function(text)
 	{
-		this._super("levelname", text, 120, 593);
-	}
+		this._super("levelname", text, 120, 594);
+        this.layer = -100;
+	},
+    
+    draw: function(t)
+    {
+        var st = gamvas.state.getCurrentState();
+        
+        st.c.fillStyle = '#000';
+        //st.c.fillRect(this.position.x,575,800,25); 
+        st.c.fillRect(this.position.x - 120,this.position.y - 594 + 575,800,25); 
+        
+        st.c.fillStyle = this.color;
+        st.c.font = this.font;
+		st.c.fillText(this.text, this.position.x, this.position.y);
+    }
 });
