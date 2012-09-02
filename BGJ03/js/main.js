@@ -22,7 +22,12 @@ MainState = gamvas.State.extend({
         
         this.levelname = new LevelName("Wait");
 
-        this.level = 5;
+        if(DEBUG === true) {
+            this.level = 5;
+        } else {
+            this.level = 0;
+        }
+
         this.scheduleChangeLevel = true;
     },
 
@@ -136,16 +141,14 @@ MainState = gamvas.State.extend({
         } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
         } else if(k == gamvas.key.PAGE_UP) {
-            if(this.level < 3) {
+            if(this.level < 5) {
                 this.level += 1;
                 this.scheduleChangeLevel = true;
-                //this.changeLevel(this.level);        
             }
         } else if(k == gamvas.key.PAGE_DOWN) {
             if(this.level > 0) {
                 this.level -= 1;
                 this.scheduleChangeLevel = true;
-                //this.changeLevel(this.level);        
             }
         }
 
