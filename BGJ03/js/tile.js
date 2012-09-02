@@ -3,17 +3,13 @@ function tileVisible(tile) {
     var c = s.camera.position;
     var d = s.dimension;
     //var b = TILESIZE;
-    
-    if(tile.debug === true)
-    {
-        
-    }
 
     return (
         tile.position.x > c.x - d.w / 2 - TILESIZE * 3 &&
         tile.position.x < c.x + d.w / 2 + TILESIZE * 3 &&
         tile.position.y > c.y - d.h / 2 - TILESIZE * 3 &&
-        tile.position.y < c.y + d.h / 2 + TILESIZE * 3)
+        tile.position.y < c.y + d.h / 2 + TILESIZE * 3
+        )
 }
 
 /*
@@ -79,9 +75,10 @@ Tile = gamvas.Actor.extend({
         var st = gamvas.state.getCurrentState();
 
         this.image = new gamvas.Image(st.resource.getImage(tileset));
-        //this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
-        this.image.position = this.position;
+        this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
+
         this.image.move(-xOffset  * TILESIZE, -yOffset * TILESIZE);
+        
         var halfskin = 0.25;
         this.image.setClipRect(xOffset * TILESIZE + halfskin, yOffset * TILESIZE + halfskin, TILESIZE - halfskin * 2, TILESIZE - halfskin * 2);
 
