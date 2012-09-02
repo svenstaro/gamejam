@@ -87,7 +87,8 @@ function loadLevel(state, level, additionalActors) {
             }
         }
         
-        state.resetPlayer();
+        state.player.reset(state.resetPosition);
+        // state.resetPlayer();
         
         for(var actor in state.actors) {
             if(state.actors[actor].body != null) {

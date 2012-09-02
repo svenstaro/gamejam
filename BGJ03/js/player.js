@@ -96,6 +96,13 @@ Player = gamvas.Actor.extend({
             deleteFromArray(this.actor.contacts, collider);
         };
     },
+
+    reset: function(pos) {
+        this.body.m_linearVelocity = new b2Vec2(0,0);
+        this.setPosition(pos.x, pos.y);
+        this.gun.setActive(false);
+        this.setAnimation("start-idle");
+    },
     
     activatePhysics: function() {
         //create body
