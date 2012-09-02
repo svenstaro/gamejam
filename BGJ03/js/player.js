@@ -171,7 +171,11 @@ Viktor = gamvas.Actor.extend({
     create: function(name, x, y) {
         this._super(name, x, y);
         var st = gamvas.state.getCurrentState();
-        this.addAnimation(new gamvas.Animation("walk-left", st.resource.getImage('gfx/playerleft_medium.png'), 341, 341, 10, 8));
-        this.setAnimation("walk-left");
+        if(name != "teatime") {
+            this.addAnimation(new gamvas.Animation("anim", st.resource.getImage('gfx/playerleft_medium.png'), 341, 341, 10, 8));
+        } else {
+            this.addAnimation(new gamvas.Animation("anim", st.resource.getImage('gfx/teatime.png'), 341, 341, 2, 3));
+        }
+        this.setAnimation("anim");
     }
 });

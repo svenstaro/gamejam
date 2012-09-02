@@ -1,3 +1,5 @@
+var teatime = false;
+
 MainState = gamvas.State.extend({
     levelWidth: 0,
     levelHeight: 0,
@@ -89,6 +91,8 @@ MainState = gamvas.State.extend({
 
         var additionalActors = [];
         
+        this.removeCollisions = true;
+        
         additionalActors.push(new Background("background", -100, 0));
         
         if(level === 0) {
@@ -156,6 +160,23 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/above.json", additionalActors);
         }
         
+        if(level === 10) {
+            this.levelname.text = "Even a door which has to be opened with two keys is not challenging a true gentleman.";
+            this.removeCollisions = false;
+            loadLevel(this, "levels/secondkey.json", additionalActors);
+        }
+        
+        if(level === 11) {
+            this.levelname.text = "The smell of tea gets stronger every step the gentleman takes. And it's almost time, isn't it?";
+            this.removeCollisions = false;
+            loadLevel(this, "levels/final.json", additionalActors);
+        }
+        
+        if(level === 12) {
+            teatime = true;
+            gamvas.state.setState('MenuState');
+        }
+        
         /*if(level === xxx) {
             this.levelname.text = "This room seems strange, but with a smell most refreshing coming from that door!";
             loadLevel(this, "levels/tube.json");
@@ -188,7 +209,7 @@ MainState = gamvas.State.extend({
         } else if(DEBUG)
         {
             if(k == gamvas.key.PAGE_UP) {
-                if(this.level < 9) {
+                if(this.level < 11) {
                     this.level += 1;
                     this.scheduleChangeLevel = true;
                 }
@@ -262,8 +283,22 @@ MenuState = gamvas.State.extend({
         this.addActor(new TextActor("quit_line1", "This is a web game, good chap.", -350, 100, 30, "#999"));
         this.addActor(new TextActor("quit_line2", "Why not just close the tab?", -350, 140, 30, "#999"));
 
+        // this is shown at pseudoState === 4
+        this.addActor(new TextActor("teatime_line1", "You managed to get home in time.", -350, 100, 30, "#999"));
+        this.addActor(new TextActor("teatime_line2", "TEATIME!!", -350, 140, 30, "#999"));
+        this.addActor(new Viktor("teatime", 80, -50));
+
+        
         this.currentMenuEntry = 0;
         this.pseudoState = 0;
+    },
+    
+    enter: function() {
+        if(teatime)
+        {
+            this.pseudoState = 4;
+            teatime = false;
+        }
     },
 
     draw: function() {
@@ -319,6 +354,11 @@ MenuState = gamvas.State.extend({
         } else if(this.pseudoState === 3) {
             this.actors.quit_line1._isActive = true;
             this.actors.quit_line2._isActive = true;
+        } else if(this.pseudoState === 4) {
+            this.actors.teatime_line1._isActive = true;
+            this.actors.teatime_line2._isActive = true;
+            this.actors.teatime._isActive = true;
+            this.actors.viktor._isActive = false;
         }
 
 

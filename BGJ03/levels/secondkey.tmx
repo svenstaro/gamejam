@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="19" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
+  <image source="tilesets/tileset.png" width="384" height="384"/>
+ </tileset>
+ <tileset firstgid="145" name="tiles_collision" tilewidth="32" tileheight="32">
+  <image source="tilesets/tiles_collision.png" width="160" height="160"/>
+ </tileset>
+ <layer name="100" width="50" height="19" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzVl00OAiEMhXF06+gB3PqzVdfq5TyARxaSaSRNh0dRCr7kLToBho+fAqNzbjTw2fsy+VohtmDI4bh53yc/MmKJw0KIY6t0Kw40vt+2Z8Wx9z5MPgrxSdHWTqhfwkHthPorZvrO/4PWlZbjF+sqtBPPK3fOvuSxVhLHEHnpPmObEt93SBb7g5t4/kG0flM5P56jXkXrK/ccG5RG+QnFtTis7yG5on2yUdSJtW7MwecvcDwrsGjvS9r8xbkDx6uQo6Wk86PnfDSnufMjlXviszF4AcqX5C8k6f7D71c9vD94v1C/e31HIS5U/g3am0Sq
+  </data>
+ </layer>
+ <layer name="-90" width="50" height="19" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGLtDFgfUG0lFUBFYD7QAqARcG3HE1Gn+DHwwXf5gPtAOoBIaLPwZLutJhoKwcGiz+wOUO9PIXl78G2h8AsZAH1g==
+  </data>
+ </layer>
+ <layer name="-95" width="50" height="19" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztzkERAAAIA6Clsn80U+x8CAlIAACAL+Y6AAULqGgANw==
+  </data>
+ </layer>
+ <layer name="collision" width="50" height="19">
+  <data encoding="base64" compression="zlib">
+   eJzdVkkKwCAM9P+3nrratxahAZEYzeLSDszFZZIJcXHuP1g60DoHbH8PUHHC3MZkqjeLD61eax++Ik6Y2xmaB6In8QE6gWtCyfmw9OFdPWIfFufcoq9gLCbUlkJ67mriau6znJ52zWjcL7l3+mzg+IjR463k1A3z0SKOBhIf0pxaeuH0PGdPSWtEX2Hvx6XwYg3olxJy70fAaZeOGBofME6x5u9h0Uc5H9j/R4LWdxVVN6x2XwE37wfRVp5C
+  </data>
+ </layer>
+</map>
