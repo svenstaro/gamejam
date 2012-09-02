@@ -20,7 +20,7 @@ TextActor = gamvas.Actor.extend( {
 LevelName = TextActor.extend({
     create: function(text) {
 		this._super("levelname", text, 0, 0, 20);
-        this.layer = -100;
+        this.layer = -10000;
 	},
     
     draw: function(t) {

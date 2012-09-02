@@ -71,7 +71,10 @@ Gun = gamvas.Actor.extend({
     },
 
     shoot: function(mode) {
-        if(mode == "primary" && this.isActive()) {
+        if(!this.isActive())
+            return;
+            
+        if(mode == "primary") {
             var target = this.castShot();
             var tile = target[0];
             var normal = target[1];

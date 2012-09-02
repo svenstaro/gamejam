@@ -1,4 +1,4 @@
-function loadLevel(state, level) {
+function loadLevel(state, level, additionalActors) {
     $.getJSON(level, function(json) {
         var width = json.width;
         var height = json.height;
@@ -43,7 +43,7 @@ function loadLevel(state, level) {
                                 state.addActor(new TriggerTile(nextId("triggertile-"), x, y, id, callback));
                             } else if(tileindex == 11) {
                                 state.resetPosition.x = (x + 0.5) * TILESIZE;
-                                state.resetPosition.y = y * TILESIZE;
+                                state.resetPosition.y = (y - 0.5) * TILESIZE;
                             }
                         }
                     }
@@ -60,7 +60,13 @@ function loadLevel(state, level) {
             state.addActor(new CollisionTile(nextId("walls-"), -1, y, 1));
             state.addActor(new CollisionTile(nextId("walls-"), width + 1, y, 1));
         }
-
+        
+        
+        state.addActor(state.levelname);
+        for(var i = 0; i < additionalActors.length; ++i)
+        {
+            state.addActor(additionalActors[i]);
+        }
         state.spawnPlayer();
     });
 }
