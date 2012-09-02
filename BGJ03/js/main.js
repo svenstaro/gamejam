@@ -157,7 +157,6 @@ MainState = gamvas.State.extend({
         }
         if(level === 8) {
             this.levelname.text = "What a brilliant circumstance that you now have unlocked the full potential of this device!";
-            loadLevel(this, "levels/level8.json");
 
             additionalActors.push(new Background("background", -100, 0));
 
