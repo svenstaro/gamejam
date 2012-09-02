@@ -4,7 +4,7 @@ TextActor = gamvas.Actor.extend( {
 		this.text = text;
         this.scale = typeof scale !== 'undefined' ? scale : 1;
         this.color = typeof color !== 'undefined' ? color : '#fff';
-        size = typeof size !== 'undefined' ? size * 3 : 24;
+        size = typeof size !== 'undefined' ? size : 30;
 		this.font = '' + size + 'px Steamwreck';
 	},
 	
@@ -19,14 +19,14 @@ TextActor = gamvas.Actor.extend( {
 
 LevelName = TextActor.extend({
     create: function(text) {
-		this._super("levelname", text, 20, 594);
+		this._super("levelname", text, 0, 0, 20);
         this.layer = -100;
 	},
     
     draw: function(t) {
         var s = gamvas.state.getCurrentState();
         var w = s.dimension.w;
-        var h = 26;
+        var h = 23;
 
         var offset = new gamvas.Vector2D(
             s.camera.position.x - s.dimension.w / 2,
@@ -35,12 +35,12 @@ LevelName = TextActor.extend({
 
         var st = gamvas.state.getCurrentState();
         
-        s.c.fillStyle = '#000';
+        s.c.fillStyle = 'rgba(0, 0, 0, 0.8)';
         s.c.fillRect(offset.x, offset.y, w, h);
         
         s.c.fillStyle = this.color;
         s.c.font = this.font;
         s.c.textAlign = "center";
-		s.c.fillText(this.text, offset.x + w / 2 , offset.y + h - 4);
+		s.c.fillText(this.text, offset.x + w / 2, offset.y + h - 4);
     }
 });

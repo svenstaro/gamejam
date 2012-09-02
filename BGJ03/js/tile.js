@@ -44,7 +44,7 @@ function makeCollisionShape(id, x, y) {
     return v;
 }
 
-function makeDeathShape(id, x, y) {
+function makeTriggerShape(id, x, y) {
     var v = [];
     var c = 0.5;
 
@@ -113,19 +113,27 @@ CollisionTile = gamvas.Actor.extend({
     }
 });
 
-DeathTile = gamvas.Actor.extend({
-    create: function(name, x, y, id) {
+TriggerTile = gamvas.Actor.extend({
+    create: function(name, x, y, id, callback) {
         this._super(name, 0, 0);
 
         var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
-        var vertices = makeDeathShape(id, 0, 0);
+        var vertices = makeTriggerShape(id, 0, 0);
         polygon.SetAsArray(vertices, vertices.length);
         this.createBody(gamvas.physics.STATIC, polygon);
         this.setSensor(true);
 
         this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+        this.callback = callback;
     },
+
     draw: function(t) {
         this.body.SetActive(tileVisible(this));
+    },
+
+    onCollisionEnter: function(a, c) {
+        if(a.isPlayer) {
+            this.callback(this);
+        }
     }
 });

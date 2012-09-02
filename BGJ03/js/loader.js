@@ -37,23 +37,27 @@ function loadLevel(state, level) {
                         } else {
                             if(tileindex >= 1 && tileindex <= 5) {
                                 state.addActor(new CollisionTile(nextId("collisiontile-"), x, y, tileindex));
-                            } else if(tileindex >= 5 && tileindex <= 10) {
-                                state.addActor(new DeathTile(nextId("deathtile-"), x, y, tileindex - 5));
+                            } else if((tileindex >= 5 && tileindex <= 10) || tileindex == 12) {
+                                var id = (tileindex == 12 ? 1 : tileindex - 5);
+                                var callback = (tileindex == 12 ? state.playerWins : state.playerDied);
+                                state.addActor(new TriggerTile(nextId("triggertile-"), x, y, id, callback));
                             } else if(tileindex == 11) {
-                                state.player.setPosition((x + 0.5) * TILESIZE, y * TILESIZE);
+                                state.resetPosition.x = (x + 0.5) * TILESIZE;
+                                state.resetPosition.y = y * TILESIZE;
                             }
                         }
                     }
                 }
             }
-            for(var x = 0; x < width; x++) {
-                state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1));
-                state.addActor(new CollisionTile(nextId("walls-"), x, height + 1, 1));
-            }
-            for(var y = 0; y < height; y++) {
-                state.addActor(new CollisionTile(nextId("walls-"), -1, y, 1));
-                state.addActor(new CollisionTile(nextId("walls-"), width + 1, y, 1));
-            }
         }
+        for(var x = 0; x < width; x++) {
+            state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1));
+            state.addActor(new CollisionTile(nextId("walls-"), x, height + 1, 1));
+        }
+        for(var y = 0; y < height; y++) {
+            state.addActor(new CollisionTile(nextId("walls-"), -1, y, 1));
+            state.addActor(new CollisionTile(nextId("walls-"), width + 1, y, 1));
+        }
+        state.resetPlayer();
     });
 }
