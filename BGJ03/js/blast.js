@@ -7,6 +7,10 @@ BlastEmissionState = gamvas.ActorState.extend({
     update: function(t) {
         this.lifetime += t;
 
+        if(!this.actor.freeMode) {
+            this.actor.center.x = (1 - Math.min(this.lifetime, 0.2) * 5) * TILESIZE;
+        }
+
         var t = this.lifetime / 2.0;
         var min = -0.8 * t * t + 1.6 * t;
         min = t - 0.2;
@@ -53,19 +57,29 @@ DyingState = gamvas.ActorState.extend({
     update: function(t) {
         this.actor.dyingProgress = 1 - this.timeLeft / this.dieTime;
         this.timeLeft -= t;
-        if(this.timeLeft < 0)
+
+        if(!this.actor.freeMode) {
+            this.actor.center.x = this.actor.dyingProgress * TILESIZE * 2;
+        }
+
+        if(this.timeLeft < 0) {
+            gamvas.state.getCurrentState().removeActor(this.actor.particles);
             gamvas.state.getCurrentState().removeActor(this.actor);
+        }
     }
 });
 
 Blast = gamvas.Actor.extend({
     create: function(name, parent, normal, freeMode) {
         this._super(name, 
-            parent.position.x + normal.x * TILESIZE / 2, 
-            parent.position.y + normal.y * TILESIZE / 2);
+            parent.position.x, parent.position.y);
+            //parent.position.x + normal.x * TILESIZE / 2, 
+            //parent.position.y + normal.y * TILESIZE / 2);
+        this.type = "blast";
         this.rotation = Math.atan2(normal.y, normal.x);
         this.normal = normal;
         this.freeMode = freeMode;
+        this.layer = 120;
 
         if(freeMode) {
             this.windForce = WIND_FORCE_PLAYER;
@@ -78,8 +92,10 @@ Blast = gamvas.Actor.extend({
         }
 
         var st = gamvas.state.getCurrentState();
-        //this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/blaster.png'), 32, 32, 1, 40));
-        //this.setAnimation("idle");
+        if(!freeMode) {
+            this.addAnimation(new gamvas.Animation("idle", st.resource.getImage('gfx/pipe.png'), 32, 32, 1, 40));
+            this.setAnimation("idle");
+        }
         this.center = new gamvas.Vector2D(0, 16);
 
         this.winds = 0;
@@ -106,7 +122,7 @@ Blast = gamvas.Actor.extend({
             var wrapper = function(fixture, point, normal, fraction) {
                 var actor = fixture.GetBody().GetUserData().data;
 
-                if(actor.moveByWind) {
+                if(actor.moveByWind && !(this.freeMode && actor.type == "player")) {
                     var inList = false;
                     for(var i in list) {
                         if(list[i][0] == actor) {

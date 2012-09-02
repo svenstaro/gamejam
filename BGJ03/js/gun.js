@@ -51,7 +51,7 @@ Gun = gamvas.Actor.extend({
             var wrapper = function(fixture, point, normal, fraction) {
                 var actor = fixture.GetBody().GetUserData().data;
 
-                if(actor.type == "tile") {
+                if(actor.type == "collisiontile") {
                     var dist = new b2Vec2(point.x - start.x, point.y - start.y);
                     var d = dist.Length();
 

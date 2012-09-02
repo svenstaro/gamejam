@@ -1,10 +1,10 @@
 
 Player = gamvas.Actor.extend({
     moveByWind: true,
-    isPlayer: true,
 
     create: function(name, x, y) {
         this._super(name, x, y);
+        this.type = "player";
 
         var st = gamvas.state.getCurrentState();
         this.gun = new Gun("gun", this);
@@ -79,8 +79,7 @@ Player = gamvas.Actor.extend({
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
             }
 
-            if(this.actor.gun.isActive())
-            {
+            if(this.actor.gun.isActive()) {
                 this.actor.setAnimation(
                         (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk")
                         + "-" +
@@ -93,16 +92,13 @@ Player = gamvas.Actor.extend({
             }
         };
         
-        this.getCurrentState().onCollisionEnter = function(collider)
-        {
-            if(collider.type == "tile")
-            {
+        this.getCurrentState().onCollisionEnter = function(collider) {
+            if(collider.type == "collisiontile") {
                 this.actor.contacts.push(collider);
             }
         };
         
-        this.getCurrentState().onCollisionLeave = function(collider)
-        {
+        this.getCurrentState().onCollisionLeave = function(collider) {
             deleteFromArray(this.actor.contacts, collider);
         };
     },

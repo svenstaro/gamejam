@@ -75,6 +75,8 @@ Tile = gamvas.Actor.extend({
     create: function(name, x, y, xOffset, yOffset, tileset, layer)
     {
         this._super(name, (x) * TILESIZE, (y) * TILESIZE);
+        this.x = x;
+        this.y = y;
 
         var st = gamvas.state.getCurrentState();
 
@@ -97,9 +99,9 @@ Tile = gamvas.Actor.extend({
 
 CollisionTile = gamvas.Actor.extend({
     blockWind: true,
-    create: function(name, x, y, id) {
+    create: function(name, x, y, id, wall) {
         this._super(name, 0, 0);
-        this.type = "tile";
+        this.type = wall ? "walltile" : "collisiontile";
 
         var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
         var vertices = makeCollisionShape(id, this.position.x, this.position.y);
@@ -132,7 +134,7 @@ TriggerTile = gamvas.Actor.extend({
     },
 
     onCollisionEnter: function(a, c) {
-        if(a.isPlayer) {
+        if(a.type == "player") {
             this.callback(this);
         }
     }
