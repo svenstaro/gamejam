@@ -16,21 +16,24 @@ MainState = gamvas.State.extend({
         this.keysPressed = {};
         
         loadLevel(this, "levels/test.json");
+        this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
+        this.addActor(this.levelname);
 
         this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
         this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
         this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
         this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
-        this.addActor(new LevelName("The level that makes you understand the basics of running and such."));
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
     },
 
-    draw: function(t) {
+    draw: function(t) {        
         var d = this.dimension;
         this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
         this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
+        
+        this.levelname.setPosition(this.camera.position.x - this.dimension.w / 2 + 120, this.camera.position.y + this.dimension.h / 2 - 6);
         // gamvas.physics.drawDebug();
     },
 
