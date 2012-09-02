@@ -1,4 +1,6 @@
 function loadLevel(state, level, additionalActors) {
+    var keys = 0;
+
     additionalActors = additionalActors || [];
     $.getJSON(level, function(json) {
         var width = json.width;
@@ -40,19 +42,26 @@ function loadLevel(state, level, additionalActors) {
                                 state.addActor(new CollisionTile(nextId("collisiontile-"), x, y, tileindex));
                             } else if((tileindex >= 5 && tileindex <= 10) || tileindex == 12) {
                                 var id = (tileindex == 12 ? 1 : tileindex - 5);
-                                var callback = (tileindex == 12 ? state.playerWins : state.playerDied);
+                                var callback = (tileindex == 12 ? 
+                                        function(tile) { state.playerWins(tile) } : 
+                                        function(tile) { state.playerDied(tile) } );
                                 state.addActor(new TriggerTile(nextId("triggertile-"), x, y, id, callback));
                             } else if(tileindex == 11) {
                                 state.resetPosition.x = (x + 0.5) * TILESIZE;
                                 state.resetPosition.y = (y - 0.5) * TILESIZE;
                             } else if(tileindex == 14) {
                                 state.addActor(new Box(nextId("box-"), x, y));
+                            } else if(tileindex == 13) {
+                                state.addActor(new Key(nextId("key-"), x, y));
+                                keys++;
                             }
                         }
                     }
                 }
             }
         }
+
+        state.keys = keys;
 
         for(var x = 0; x < width; x++) {
             state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1));
