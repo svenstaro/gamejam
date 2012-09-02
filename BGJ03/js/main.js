@@ -124,7 +124,7 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/level6.json");
         }
         if(level === 7) {
-            this.levelname.text = "Test";
+            this.levelname.text = "Blowing boxes is one of the most gentlemanly sports ever invented, don't you think?";
             loadLevel(this, "levels/level7.json");
         }
         if(level === 8) {
