@@ -120,7 +120,7 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/level5.json");
         }
         if(level === 6) {
-            this.levelname.text = "Awesome box";
+            this.levelname.text = "You may now use your right mouse button well to perform an environmental action!";
             loadLevel(this, "levels/level6.json");
         }
     },
