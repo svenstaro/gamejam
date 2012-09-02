@@ -12,7 +12,7 @@ MainState = gamvas.State.extend({
 
         var w = gamvas.physics.resetWorld(0, 30, false);
 
-        this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
+        //this.camera.setPosition(this.dimension.w / 2, this.dimension.h / 2);
         this.clearColor = "#222";
 
         this.keysPressed = {};
@@ -40,9 +40,11 @@ MainState = gamvas.State.extend({
             this.changeLevel(this.level);
         }
 
-        var d = this.dimension;
-        this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
-        this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
+        if(this.player) {
+            var d = this.dimension;
+            this.camera.position.x = Math.min(this.levelWidth  - d.w / 2, Math.max(this.player.position.x, d.w / 2));
+            this.camera.position.y = Math.min(this.levelHeight - d.h / 2, Math.max(this.player.position.y, d.h / 2));
+        }
 
         if(gamvas.mouse.isPressed(gamvas.mouse.LEFT)) {
             this.player.gun.shoot("secondary");
@@ -76,15 +78,17 @@ MainState = gamvas.State.extend({
             this.removeActor(this.actors[actor]);
         }
 
+        var additionalActors = [];
+        
         if(level === 0) {
             this.levelname.text = "The level that makes you understand the basics of running and such.";
 
-            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
-            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
-
-            loadLevel(this, "levels/test.json");
+            additionalActors.push(new DecoGear("gear1", 200, 200, 0, 0.3));
+            additionalActors.push(new DecoGear("gear2", 323, 200, 0, -0.3));
+            additionalActors.push(new DecoGear("gear3", 365, 315, 0.08, 0.3));
+            additionalActors.push(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+            
+            loadLevel(this, "levels/test.json", additionalActors);
         }
         if(level === 1) {
             this.levelname.text = "The level that adds fancy spikes for a better challenge.";
