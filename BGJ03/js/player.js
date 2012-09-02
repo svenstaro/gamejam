@@ -15,11 +15,15 @@ Player = gamvas.Actor.extend({
         this.addAnimation(new gamvas.Animation("walk-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 20));
         this.addAnimation(new gamvas.Animation("walk-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 20));
         this.addAnimation(new gamvas.Animation("walk-left-big", st.resource.getImage('gfx/playerleft_big.png'), 64, 64, 10, 20));
-        var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10);
+        /*var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10);
         idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
         this.addAnimation(idleLeft);
         var idleLeft = new gamvas.Animation("idle-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10);
         idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
+        this.addAnimation(idleLeft);*/
+        var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/idleleft.png'), 64, 64, 2, 3);
+        this.addAnimation(idleLeft);
+        var idleLeft = new gamvas.Animation("idle-right", st.resource.getImage('gfx/idleright.png'), 64, 64, 2, 3);
         this.addAnimation(idleLeft);
         
         this.setAnimation("start-idle");
