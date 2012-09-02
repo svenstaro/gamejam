@@ -62,6 +62,9 @@ function loadLevel(state, level, additionalActors) {
         }
 
         state.keys = keys;
+        state.keysLeft = keys;
+        
+        state.flashAlpha = 1;
 
         for(var x = 0; x < width; x++) {
             state.addActor(new CollisionTile(nextId("walls-"), x, -1, 1));
@@ -87,12 +90,13 @@ function loadLevel(state, level, additionalActors) {
             }
         }
         
-        state.resetPlayer();
+        state.player.reset(state.resetPosition);
+        // state.resetPlayer();
         
         for(var actor in state.actors) {
             if(state.actors[actor].body != null) {
                 state.actors[actor].setAwake(true);
             }
-        }   
+        }
     });
 }
