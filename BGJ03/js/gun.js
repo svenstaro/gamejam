@@ -38,7 +38,7 @@ Gun = gamvas.Actor.extend({
     },
 
     shoot: function(mode) {
-        if(mode == "primary") {
+        if(mode == "primary" && this.isActive()) {
             // cast a ray to find tile
             // var ray = gamvas.physics.getWorld().RayCastOne(
             var first = []; // dist, actor, normal
