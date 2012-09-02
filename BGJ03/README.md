@@ -12,4 +12,5 @@ This game is distributed under the zlib license. See the attached LICENSE file.
 The following files and directories are not part of this project and were redistributed under their respective licenses:
 
 * snd/clocksong1.ogg [Nick Pittsinger](http://www.nickpittsinger.com/)
+* Steamwreck.ttf [Pixel Saga](http://www.pixelsagas.com)
 * all files in js/lib/
