@@ -79,12 +79,15 @@ Tile = gamvas.Actor.extend({
         this.image = new gamvas.Image(st.resource.getImage(tileset));
         this.image.position = new gamvas.Vector2D(this.position.x, this.position.y);
 
-        this.image.move(-xOffset  * TILESIZE, -yOffset * TILESIZE);
+        //this.image.move(-xOffset  * TILESIZE, -yOffset * TILESIZE);
         
-        var halfskin = 0.25;
+        var halfskin = 0;
         this.image.setClipRect(xOffset * TILESIZE + halfskin, yOffset * TILESIZE + halfskin, TILESIZE - halfskin * 2, TILESIZE - halfskin * 2);
+        this.image.setCenter(xOffset * TILESIZE, yOffset * TILESIZE);
+        //this.image.setScale(1.1);
 
         this.layer = layer;
+        this.image.layer = layer;
     },
     
     draw: function(t)
@@ -126,11 +129,14 @@ TriggerTile = gamvas.Actor.extend({
         this.setSensor(true);
 
         this.setPosition((x + 0.5) * TILESIZE, (y + 0.5) * TILESIZE);
+        this.center.x = 0.5 * TILESIZE;
+        this.center.y = 0.5 * TILESIZE;
         this.callback = callback;
     },
 
     draw: function(t) {
         this.body.SetActive(tileVisible(this));
+        this._super(t);
     },
 
     onCollisionEnter: function(a, c) {

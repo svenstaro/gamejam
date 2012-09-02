@@ -4,6 +4,8 @@ MainState = gamvas.State.extend({
     resetPosition: new gamvas.Vector2D(),
     died: false,
     flashAlpha: 1,
+    keys: 0,
+    keysLeft: 0,
 
     init: function() {
         MUSIC = new Audio("snd/One-eyed Maestro.ogg");
@@ -37,6 +39,8 @@ MainState = gamvas.State.extend({
         this.player.gun.setActive(false);
         this.player.setAnimation("start-idle");
         this.flashAlpha = 1;
+        
+        this.keysLeft = this.keys;
     },
 
     draw: function(t) {        
@@ -162,13 +166,20 @@ MainState = gamvas.State.extend({
     },
 
     playerWins: function(tile) {
-        var state = gamvas.state.getCurrentState();
-        print("WIN");
+        if(this.keysLeft > 0) {
+            println("Get the missing " + this.keysLeft + " keys!");
+        } else {
+            println("WIN");
+        }
     },
 
     playerDied: function(tile) {
-        var state = gamvas.state.getCurrentState();
-        state.died = true;
+        this.died = true;
+    },
+
+    findKey: function(key) {
+        this.removeActor(key);
+        this.keysLeft--;
     }
 });
 
