@@ -50,6 +50,12 @@ Player = gamvas.Actor.extend({
 
             var f = 6;
 
+            if(gamvas.state.getCurrentState().noclip === 1) {
+                this.actor.setSensor(true);
+            } else {
+                this.actor.setSensor(false);
+            }
+
             if (isKeyDown(LEFT_KEYS)) { 
                 this.actor.body.m_linearVelocity.x = -f;
                 this.actor.walkDirectionRight = false;
