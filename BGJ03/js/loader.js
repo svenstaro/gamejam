@@ -4,6 +4,7 @@ function loadLevel(state, level) {
         var height = json.height;
         state.levelWidth = width * TILESIZE;
         state.levelHeight = height * TILESIZE;
+
         
         for(var layerindex = 0; layerindex < json.layers.length; ++layerindex) {
             var data = json.layers[layerindex].data;
@@ -32,7 +33,6 @@ function loadLevel(state, level) {
                                                 tileX, tileY,
                                                 'levels/'+json.tilesets[tilesetindex].image,
                                                 tryParseInt(json.layers[layerindex].name));
-                            tile.debug = tileindex == 144;
                             state.addActor(tile);
                         } else {
                             if(tileindex >= 1 && tileindex <= 5) {
