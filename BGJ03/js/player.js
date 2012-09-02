@@ -33,27 +33,10 @@ Player = gamvas.Actor.extend({
         this.lookDirectionRight = true;
         this.walkDirectionRight = true;
 
-        //create body
-        var vertices = Array();
-        vertices.push(new b2Vec2(0.4, 0.5));
-        vertices.push(new b2Vec2(0.3, 1.0));
-        vertices.push(new b2Vec2(-0.3, 1.0));
-        vertices.push(new b2Vec2(-0.4, 0.5));
-        vertices.push(new b2Vec2(-0.4, -0.5));
-        vertices.push(new b2Vec2(-0.3, -0.8));
-        vertices.push(new b2Vec2(0.3, -0.8));
-        vertices.push(new b2Vec2(0.4, -0.5));
-        var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
-        polygon.SetAsArray(vertices, vertices.length);
-        this.createBody(gamvas.physics.DYNAMIC, polygon);
+        //activatePhysics is the thing now
         
         this.center.x = 32;
         this.center.y = 32;
-        this.setFixedRotation(true);
-        this.fixture.SetFriction(0);
-        this.fixture.SetRestitution(0.01);
-        
-        this.setAwake(false);
 
         this.contacts = new Array();
         this.inAirJump = false;
@@ -112,6 +95,26 @@ Player = gamvas.Actor.extend({
         this.getCurrentState().onCollisionLeave = function(collider) {
             deleteFromArray(this.actor.contacts, collider);
         };
+    },
+    
+    activatePhysics: function() {
+        //create body
+        var vertices = Array();
+        vertices.push(new b2Vec2(0.4, 0.5));
+        vertices.push(new b2Vec2(0.3, 1.0));
+        vertices.push(new b2Vec2(-0.3, 1.0));
+        vertices.push(new b2Vec2(-0.4, 0.5));
+        vertices.push(new b2Vec2(-0.4, -0.5));
+        vertices.push(new b2Vec2(-0.3, -0.8));
+        vertices.push(new b2Vec2(0.3, -0.8));
+        vertices.push(new b2Vec2(0.4, -0.5));
+        var polygon = new Box2D.Collision.Shapes.b2PolygonShape;
+        polygon.SetAsArray(vertices, vertices.length);
+        this.createBody(gamvas.physics.DYNAMIC, polygon);
+        
+        this.setFixedRotation(true);
+        this.fixture.SetFriction(0);
+        this.fixture.SetRestitution(0.01);
     },
 
     isOnGround: function() {
