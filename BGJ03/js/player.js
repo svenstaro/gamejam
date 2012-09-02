@@ -1,10 +1,10 @@
-// create our collision objects
+
 Player = gamvas.Actor.extend({
     moveByWind: true,
-    isPlayer: true,
 
     create: function(name, x, y) {
         this._super(name, x, y);
+        this.type = "player";
 
         var st = gamvas.state.getCurrentState();
         this.gun = new Gun("gun", this);
@@ -15,11 +15,15 @@ Player = gamvas.Actor.extend({
         this.addAnimation(new gamvas.Animation("walk-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 20));
         this.addAnimation(new gamvas.Animation("walk-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 20));
         this.addAnimation(new gamvas.Animation("walk-left-big", st.resource.getImage('gfx/playerleft_big.png'), 64, 64, 10, 20));
-        var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10);
+        /*var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/playerleft.png'), 64, 64, 10, 10);
         idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
         this.addAnimation(idleLeft);
         var idleLeft = new gamvas.Animation("idle-right", st.resource.getImage('gfx/playerright.png'), 64, 64, 10, 10);
         idleLeft.setFrameList([2, 2, 2, 3, 3, 3]);
+        this.addAnimation(idleLeft);*/
+        var idleLeft = new gamvas.Animation("idle-left", st.resource.getImage('gfx/idleleft.png'), 64, 64, 2, 3);
+        this.addAnimation(idleLeft);
+        var idleLeft = new gamvas.Animation("idle-right", st.resource.getImage('gfx/idleright.png'), 64, 64, 2, 3);
         this.addAnimation(idleLeft);
         
         this.setAnimation("start-idle");
@@ -28,9 +32,7 @@ Player = gamvas.Actor.extend({
         
         this.lookDirectionRight = true;
 
-        // create a static (non moving) rectangle
-        //this.bodyCircle(this.position.x, this.position.y, 16, gamvas.physics.DYNAMIC);
-        //this.bodyRect(this.position.x, this.position.y, 32, 64, gamvas.physics.DYNAMIC);
+        //create body
         var vertices = Array();
         vertices.push(new b2Vec2(0.4, 0.5));
         vertices.push(new b2Vec2(0.3, 1.0));
@@ -77,8 +79,7 @@ Player = gamvas.Actor.extend({
                 this.actor.body.m_linearVelocity.x *= (1 - t * 8);
             }
 
-            if(this.actor.gun.isActive())
-            {
+            if(this.actor.gun.isActive()) {
                 this.actor.setAnimation(
                         (Math.abs(this.actor.body.m_linearVelocity.x) <= 0.3 ? "idle" : "walk")
                         + "-" +
@@ -91,16 +92,13 @@ Player = gamvas.Actor.extend({
             }
         };
         
-        this.getCurrentState().onCollisionEnter = function(collider)
-        {
-            if(collider.type == "tile")
-            {
+        this.getCurrentState().onCollisionEnter = function(collider) {
+            if(collider.type == "collisiontile") {
                 this.actor.contacts.push(collider);
             }
         };
         
-        this.getCurrentState().onCollisionLeave = function(collider)
-        {
+        this.getCurrentState().onCollisionLeave = function(collider) {
             deleteFromArray(this.actor.contacts, collider);
         };
     },
