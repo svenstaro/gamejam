@@ -4,6 +4,7 @@ MainState = gamvas.State.extend({
     resetPosition: new gamvas.Vector2D(),
     died: false,
     flashAlpha: 1,
+    noclip: 0,
     keys: 0,
     keysLeft: 0,
     gunMode: 0, // 0 = none, 1 = blow, 2 = pipe
@@ -26,7 +27,7 @@ MainState = gamvas.State.extend({
         this.levelname = new LevelName("Wait");
 
         if(DEBUG === true) {
-            this.level = 5;
+            this.level = 10;
         } else {
             this.level = 0;
         }
@@ -163,6 +164,9 @@ MainState = gamvas.State.extend({
         }
         if(level === 10) {
             this.levelname.text = "Make me a final text here.";
+
+
+
             loadLevel(this, "levels/final.json", additionalActors);
         }
         
@@ -193,6 +197,14 @@ MainState = gamvas.State.extend({
     onKeyPushedDown: function(k, c, e) {
         if(k == gamvas.key.R) {
             this.resetPlayer();
+        } else if(k == gamvas.key.F) {
+            if(this.noclip === 1) {
+                this.noclip = 0;
+                gamvas.physics.setGravity(new gamvas.Vector2D(0, 30));
+            } else {
+                this.noclip = 1;
+                gamvas.physics.setGravity(new gamvas.Vector2D(0, 0));
+            }
         } else if(isKey(k, JUMP_KEYS)) {
             this.player.jump();
         } else if(DEBUG)
