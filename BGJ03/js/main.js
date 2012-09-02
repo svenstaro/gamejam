@@ -162,6 +162,11 @@ MainState = gamvas.State.extend({
 
             loadLevel(this, "levels/level8.json", additionalActors);
         }
+        //SHOULD NOT BE LEVEL 9!!!
+        if(level === 9) {
+            this.levelname.text = "This room seems strange, but with a smell most refreshing coming from that door!";
+            loadLevel(this, "levels/tube.json");
+        }
     },
     
     spawnPlayer: function()
@@ -190,7 +195,7 @@ MainState = gamvas.State.extend({
         } else if(DEBUG)
         {
             if(k == gamvas.key.PAGE_UP) {
-                if(this.level < 8) {
+                if(this.level < 9) {
                     this.level += 1;
                     this.scheduleChangeLevel = true;
                 }

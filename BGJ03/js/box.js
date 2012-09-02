@@ -24,11 +24,17 @@ Box = gamvas.Actor.extend({
         
         this.setPosition(this.position.x, this.position.y);
 
-        this.body.SetMassData({mass: 3, center: { x: 0, y: 0}});
         this.center.x = TILESIZE * 0.5;
         this.center.y = TILESIZE * 0.5;
         this.fixture.SetRestitution(0.1);
         this.body.SetSleepingAllowed(false);
         this.setBullet(true);
+        this.setFixedRotation(false);
+        // this.body.SetMassData({mass: 2, center: { x: 0, y: 0}});
+
+        var md = {center: new b2Vec2()};
+        polygon.ComputeMass(md, 3);
+        this.body.SetMassData(md);
+        this.body.SetAngularDamping(100);
     }
 });

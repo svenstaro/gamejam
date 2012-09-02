@@ -33,8 +33,8 @@ BlastEmissionState = gamvas.ActorState.extend({
                 gamvas.physics.toWorld(actor.position.y - this.actor.position.y));
 
             diff.Normalize();
-            diff.Multiply((1 - d) * this.actor.windForce);
-            actor.body.ApplyForce(diff, new b2Vec2());
+            diff.Multiply(Math.pow(1 - d, 2) * this.actor.windForce);
+            actor.body.ApplyForce(diff, new b2Vec2(1, 1));
         }
 
         if(this.lifetime > 2) {
