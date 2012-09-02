@@ -128,7 +128,7 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/level3.json", additionalActors);
         }
         if(level === 4) {
-            this.levelname.text = "You have been granted the use of a terrificly practical device. Use the left mouse button to push things.";
+            this.levelname.text = "You have been granted the use of a terrifically practical device. Use the left mouse button to push things.";
 
             additionalActors.push(new MegaGear("gear1", 850, 100, 1, 0.1, 2, true));
             additionalActors.push(new MegaGear("gear2", 50, 200, 0, -0.1, 2, true));
