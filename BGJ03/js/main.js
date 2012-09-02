@@ -19,8 +19,10 @@ MainState = gamvas.State.extend({
 
         gamvas.config.preventKeyEvents = false;
         gamvas.config.preventMouseEvents = false;
+        
+        this.levelname = new LevelName("Wait");
 
-        this.level = 4;
+        this.level = 0;
         this.scheduleChangeLevel = true;
     },
 
@@ -74,12 +76,6 @@ MainState = gamvas.State.extend({
             this.removeActor(this.actors[actor]);
         }
 
-        gamvas.physics.resetWorld(0, 30, false);
-
-        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
-        this.addActor(this.player);
-
-        this.levelname = new LevelName("");
         if(level === 0) {
             this.levelname.text = "The level that makes you understand the basics of running and such.";
             this.addActor(this.levelname);
@@ -92,45 +88,35 @@ MainState = gamvas.State.extend({
             loadLevel(this, "levels/test.json");
         }
         if(level === 1) {
-            this.levelname.text = "";
-
-            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
-            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+            this.levelname.text = "The level that adds fancy spikes for a better challenge.";
+            this.addActor(this.levelname);
 
             loadLevel(this, "levels/level1.json");
         }
         if(level === 2) {
-            this.levelname.text = "";
-            
-            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
-            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+            this.levelname.text = "The level no one reached before because it is seen as very difficult and frustrating.";
+            this.addActor(this.levelname);
 
             loadLevel(this, "levels/level2.json");
         }
         if(level === 3) {
-            this.levelname.text = "";
-
-            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
-            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+            this.levelname.text = "Level 3. Deal with it.";
+            this.addActor(this.levelname);
 
             loadLevel(this, "levels/level3.json");
         }
         if(level === 4) {
             this.levelname.text = "Use your shit";
 
-            this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
-            this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
-            this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-            this.addActor(new DecoGear("gear4", 488, 315, 0.08, -0.3));
-
             loadLevel(this, "levels/level4.json");
         }
+    },
+    
+    spawnPlayer: function()
+    {
+        this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
+        this.addActor(this.player);
+        this.resetPlayer();
     },
 
     onMouseDown: function(b, x, y) {

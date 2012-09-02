@@ -63,6 +63,6 @@ function loadLevel(state, level) {
             state.addActor(new CollisionTile(nextId("walls-"), width + 1, y, 1));
         }
 
-        state.resetPlayer();
+        state.spawnPlayer();
     });
 }
