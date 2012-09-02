@@ -44,6 +44,8 @@ function loadLevel(state, level) {
                             } else if(tileindex == 11) {
                                 state.resetPosition.x = (x + 0.5) * TILESIZE;
                                 state.resetPosition.y = y * TILESIZE;
+                            } else if(tileindex == 14) {
+                                state.addActor(new Box(nextId("box-"), x, y));
                             }
                         }
                     }
