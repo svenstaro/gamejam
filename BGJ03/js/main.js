@@ -22,9 +22,6 @@ MainState = gamvas.State.extend({
         this.player = new Player("player", this.resetPosition.x, this.resetPosition.y);
         this.addActor(this.player);
 
-        this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
-        this.addActor(this.levelname);
-
         this.addActor(new DecoGear("gear1", 200, 200, 0, 0.3));
         this.addActor(new DecoGear("gear2", 323, 200, 0, -0.3));
         this.addActor(new DecoGear("gear3", 365, 315, 0.08, 0.3));
@@ -34,7 +31,9 @@ MainState = gamvas.State.extend({
         gamvas.config.preventMouseEvents = false;
 
         // this loads the level asynchronous, watch out!
-        loadLevel(this, "levels/test.json");
+        loadLevel(this, "levels/level1.json");
+        this.levelname = new LevelName("The level that makes you understand the basics of running and such.");
+        this.addActor(this.levelname);
     },
 
     resetPlayer: function() {
