@@ -8,7 +8,7 @@
  </tileset>
  <layer name="100" width="25" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIw0w08EOfhqbz0gHO3hH7RiSdoDSBrlpnJAdILOZgJiPSLfAQAsRdiCbDcOk2DEBzQ4+qHnImA8LJtYOmPvwmYUPo7sFGybVTGphAEsiBTg=
+   eJxjYBgFIw0w08EOfhqbz0gHO3hH7RiSdoDSBrlpnJAdILOZgJiPSLfAQAsRdiCbDcOk2DEBzQ4+qHnImA8LJtYOmPuQzeIkEmNzCzaMzUwhIjGxbsFmJgAj1gTz
   </data>
  </layer>
  <layer name="-90" width="25" height="18">

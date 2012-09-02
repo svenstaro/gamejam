@@ -26,7 +26,7 @@ MainState = gamvas.State.extend({
         this.levelname = new LevelName("Wait");
 
         if(DEBUG === true) {
-            this.level = 8;
+            this.level = 5;
         } else {
             this.level = 0;
         }
@@ -92,10 +92,10 @@ MainState = gamvas.State.extend({
         if(level === 0) {
             this.levelname.text = "The level that makes you understand the basics of running and such. Press WASD or arrow keys to do it.";
 
-            additionalActors.push(new DecoGear("gear1", 200, 200, 0, 0.3));
-            additionalActors.push(new DecoGear("gear2", 323, 200, 0, -0.3));
-            additionalActors.push(new DecoGear("gear3", 365, 315, 0.08, 0.3));
-            additionalActors.push(new DecoGear("gear4", 488, 315, 0.08, -0.3));
+            additionalActors.push(new DecoGear("gear1", 700, 500, 0, 0.3));
+            additionalActors.push(new DecoGear("gear2", 823, 500, 0, -0.3));
+            additionalActors.push(new DecoGear("gear3", 865, 615, 0.08, 0.3));
+            additionalActors.push(new DecoGear("gear4", 988, 615, 0.08, -0.3));
             additionalActors.push(new Background("background", -100, 0));
             
             loadLevel(this, "levels/level0.json", additionalActors);
@@ -112,6 +112,7 @@ MainState = gamvas.State.extend({
         if(level === 2) {
             this.levelname.text = "The level that adds pointy spikes to enhance your personal jumping experience.";
 
+            additionalActors.push(new MegaGear("gear2", 50, -50, 0, -0.1, 1, true));
             additionalActors.push(new Background("background", -100, 0));
 
             loadLevel(this, "levels/level2.json", additionalActors);
@@ -138,6 +139,10 @@ MainState = gamvas.State.extend({
             additionalActors.push(new Background("background", -100, 0));
             additionalActors.push(new Prop("prop1", 530, 100, Math.PI+0.1));
             additionalActors.push(new Prop("prop2", 130, 100, Math.PI-0.1));
+            additionalActors.push(new DecoGear("gear1", 700, 200, 0, 0.3));
+            additionalActors.push(new DecoGear("gear2", 723, 160, 0, -0.5, 1.2));
+            additionalActors.push(new DecoGear("gear3", 650, 115, 0.08, 0.9));
+            additionalActors.push(new DecoGear("gear4", 700, 79, 0.08, -2.3));
 
             loadLevel(this, "levels/level5.json", additionalActors);
         }
@@ -165,7 +170,10 @@ MainState = gamvas.State.extend({
         
         if(level === 9) {
             this.levelname.text = "A gentleman without a pile of crates is still a gentleman. Just without crates.";
-            loadLevel(this, "levels/above.json");
+
+            additionalActors.push(new Background("background", -100, 0));
+
+            loadLevel(this, "levels/above.json", additionalActors);
         }
         
         /*if(level === xxx) {
