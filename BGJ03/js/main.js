@@ -24,7 +24,7 @@ MainState = gamvas.State.extend({
         
         this.levelname = new LevelName("Wait");
 
-        this.level = 3;
+        this.level = 0;
         this.scheduleChangeLevel = true;
     },
 
@@ -92,10 +92,10 @@ MainState = gamvas.State.extend({
             additionalActors.push(new DecoGear("gear3", 365, 315, 0.08, 0.3));
             additionalActors.push(new DecoGear("gear4", 488, 315, 0.08, -0.3));
             
-            loadLevel(this, "levels/test.json", additionalActors);
+            loadLevel(this, "levels/level0.json", additionalActors);
         }
         if(level === 1) {
-            this.levelname.text = "The level that adds fancy spikes for a better challenge.";
+            this.levelname.text = "The level that adds pointy spikes to enhance your personal jumping experience.";
             loadLevel(this, "levels/level1.json");
         }
         if(level === 2) {
