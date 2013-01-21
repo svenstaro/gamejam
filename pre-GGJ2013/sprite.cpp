@@ -11,6 +11,7 @@ Sprite::Sprite(Game *game, QString file) :
 
 void Sprite::prePaint(QPainter *painter)
 {
+    Q_UNUSED(painter);
 }
 
 void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -19,7 +20,6 @@ void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     painter->drawPixmap((-m_pixmap.width() / 2) * m_scale.x(),
                         (-m_pixmap.height() / 2) * m_scale.y(),
                         m_pixmap);
-    Q_UNUSED(painter);
     Q_UNUSED(option);
     Q_UNUSED(widget);
 }
