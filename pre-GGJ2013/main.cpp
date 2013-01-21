@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
 {
     QApplication application(argc, argv);
     QGraphicsScene scene(0, 0, 1000, 600);
-    scene.setBackgroundBrush(Qt::white);
 
     QGraphicsView window(&scene);
     window.setFrameStyle(0);
@@ -22,12 +21,12 @@ int main(int argc, char *argv[])
     window.setViewport(new QGLWidget());
     //window.setRenderHint(QPainter::Antialiasing, true);
     //window.setRenderHint(QPainter::HighQualityAntialiasing, true);
-    window.setRenderHints(QPainter::SmoothPixmapTransform);
+    window.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     window.resize(1000, 600);
     window.setBackgroundBrush(QBrush(Qt::black));
     window.show();
 
-    Game game;
+    Game game(&window);
     scene.addItem(new Arena(&game));
     scene.addItem(new Cutie(&game));
     game.run();

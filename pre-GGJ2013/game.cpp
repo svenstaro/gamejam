@@ -1,8 +1,14 @@
 #include "game.hpp"
 
-Game::Game(QObject *parent) :
-    QObject(parent),
-    updateTimer(new QTimer())
+Game::Game(QObject *parent)
+    : QObject(parent)
+{
+}
+
+Game::Game(QGraphicsView *view) :
+    QObject(0),
+    updateTimer(new QTimer()),
+    m_view(view)
 {
     updateTimer->setInterval(16);
     updateTimer->setSingleShot(false);
@@ -16,5 +22,5 @@ void Game::run() {
 
 void Game::update()
 {
-    // wut we need this for?
+    m_view->viewport()->update();
 }

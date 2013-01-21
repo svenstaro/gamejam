@@ -18,7 +18,7 @@ HEADERS += \
     sprite.hpp \
     arena.hpp
 
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -Werror -pedantic
 
 RESOURCES += \
     resources.qrc

@@ -10,7 +10,9 @@ GameObject::GameObject(Game *game) :
 
 void GameObject::callUpdate()
 {
-    update(m_game->updateTimer->interval() / 1000.0); // TODO
+    float dt = m_game->updateTimer->interval() / 1000.0;
+    m_lifeTime += dt;
+    update(dt);
 }
 
 void GameObject::update(float dt)

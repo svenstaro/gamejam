@@ -20,6 +20,7 @@ private slots:
 
 protected:
     Game* m_game;
+    float m_lifeTime;
 
 };
 
