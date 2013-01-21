@@ -28,7 +28,8 @@ int main(int argc, char *argv[])
 
     Game game(&window);
     scene.addItem(new Arena(&game));
-    scene.addItem(new Cutie(&game));
+    scene.addItem(new Cutie(&game,":gfx/cutie-0", QPointF(333, 500)));
+    scene.addItem(new Cutie(&game,":gfx/cutie-1", QPointF(666, 500)));
     game.run();
 
     return application.exec();

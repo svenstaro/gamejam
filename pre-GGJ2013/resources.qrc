@@ -2,5 +2,10 @@
     <qresource prefix="/gfx">
         <file alias="cutie-0">gfx/cutie-0.png</file>
         <file alias="arena">gfx/arena.png</file>
+        <file alias="cutie-1">gfx/cutie-1.png</file>
+        <file alias="cutie-2">gfx/cutie-2.png</file>
+        <file alias="cutie-3">gfx/cutie-3.png</file>
+        <file alias="cutie-4">gfx/cutie-4.png</file>
+        <file alias="cutie-5">gfx/cutie-5.png</file>
     </qresource>
 </RCC>

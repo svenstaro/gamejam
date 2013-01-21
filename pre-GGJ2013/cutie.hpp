@@ -7,9 +7,14 @@ class Cutie : public Sprite
 {
     Q_OBJECT
 public:
-    explicit Cutie(Game *game);
+    explicit Cutie(Game *game, QString path, QPointF pos);
 
     void prePaint(QPainter *painter);
+
+    void update(float dt);
+
+private:
+    QPointF m_target;
 
 };
 

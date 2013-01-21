@@ -17,4 +17,5 @@ void GameObject::callUpdate()
 
 void GameObject::update(float dt)
 {
+    Q_UNUSED(dt)
 }
