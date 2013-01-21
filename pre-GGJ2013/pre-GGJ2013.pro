@@ -8,13 +8,15 @@ SOURCES += main.cpp \
     game.cpp \
     gameobject.cpp \
     cutie.cpp \
-    sprite.cpp
+    sprite.cpp \
+    arena.cpp
 
 HEADERS += \
     game.hpp \
     gameobject.hpp \
     cutie.hpp \
-    sprite.hpp
+    sprite.hpp \
+    arena.hpp
 
 QMAKE_CXXFLAGS += -std=c++11
 

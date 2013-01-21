@@ -6,11 +6,12 @@
 
 #include "game.hpp"
 #include "cutie.hpp"
+#include "arena.hpp"
 
 int main(int argc, char *argv[])
 {
     QApplication application(argc, argv);
-    QGraphicsScene scene(0, 0, 800, 600);
+    QGraphicsScene scene(0, 0, 1000, 600);
     scene.setBackgroundBrush(Qt::white);
 
     QGraphicsView window(&scene);
@@ -22,11 +23,12 @@ int main(int argc, char *argv[])
     //window.setRenderHint(QPainter::Antialiasing, true);
     //window.setRenderHint(QPainter::HighQualityAntialiasing, true);
     window.setRenderHints(QPainter::SmoothPixmapTransform);
-    window.resize(800, 600);
+    window.resize(1000, 600);
     window.setBackgroundBrush(QBrush(Qt::black));
     window.show();
 
     Game game(&window);
+    scene.addItem(new Arena(&game));
     scene.addItem(new Cutie(&game));
     game.run();
 
