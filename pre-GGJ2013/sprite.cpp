@@ -26,7 +26,7 @@ void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
 QRectF Sprite::boundingRect() const
 {
-    return m_pixmap.rect();
+    return QRectF(-m_pixmap.width() / 2, -m_pixmap.height() / 2, m_pixmap.width(), m_pixmap.height());
 }
 
 QPointF Sprite::scale() const
