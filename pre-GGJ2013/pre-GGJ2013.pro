@@ -7,12 +7,14 @@ QT += opengl
 SOURCES += main.cpp \
     game.cpp \
     gameobject.cpp \
-    cutie.cpp
+    cutie.cpp \
+    sprite.cpp
 
 HEADERS += \
     game.hpp \
     gameobject.hpp \
-    cutie.hpp
+    cutie.hpp \
+    sprite.hpp
 
 QMAKE_CXXFLAGS += -std=c++11
 

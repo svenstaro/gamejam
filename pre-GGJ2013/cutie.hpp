@@ -1,24 +1,15 @@
 #ifndef CUTIE_HPP
 #define CUTIE_HPP
 
-#include "gameobject.hpp"
+#include "sprite.hpp"
 
-class Cutie : public GameObject
+class Cutie : public Sprite
 {
     Q_OBJECT
 public:
     explicit Cutie(Game *game);
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
-
-    virtual QRectF boundingRect() const;
-
-signals:
-    
-public slots:
-
-private:
-    QPixmap m_pixmap;
+    void prePaint(QPainter *painter);
 
 };
 
