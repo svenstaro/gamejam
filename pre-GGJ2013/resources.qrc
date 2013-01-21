@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/gfx">
+        <file alias="cutie-0">gfx/cutie-0.png</file>
+    </qresource>
+</RCC>
