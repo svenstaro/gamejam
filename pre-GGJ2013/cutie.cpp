@@ -9,6 +9,7 @@ Cutie::Cutie(Game *game) :
 
 void Cutie::prePaint(QPainter *painter)
 {
-    painter->translate(500, 500);
-    painter->scale(0.3, 0.3 + fabs(sin(m_lifeTime * 4)) * 0.1);
+    float wobble = fabs(sin(m_lifeTime * 5)) * 0.1;
+    painter->translate(500, 500 - m_pixmap.height() * wobble);
+    painter->scale(0.3, 0.3 * (1 + wobble));
 }
