@@ -8,9 +8,8 @@ Cutie::Cutie(Game *game) :
 
 void Cutie::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->scale(0.1, 0.1);
+    painter->scale(0.3, 0.3);
     painter->drawPixmap(100, 100, m_pixmap);
-    painter->drawLine(0, 0, 1000, 1000);
 }
 
 QRectF Cutie::boundingRect() const

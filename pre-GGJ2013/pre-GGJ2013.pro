@@ -2,6 +2,8 @@ TARGET = pre-GGJ2013
 
 CONFIG += qt debug
 
+QT += opengl
+
 SOURCES += main.cpp \
     game.cpp \
     gameobject.cpp \
