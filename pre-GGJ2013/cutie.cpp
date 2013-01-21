@@ -2,7 +2,6 @@
 
 #include <QDebug>
 
-
 Cutie::Cutie(Game *game, QString path, QPointF pos) :
     Sprite(game, path)
 {
