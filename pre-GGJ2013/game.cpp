@@ -24,4 +24,3 @@ void Game::update()
 {
     m_view->viewport()->update();
 }
-
