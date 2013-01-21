@@ -3,12 +3,14 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QGraphicsView>
 
 class Game : public QObject
 {
     Q_OBJECT
 public:
     explicit Game(QObject *parent = 0);
+    explicit Game(QGraphicsView *view);
 
     void run();
 
@@ -20,6 +22,8 @@ public slots:
 public:
     QTimer* updateTimer;
 
+private:
+    QGraphicsView* m_view;
 };
 
 #endif // GAME_HPP

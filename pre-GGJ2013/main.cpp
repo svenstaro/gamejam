@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     window.setBackgroundBrush(QBrush(Qt::black));
     window.show();
 
-    Game game;
+    Game game(&window);
     scene.addItem(new Cutie(&game));
     game.run();
 
