@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     Game game(&window);
     scene.addItem(new Arena(&game));
-    scene.addItem(new Cutie(&game));
+    scene.addItem(new Cutie(&game, ":gfx/cutie-0"));
     game.run();
 
     return application.exec();

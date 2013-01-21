@@ -7,7 +7,7 @@ class Cutie : public Sprite
 {
     Q_OBJECT
 public:
-    explicit Cutie(Game *game);
+    explicit Cutie(Game *game, QString path);
 
     void prePaint(QPainter *painter);
 

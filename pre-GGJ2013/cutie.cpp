@@ -2,8 +2,8 @@
 
 #include <QDebug>
 
-Cutie::Cutie(Game *game) :
-    Sprite(game, ":gfx/cutie-0")
+Cutie::Cutie(Game *game, QString path) :
+    Sprite(game, path) // ":gfx/cutie-0")
 {
 }
 
