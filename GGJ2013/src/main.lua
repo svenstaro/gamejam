@@ -3,10 +3,14 @@ require("states/mainstate")
 require("states/filestate")
 require("core/resources")
 require("core/gamestack")
+require("core/settings")
 
 resources = Resources("data/")
+settings = Settings()
+settings:load()
 
-debug = true
+debug = settings:get("debug", false)
+fullscreen = settings:get("fullscreen", false)
 
 function reset()
     -- start game
@@ -14,10 +18,14 @@ function reset()
     file = FileState()
     main = MainState()
     stack = GameStack()
-    stack:push(intro)
+    stack:push(debug and main or intro)
 end
 
 function love.load()
+    if fullscreen then
+        setFullscreen(true)
+    end
+
     math.randomseed(os.time())
 
     -- load images
@@ -25,6 +33,7 @@ function love.load()
     resources:addImage("player", "player.png")
 
     -- load fonts
+    resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
 
     -- load music
@@ -46,8 +55,29 @@ function love.draw()
     -- love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
 end
 
+function setFullscreen(fs)
+    if fs then
+        -- save old window size
+        windowedSizeX, windowedSizeY = love.graphics.getMode()
+
+        modes = love.graphics.getModes()
+        table.sort(modes, function(a, b) return a.width*a.height < b.width*b.height end)
+        local nativeResolution = modes[#modes]
+        love.graphics.setMode(nativeResolution["width"], nativeResolution["height"], true)
+    else
+        love.graphics.setMode(windowedSizeX, windowedSizeY, false)
+    end
+    fullscreen = fs
+end
+
 function love.keypressed(k, u)
     stack:keypressed(k, u)
+
+    if k == "f11" then
+        setFullscreen(not fullscreen)
+    elseif k == "f9" then
+        debug = not debug
+    end
 end
 
 function love.mousepressed( x, y, button )
@@ -55,4 +85,7 @@ function love.mousepressed( x, y, button )
 end
 
 function love.quit()
+    settings:set("fullscreen", fullscreen)
+    settings:set("debug", debug)
+    settings:save()
 end

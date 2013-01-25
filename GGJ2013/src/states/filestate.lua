@@ -8,7 +8,7 @@ FileState = class("FileState", GameState)
 FileState.drawBelow = true
 
 function FileState:__init()
-    self.number = "0523"
+    self.text = "- empty file -"
 end
 
 function FileState:draw()
@@ -17,9 +17,8 @@ function FileState:draw()
 
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.normal)
-    love.graphics.print("This is the patient's file " .. self.number, 100, 210)
-    love.graphics.print("This should look better", 100, 250)
-    love.graphics.print("Press any key to continue", 100, 290)
+    love.graphics.print(self.text, 100, 200)
+    love.graphics.print("Press any key to continue", 100, 400)
 end
 
 function FileState:keypressed(k, u)
