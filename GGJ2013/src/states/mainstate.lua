@@ -5,6 +5,7 @@ require("core/resources")
 require("core/objectgroup")
 require("objects/player")
 require("objects/trigger")
+require("objects/level")
 
 MainState = class("MainState", GameState)
 
@@ -13,11 +14,11 @@ function MainState:__init()
 
     self.objects:add(Player())
 
-
     trigger = Trigger(100, 100, 200, 200)
     trigger.onEnter = function() print "enter" end
     trigger.onLeave = function() print "leave" end
     self.objects:add(trigger)
+    self.objects:add(Level())
 end
 
 function MainState:draw()
