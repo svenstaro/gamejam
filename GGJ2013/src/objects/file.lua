@@ -1,15 +1,18 @@
 -- Files lying around
 
-require("core/object")
+require("core/actionobject")
 
-File = class("File", Object)
+File = class("File", ActionObject)
 
 function File:__init(text)
-    self.text = text or "test"
+    self.text = text or "- empty file -"
 
-    self.x = 200
-    self.y = 300
-    self.z = 1
+    self.x = 100
+    self.y = 100
+    self.z = 0.5
+
+    ActionObject.__init(self)
+    self.actionText = "Read Patient File"
 end
 
 function File:read()
@@ -17,17 +20,20 @@ function File:read()
 end
 
 function File:update(dt)
-
 end
-
 
 function File:draw()
     love.graphics.push()
 
     love.graphics.translate(self.x, self.y)
 
-    love.graphics.setColor(255, 235, 205)
-    love.graphics.rectangle("fill", 0, 0, 50, 50)
+    love.graphics.setColor(255, 200, 100)
+    love.graphics.rectangle("fill", -20, -20, 40, 40)
 
     love.graphics.pop()
+end
+
+function File:onAction()
+    file.text = self.text
+    stack:push(file)
 end

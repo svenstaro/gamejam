@@ -6,7 +6,7 @@ require("core/gamestack")
 
 resources = Resources("data/")
 
-debug = true
+debug = false
 
 function reset()
     -- start game

@@ -18,13 +18,7 @@ function MainState:__init()
     door = Door()
     self.objects:add(door)
 
-    self.objects:add(File())
-
-    trigger = Trigger(100, 100, 200, 200)
-    trigger.onEnter = function() print "enter" end
-    trigger.onLeave = function() print "leave" end
-    self.objects:add(trigger)
-
+    self.objects:add(File("This is patient number 12391. You died."))
 end
 
 function MainState:draw()
@@ -36,6 +30,11 @@ function MainState:draw()
     love.graphics.print("This is the game. Fuck yeah.", 10, 10)
 
     self.objects:draw()
+
+    if activeActionObject then
+        local t = "[E] " .. activeActionObject.actionText
+        love.graphics.print(t, love.graphics.getWidth() / 2 -  love.graphics.getFont():getWidth(t) / 2, love.graphics.getHeight() - 100)
+    end
 end
 
 function MainState:update(dt)
@@ -50,5 +49,10 @@ function MainState:keypressed(k, u)
     elseif k == "f" then
         file.number = "21494"
         stack:push(file)
+    elseif k == "e" then
+        if activeActionObject then
+            activeActionObject:onAction()
+            activeActionObject = nil
+        end
     end
 end
