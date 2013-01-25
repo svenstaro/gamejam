@@ -31,5 +31,8 @@ end
 function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
+    elseif k == "f" then
+        file.number = "21494"
+        stack:push(file)
     end
 end

@@ -1,5 +1,6 @@
 require("states/introstate")
 require("states/mainstate")
+require("states/filestate")
 require("core/resources")
 require("core/gamestack")
 
@@ -8,6 +9,7 @@ resources = Resources("data/")
 function reset()
     -- start game
     intro = IntroState()
+    file = FileState()
     main = MainState()
     stack = GameStack()
     stack:push(intro)
