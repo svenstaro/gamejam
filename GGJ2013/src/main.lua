@@ -1,4 +1,5 @@
-require("intro")
+require("states/introstate")
+require("states/mainstate")
 require("core/resources")
 require("core/gamestack")
 
@@ -6,7 +7,8 @@ resources = Resources("data/")
 
 function reset()
     -- start game
-    intro = Intro()
+    intro = IntroState()
+    main = MainState()
     stack = GameStack()
     stack:push(intro)
 end

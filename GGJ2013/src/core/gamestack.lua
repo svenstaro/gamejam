@@ -36,13 +36,15 @@ function GameStack:pop(number)
         self:pop(number - 1)
     elseif self:current() then
         self:current():start()
-    else
-        love.event.push("quit")
     end
 end
 
 function GameStack:update(dt)
-    if self:current() then self:current():update(dt) end
+    if self:current() then
+        self:current():update(dt)
+    else
+        love.event.push("quit")
+    end
 end
 
 function GameStack:draw()
