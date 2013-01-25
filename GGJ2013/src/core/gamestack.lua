@@ -48,7 +48,14 @@ function GameStack:update(dt)
 end
 
 function GameStack:draw()
-    if self:current() then self:current():draw() end
+    local first = #self.states
+    if first == 0 then return end
+
+    while self.states[first].drawBelow and first > 1 do first = first - 1 end
+
+    for i = first, #self.states do
+        self.states[i]:draw()
+    end
 end
 
 function GameStack:keypressed(k, u)

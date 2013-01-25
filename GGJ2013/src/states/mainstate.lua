@@ -4,6 +4,7 @@ require("core/gamestate")
 require("core/resources")
 require("core/objectgroup")
 require("objects/player")
+require("objects/trigger")
 
 MainState = class("MainState", GameState)
 
@@ -11,6 +12,12 @@ function MainState:__init()
     self.objects = ObjectGroup()
 
     self.objects:add(Player())
+
+
+    trigger = Trigger(100, 100, 200, 200)
+    trigger.onEnter = function() print "enter" end
+    trigger.onLeave = function() print "leave" end
+    self.objects:add(trigger)
 end
 
 function MainState:draw()
@@ -31,5 +38,8 @@ end
 function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
+    elseif k == "f" then
+        file.number = "21494"
+        stack:push(file)
     end
 end
