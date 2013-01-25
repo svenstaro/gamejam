@@ -4,6 +4,7 @@ require("core/gamestate")
 require("core/resources")
 require("core/objectgroup")
 require("objects/player")
+require("objects/door")
 
 MainState = class("MainState", GameState)
 
@@ -11,6 +12,8 @@ function MainState:__init()
     self.objects = ObjectGroup()
 
     self.objects:add(Player())
+    door = Door()
+    self.objects:add(door)
 end
 
 function MainState:draw()
@@ -31,5 +34,7 @@ end
 function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
+    elseif k == " " then
+        door.open = not door.open
     end
 end
