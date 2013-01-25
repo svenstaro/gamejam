@@ -24,6 +24,8 @@ function MainState:__init()
     door = Door()
     self.objects:add(door)
 
+    self.objects:add(Level())
+
     self.objects:add(Enemy())
 
     self.objects:add(File("This is patient number 12391. You died."))
