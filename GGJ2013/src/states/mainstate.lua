@@ -4,6 +4,8 @@ require("core/gamestate")
 require("core/resources")
 require("core/objectgroup")
 require("objects/player")
+require("objects/door")
+require("objects/file")
 require("objects/trigger")
 
 MainState = class("MainState", GameState)
@@ -13,11 +15,16 @@ function MainState:__init()
 
     self.objects:add(Player())
 
+    door = Door()
+    self.objects:add(door)
+
+    self.objects:add(File())
 
     trigger = Trigger(100, 100, 200, 200)
     trigger.onEnter = function() print "enter" end
     trigger.onLeave = function() print "leave" end
     self.objects:add(trigger)
+
 end
 
 function MainState:draw()
@@ -38,6 +45,8 @@ end
 function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
+    elseif k == " " then
+        door.open = not door.open
     elseif k == "f" then
         file.number = "21494"
         stack:push(file)
