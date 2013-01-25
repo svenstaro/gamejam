@@ -14,6 +14,7 @@ MainState = class("MainState", GameState)
 function MainState:__init()
     self.objects = ObjectGroup()
 
+    self.lifetime = 0
     self.centerX = 0
     self.centerY = 0
 
@@ -61,6 +62,16 @@ function MainState:draw()
     self.objects:draw()
     love.graphics.pop()
 
+    -- draw darkness
+    resources:sendShaderValue("darkness", "range", 64 * 3 * (1 + 0.05 * (math.sin(self.lifetime * 2))))
+    resources:sendShaderValue("darkness", "blur", 64)
+    resources:sendShaderValue("darkness", "width", love.graphics.getWidth())
+    resources:sendShaderValue("darkness", "height", love.graphics.getHeight())
+    love.graphics.setPixelEffect(resources.shaders.darkness)
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setPixelEffect()
+
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.tiny)
     love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
@@ -73,6 +84,7 @@ function MainState:draw()
 end
 
 function MainState:update(dt)
+    self.lifetime = self.lifetime + dt
     self.objects:update(dt)
 end
 

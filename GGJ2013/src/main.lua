@@ -38,6 +38,9 @@ function love.load()
     -- load music
     -- resources:addMusic("background", "background.mp3")
 
+    -- load shaders
+    resources:addShader("darkness", "shaders/darkness.glsl")
+
     resources:load()
 
     reset()
