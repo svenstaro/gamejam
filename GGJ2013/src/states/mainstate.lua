@@ -7,6 +7,7 @@ require("objects/player")
 require("objects/door")
 require("objects/file")
 require("objects/trigger")
+require("objects/enemy")
 
 MainState = class("MainState", GameState)
 
@@ -17,6 +18,8 @@ function MainState:__init()
 
     door = Door()
     self.objects:add(door)
+
+    self.objects:add(Enemy())
 
     self.objects:add(File("This is patient number 12391. You died."))
 end
