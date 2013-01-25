@@ -41,16 +41,26 @@ end
 
 function MainState:draw()
     love.graphics.setBackgroundColor(17, 17, 17)
-    love.graphics.setColor(255, 255, 255)
-
     love.graphics.clear()
-    love.graphics.setFont(resources.fonts.tiny)
-    love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
 
     love.graphics.push()
     love.graphics.translate(self:getOffset())
+
+    love.graphics.setColor(20, 20, 20)
+    for x = -20, 20 do
+        for y = -20, 20 do
+            if (x + y) % 2 == 0 then
+                love.graphics.rectangle("fill", x * 64, y * 64, 64, 64)
+            end
+        end
+    end
+
     self.objects:draw()
     love.graphics.pop()
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setFont(resources.fonts.tiny)
+    love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
 
     love.graphics.setFont(resources.fonts.normal)
     if activeActionObject then
