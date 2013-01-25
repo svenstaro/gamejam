@@ -17,7 +17,7 @@ function love.load()
     math.randomseed(os.time())
 
     -- load images
-    -- resources:addImage("logo", "logo.png")
+    resources:addImage("player", "player.png")
 
     -- load fonts
     resources:addFont("normal", "DejaVuSans.ttf", 20)
