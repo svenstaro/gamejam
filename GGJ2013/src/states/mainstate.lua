@@ -5,6 +5,7 @@ require("core/resources")
 require("core/objectgroup")
 require("objects/player")
 require("objects/door")
+require("objects/file")
 
 MainState = class("MainState", GameState)
 
@@ -14,6 +15,9 @@ function MainState:__init()
     self.objects:add(Player())
     door = Door()
     self.objects:add(door)
+    
+    file = File()
+    self.objects:add(file)
 end
 
 function MainState:draw()

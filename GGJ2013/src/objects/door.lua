@@ -1,4 +1,4 @@
--- the player object that moves around the screen
+-- (Elevator-) doors opening.
 
 require("core/object")
 
