@@ -29,6 +29,7 @@ function love.load()
     math.randomseed(os.time())
 
     -- load images
+    resources:addImage("level", "levels/tilesets/placeholders.png")
     resources:addImage("player", "player.png")
 
     -- load fonts

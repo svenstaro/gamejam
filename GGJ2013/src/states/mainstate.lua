@@ -7,6 +7,7 @@ require("objects/player")
 require("objects/door")
 require("objects/file")
 require("objects/trigger")
+require("objects/level")
 require("objects/enemy")
 
 MainState = class("MainState", GameState)
