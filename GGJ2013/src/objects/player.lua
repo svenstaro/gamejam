@@ -12,7 +12,7 @@ function Player:__init()
 end
 
 function Player:update(dt)
-    local mx, my = love.mouse.getPosition()
+    local mx, my = main:getMousePosition()
     self.angle = math.atan2(my - self.y, mx - self.x)
 
     local dx, dy = 0, 0
@@ -24,6 +24,9 @@ function Player:update(dt)
     local speed = 100
     self.x = self.x + dx * speed * dt
     self.y = self.y + dy * speed * dt
+
+    main.centerX = self.x
+    main.centerY = self.y
 end
 
 function Player:draw()

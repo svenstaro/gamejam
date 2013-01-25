@@ -14,6 +14,9 @@ MainState = class("MainState", GameState)
 function MainState:__init()
     self.objects = ObjectGroup()
 
+    self.centerX = 0
+    self.centerY = 0
+
     self.objects:add(Player())
 
     door = Door()
@@ -24,16 +27,35 @@ function MainState:__init()
     self.objects:add(File("This is patient number 12391. You died."))
 end
 
+function MainState:getOffset()
+    return love.graphics.getWidth() / 2      - self.centerX,
+        love.graphics.getHeight() / 2 - self.centerY
+end
+
+function MainState:screenToWorld(x, y)
+    local ox, oy = self:getOffset()
+    local scale = 1
+    return (x - ox) / scale, (y - oy) / scale
+end
+
+function MainState:getMousePosition()
+    return self:screenToWorld(love.mouse.getPosition())
+end
+
 function MainState:draw()
     love.graphics.setBackgroundColor(17, 17, 17)
     love.graphics.setColor(255, 255, 255)
 
     love.graphics.clear()
-    love.graphics.setFont(resources.fonts.normal)
-    love.graphics.print("This is the game. Fuck yeah.", 10, 10)
+    love.graphics.setFont(resources.fonts.tiny)
+    love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
 
+    love.graphics.push()
+    love.graphics.translate(self:getOffset())
     self.objects:draw()
+    love.graphics.pop()
 
+    love.graphics.setFont(resources.fonts.normal)
     if activeActionObject then
         local t = "[E] " .. activeActionObject.actionText
         love.graphics.print(t, love.graphics.getWidth() / 2 -  love.graphics.getFont():getWidth(t) / 2, love.graphics.getHeight() - 100)

@@ -5,7 +5,7 @@ require("core/object")
 Trigger = class("Trigger", Object)
 
 function Trigger:__init()
-    self.z = 1
+    self.z = 100
     self.inside = false
 
     self.onEnter = function() end
