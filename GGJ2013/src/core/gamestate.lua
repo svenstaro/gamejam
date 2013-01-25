@@ -4,6 +4,8 @@ require("core/helper")
 
 GameState = class("GameState")
 
+GameState.drawBelow = false
+
 function GameState:__init()end
 
 function GameState:update(dt)end
