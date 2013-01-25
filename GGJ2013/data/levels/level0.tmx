@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="base" tilewidth="64" tileheight="64" spacing="4">
+  <image source="tilesets/base.png" width="268" height="268"/>
+ </tileset>
+ <tileset firstgid="17" name="decorations" tilewidth="64" tileheight="64" spacing="4">
+  <image source="tilesets/decorations.png" width="268" height="268"/>
+ </tileset>
+ <layer name="base" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJACAMAMHo/kOLkMIqlZAUd/ATfAQA/LGf6Hc/rIx+fsziBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUDkBwQAT
+  </data>
+ </layer>
+ <layer name="decorations" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0TENAAAIBLG3gH+zLEhggKRNTsElALCjJu7w5BY/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfmi6gQBn
+  </data>
+ </layer>
+</map>
