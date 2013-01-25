@@ -44,14 +44,15 @@ function MainState:draw()
     love.graphics.setColor(255, 255, 255)
 
     love.graphics.clear()
-    love.graphics.setFont(resources.fonts.normal)
-    love.graphics.print("This is the game. Fuck yeah.", 10, 10)
+    love.graphics.setFont(resources.fonts.tiny)
+    love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
 
     love.graphics.push()
     love.graphics.translate(self:getOffset())
     self.objects:draw()
     love.graphics.pop()
 
+    love.graphics.setFont(resources.fonts.normal)
     if activeActionObject then
         local t = "[E] " .. activeActionObject.actionText
         love.graphics.print(t, love.graphics.getWidth() / 2 -  love.graphics.getFont():getWidth(t) / 2, love.graphics.getHeight() - 100)
