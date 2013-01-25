@@ -6,6 +6,8 @@ require("core/gamestack")
 
 resources = Resources("data/")
 
+debug = true
+
 function reset()
     -- start game
     intro = IntroState()
