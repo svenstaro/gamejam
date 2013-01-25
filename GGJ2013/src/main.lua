@@ -1,6 +1,6 @@
 require("intro")
-require("util/resources")
-require("util/gamestack")
+require("core/resources")
+require("core/gamestack")
 
 resources = Resources("data/")
 

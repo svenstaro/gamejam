@@ -1,12 +1,12 @@
 function love.conf(t)
-    t.title = "GAME TITLE"
-    t.author = "AUTHOR"
-    t.identity = "IDENTITY"
+    t.title = "7th Sense"
+    t.author = "GGJ13 Team UHH"
+    t.identity = "7thsense"
     t.version = "0.8.0" -- Löve version
     t.console = false
     t.release = false
-    t.screen.width = 400
-    t.screen.height = 300
+    t.screen.width = 800
+    t.screen.height = 600
     t.screen.fullscreen = false
     t.screen.vsync = true
     t.screen.fsaa = 0

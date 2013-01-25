@@ -1,7 +1,7 @@
 -- intro
 
-require("util/gamestate")
-require("util/resources")
+require("core/gamestate")
+require("core/resources")
 
 Intro = class("Intro", GameState)
 
