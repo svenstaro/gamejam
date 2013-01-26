@@ -19,8 +19,7 @@ function Trigger:isInside(player)
 end
 
 function Trigger:update(dt)
-    local player = self.group:ofType("Player")[1]
-    local inside = self:isInside(player)
+    local inside = self:isInside(main.player)
 
     if inside ~= self.inside then
         if inside then

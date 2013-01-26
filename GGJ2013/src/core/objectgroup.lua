@@ -45,3 +45,12 @@ function ObjectGroup:ofType(type)
 	end
 	return tmp
 end
+
+function ObjectGroup:byName(name)
+	for i, o in pairs(self.objects) do
+		if o.name == name then
+			return o
+		end
+	end
+	return nil
+end

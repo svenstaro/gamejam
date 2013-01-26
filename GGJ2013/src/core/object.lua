@@ -9,6 +9,7 @@ function Object:__init()
     self.angle = 0
     self.lifetime = 0
     self.group = nil
+    self.name = ""
 end
 
 function Object:update(dt)
