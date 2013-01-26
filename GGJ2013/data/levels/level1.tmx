@@ -19,15 +19,15 @@
  </layer>
  <layer name="decorations" width="36" height="42" opacity="0.87">
   <data encoding="base64" compression="zlib">
-   eJztlk0KgCAQhb1Gt+kiFRXVKrrCHM2j9RYGIWEENuo4HwwRuni++VFjFKVuGmPal3XLo6R8nryU4N/9XF/Pg/0UWY5SMH6PSOgPhYceMaQW4YAOmvCdUwtxLIgVsbn/MaO5C5/skpEe5MzmVEsdZiI8Ir+W3t5msWjCa8ShoVYk+Buq0+t+P7jECENCfZRGzHko8X3LdS9x4Oc6Vr/tGeU9VM/ePvpTh6J84QQDchfy
+   eJxjYBgFo2BkA0kGBgcC8gfo45KhD7CF5XAIP2R/keofoPoGKjtnFAxhgJ5HhkP+GAX0AXFAHD/QjoACoDsakoB08kA7BApSgTgNiNOh/MRBVO4Cw+lA6iByDzDODgx0WlJHKgdjgWxgGDWgpyVCbTNqAUn8cg30cMNIBcMhfPGlU1j9nk8vx1AAdAZhXNAqfWgzgP07aIA+EBsMtCOggJrl4XBs39KrXqIHQI9rauW33EEU7/jSM5q6Blq6YxSMAlIAABP4Gbs=
   </data>
  </layer>
- <layer name="decorations2" width="36" height="42">
+ <layer name="decorations2" width="36" height="42" visible="0">
   <data encoding="base64" compression="zlib">
    eJztzjEBAAAIA6DFtX8C3zXwEBKQAADAD3MdAAAAKAs6iwBp
   </data>
  </layer>
- <objectgroup name="obj" width="36" height="42" visible="0">
+ <objectgroup name="obj" width="36" height="42">
   <object name="door_01" type="door" x="832" y="1856" width="64" height="128"/>
   <object name="door_02" type="door" x="512" y="1472" width="128" height="64"/>
   <object name="door_03" type="door" x="1536" y="704" width="64" height="128"/>
