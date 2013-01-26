@@ -37,8 +37,8 @@ function love.load()
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
 
-    -- load music
-    -- resources:addMusic("background", "background.mp3")
+    -- load sounds
+    resources:addAudio("door_slide", "sfx/door_slide.ogg")
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")
