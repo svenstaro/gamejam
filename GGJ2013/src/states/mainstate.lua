@@ -13,15 +13,42 @@ require("objects/enemy")
 MainState = class("MainState", GameState)
 
 function MainState:__init()
-    self.objects = ObjectGroup()
-
     self.lifetime = 0
     self.centerX = 0
     self.centerY = 0
+    self.currentLevel = 0
 
-    self.objects:add(Player())
-    self.objects:add(Level(self.objects))
-    self.objects:add(File("This is patient number 12391. You died."))
+    self.objects = {}
+    self.levels = {}
+
+    for i = 0, 0 do
+        self:loadLevel(i)
+    end
+
+    self.player = Player()
+    self:setLevel(0)
+
+    -- self.objects:add(File("This is patient number 12391. You died."))
+end
+
+function MainState:setLevel(i)
+    -- make sure to transfer the player into the new level
+    self:world():remove(self.player)
+    self.currentLevel = i
+    self:world():add(self.player)
+
+    -- TODO: set player position in new level
+end
+
+function MainState:loadLevel(i)
+    self.objects[i] = ObjectGroup()
+    local level = Level("test" .. i, self.objects[i])
+    self.levels[i] = level
+    self.objects[i]:add(level)
+end
+
+function MainState:world()
+    return self.objects[self.currentLevel]
 end
 
 function MainState:getOffset()
@@ -55,12 +82,12 @@ function MainState:draw()
         end
     end
 
-    self.objects:draw()
+    self:world():draw()
     love.graphics.pop()
 
     -- draw darkness
-    resources:sendShaderValue("darkness", "range", 64 * 3 * (1 + 0.05 * (math.sin(self.lifetime * 2))))
-    resources:sendShaderValue("darkness", "blur", 64)
+    resources:sendShaderValue("darkness", "range", 64 * 2.5 * (1 + 0.05 * (math.sin(self.lifetime * 2))))
+    resources:sendShaderValue("darkness", "blur", 128)
     resources:sendShaderValue("darkness", "width", love.graphics.getWidth())
     resources:sendShaderValue("darkness", "height", love.graphics.getHeight())
     love.graphics.setPixelEffect(resources.shaders.darkness)
@@ -81,15 +108,15 @@ end
 
 function MainState:update(dt)
     self.lifetime = self.lifetime + dt
-    self.objects:update(dt)
+    self:world():update(dt)
 end
 
 function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
     elseif k == " " then
-        door = self.objects:byName("door_1")
-        door.open = not door.open
+        door = self:world():byName("door_1")
+        door:toggle()
     elseif k == "f" then
         file.number = "21494"
         stack:push(file)

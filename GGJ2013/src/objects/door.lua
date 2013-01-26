@@ -10,7 +10,7 @@ function Door:__init(angle)
 
     self.x = 0
     self.y = 0
-    self.z = 1
+    self.z = 2
     self.angle = angle or math.pi * 0.5
 end
 
@@ -23,6 +23,8 @@ end
 
 function Door:toggle()
     self.open = not self.open
+    -- love.audio.play(resources.audio.door_slide)
+    resources:makeSound("door_slide"):play()
 end
 
 function Door:draw()

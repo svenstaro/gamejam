@@ -1,6 +1,7 @@
 -- the player object that moves around the screen
 
 require("core/object")
+require("objects/toast")
 
 Player = class("Player", Object)
 
@@ -9,6 +10,7 @@ function Player:__init()
     self.y = 0
     self.z = 1
     self.angle = 0
+    self.timeSinceLastStep = 0
 end
 
 function Player:update(dt)
@@ -23,6 +25,14 @@ function Player:update(dt)
     if math.abs(dy) + math.abs(dx) == 2 then
         dx = dx * 0.84
         dy = dy * 0.84
+    end
+
+    self.timeSinceLastStep = self.timeSinceLastStep + dt
+
+    if (dx ~= 0 or dy ~= 0) and self.timeSinceLastStep >= 0.3 then
+        --self:makeToast("Tap", 0.5 - math.random(), {100, 100, 100, 50})
+        -- TODO: add random foot step sound here!
+        self.timeSinceLastStep = 0
     end
 
     local speed = 100

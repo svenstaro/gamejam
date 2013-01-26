@@ -7,12 +7,12 @@ Resources = class("Resources")
 function Resources:__init(prefix)
     self.prefix = prefix
     self.imageQueue = {}
-    self.musicQueue = {}
+    self.audioQueue = {}
     self.fontQueue = {}
     self.shaderQueue = {}
 
     self.images = {}
-    self.music = {}
+    self.audio = {}
     self.fonts = {}
     self.shaders = {}
 end
@@ -25,8 +25,8 @@ function Resources:addImage(name, src)
     self.imageQueue[name] = src
 end
 
-function Resources:addMusic(name, src)
-    self.musicQueue[name] = src
+function Resources:addAudio(name, src)
+    self.audioQueue[name] = src
 end
 
 function Resources:addShader(name, src)
@@ -67,9 +67,9 @@ function Resources:load(threaded)
         self.imageQueue[name] = nil
     end
 
-    for name, src in pairs(self.musicQueue) do
-        self.music[name] = love.audio.newSource(self.prefix .. src)
-        self.musicQueue[name] = nil
+    for name, src in pairs(self.audioQueue) do
+        self.audio[name] = love.sound.newSoundData(self.prefix .. src)
+        self.audioQueue[name] = nil
     end
 
     for name, src in pairs(self.shaderQueue) do
@@ -80,4 +80,8 @@ function Resources:load(threaded)
         self:createShader(name, content)
         self.shaderQueue[name] = nil
     end
+end
+
+function Resources:makeSound(name)
+    return love.audio.newSource(self.audio[name], "static")
 end
