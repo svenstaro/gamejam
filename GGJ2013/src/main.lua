@@ -42,8 +42,9 @@ function love.load()
     resources:addImage("bug", "gfx/mob-animation.png")
     resources:addImage("doorBot", "gfx/door_bot.png")
     resources:addImage("doorTop", "gfx/door_top.png")
+    resources:addImage("ggj_logo", "gfx/ggj_logo.png")
 
-    
+
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
@@ -58,7 +59,7 @@ function love.load()
     resources:addShader("darkness", "shaders/darkness.glsl")
 
     resources:load()
-    
+
     love.physics.setMeter(64)
 
     reset()
