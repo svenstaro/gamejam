@@ -26,11 +26,11 @@ function MainState:__init()
     end
 
     self.player = Player()
+    self.nextLevelSpawn = "spawn_01"
     self:setLevel(0)
 
     self.levelFade = 0
     self.nextLevel = 0
-    self.nextLevelSpawn = nil
     self:world():add(File("Patient: 47 \nShowed violent behavior."))
 
     -- self.objects:add(File("This is patient number 12391. You died."))
@@ -85,7 +85,7 @@ function MainState:loadLevel(i)
 
     -- HERE STARTS MAGIC
     local o = self.objects[i]
-    if level == 0 then
+    if i == 0 then
         o:byName("trigger_01").onEnter = function()
             o:byName("trigger_02").enabled = true
         end

@@ -11,6 +11,8 @@ function Trigger:__init()
     self.onEnter = function() end
     self.onLeave = function() end
     self.onChange = function() end
+
+    self.enabled = true
 end
 
 function Trigger:isInside(player)
@@ -19,6 +21,8 @@ function Trigger:isInside(player)
 end
 
 function Trigger:update(dt)
+    if not self.enabled then return end
+
     local inside = self:isInside(main.player)
 
     if inside ~= self.inside then
