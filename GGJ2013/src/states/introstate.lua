@@ -9,6 +9,8 @@ function IntroState:__init()
     self.ggj_circle = {{37, 33, 98}, {61, 45, 100}, {87, 55, 105}, {111, 80, 138}, {140, 109, 175}, {138, 145, 168}, {135, 187, 158}, {204, 220, 87}, {245, 237, 49}}
 
     self.lifetime = 0
+
+    self.heartbeat = resources:makeSound("heartbeat")
 end
 
 function IntroState:update(dt)
@@ -39,14 +41,24 @@ function IntroState:draw()
         love.graphics.rectangle("fill", 0, y + 280, w, h)
         love.graphics.rectangle("fill", 0, 0, x - 230, h)
         love.graphics.rectangle("fill", x + 230, 0, w, h)
-    elseif self.lifetime < 8 then
+
+        local a = math.max(0, self.lifetime - 4)
+        love.graphics.setColor(0, 0, 0, a * 255)
+        love.graphics.rectangle("fill", 0, 0, w, h)
+    elseif self.lifetime < 10 then
+        local lt = (self.lifetime - 5) / 5
+
+        self.heartbeat:play()
+
         love.graphics.setBackgroundColor(17, 17, 17)
         love.graphics.setColor(255, 255, 255)
 
         love.graphics.clear()
         love.graphics.setFont(resources.fonts.normal)
         local t = "Best with headphones"
-        love.graphics.print(t, w / 2 - love.graphics.getFont():getWidth(t) / 2, h / 2)
+        love.graphics.print(t, w / 2 - love.graphics.getFont():getWidth(t) / 2, h / 2 + 50)
+        local scale = math.sin(lt * 5.8 * math.pi * 2 + 0.2) > 0.9 and 1.05 or 1
+        love.graphics.draw(resources.images.headphones, w / 2, h / 2, 0, scale, scale, resources.images.headphones:getWidth() / 2, resources.images.headphones:getHeight())
     else
         stack:pop()
         stack:push(main)
