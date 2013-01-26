@@ -42,7 +42,7 @@ function Player:update(dt)
     local mx, my = main:getMousePosition()
     local tmphead_angle = math.atan2(my - self.y, mx - self.x)
     
-    if math.abs(math.abs(tmphead_angle) - math.abs(self.walk_angle)) < 1 then 
+    if math.abs(tmphead_angle - self.walk_angle) < 1 then
         self.head_angle = math.atan2(my - self.y, mx - self.x)
     end
 
