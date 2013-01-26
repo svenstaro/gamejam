@@ -3,6 +3,8 @@
 
 require("core/object")
 require("objects/walltile")
+require("objects/waterdrop")
+require("objects/steam")
 
 function hasBitFlag(set, flag)
     return set % (2*flag) >= flag
@@ -63,7 +65,7 @@ function Level:__init(file, group)
 
     for l = 1, #level.layers do
         local layer = level.layers[l]
-        if layer.visible then
+        if layer.visible or layer.name == "meta" then
             if layer.type == "objectgroup" then
                 -- objectfactory:create()
                 for i = 1, #layer.objects do
@@ -90,6 +92,21 @@ function Level:__init(file, group)
                                 main:fadeToLevel(obj.properties.to_level, obj.properties.location)
                             end
                         end
+                        if obj.properties and obj.properties.disabled then
+                            object.enabled = false
+                        end
+                    end
+
+                    if obj.type == "waterdrop" then
+                        object = WaterDrop()
+                        object.x = cx
+                        object.y = cy
+                    end
+
+                    if obj.type == "steam" then
+                        object = Steam(obj.direction)
+                        object.x = cx
+                        object.y = cy
                     end
 
                     if object then

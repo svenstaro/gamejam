@@ -4,4 +4,6 @@
  <objecttype name="steps" color="#0000c0"/>
  <objecttype name="trigger" color="#00ff00"/>
  <objecttype name="hazard" color="#ff8000"/>
+ <objecttype name="monsterspawn" color="#a412a2"/>
+ <objecttype name="node" color="#f6fa00"/>
 </objecttypes>

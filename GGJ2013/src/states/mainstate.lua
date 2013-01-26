@@ -26,11 +26,11 @@ function MainState:__init()
     end
 
     self.player = Player()
+    self.nextLevelSpawn = "spawn_01"
     self:setLevel(0)
 
     self.levelFade = 0
     self.nextLevel = 0
-    self.nextLevelSpawn = nil
     self:world():add(File("Patient: 47 \nShowed violent behavior."))
 
     -- self.objects:add(File("This is patient number 12391. You died."))
@@ -85,7 +85,7 @@ function MainState:loadLevel(i)
 
     -- HERE STARTS MAGIC
     local o = self.objects[i]
-    if level == 0 then
+    if i == 0 then
         o:byName("trigger_01").onEnter = function()
             o:byName("trigger_02").enabled = true
         end
@@ -112,6 +112,11 @@ function MainState:screenToWorld(x, y)
     return (x - ox) / scale, (y - oy) / scale
 end
 
+function MainState:worldToScreen(x, y)
+    local ox, oy = self:getOffset()
+    return x + ox, y + oy
+end
+
 function MainState:getMousePosition()
     return self:screenToWorld(love.mouse.getPosition())
 end
@@ -136,7 +141,7 @@ function MainState:draw()
     love.graphics.pop()
 
     -- draw darkness
-    resources:sendShaderValue("darkness", "range", 64 * 2.5 * (1 + 0.05 * (math.sin(self.lifetime * 2))))
+    resources:sendShaderValue("darkness", "range", 46 * 2.5 * (1 + 0.05 * (math.sin(self.lifetime * 2))))
     resources:sendShaderValue("darkness", "blur", 128)
     resources:sendShaderValue("darkness", "width", love.graphics.getWidth())
     resources:sendShaderValue("darkness", "height", love.graphics.getHeight())

@@ -90,12 +90,16 @@ function Door:draw()
     love.graphics.translate(self.x, self.y)
     love.graphics.rotate(self.angle)
 
+
     love.graphics.setColor(255, 255, 255)
+    local x, y = main:worldToScreen(self.x, self.y)
+    love.graphics.setScissor(x - 64, y - 64, 128, 128)
     love.graphics.draw(resources.images.doorTop, -64 -self.openness * 50, 32, math.rad(-90), 1, 1)
     love.graphics.draw(resources.images.doorBot, self.openness * 50, 32, math.rad(90), -1, -1)
     -- love.graphics.rectangle("fill", 0,- 64 - self.openness * 50, -10, 64, 20)
     -- love.graphics.rectangle("fill", 0, 1, 1, self.openness * 50, -10, 64, 20)
                                 --( drawable, x, y, r, sx, sy, ox, oy, kx, ky )
 
+    love.graphics.setScissor()
     love.graphics.pop()
 end
