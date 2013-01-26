@@ -65,7 +65,7 @@ function Level:__init(file, group)
 
     for l = 1, #level.layers do
         local layer = level.layers[l]
-        if layer.visible then
+        if layer.visible or layer.name == "meta" then
             if layer.type == "objectgroup" then
                 -- objectfactory:create()
                 for i = 1, #layer.objects do
@@ -91,6 +91,9 @@ function Level:__init(file, group)
                                 print("Entering level switch")
                                 main:fadeToLevel(obj.properties.to_level, obj.properties.location)
                             end
+                        end
+                        if obj.properties and obj.properties.disabled then
+                            object.enabled = false
                         end
                     end
 
