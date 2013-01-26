@@ -7,7 +7,7 @@ level = require("data/levels/test0")
 
 Level = class("Level", Object)
 
-function Level:__init()
+function Level:__init(group)
     self.x = 0
     self.y = 0
     self.z = 1
@@ -56,7 +56,27 @@ function Level:__init()
         local layer = level.layers[l]
         if layer.visible then
             if layer.type == "objectgroup" then
+                for i = 1, #layer.objects do
+                    -- name, x, y, properties, type, width, height
+                    local obj = layer.objects[i]
+                    local cx, cy = obj.x + obj.width / 2, obj.y + obj.height / 2
 
+                    local object = nil
+
+                    if obj.type == "door" then
+                        object = Door(obj.width > obj.height and 0 or math.pi / 2)
+                        object.x = cx
+                        object.y = cy
+                    end
+
+                    if object then
+                        object.name = obj.name
+                        group:add(object)
+                    else
+                        print("Unhandled object type: " .. obj.type)
+                    end
+
+                end
             else
                 for i = 0, level.height - 1 do
                     for j = 0, level.width - 1 do
@@ -67,7 +87,7 @@ function Level:__init()
 
                                 -- wall tile
                                 if index == 1 then
-                                    self.tiles:add(WallTile(j * level.tilewidth, i * level.tileheight))
+                                    group:add(WallTile(j * level.tilewidth, i * level.tileheight))
                                 end
                             else
                                 local quad = self.quads[index]
@@ -82,7 +102,6 @@ function Level:__init()
 end
 
 function Level:update(dt)
-    self.tiles:update(dt)
 end
 
 function Level:draw()
@@ -90,6 +109,4 @@ function Level:draw()
     for k, v in pairs(self.spritebatches) do
         love.graphics.draw(v)
     end
-
-    self.tiles:draw()
 end

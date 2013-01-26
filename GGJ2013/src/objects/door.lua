@@ -8,11 +8,10 @@ function Door:__init(angle)
     self.open = false
     self.openness = 0
 
-    self.x = 100
-    self.y = 300
+    self.x = 0
+    self.y = 0
     self.z = 1
     self.angle = angle or math.pi * 0.5
-
 end
 
 function Door:update(dt)

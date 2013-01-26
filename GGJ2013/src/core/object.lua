@@ -8,6 +8,7 @@ function Object:__init()
     self.z = 0
     self.angle = 0
     self.group = nil
+    self.name = ""
 end
 
 function Object:update(dt) end

@@ -20,14 +20,7 @@ function MainState:__init()
     self.centerY = 0
 
     self.objects:add(Player())
-
-    door = Door()
-    self.objects:add(door)
-
-    self.objects:add(Level())
-
-    self.objects:add(Enemy())
-
+    self.objects:add(Level(self.objects))
     self.objects:add(File("This is patient number 12391. You died."))
 end
 
@@ -95,6 +88,7 @@ function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
     elseif k == " " then
+        door = self.objects:byName("door_1")
         door.open = not door.open
     elseif k == "f" then
         file.number = "21494"
