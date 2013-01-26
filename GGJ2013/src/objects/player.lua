@@ -24,7 +24,7 @@ end
 
 function Player:enablePhysics()
     self.physicsObject.body = love.physics.newBody(self.group.physicsWorld, self.x, self.y, "dynamic")
-    self.physicsObject.shape = love.physics.newCircleShape(2)
+    self.physicsObject.shape = love.physics.newCircleShape(16)
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setUserData(self)
     table.insert(self.group.physicsObjects, self.physicsObject)

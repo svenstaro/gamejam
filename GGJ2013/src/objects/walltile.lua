@@ -14,7 +14,7 @@ function WallTile:__init(x, y)
 end
 
 function WallTile:enablePhysics()
-    self.physicsObject.body = love.physics.newBody(self.group.physicsWorld, self.x, self.y, "dynamic")
+    self.physicsObject.body = love.physics.newBody(self.group.physicsWorld, self.x + 32, self.y + 32, "dynamic")
     self.physicsObject.shape = love.physics.newRectangleShape(64, 64)
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setUserData(self)
