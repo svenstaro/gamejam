@@ -7,8 +7,8 @@ require("src/external/AnAL")
 Player = class("Player", Object)
 
 function Player:__init()
-    self.x = 0
-    self.y = 0
+    self.x = 200
+    self.y = 200
     self.z = 1
     self.angle = 0
     self.lifetime = 0
@@ -24,36 +24,39 @@ end
 
 function Player:enablePhysics()
     self.physicsObject.body = love.physics.newBody(self.group.physicsWorld, self.x, self.y, "dynamic")
-    self.physicsObject.shape = love.physics.newCircleShape(16)
+    self.physicsObject.shape = love.physics.newCircleShape(24)
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setUserData(self)
     table.insert(self.group.physicsObjects, self.physicsObject)
 end
 
 function Player:update(dt)
+    -- retrieve the position the physics engine has calculated during update()
+    self.x = self.physicsObject.body:getX()
+    self.y = self.physicsObject.body:getY()
 
     local mx, my = main:getMousePosition()
     self.head_angle = math.atan2(my - self.y, mx - self.x)
 
     walking = false
-    
+
     local dx, dy = 0, 0
 
-    if love.keyboard.isDown("a") then 
-        dx = dx - 1 
-        walking = true 
+    if love.keyboard.isDown("a") then
+        dx = dx - 1
+        walking = true
     end
-    if love.keyboard.isDown("d") then 
-        dx = dx + 1 
-        walking = true 
+    if love.keyboard.isDown("d") then
+        dx = dx + 1
+        walking = true
     end
-    if love.keyboard.isDown("w") then 
-        dy = dy - 1 
-        walking = true 
+    if love.keyboard.isDown("w") then
+        dy = dy - 1
+        walking = true
     end
-    if love.keyboard.isDown("s") then 
-        dy = dy + 1 
-        walking = true 
+    if love.keyboard.isDown("s") then
+        dy = dy + 1
+        walking = true
     end
 
     if math.abs(dy) + math.abs(dx) == 2 then
@@ -69,7 +72,7 @@ function Player:update(dt)
 
     if (dx ~= 0 or dy ~= 0) and self.timeSinceLastStep >= 0.3 then
         --self:makeToast("Tap", {100, 100, 100, 50}, resources.fonts.tiny)
-        
+
         if walking == "walk_high" then
             walking = "walk_low"
         else
@@ -85,9 +88,8 @@ function Player:update(dt)
     self.x = self.x + dx * speed * dt
     self.y = self.y + dy * speed * dt
 
-    self.physicsObject.body:setX(self.x)
-    self.physicsObject.body:setY(self.y)
-    self.physicsObject.body:setAngle(self.angle)
+    local b = self.physicsObject.body
+    b:setPosition(self.x, self.y)
 
     main.centerX = self.x
     main.centerY = self.y
@@ -105,4 +107,4 @@ function Player:draw()
     self.anim:draw(self.x, self.y, self.walk_angle, 4, 4, 8, 8)
     love.graphics.draw(self.head, self.x, self.y, self.head_angle, 1, 1, 32, 32)
 end
- 
+
