@@ -11,8 +11,7 @@ end
 function ObjectGroup:beginContact(a, b, coll)
     local uA = a:getUserData()
     local uB = b:getUserData()
-    
-    print(uA.__name, uB.__name)
+
     if areUserData(uA, uB, "Player", "WallTile") then
         if uA.__name == "Player" then
             uA:makeToast("BAM", {200, 10, 10, 200})
@@ -66,11 +65,13 @@ function ObjectGroup:draw()
 end
 
 function ObjectGroup:update(dt)
+    if self.physicsWorld then
+        self.physicsWorld:update(dt)
+    end
+
 	for i, o in pairs(self.objects) do
 		o:update(dt)
 	end
-
-    self.physicsWorld:update(dt)
 end
 
 function ObjectGroup:ofType(type)
