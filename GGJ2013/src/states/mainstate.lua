@@ -32,8 +32,8 @@ function MainState:__init()
 end
 
 function MainState:getOffset()
-    return love.graphics.getWidth() / 2      - self.centerX,
-        love.graphics.getHeight() / 2 - self.centerY
+    return math.round(love.graphics.getWidth() / 2 - self.centerX),
+        math.round(love.graphics.getHeight() / 2 - self.centerY)
 end
 
 function MainState:screenToWorld(x, y)

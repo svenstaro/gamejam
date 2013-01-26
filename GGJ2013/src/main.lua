@@ -29,7 +29,8 @@ function love.load()
     math.randomseed(os.time())
 
     -- load images
-    resources:addImage("level", "levels/tilesets/decorations.png")
+    resources:addImage("level_decorations", "levels/tilesets/decorations.png")
+    resources:addImage("level_base", "levels/tilesets/base.png")
     resources:addImage("player", "player.png")
 
     -- load fonts
@@ -83,7 +84,7 @@ function love.keypressed(k, u)
     end
 end
 
-function love.mousepressed( x, y, button )
+function love.mousepressed(x, y, button)
     stack:mousepressed(x, y, button)
 end
 
