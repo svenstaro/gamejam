@@ -9650,6 +9650,7 @@
    </properties>
   </object>
   <object name="trigger_01" type="trigger" x="896" y="960" width="64" height="64"/>
+  <object name="3_patient447" type="item" x="960" y="896" width="64" height="128"/>
  </objectgroup>
  <layer name="meta" width="57" height="56" visible="0" opacity="0.34">
   <data>
