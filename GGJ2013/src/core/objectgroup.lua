@@ -42,7 +42,7 @@ function ObjectGroup:add(object)
 	object.group = self
 	object:onAdd(self)
 
-	if object.physicsObject ~= nil then
+	if object.enablePhysics then
 		object:enablePhysics()
 	end
 end
