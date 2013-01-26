@@ -4,7 +4,8 @@ Spielstart:
     spawn_01
 
 trigger_01:	
-    trigger_02: enable
+    trigger_02: enable 
+    Hammertextur
 
 trigger_02:	
     door_09: unlock
@@ -22,6 +23,7 @@ button_01:
     hazard_01: enable, display
     door_05: lock
     monstersound_01: disable
+    trigger_02: enable
 
 trigger_01:
     door_08:lock
