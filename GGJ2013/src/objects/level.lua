@@ -4,16 +4,46 @@
 require("core/object")
 level = require("data/levels/test0")
 
+function hasBitFlag(set, flag)
+    return set % (2*flag) >= flag
+end
+
+function removeBitFlag(set, flag)
+    if set % (2*flag) >= flag then
+        return set - flag
+    end
+    return set
+end
+
+function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
 Level = class("Level", Object)
 
 Tile = class("Tile")
 
-function Tile:__init(batch, id)
+function Tile:__init(batch, id, flip_x, flip_y)
+    self.flip_x = flip_x or false
+    self.flip_y = flip_y or false
     self.image = resources.images["level_" .. batch.name]
     local x, y = id - self.image
     self.quad = love.graphics.newQuad(j * (level.tilewidth + spacing_left), i * (level.tileheight + spacing_top),
                                                         level.tilewidth, level.tileheight,
                                                         resources.images.level:getWidth(), resources.images.level:getHeight())
+
+    self.quad:flip(flip_x, flip_y)
 end
 
 function Level:__init()
@@ -59,7 +89,7 @@ function Level:__init()
         print(layer.name)
         if layer.visible then
             if layer.type == "objectgroup" then
-
+                -- objectfactory:create()
             else
                 for i = 0, level.height - 1 do
                     for j = 0, level.width - 1 do
@@ -68,8 +98,35 @@ function Level:__init()
                             if layer.name == "meta" then
                                 print("Meta index " .. index)
                             else
+
+                                if not self.quads[index] then
+                                    local flipHorizontallyFlag = 0x80000000
+                                    local flipVerticallyFlag   = 0x40000000
+                                    local flipHorizontal = false
+                                    local flipVertical   = false
+
+                                    if hasBitFlag(index, flipHorizontallyFlag) then
+                                        flipHorizontal = true
+                                    end
+
+                                    if hasBitFlag(index, flipVerticallyFlag) then
+                                        flipVertical = true
+                                    end
+
+                                    local realIndex = removeBitFlag(index, flipHorizontallyFlag)
+                                          realIndex = removeBitFlag(realIndex, flipVerticallyFlag)
+
+                                    print(realIndex)
+                                    local quad = self.quads[realIndex]
+                                    local quadCopy  = deepcopy(quad[2])
+                                    quadCopy:flip(flipHorizontal, flipVertical)
+                                        
+                                    self.quads[index] = {quad[1], quadCopy}
+                                end
+
                                 local quad = self.quads[index]
                                 print(quad[1])
+                                print(quad[2])
                                 quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
                             end
                         end
