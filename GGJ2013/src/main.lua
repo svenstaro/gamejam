@@ -40,7 +40,7 @@ function love.load()
     resources:addImage("spike", "gfx/spike.png")
     resources:addImage("heart", "gfx/heart.png")
     resources:addImage("bug", "gfx/mob-animation.png")
-
+    resources:makeGradientImage("fill", {255, 255, 255}, {255, 255, 255})
     
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
