@@ -23,6 +23,7 @@ button_01:
     hazard_01: enable, display
     door_05: lock
     monstersound_01: disable
+    trigger_02: enable
 
 trigger_01:
     door_08:lock
