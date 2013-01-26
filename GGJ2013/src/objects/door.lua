@@ -91,8 +91,11 @@ function Door:draw()
     love.graphics.rotate(self.angle)
 
     love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle("fill", - 64 - self.openness * 50, -10, 64, 20)
-    love.graphics.rectangle("fill", self.openness * 50, -10, 64, 20)
+    love.graphics.draw(resources.images.doorTop, -64 -self.openness * 50, 32, math.rad(-90), 1, 1)
+    love.graphics.draw(resources.images.doorBot, self.openness * 50, 32, math.rad(90), -1, -1)
+    -- love.graphics.rectangle("fill", 0,- 64 - self.openness * 50, -10, 64, 20)
+    -- love.graphics.rectangle("fill", 0, 1, 1, self.openness * 50, -10, 64, 20)
+                                --( drawable, x, y, r, sx, sy, ox, oy, kx, ky )
 
     love.graphics.pop()
 end

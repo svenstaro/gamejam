@@ -40,6 +40,8 @@ function love.load()
     resources:addImage("spike", "gfx/spike.png")
     resources:addImage("heart", "gfx/heart.png")
     resources:addImage("bug", "gfx/mob-animation.png")
+    resources:addImage("doorBot", "gfx/door_bot.png")
+    resources:addImage("doorTop", "gfx/door_top.png")
 
     
     -- load fonts
