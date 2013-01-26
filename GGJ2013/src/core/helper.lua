@@ -37,7 +37,7 @@ end
 
 function table.removeKey(tbl, key)
     local val = tbl[key]
-    tbl[key] = nil
+    table.remove(tbl, key)
     return val
 end
 

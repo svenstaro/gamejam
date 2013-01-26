@@ -19,6 +19,7 @@ More later.
 
 The following files and directories are not part of this project and were redistributed under their respective licenses:
 
+* src/external/AnAL.lua [GITHUB](https://github.com/bartbes/love-misc-libs/tree/master/AnAL)
 * data/DejaVuSans.ttf [LICENSE](http://dejavu-fonts.org/wiki/License)
 * lib/linux_x86 (license file included)
 * lib/linux_x64 (license file included)
