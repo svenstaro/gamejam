@@ -14,6 +14,7 @@ Rafael Epplee
 Paul Bienkowski
 Sven-Hendrik Haase
 Tönjes Peters
+Manuel Riecke
 
 ## License
 
