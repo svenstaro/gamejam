@@ -21,7 +21,7 @@ function MainState:__init()
     self.objects = {}
     self.levels = {}
 
-    for i = 0, 0 do
+    for i = 0, 4 do
         self:loadLevel(i)
     end
 
@@ -35,6 +35,15 @@ function MainState:__init()
     -- self.objects:add(File("This is patient number 12391. You died."))
 end
 
+function MainState:parseLevel(i)
+    -- relative level switching ("+1")
+    local fc = string.sub(i, 0, 1)
+    if fc == "+" or fc == "-" then
+        i = self.currentLevel + tonumber(i)
+    end
+    return i
+end
+
 function MainState:fadeToLevel(i)
     self.levelFade = 1.0
     self.nextLevel = i
@@ -43,7 +52,7 @@ end
 function MainState:setLevel(i)
     -- make sure to transfer the player into the new level
     self:world():remove(self.player)
-    self.currentLevel = i
+    self.currentLevel = self:parseLevel(i)
     self:world():add(self.player)
 
     -- TODO: set player position in new level
@@ -58,7 +67,7 @@ function MainState:loadLevel(i)
                                    function(a, b, coll) self.objects[i]:preSolve(a, b, coll) end,
                                    function(a, b, coll) self.objects[i]:postSolve(a, b, coll) end)
 
-    local level = Level("test" .. i, self.objects[i])
+    local level = Level("level" .. i, self.objects[i])
     self.levels[i] = level
     self.objects[i]:add(level)
 end
@@ -133,8 +142,9 @@ function MainState:update(dt)
     self:world():update(dt)
 
     if self.levelFade > 0 then
-        if self.nextLevel ~= self.currentLevel and self.levelFade < 0.5 then
+        if self.nextLevel and self.levelFade < 0.5 then
             self:setLevel(self.nextLevel)
+            self.nextLevel = nil
         end
 
         self.levelFade = self.levelFade - dt * 0.3
@@ -154,6 +164,8 @@ function MainState:keypressed(k, u)
             activeActionObject = nil
         end
     elseif k == "up" then
-        self:fadeToLevel(self.currentLevel)
+        self:fadeToLevel("+1")
+    elseif k == "down" then
+        self:fadeToLevel("-1")
     end
 end

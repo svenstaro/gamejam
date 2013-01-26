@@ -30,6 +30,10 @@ function Player:enablePhysics()
     table.insert(self.group.physicsObjects, self.physicsObject)
 end
 
+function Player:disablePhysics()
+    self.physicsObject.body:destroy()
+end
+
 function Player:update(dt)
     -- retrieve the position the physics engine has calculated during update()
     self.x = self.physicsObject.body:getX()

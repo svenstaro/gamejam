@@ -43,6 +43,11 @@ function Door:enablePhysics()
     table.insert(self.group.physicsObjects, self.physicsObjectB)
 end
 
+function Door:disablePhysics()
+    self.physicsObjectA.body:destroy()
+    self.physicsObjectB.body:destroy()
+end
+
 function Door:update(dt)
     if self.locked then
         self.open = false

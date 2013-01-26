@@ -44,42 +44,35 @@ function Level:__init(file, group)
     self.spritebatches = {}
     self.quads = {}
 
-    self.tilesets = {}
-
     local meta_firstgid = 0
 
     for t = 1, #level.tilesets do
         local tileset = level.tilesets[t]
         local name = tileset.name
 
-        if not self.tilesets[name] then
-            if name == "meta" then
-                meta_firstgid = tileset.firstgid
-            end
+        if name == "meta" then
+            meta_firstgid = tileset.firstgid
+        end
 
-            local image = resources.images["level_" .. name]
-            if image then
-                local batch = love.graphics.newSpriteBatch(image, level.width * level.height)
-                self.spritebatches[name] = batch
+        local image = resources.images["level_" .. name]
+        if image then
+            local batch = love.graphics.newSpriteBatch(image, level.width * level.height)
+            self.spritebatches[name] = batch
 
-                local spacing_top = 0
-                local spacing_left = 0
-                local tileset_tilewidth = ((tileset.imageheight - (tileset.imageheight % level.tileheight)) / level.tileheight)
-                local tileset_tileheight = ((tileset.imagewidth - (tileset.imagewidth % level.tilewidth)) / level.tilewidth)
-                for i = 0, tileset_tileheight - 1 do
-                    for j = 0, tileset_tilewidth - 1 do
-                        if j ~= 0 then spacing_left = tileset.spacing else spacing_left = 0 end
-                        if i ~= 0 then spacing_top = tileset.spacing else spacing_top = 0 end
-                        local quad =
-                            love.graphics.newQuad(j * (level.tilewidth + spacing_left),
-                                i * (level.tileheight + spacing_top),
-                                level.tilewidth, level.tileheight, image:getWidth(), image:getHeight())
-                        self.quads[tileset.firstgid + j + (i * tileset_tileheight)] = {batch, quad}
-                    end
+            local tileset_tileheight = ((tileset.imageheight - (tileset.imageheight % level.tileheight)) / level.tileheight)
+            local tileset_tilewidth = ((tileset.imagewidth - (tileset.imagewidth % level.tilewidth)) / level.tilewidth)
+            for x = 0, tileset_tilewidth - 1 do
+                for y = 0, tileset_tileheight - 1 do
+                    local quad = love.graphics.newQuad(
+                            x * (level.tilewidth + tileset.spacing),
+                            y * (level.tileheight + tileset.spacing),
+                            level.tilewidth,
+                            level.tileheight,
+                            image:getWidth(),
+                            image:getHeight())
+                    self.quads[tileset.firstgid + x + (y * tileset_tilewidth)] = {batch, quad}
                 end
             end
-
-            self.tilesets[name] = true
         end
     end
 
@@ -140,11 +133,11 @@ function Level:__init(file, group)
                                     local realIndex = removeBitFlag(index, flipHorizontallyFlag)
                                           realIndex = removeBitFlag(realIndex, flipVerticallyFlag)
 
-                                    print(realIndex)
+                                    -- print(realIndex)
                                     local quad = self.quads[realIndex]
-                                    local quadCopy  = deepcopy(quad[2])
+                                    local quadCopy = deepcopy(quad[2])
                                     quadCopy:flip(flipHorizontal, flipVertical)
-                                        
+
                                     self.quads[index] = {quad[1], quadCopy}
                                 end
 
