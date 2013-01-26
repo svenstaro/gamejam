@@ -5813,7 +5813,11 @@
   <object name="door_08" type="door" x="2112" y="576" width="64" height="128"/>
   <object name="trigger_02" type="trigger" x="2368" y="1536" width="64" height="64"/>
   <object name="trigger_01" type="trigger" x="1216" y="512" width="64" height="64"/>
-  <object name="door_09" type="door" x="1920" y="256" width="128" height="64"/>
+  <object name="door_09" type="door" x="1920" y="256" width="128" height="64">
+   <properties>
+    <property name="locked" value="true"/>
+   </properties>
+  </object>
   <object name="levelswitch_01" type="trigger" x="1920" y="128" width="128" height="128">
    <properties>
     <property name="location" value="spawn_01"/>
