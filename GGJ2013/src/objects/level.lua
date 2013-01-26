@@ -3,6 +3,8 @@
 
 require("core/object")
 require("objects/walltile")
+require("objects/waterdrop")
+require("objects/steam")
 
 function hasBitFlag(set, flag)
     return set % (2*flag) >= flag
@@ -75,6 +77,12 @@ function Level:__init(file, group)
 
                     if obj.type == "door" then
                         object = Door(obj.width > obj.height and 0 or math.pi / 2)
+                        object.x = cx
+                        object.y = cy
+                    end
+
+                    if obj.type == "waterdrop" then
+                        object = WaterDrop()
                         object.x = cx
                         object.y = cy
                     end
