@@ -137,9 +137,6 @@ end
 function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
-    elseif k == " " then
-        door = self:world():byName("door_1")
-        door:toggle()
     elseif k == "f" then
         file.number = "21494"
         stack:push(file)
