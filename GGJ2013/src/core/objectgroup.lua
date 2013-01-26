@@ -42,7 +42,7 @@ function ObjectGroup:add(object)
 	object.group = self
 	object:onAdd(self)
 
-	if object.physicsObject ~= nil then
+	if object.enablePhysics then
 		object:enablePhysics()
 	end
 end
@@ -51,7 +51,7 @@ function ObjectGroup:remove(object)
 	object:onRemove(self)
 	if table.removeValue(self.objects, object) then
 		object.group = nil
-		if object.physicsObject and object.physicsBody.body then object.physicsBody.body:destroy() end
+        if object.disablePhysics then object:disablePhysics() end
 	end
 end
 

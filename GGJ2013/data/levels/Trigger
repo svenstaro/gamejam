@@ -1,29 +1,71 @@
-Level0: 
+# Level 0 
 
-	trigger_01:	enable trigger_02
- 
-	trigger_02:	enable door_09 
+Spielstart: 
+    spawn_01
 
-Level1:
-	button_01:	enabled door_06, door_07, door_08
-				spawnt Monster
-				enable hazard_01
-				disabled door_05 und Monstersound hinter door_07
+trigger_01:	
+    trigger_02: enable
 
-Level2:
-	button_01:	enabled door_05
+trigger_02:	
+    door_09: unlock
+
+levelswitch_01: 
+    level1 spawn_01
+
+# Level 1
+
+button_01:	
+    door_06: unlock
+    door_07: unlock
+    door_08: unlock
+    monsterspawn: trigger
+    hazard_01: enable, display
+    door_05: lock
+    monster_sound: disable
+
+trigger_01:
+    door_08:lock
+
+trigger_02:
+    door_02: lock
+    monsterroute: start
+
+levelswitch_02:
+    level2 spawn_01
+
+# Level 2
+
+button_01:	
+    door_05: unlock
 	
+levelswitch_03:
+    level3 spawn_01
 
-Level3:
-	button_01:	enabled door_02 und door_03
-				enabled door_03 in level2
-				enabled door_01 in level4
+levelswitch_04:
+    level4 spawn_01
 
-	button_02:	enabled door__04 in level2
-	
+# Level 3
 
-Level4:
+button_01:
+    door_02: unlock
+    door_03: unlock
+    level2.door_03: unlock
+    level4.door_01: unlock
 
-	button_01:  enabled hazard_01-03 und printed feueranimation von rechts nach links
-				enabled hazard_04-07 und printed Falle auf die Position. 
-				enabled door_06 in level2
+#
+button_02:
+    level2.door_04: unlock
+
+levelswitch_02:
+    level2 spawn_02
+
+
+# Level 4
+
+button_01:  
+    hazard_01-03: enable (fireanimation right->left)
+    hazard_04-07: enable (trap on hazard)
+	level2.door_06: unlock
+
+levelswitch_02:
+    level2 spawn_03

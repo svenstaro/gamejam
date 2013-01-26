@@ -15,21 +15,6 @@ function removeBitFlag(set, flag)
     return set
 end
 
-function deepcopy(orig)
-    local orig_type = type(orig)
-    local copy
-    if orig_type == 'table' then
-        copy = {}
-        for orig_key, orig_value in next, orig, nil do
-            copy[deepcopy(orig_key)] = deepcopy(orig_value)
-        end
-        setmetatable(copy, deepcopy(getmetatable(orig)))
-    else -- number, string, boolean, etc
-        copy = orig
-    end
-    return copy
-end
-
 Level = class("Level", Object)
 
 function Level:__init(file, group)
@@ -44,42 +29,35 @@ function Level:__init(file, group)
     self.spritebatches = {}
     self.quads = {}
 
-    self.tilesets = {}
-
     local meta_firstgid = 0
 
     for t = 1, #level.tilesets do
         local tileset = level.tilesets[t]
         local name = tileset.name
 
-        if not self.tilesets[name] then
-            if name == "meta" then
-                meta_firstgid = tileset.firstgid
-            end
+        if name == "meta" then
+            meta_firstgid = tileset.firstgid
+        end
 
-            local image = resources.images["level_" .. name]
-            if image then
-                local batch = love.graphics.newSpriteBatch(image, level.width * level.height)
-                self.spritebatches[name] = batch
+        local image = resources.images["level_" .. name]
+        if image then
+            local batch = love.graphics.newSpriteBatch(image, level.width * level.height)
+            self.spritebatches[name] = batch
 
-                local spacing_top = 0
-                local spacing_left = 0
-                local tileset_tilewidth = ((tileset.imageheight - (tileset.imageheight % level.tileheight)) / level.tileheight)
-                local tileset_tileheight = ((tileset.imagewidth - (tileset.imagewidth % level.tilewidth)) / level.tilewidth)
-                for i = 0, tileset_tileheight - 1 do
-                    for j = 0, tileset_tilewidth - 1 do
-                        if j ~= 0 then spacing_left = tileset.spacing else spacing_left = 0 end
-                        if i ~= 0 then spacing_top = tileset.spacing else spacing_top = 0 end
-                        local quad =
-                            love.graphics.newQuad(j * (level.tilewidth + spacing_left),
-                                i * (level.tileheight + spacing_top),
-                                level.tilewidth, level.tileheight, image:getWidth(), image:getHeight())
-                        self.quads[tileset.firstgid + j + (i * tileset_tileheight)] = {batch, quad}
-                    end
+            local tileset_tileheight = ((tileset.imageheight - (tileset.imageheight % level.tileheight)) / level.tileheight)
+            local tileset_tilewidth = ((tileset.imagewidth - (tileset.imagewidth % level.tilewidth)) / level.tilewidth)
+            for x = 0, tileset_tilewidth - 1 do
+                for y = 0, tileset_tileheight - 1 do
+                    local quad = love.graphics.newQuad(
+                            x * (level.tilewidth + tileset.spacing),
+                            y * (level.tileheight + tileset.spacing),
+                            level.tilewidth,
+                            level.tileheight,
+                            image:getWidth(),
+                            image:getHeight())
+                    self.quads[tileset.firstgid + x + (y * tileset_tilewidth)] = {batch, quad}
                 end
             end
-
-            self.tilesets[name] = true
         end
     end
 
@@ -112,8 +90,8 @@ function Level:__init(file, group)
             else
                 for i = 0, level.height - 1 do
                     for j = 0, level.width - 1 do
-                        if layer.data[1 + j + (i * level.width)] ~= 0 then
-                            local index = layer.data[1 + j + (i * level.width)]
+                        local index = layer.data[1 + j + (i * level.width)]
+                        if index ~= 0 then
                             if layer.name == "meta" then
                                 index = index - meta_firstgid
 
@@ -124,32 +102,22 @@ function Level:__init(file, group)
                             else
 
                                 if not self.quads[index] then
-                                    local flipHorizontallyFlag = 0x80000000
-                                    local flipVerticallyFlag   = 0x40000000
-                                    local flipHorizontal = false
-                                    local flipVertical   = false
+                                    local flipX = hasBitFlag(index, 0x80000000)
+                                    local flipY = hasBitFlag(index, 0x40000000)
 
-                                    if hasBitFlag(index, flipHorizontallyFlag) then
-                                        flipHorizontal = true
-                                    end
+                                    local realIndex = removeBitFlag(removeBitFlag(index, 0x40000000), 0x80000000)
 
-                                    if hasBitFlag(index, flipVerticallyFlag) then
-                                        flipVertical = true
-                                    end
-
-                                    local realIndex = removeBitFlag(index, flipHorizontallyFlag)
-                                          realIndex = removeBitFlag(realIndex, flipVerticallyFlag)
-
-                                    print(realIndex)
                                     local quad = self.quads[realIndex]
-                                    local quadCopy  = deepcopy(quad[2])
-                                    quadCopy:flip(flipHorizontal, flipVertical)
-                                        
-                                    self.quads[index] = {quad[1], quadCopy}
+                                    local x, y, w, h = quad[2]:getViewport()
+                                    local flippedQuad = love.graphics.newQuad(
+                                            x, y, w, h,
+                                            quad[1]:getImage():getWidth(),
+                                            quad[1]:getImage():getHeight())
+                                    flippedQuad:flip(flipX, flipY)
+                                    self.quads[index] = {quad[1], flippedQuad}
                                 end
 
                                 local quad = self.quads[index]
-
                                 quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
                             end
                         end

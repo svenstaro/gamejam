@@ -40,8 +40,11 @@ function love.load()
     resources:addImage("spike", "gfx/spike.png")
     resources:addImage("heart", "gfx/heart.png")
     resources:addImage("bug", "gfx/mob-animation.png")
+    resources:addImage("doorBot", "gfx/door_bot.png")
+    resources:addImage("doorTop", "gfx/door_top.png")
+    resources:addImage("ggj_logo", "gfx/ggj_logo.png")
     resources:makeGradientImage("fill", {255, 255, 255}, {255, 255, 255})
-    
+
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
@@ -56,7 +59,7 @@ function love.load()
     resources:addShader("darkness", "shaders/darkness.glsl")
 
     resources:load()
-    
+
     love.physics.setMeter(64)
 
     reset()

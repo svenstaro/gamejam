@@ -26,7 +26,7 @@ end
 
 function File:draw()
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(resources.images.file, self.x, self.y, math.sin(self.counter * 1.5) * 0.2, 3, 3, resources.images.file:getWidth() / 2,resources.images.file:getHeight() / 2)
+    love.graphics.draw(resources.images.file, self.x, self.y, math.sin(self.counter) * 0.3, 3, 3, resources.images.file:getWidth() / 2,resources.images.file:getHeight() / 2)
 end
 
 function File:onAction()
