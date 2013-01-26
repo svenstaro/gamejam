@@ -52,7 +52,7 @@ function love.load()
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
     resources:addFont("huge", "DejaVuSans.ttf", 40)
-    resources:addFont("handSmall", "SwankyandMooMoo.ttf", 20, true)
+    resources:addFont("handSmall", "SwankyandMooMoo.ttf", 19)
     resources:addFont("handBig", "SwankyandMooMoo.ttf", 32)
 
     -- load sounds

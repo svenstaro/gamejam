@@ -8,7 +8,8 @@ FileState = class("FileState", GameState)
 FileState.drawBelow = true
 
 function FileState:__init()
-    self.text = "- empty file -"
+	self.headline = "- empty headline -"
+    self.text     = "- empty file -"
 end
 
 function FileState:start()
@@ -43,11 +44,11 @@ function FileState:draw()
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.setFont(resources.fonts.handBig)
-    love.graphics.print("Patient sowieso", 30, 25)
+    love.graphics.print(self.headline, 30, 25)
 
     love.graphics.setFont(resources.fonts.handSmall)
-    love.graphics.printf(self.text, 30, 95, 420, "left")
-    love.graphics.printf("Press [E] to continue", 30, 540, 420, "center")
+    love.graphics.printf(self.text, 30, 65, 400, "left")
+    love.graphics.printf("Press any to continue", 30, 575, 420, "center")
 
     love.graphics.pop()
 end

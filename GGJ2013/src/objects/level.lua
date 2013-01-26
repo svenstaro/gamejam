@@ -109,6 +109,20 @@ function Level:__init(file, group)
                         object.y = cy
                     end
 
+                    if obj.type == "item" then
+                        local headline = false
+                        local text = ""
+                        for line in love.filesystem.lines("data/story/patientfiles/" .. obj.name) do
+                            if not headline then
+                                headline = line
+                            else
+                                text = text .. "\n" .. line
+                            end
+                        end
+
+                        object = File(cx, cy, headline, text, "file")
+                    end
+
                     if object then
                         object.name = obj.name
                         group:add(object)

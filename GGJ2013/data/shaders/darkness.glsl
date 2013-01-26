@@ -12,7 +12,7 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 pixel_coords) {
     float tx = (alpha / 3.1415927) * 0.5 + 0.5;
 
     float d = sqrt(dx * dx + dy * dy);
-    vec3 shadowV = texture2D(shadowmap, vec2(tx, 0.5));
+    vec4 shadowV = texture2D(shadowmap, vec2(tx, 0.5));
     float shadow = shadowV.r + shadowV.g * 256 + shadowV.b * 256 * 256;
     shadow = shadow / 1000.0;
 
