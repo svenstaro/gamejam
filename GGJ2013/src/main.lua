@@ -48,6 +48,9 @@ function love.load()
 
     -- load sounds
     resources:addAudio("door_slide", "sfx/door_slide.ogg")
+    resources:addAudio("walk_high", "sfx/walk_high.ogg")
+    resources:addAudio("walk_low", "sfx/walk_low.ogg")
+
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")

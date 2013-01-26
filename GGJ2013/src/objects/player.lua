@@ -31,6 +31,7 @@ function Player:enablePhysics()
 end
 
 function Player:update(dt)
+
     local mx, my = main:getMousePosition()
     self.head_angle = math.atan2(my - self.y, mx - self.x)
 
@@ -67,8 +68,16 @@ function Player:update(dt)
     end
 
     if (dx ~= 0 or dy ~= 0) and self.timeSinceLastStep >= 0.3 then
-        --self:makeToast("Tap", {100, 100, 100, 100})
-        -- TODO: add random foot step sound here!
+        --self:makeToast("Tap", {100, 100, 100, 50}, resources.fonts.tiny)
+        
+        if walking == "walk_high" then
+            walking = "walk_low"
+        else
+            walking = "walk_high"
+        end
+
+        resources:makeSound(walking):play()
+
         self.timeSinceLastStep = 0
     end
 
