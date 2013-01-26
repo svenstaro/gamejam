@@ -10,7 +10,7 @@ function Door:__init(angle)
 
     self.x = 0
     self.y = 0
-    self.z = 1
+    self.z = 2
     self.angle = angle or math.pi * 0.5
 end
 

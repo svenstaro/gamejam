@@ -3,14 +3,15 @@
 
 require("core/object")
 require("objects/walltile")
-level = require("data/levels/test0")
 
 Level = class("Level", Object)
 
-function Level:__init(group)
+function Level:__init(file, group)
+    level = require("data/levels/" .. file)
+
     self.x = 0
     self.y = 0
-    self.z = 1
+    self.z = 0
     self.angle = 0
 
     self.tiles = ObjectGroup()
