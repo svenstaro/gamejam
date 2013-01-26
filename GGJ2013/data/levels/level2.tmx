@@ -10013,7 +10013,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="decorations" width="100" height="100">
+ <layer name="decorations" width="100" height="100" visible="0">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -20017,7 +20017,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="obj" width="100" height="100" visible="0">
+ <objectgroup name="obj" width="100" height="100">
   <object name="door_04" type="door" x="1600" y="2112" width="64" height="128"/>
   <object name="doors_2" type="door" x="1216" y="1024" width="128" height="64"/>
   <object name="door_01" type="door" x="2816" y="1280" width="128" height="64"/>
@@ -20029,11 +20029,13 @@
     <property name="to_level" value="+2"/>
    </properties>
   </object>
-  <object name="levelswitch_4" type="steps" x="1024" y="2304" width="128" height="128">
+  <object name="levelswitch_4" type="trigger" x="1024" y="2304" width="128" height="128">
    <properties>
     <property name="to_level" value="+1"/>
    </properties>
   </object>
+  <object x="1088" y="2432"/>
+  <object name="door_07" type="door" x="2048" y="1792" width="128" height="64"/>
  </objectgroup>
  <layer name="meta" width="100" height="100" visible="0" opacity="0.34">
   <data>

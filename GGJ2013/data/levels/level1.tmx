@@ -10013,7 +10013,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="decorations" width="100" height="100" opacity="0.9">
+ <layer name="decorations" width="100" height="100" opacity="0.89">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -12834,7 +12834,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="4"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -12934,7 +12933,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="3"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -20032,6 +20032,8 @@
     <property name="to_level" value="+1"/>
    </properties>
   </object>
+  <object name="hazard_01" type="hazard" x="1600" y="1024" width="128" height="192"/>
+  <object name="door_08" type="door" x="1216" y="1792" width="64" height="128"/>
  </objectgroup>
  <layer name="meta" width="100" height="100" opacity="0.2">
   <data>

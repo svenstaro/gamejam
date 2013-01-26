@@ -1,10 +1,14 @@
 Level0: 
 
-
+trigger_01:	enable trigger_02
+ 
+trigger_02:	enable door_09 
 
 Level1:
-
-
+button_01:	enabled door_06, door_07, door_08
+			spawnt Monster
+			enable hazard_01
+			disabled door_05
 
 Level2:
 
