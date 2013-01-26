@@ -1525,7 +1525,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="decorations" width="36" height="42" opacity="0.89">
+ <layer name="decorations" width="36" height="42" opacity="0.87">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3047,9 +3047,17 @@
   <object name="door_03" type="door" x="1536" y="704" width="64" height="128"/>
   <object name="door_04" type="door" x="1536" y="1472" width="64" height="128"/>
   <object name="door_05" type="door" x="1344" y="1472" width="64" height="128"/>
-  <object name="door_06" type="door" x="1408" y="2048" width="128" height="64"/>
-  <object name="door_07" type="door" x="896" y="640" width="128" height="64"/>
-  <object name="Button_01" type="trigger" x="1088" y="1536" width="64" height="64"/>
+  <object name="door_06" type="door" x="1408" y="2048" width="128" height="64">
+   <properties>
+    <property name="locked" value="true"/>
+   </properties>
+  </object>
+  <object name="door_07" type="door" x="896" y="640" width="128" height="64">
+   <properties>
+    <property name="locked" value="true"/>
+   </properties>
+  </object>
+  <object name="button_01" type="trigger" x="1088" y="1536" width="64" height="64"/>
   <object x="2304" y="1664"/>
   <object name="levelswitch_02" type="trigger" x="1408" y="2112" width="192" height="128">
    <properties>
@@ -3058,8 +3066,14 @@
    </properties>
   </object>
   <object name="hazard_01" type="hazard" x="1408" y="960" width="128" height="192"/>
-  <object name="door_08" type="door" x="1024" y="1728" width="64" height="128"/>
+  <object name="door_08" type="door" x="1024" y="1728" width="64" height="128">
+   <properties>
+    <property name="locked" value="true"/>
+   </properties>
+  </object>
   <object name="spawn_01" type="node" x="512" y="2240" width="64" height="64"/>
+  <object name="trigger_01" type="trigger" x="960" y="1728" width="64" height="128"/>
+  <object name="trigger_02" type="trigger" x="512" y="1408" width="128" height="64"/>
  </objectgroup>
  <layer name="meta" width="36" height="42" opacity="0.2">
   <data>

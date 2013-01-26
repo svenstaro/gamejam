@@ -23,6 +23,13 @@ button_01:
     door_05: lock
     monster_sound: disable
 
+trigger_01:
+    door_08:lock
+
+trigger_02:
+    door_02: lock
+    monsterroute: start
+
 levelswitch_02:
     level2 spawn_01
 
