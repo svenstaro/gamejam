@@ -6402,14 +6402,16 @@
   </data>
  </layer>
  <objectgroup name="obj" width="57" height="56">
-  <object name="levelswitch_04" type="trigger" x="768" y="2496" width="128" height="128">
+  <object name="levelswitch_03" type="trigger" x="768" y="2496" width="128" height="128">
    <properties>
+    <property name="location" value="spawn_01"/>
     <property name="to_level" value="+1"/>
    </properties>
   </object>
   <object name="button_01" type="trigger" x="448" y="1920" width="64" height="64"/>
-  <object name="levelswitch_05" type="trigger" x="1024" y="2496" width="128" height="128">
+  <object name="levelswitch_04" type="trigger" x="1024" y="2496" width="128" height="128">
    <properties>
+    <property name="location" value="spawn_01"/>
     <property name="to_level" value="+2"/>
    </properties>
   </object>
@@ -6420,6 +6422,9 @@
   <object name="door_04" type="door" x="1344" y="2304" width="64" height="128"/>
   <object name="door_05" type="door" x="1472" y="2432" width="128" height="64"/>
   <object name="door_06" type="door" x="1600" y="2688" width="64" height="128"/>
+  <object name="spawn_01" type="node" x="1792" y="2048" width="64" height="64"/>
+  <object name="spawn_02" type="node" x="768" y="2368" width="64" height="64"/>
+  <object name="spawn_03" type="node" x="1024" y="2368" width="64" height="64"/>
  </objectgroup>
  <layer name="meta" width="57" height="56" opacity="0.34">
   <data>

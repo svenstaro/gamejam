@@ -1,10 +1,16 @@
 # Level 0 
 
+Spielstart: 
+    spawn_01
+
 trigger_01:	
     trigger_02: enable
 
 trigger_02:	
     door_09: unlock
+
+levelswitch_01: 
+    level1 spawn_01
 
 # Level 1
 
@@ -17,11 +23,20 @@ button_01:
     door_05: lock
     monster_sound: disable
 
+levelswitch_02:
+    level2 spawn_01
+
 # Level 2
 
 button_01:	
     door_05: unlock
 	
+levelswitch_03:
+    level3 spawn_01
+
+levelswitch_04:
+    level4 spawn_01
+
 # Level 3
 
 button_01:
@@ -30,12 +45,20 @@ button_01:
     level2.door_03: unlock
     level4.door_01: unlock
 
+#
 button_02:
     level2.door_04: unlock
-	
+
+levelswitch_02:
+    level2 spawn_02
+
+
 # Level 4
 
 button_01:  
     hazard_01-03: enable (fireanimation right->left)
     hazard_04-07: enable (trap on hazard)
 	level2.door_06: unlock
+
+levelswitch_02:
+    level2 spawn_03

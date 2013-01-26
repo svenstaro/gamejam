@@ -3053,11 +3053,13 @@
   <object x="2304" y="1664"/>
   <object name="levelswitch_02" type="trigger" x="1408" y="2112" width="192" height="128">
    <properties>
+    <property name="location" value="spawn_01"/>
     <property name="to_level" value="+1"/>
    </properties>
   </object>
   <object name="hazard_01" type="hazard" x="1408" y="960" width="128" height="192"/>
   <object name="door_08" type="door" x="1024" y="1728" width="64" height="128"/>
+  <object name="spawn_01" type="node" x="512" y="2240" width="64" height="64"/>
  </objectgroup>
  <layer name="meta" width="36" height="42" opacity="0.2">
   <data>
