@@ -11,8 +11,19 @@ function Player:__init()
     self.y = 0
     self.z = 1
     self.angle = 0
+    self.lifetime = 0
     self.timeSinceLastStep = 0
     self.anim = newAnimation(resources.images.player_anim, 16, 16, 0.1, 4)
+
+    self.physicsObject = {}
+end
+
+function Player:enablePhysics()
+    self.physicsObject.body = love.physics.newBody(self.group.physicsWorld, self.x, self.y, "dynamic")
+    self.physicsObject.shape = love.physics.newCircleShape(2)
+    self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
+    self.physicsObject.fixture:setUserData(self)
+    table.insert(self.group.physicsObjects, self.physicsObject)
 end
 
 function Player:update(dt)
@@ -46,7 +57,7 @@ function Player:update(dt)
     self.timeSinceLastStep = self.timeSinceLastStep + dt
 
     if (dx ~= 0 or dy ~= 0) and self.timeSinceLastStep >= 0.3 then
-        --self:makeToast("Tap", 0.5 - math.random(), {100, 100, 100, 50})
+        --self:makeToast("Tap", {100, 100, 100, 100})
         -- TODO: add random foot step sound here!
         self.timeSinceLastStep = 0
     end
@@ -54,6 +65,10 @@ function Player:update(dt)
     local speed = 200
     self.x = self.x + dx * speed * dt
     self.y = self.y + dy * speed * dt
+
+    self.physicsObject.body:setX(self.x)
+    self.physicsObject.body:setY(self.y)
+    self.physicsObject.body:setAngle(self.angle)
 
     main.centerX = self.x
     main.centerY = self.y

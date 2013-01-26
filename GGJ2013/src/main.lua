@@ -53,6 +53,8 @@ function love.load()
     resources:addShader("darkness", "shaders/darkness.glsl")
 
     resources:load()
+    
+    love.physics.setMeter(64)
 
     reset()
 end
