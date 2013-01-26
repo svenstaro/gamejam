@@ -20,6 +20,10 @@ function Player:update(dt)
     if love.keyboard.isDown("d") then dx = dx + 1 end
     if love.keyboard.isDown("w") then dy = dy - 1 end
     if love.keyboard.isDown("s") then dy = dy + 1 end
+    if math.abs(dy) + math.abs(dx) == 2 then
+        dx = dx * 0.84
+        dy = dy * 0.84
+    end
 
     local speed = 100
     self.x = self.x + dx * speed * dt
