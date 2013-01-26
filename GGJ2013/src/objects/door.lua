@@ -24,7 +24,10 @@ function Door:update(dt)
     else
         if self.proximityOpen then
             local d = Vector(main.player.x - self.x, main.player.y - self.y):len()
-            self.open = d < 100
+            local open = d < 100
+            if open ~= self.open then
+                self:toggle()
+            end
         end
     end
 

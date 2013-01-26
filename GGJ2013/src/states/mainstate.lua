@@ -51,6 +51,13 @@ end
 
 function MainState:loadLevel(i)
     self.objects[i] = ObjectGroup()
+
+    self.objects[i].physicsWorld = love.physics.newWorld(0, 0, false)
+    self.objects[i].physicsWorld:setCallbacks(function(a, b, coll) self.objects[i]:beginContact(a, b, coll) end,
+                                   function(a, b, coll) self.objects[i]:endContact(a, b, coll) end,
+                                   function(a, b, coll) self.objects[i]:preSolve(a, b, coll) end,
+                                   function(a, b, coll) self.objects[i]:postSolve(a, b, coll) end)
+
     local level = Level("test" .. i, self.objects[i])
     self.levels[i] = level
     self.objects[i]:add(level)
@@ -122,6 +129,7 @@ end
 
 function MainState:update(dt)
     self.lifetime = self.lifetime + dt
+
     self:world():update(dt)
 
     if self.levelFade > 0 then
@@ -137,9 +145,6 @@ end
 function MainState:keypressed(k, u)
     if k == "escape" then
         stack:pop()
-    elseif k == " " then
-        door = self:world():byName("door_1")
-        door:toggle()
     elseif k == "f" then
         file.number = "21494"
         stack:push(file)
