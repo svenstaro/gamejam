@@ -9,16 +9,6 @@ function areUserData(uA, uB, typeA, typeB)
 end
 
 function ObjectGroup:beginContact(a, b, coll)
-    local uA = a:getUserData()
-    local uB = b:getUserData()
-
-    if areUserData(uA, uB, "Player", "WallTile") then
-        if uA.__name == "Player" then
-            uA:makeToast("BAM", {200, 10, 10, 200})
-        else
-            uB:makeToast("BAM", {200, 10, 10, 200})
-        end
-    end
 end
 
 function ObjectGroup:endContact(a, b, coll)
