@@ -1,5 +1,7 @@
 require("states/introstate")
 require("states/mainstate")
+require("states/menustate")
+require("states/creditsstate")
 require("states/filestate")
 require("core/resources")
 require("core/gamestack")
@@ -15,6 +17,8 @@ fullscreen = settings:get("fullscreen", false)
 function reset()
     -- start game
     intro = IntroState()
+    menu = MenuState()
+    credits = CreditsState()
     file = FileState()
     main = MainState()
     stack = GameStack()
@@ -49,6 +53,7 @@ function love.load()
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
+    resources:addFont("huge", "DejaVuSans.ttf", 40)
 
     -- load sounds
     resources:addAudio("door_slide", "sfx/door_slide.ogg")

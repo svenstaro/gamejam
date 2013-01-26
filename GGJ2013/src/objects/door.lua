@@ -1,7 +1,7 @@
 -- (Elevator-) doors opening.
 
 require("core/object")
-require("vector")
+require("core/vector")
 
 Door = class("Door", Object)
 

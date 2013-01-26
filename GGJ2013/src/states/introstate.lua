@@ -67,5 +67,5 @@ end
 
 function IntroState:keypressed(k, u)
     stack:pop()
-    stack:push(main)
+    stack:push(menu)
 end

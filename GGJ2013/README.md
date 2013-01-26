@@ -1,6 +1,19 @@
 # 7th sense
 
-More later.
+An atmospheric Lovecraft-ish adventure game set in a dark place.
+
+You wake up in an abandoned lab and you are missing something rather important... 
+
+## Authors
+Arne Beer
+Fabian Stegemann
+Hans-Ole Hatzel
+Julian Tobergte
+Marvin Arnold
+Rafael Epplee
+Paul Bienkowski
+Sven-Hendrik Haase
+Tönjes Peters
 
 ## License
 
