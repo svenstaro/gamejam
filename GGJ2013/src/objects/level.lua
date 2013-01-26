@@ -3,6 +3,8 @@
 
 require("core/object")
 require("objects/walltile")
+require("objects/waterdrop")
+require("objects/steam")
 
 function hasBitFlag(set, flag)
     return set % (2*flag) >= flag
@@ -13,21 +15,6 @@ function removeBitFlag(set, flag)
         return set - flag
     end
     return set
-end
-
-function deepcopy(orig)
-    local orig_type = type(orig)
-    local copy
-    if orig_type == 'table' then
-        copy = {}
-        for orig_key, orig_value in next, orig, nil do
-            copy[deepcopy(orig_key)] = deepcopy(orig_value)
-        end
-        setmetatable(copy, deepcopy(getmetatable(orig)))
-    else -- number, string, boolean, etc
-        copy = orig
-    end
-    return copy
 end
 
 Level = class("Level", Object)
@@ -78,7 +65,7 @@ function Level:__init(file, group)
 
     for l = 1, #level.layers do
         local layer = level.layers[l]
-        if layer.visible then
+        if layer.visible or layer.name == "meta" then
             if layer.type == "objectgroup" then
                 -- objectfactory:create()
                 for i = 1, #layer.objects do
@@ -90,6 +77,34 @@ function Level:__init(file, group)
 
                     if obj.type == "door" then
                         object = Door(obj.width > obj.height and 0 or math.pi / 2)
+                        object.x = cx
+                        object.y = cy
+                        if obj.properties and obj.properties.locked then
+                            object.locked = true
+                        end
+                    elseif obj.type == "trigger" or obj.type == "node" then
+                        object = RectangleTrigger(obj.x, obj.y, obj.width, obj.height)
+                        if obj.properties and obj.properties.to_level then
+                            print("Creating level switch")
+                            -- this is a level switch
+                            object.onEnter = function()
+                                print("Entering level switch")
+                                main:fadeToLevel(obj.properties.to_level, obj.properties.location)
+                            end
+                        end
+                        if obj.properties and obj.properties.disabled then
+                            object.enabled = false
+                        end
+                    end
+
+                    if obj.type == "waterdrop" then
+                        object = WaterDrop()
+                        object.x = cx
+                        object.y = cy
+                    end
+
+                    if obj.type == "steam" then
+                        object = Steam(obj.direction)
                         object.x = cx
                         object.y = cy
                     end
@@ -105,8 +120,8 @@ function Level:__init(file, group)
             else
                 for i = 0, level.height - 1 do
                     for j = 0, level.width - 1 do
-                        if layer.data[1 + j + (i * level.width)] ~= 0 then
-                            local index = layer.data[1 + j + (i * level.width)]
+                        local index = layer.data[1 + j + (i * level.width)]
+                        if index ~= 0 then
                             if layer.name == "meta" then
                                 index = index - meta_firstgid
 
@@ -117,32 +132,22 @@ function Level:__init(file, group)
                             else
 
                                 if not self.quads[index] then
-                                    local flipHorizontallyFlag = 0x80000000
-                                    local flipVerticallyFlag   = 0x40000000
-                                    local flipHorizontal = false
-                                    local flipVertical   = false
+                                    local flipX = hasBitFlag(index, 0x80000000)
+                                    local flipY = hasBitFlag(index, 0x40000000)
 
-                                    if hasBitFlag(index, flipHorizontallyFlag) then
-                                        flipHorizontal = true
-                                    end
+                                    local realIndex = removeBitFlag(removeBitFlag(index, 0x40000000), 0x80000000)
 
-                                    if hasBitFlag(index, flipVerticallyFlag) then
-                                        flipVertical = true
-                                    end
-
-                                    local realIndex = removeBitFlag(index, flipHorizontallyFlag)
-                                          realIndex = removeBitFlag(realIndex, flipVerticallyFlag)
-
-                                    -- print(realIndex)
                                     local quad = self.quads[realIndex]
-                                    local quadCopy = deepcopy(quad[2])
-                                    quadCopy:flip(flipHorizontal, flipVertical)
-
-                                    self.quads[index] = {quad[1], quadCopy}
+                                    local x, y, w, h = quad[2]:getViewport()
+                                    local flippedQuad = love.graphics.newQuad(
+                                            x, y, w, h,
+                                            quad[1]:getImage():getWidth(),
+                                            quad[1]:getImage():getHeight())
+                                    flippedQuad:flip(flipX, flipY)
+                                    self.quads[index] = {quad[1], flippedQuad}
                                 end
 
                                 local quad = self.quads[index]
-
                                 quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
                             end
                         end

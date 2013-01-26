@@ -26,6 +26,7 @@ function MainState:__init()
     end
 
     self.player = Player()
+    self.nextLevelSpawn = "spawn_01"
     self:setLevel(0)
 
     self.levelFade = 0
@@ -44,15 +45,26 @@ function MainState:parseLevel(i)
     return i
 end
 
-function MainState:fadeToLevel(i)
+function MainState:fadeToLevel(i, spawnName)
     self.levelFade = 1.0
     self.nextLevel = i
+    self.nextLevelSpawn = spawnName
 end
 
 function MainState:setLevel(i)
     -- make sure to transfer the player into the new level
     self:world():remove(self.player)
     self.currentLevel = self:parseLevel(i)
+    if self.nextLevelSpawn then
+        local spawn = self:world():byName(self.nextLevelSpawn)
+        if not spawn then
+            print("WARNING! Level Spawn " .. self.nextLevelSpawn .. " in Level " .. self.currentLevel .. " not found.")
+        else
+            self.player.x = spawn.x + spawn.w / 2
+            self.player.y = spawn.y + spawn.h / 2
+        end
+        self.nextLevelSpawn = nil
+    end
     self:world():add(self.player)
 
     -- TODO: set player position in new level
@@ -70,6 +82,19 @@ function MainState:loadLevel(i)
     local level = Level("level" .. i, self.objects[i])
     self.levels[i] = level
     self.objects[i]:add(level)
+
+    -- HERE STARTS MAGIC
+    local o = self.objects[i]
+    if i == 0 then
+        o:byName("trigger_01").onEnter = function()
+            o:byName("trigger_02").enabled = true
+        end
+
+        o:byName("trigger_02").onEnter = function()
+            o:byName("door_09").locked = false
+        end
+    end
+    -- HERE ENDS MAGIC
 end
 
 function MainState:world()
@@ -85,6 +110,11 @@ function MainState:screenToWorld(x, y)
     local ox, oy = self:getOffset()
     local scale = 1
     return (x - ox) / scale, (y - oy) / scale
+end
+
+function MainState:worldToScreen(x, y)
+    local ox, oy = self:getOffset()
+    return x + ox, y + oy
 end
 
 function MainState:getMousePosition()

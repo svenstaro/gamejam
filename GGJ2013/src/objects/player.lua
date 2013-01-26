@@ -107,6 +107,7 @@ function Player:update(dt)
     end
 
     local speed = 200
+    if love.keyboard.isDown("lshift") then speed = speed * 3 end
     self.x = self.x + dx * speed * dt
     self.y = self.y + dy * speed * dt
 
