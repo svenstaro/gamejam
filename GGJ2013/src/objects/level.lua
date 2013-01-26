@@ -3,6 +3,8 @@
 
 require("core/object")
 require("objects/walltile")
+require("objects/waterdrop")
+require("objects/steam")
 
 function hasBitFlag(set, flag)
     return set % (2*flag) >= flag
@@ -93,6 +95,12 @@ function Level:__init(file, group)
                         if obj.properties and obj.properties.disabled then
                             object.enabled = false
                         end
+                    end
+
+                    if obj.type == "waterdrop" then
+                        object = WaterDrop()
+                        object.x = cx
+                        object.y = cy
                     end
 
                     if object then
