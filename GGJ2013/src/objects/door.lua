@@ -1,12 +1,16 @@
 -- (Elevator-) doors opening.
 
 require("core/object")
+require("vector")
 
 Door = class("Door", Object)
 
 function Door:__init(angle)
     self.open = false
     self.openness = 0
+
+    self.locked = false
+    self.proximityOpen = true
 
     self.x = 0
     self.y = 0
@@ -15,6 +19,18 @@ function Door:__init(angle)
 end
 
 function Door:update(dt)
+    if self.locked then
+        self.open = false
+    else
+        if self.proximityOpen then
+            local d = Vector(main.player.x - self.x, main.player.y - self.y):len()
+            local open = d < 100
+            if open ~= self.open then
+                self:toggle()
+            end
+        end
+    end
+
     local target = 0
     if self.open then target = 1 end
 
