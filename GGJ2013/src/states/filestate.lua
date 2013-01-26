@@ -16,11 +16,19 @@ function FileState:draw()
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
     love.graphics.setColor(255, 255, 255)
-    love.graphics.setFont(resources.fonts.normal)
-    love.graphics.print(self.text, 100, 200)
-    love.graphics.print("Press any key to continue", 100, 400)
+    love.graphics.draw(resources.images.akte, 0, 0)
+
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.setFont(resources.fonts.handBig)
+    love.graphics.print("Patient sowieso", 30, 25)
+
+    love.graphics.setFont(resources.fonts.handSmall)
+    love.graphics.printf(self.text, 30, 95, 420, "left")
+    love.graphics.printf("Press [E] to continue", 30, 540, 420, "center")
 end
 
 function FileState:keypressed(k, u)
-    stack:pop()
+    if k == " " or k == "e" or k == "escape" then
+        stack:pop()
+    end
 end

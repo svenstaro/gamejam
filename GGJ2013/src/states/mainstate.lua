@@ -31,7 +31,9 @@ function MainState:__init()
 
     self.levelFade = 0
     self.nextLevel = 0
-    self:world():add(File("Patient: 47 \nShowed violent behavior."))
+
+    local f = File(self.player.x + 100, self.player.y, "Patient: 47 \nShowed violent behavior.", "file")
+    self:world():add(f)
 
     -- self.objects:add(File("This is patient number 12391. You died."))
 end
