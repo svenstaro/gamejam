@@ -8,8 +8,7 @@ IntroState = class("IntroState", GameState)
 function IntroState:__init()
     self.ggj_circle = {{37, 33, 98}, {61, 45, 100}, {87, 55, 105}, {111, 80, 138}, {140, 109, 175}, {138, 145, 168}, {135, 187, 158}, {204, 220, 87}, {245, 237, 49}}
 
-    self.lifetime = 4
-
+    self.lifetime = 0
 
     self.heartbeat = resources:makeSound("heartbeat")
 end
