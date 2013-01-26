@@ -79,6 +79,19 @@ function Level:__init(file, group)
                         object = Door(obj.width > obj.height and 0 or math.pi / 2)
                         object.x = cx
                         object.y = cy
+                        if obj.properties and obj.properties.locked then
+                            object.locked = true
+                        end
+                    elseif obj.type == "trigger" or obj.type == "node" then
+                        object = RectangleTrigger(obj.x, obj.y, obj.width, obj.height)
+                        if obj.properties and obj.properties.to_level then
+                            print("Creating level switch")
+                            -- this is a level switch
+                            object.onEnter = function()
+                                print("Entering level switch")
+                                main:fadeToLevel(obj.properties.to_level, obj.properties.location)
+                            end
+                        end
                     end
 
                     if obj.type == "waterdrop" then
