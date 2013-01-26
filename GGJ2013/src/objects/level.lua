@@ -31,11 +31,13 @@ function Level:__init()
     end
 
     for l=1, #level.layers do
-        for i=0, level.height - 1 do
-            for j=0,level.width - 1 do
-                --print(level.layers[1].data[1 + j + (i * level.width)])
-                if level.layers[l].data[1 + j + (i * level.width)] ~= 0 then
-                    self.spritebatch:addq(self.quads[level.layers[l].data[1 + j + (i * level.width)]], j * level.tilewidth, i * level.tileheight)
+        if level.layers[l].visible and level.layers[l].type == "tilelayer" then
+            for i=0, level.height - 1 do
+                for j=0,level.width - 1 do
+                    --print(level.layers[1].data[1 + j + (i * level.width)])
+                    if level.layers[l].data[1 + j + (i * level.width)] ~= 0 then
+                        self.spritebatch:addq(self.quads[level.layers[l].data[1 + j + (i * level.width)]], j * level.tilewidth, i * level.tileheight)
+                    end
                 end
             end
         end
