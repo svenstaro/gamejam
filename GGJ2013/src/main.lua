@@ -31,7 +31,7 @@ function love.load()
     -- load images
     resources:addImage("level_decorations", "levels/tilesets/decorations.png")
     resources:addImage("level_base", "levels/tilesets/base.png")
-    resources:addImage("player", "gfx/player.png")
+    resources:addImage("player_head", "gfx/player_head.png")
     resources:addImage("player_anim", "gfx/player_anim.png")
     resources:addImage("file", "gfx/file.png")
     resources:addImage("zombie", "gfx/zombie.png")
