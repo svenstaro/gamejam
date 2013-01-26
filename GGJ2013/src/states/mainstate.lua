@@ -28,10 +28,16 @@ function MainState:__init()
     self.player = Player()
     self:setLevel(0)
 
+    self.levelFade = 0
+    self.nextLevel = 0
     self:world():add(File("Patient: 47 \nShowed violent behavior."))
 
-
     -- self.objects:add(File("This is patient number 12391. You died."))
+end
+
+function MainState:fadeToLevel(i)
+    self.levelFade = 1.0
+    self.nextLevel = i
 end
 
 function MainState:setLevel(i)
@@ -107,11 +113,25 @@ function MainState:draw()
         local t = "[E] " .. activeActionObject.actionText
         love.graphics.print(t, love.graphics.getWidth() / 2 -  love.graphics.getFont():getWidth(t) / 2, love.graphics.getHeight() - 100)
     end
+
+    if self.levelFade > 0 then
+        love.graphics.setColor(0, 0, 0, math.sin(math.pi * self.levelFade) * 255)
+        love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    end
 end
 
 function MainState:update(dt)
     self.lifetime = self.lifetime + dt
     self:world():update(dt)
+
+    if self.levelFade > 0 then
+        if self.nextLevel ~= self.currentLevel and self.levelFade < 0.5 then
+            self:setLevel(self.nextLevel)
+        end
+
+        self.levelFade = self.levelFade - dt * 0.3
+        if self.levelFade < 0 then self.levelFade = 0 end
+    end
 end
 
 function MainState:keypressed(k, u)
@@ -128,5 +148,7 @@ function MainState:keypressed(k, u)
             activeActionObject:onAction()
             activeActionObject = nil
         end
+    elseif k == "up" then
+        self:fadeToLevel(self.currentLevel)
     end
 end
