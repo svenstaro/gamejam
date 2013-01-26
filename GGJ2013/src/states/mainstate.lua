@@ -147,7 +147,7 @@ function MainState:update(dt)
             self.nextLevel = nil
         end
 
-        self.levelFade = self.levelFade - dt * 0.3
+        self.levelFade = self.levelFade - dt * 0.6
         if self.levelFade < 0 then self.levelFade = 0 end
     end
 end
