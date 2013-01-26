@@ -130,4 +130,3 @@ function Player:draw()
     self.anim:draw(self.x, self.y, self.walk_angle, 4, 4, 8, 8)
     love.graphics.draw(self.head, self.x, self.y, self.head_angle, 1, 1, 32, 32)
 end
-

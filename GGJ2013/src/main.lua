@@ -1,5 +1,7 @@
 require("states/introstate")
 require("states/mainstate")
+require("states/menustate")
+require("states/creditsstate")
 require("states/filestate")
 require("core/resources")
 require("core/gamestack")
@@ -9,12 +11,14 @@ resources = Resources("data/")
 settings = Settings()
 settings:load()
 
-debug = settings:get("debug", false)
+debug = settings:get("debug", true)
 fullscreen = settings:get("fullscreen", false)
 
 function reset()
     -- start game
     intro = IntroState()
+    menu = MenuState()
+    credits = CreditsState()
     file = FileState()
     main = MainState()
     stack = GameStack()
@@ -50,6 +54,7 @@ function love.load()
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
+    resources:addFont("huge", "DejaVuSans.ttf", 40)
     resources:addFont("handSmall", "SwankyandMooMoo.ttf", 20, true)
     resources:addFont("handBig", "SwankyandMooMoo.ttf", 32)
 
