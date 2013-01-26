@@ -1,17 +1,29 @@
 Level0: 
 
-trigger_01:	enable trigger_02
+	trigger_01:	enable trigger_02
  
-trigger_02:	enable door_09 
+	trigger_02:	enable door_09 
 
 Level1:
-button_01:	enabled door_06, door_07, door_08
-			spawnt Monster
-			enable hazard_01
-			disabled door_05
+	button_01:	enabled door_06, door_07, door_08
+				spawnt Monster
+				enable hazard_01
+				disabled door_05 und Monstersound hinter door_07
 
 Level2:
-
-
+	button_01:	enabled door_05
+	
 
 Level3:
+	button_01:	enabled door_02 und door_03
+				enabled door_03 in level2
+				enabled door_01 in level4
+
+	button_02:	enabled door__04 in level2
+	
+
+Level4:
+
+	button_01:  enabled hazard_01-03 und printed feueranimation von rechts nach links
+				enabled hazard_04-07 und printed Falle auf die Position. 
+				enabled door_06 in level2

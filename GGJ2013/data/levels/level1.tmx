@@ -20025,9 +20025,9 @@
   <object name="door_05" type="door" x="1536" y="1536" width="64" height="128"/>
   <object name="door_06" type="door" x="1600" y="2112" width="128" height="64"/>
   <object name="door_07" type="door" x="1088" y="704" width="128" height="64"/>
-  <object name="Button_1" type="trigger" x="1280" y="1600" width="64" height="64"/>
+  <object name="Button_01" type="trigger" x="1280" y="1600" width="64" height="64"/>
   <object x="2496" y="1728"/>
-  <object name="levelswitch_2" type="trigger" x="1600" y="2176" width="192" height="128">
+  <object name="levelswitch_02" type="trigger" x="1600" y="2176" width="192" height="128">
    <properties>
     <property name="to_level" value="+1"/>
    </properties>
