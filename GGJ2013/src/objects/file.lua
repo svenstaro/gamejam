@@ -4,11 +4,11 @@ require("core/actionobject")
 
 File = class("File", ActionObject)
 
-function File:__init(text)
+function File:__init(x, y, text)
     self.text = text or "- empty file -"
 
-    self.x = 100
-    self.y = 100
+    self.x = x
+    self.y = y
     self.z = 0.5
     self.counter = 0
 

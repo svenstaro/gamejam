@@ -54,7 +54,7 @@ function IntroState:draw()
         love.graphics.setColor(255, 255, 255)
 
         love.graphics.clear()
-        love.graphics.setFont(resources.fonts.normal)
+        love.graphics.setFont(resources.fonts.handBig)
         local t = "Best with headphones"
         love.graphics.print(t, w / 2 - love.graphics.getFont():getWidth(t) / 2, h / 2 + 50)
         local scale = math.sin(lt * 5.8 * math.pi * 2 + 0.2) > 0.9 and 1.05 or 1

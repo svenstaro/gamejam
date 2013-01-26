@@ -36,6 +36,7 @@ function love.load()
     resources:addImage("file", "gfx/file.png")
     resources:addImage("zombie", "gfx/zombie.png")
     resources:addImage("slime", "gfx/slime.png")
+    resources:addImage("akte", "gfx/akte.png")
     resources:addImage("fire", "gfx/fire.png")
     resources:addImage("spike", "gfx/spike.png")
     resources:addImage("heart", "gfx/heart.png")
@@ -49,6 +50,8 @@ function love.load()
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
+    resources:addFont("handSmall", "SwankyandMooMoo.ttf", 20, true)
+    resources:addFont("handBig", "SwankyandMooMoo.ttf", 32)
 
     -- load sounds
     resources:addAudio("door_slide", "sfx/door_slide.ogg")
