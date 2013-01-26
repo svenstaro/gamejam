@@ -1,4 +1,4 @@
-require("object/particleeffect")
+require("objects/particleeffect")
 
 WaterDrop = class("WaterDrop", ParticleEffect)
 
