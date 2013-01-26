@@ -25,7 +25,8 @@ function CreditsState:draw()
 
     local team = {"Arne Beer", "Fabian Stegemann", "Hans-Ole Hatzel",
                   "Julian Tobergte", "Marvin Arnold", "Rafael Epplee",
-                  "Paul Bienkowski", "Sven-Hendrik Haase", "Tönjes Peters"}
+                  "Paul Bienkowski", "Sven-Hendrik Haase", "Tönjes Peters",
+                  "Manuel Riecke"}
 
     for i,v in ipairs(team) do
         love.graphics.print(v, 200, 300 + 30 * i)
