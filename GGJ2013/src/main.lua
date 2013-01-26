@@ -33,7 +33,8 @@ function love.load()
     resources:addImage("level_base", "levels/tilesets/base.png")
     resources:addImage("player", "gfx/player.png")
     resources:addImage("player_anim", "gfx/player_anim.png")
-
+    resources:addImage("file", "gfx/file.png")
+    
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
