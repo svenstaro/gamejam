@@ -2,7 +2,7 @@
 -- game levels
 
 require("core/object")
-level = require("data/levels/test0")
+require("objects/walltile")
 
 function hasBitFlag(set, flag)
     return set % (2*flag) >= flag
@@ -32,34 +32,29 @@ end
 
 Level = class("Level", Object)
 
-Tile = class("Tile")
+function Level:__init(file, group)
+    level = require("data/levels/" .. file)
 
-function Tile:__init(batch, id, flip_x, flip_y)
-    self.flip_x = flip_x or false
-    self.flip_y = flip_y or false
-    self.image = resources.images["level_" .. batch.name]
-    local x, y = id - self.image
-    self.quad = love.graphics.newQuad(j * (level.tilewidth + spacing_left), i * (level.tileheight + spacing_top),
-                                                        level.tilewidth, level.tileheight,
-                                                        resources.images.level:getWidth(), resources.images.level:getHeight())
-
-    self.quad:flip(flip_x, flip_y)
-end
-
-function Level:__init()
     self.x = 0
     self.y = 0
-    self.z = 1
+    self.z = 0
     self.angle = 0
 
+    self.tiles = ObjectGroup()
     self.spritebatches = {}
     self.quads = {}
 
     self.tilesets = {}
 
+    local meta_firstgid = 0
+
     for t = 1, #level.tilesets do
         local tileset = level.tilesets[t]
         local name = tileset.name
+
+        if name == "meta" then
+            meta_firstgid = tileset.firstgid
+        end
 
         local image = resources.images["level_" .. name]
         if image then
@@ -86,17 +81,42 @@ function Level:__init()
 
     for l = 1, #level.layers do
         local layer = level.layers[l]
-        print(layer.name)
         if layer.visible then
             if layer.type == "objectgroup" then
                 -- objectfactory:create()
+                for i = 1, #layer.objects do
+                    -- name, x, y, properties, type, width, height
+                    local obj = layer.objects[i]
+                    local cx, cy = obj.x + obj.width / 2, obj.y + obj.height / 2
+
+                    local object = nil
+
+                    if obj.type == "door" then
+                        object = Door(obj.width > obj.height and 0 or math.pi / 2)
+                        object.x = cx
+                        object.y = cy
+                    end
+
+                    if object then
+                        object.name = obj.name
+                        group:add(object)
+                    else
+                        print("Unhandled object type: " .. obj.type)
+                    end
+
+                end
             else
                 for i = 0, level.height - 1 do
                     for j = 0, level.width - 1 do
                         if layer.data[1 + j + (i * level.width)] ~= 0 then
                             local index = layer.data[1 + j + (i * level.width)]
                             if layer.name == "meta" then
-                                print("Meta index " .. index)
+                                index = index - meta_firstgid
+
+                                -- wall tile
+                                if index == 1 then
+                                    group:add(WallTile(j * level.tilewidth, i * level.tileheight))
+                                end
                             else
 
                                 if not self.quads[index] then
@@ -125,8 +145,7 @@ function Level:__init()
                                 end
 
                                 local quad = self.quads[index]
-                                print(quad[1])
-                                print(quad[2])
+
                                 quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
                             end
                         end

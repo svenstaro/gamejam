@@ -13,8 +13,7 @@ function Enemy:__init()
 end
 
 function Enemy:update(dt)
-    local player = self.group:ofType("Player")[1]
-    self.angle = math.atan2(player.y - self.y, player.x - self.x)
+    self.angle = math.atan2(main.player.y - self.y, main.player.x - self.x)
 end
 
 function Enemy:draw()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" width="13" height="8" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="base" tilewidth="64" tileheight="64" spacing="4">
   <image source="tilesets/base.png" width="268" height="268"/>
  </tileset>
@@ -9,24 +9,24 @@
  <tileset firstgid="33" name="meta" tilewidth="64" tileheight="64">
   <image source="tilesets/meta.png" width="256" height="256"/>
  </tileset>
- <layer name="base" width="100" height="100">
+ <layer name="base" width="13" height="8">
   <data encoding="base64" compression="zlib">
-   eJzt1rEKACAIQEHr/z862qshEoTuwKnNB1IEALzRL4Y8c79tM6s3PXLpUcupx64RefSoxb2qRY9a/HcBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/jEA9XYAkw==
+   eJxjYmBgYCIDM+LA2ORooQeXOdTWQ23/kIoBeVQAkw==
   </data>
  </layer>
- <layer name="decorations" width="100" height="100">
+ <layer name="decorations" width="13" height="8">
   <data encoding="base64" compression="zlib">
-   eJzt1ksKwCAMBUDBXsD7X9atFAn4K0JnwJVZvQchKQHAHmXicU6Ub+9PH2fp4y5RvnlwnnVRvs/gPOvsq7u0+b73kz6+594FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+I8K6tAC1Q==
+   eJwTZGBgECQD4wLY5Gihh5kMPSxk6CHGbehuwaeHVAwAUP4C1Q==
   </data>
  </layer>
- <layer name="meta" width="100" height="100" opacity="0.4">
+ <layer name="meta" width="13" height="8" opacity="0.4">
   <data encoding="base64" compression="zlib">
-   eJzt1sEJACAMBMHUYv9F2oAIioEDZyAvf1kIVgHAG+Ni6LPb7+pNj156ZDndrx699MjiXmXRI4v/LgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA/JgqKBZU=
+   eJxTYmBgUCID4wLY5GihB5c51NZDbf+QigGTJAWV
   </data>
  </layer>
- <objectgroup name="objects" width="100" height="100">
-  <object name="door_1" type="door" x="768" y="448" width="64" height="128"/>
-  <object name="switch_1" type="switch" x="512" y="640" width="64" height="64">
+ <objectgroup name="objects" width="13" height="8">
+  <object name="door_1" type="door" x="448" y="192" width="64" height="128"/>
+  <object name="switch_1" type="switch" x="192" y="384" width="64" height="64">
    <properties>
     <property name="resettable" value="false"/>
    </properties>
