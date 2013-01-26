@@ -147,6 +147,8 @@ function MainState:draw()
     resources:sendShaderValue("darkness", "blur", 128)
     resources:sendShaderValue("darkness", "width", love.graphics.getWidth())
     resources:sendShaderValue("darkness", "height", love.graphics.getHeight())
+
+    resources:sendShaderValue("darkness", "shadowmap", self.player.shadowMap)
     love.graphics.setPixelEffect(resources.shaders.darkness)
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
@@ -171,6 +173,7 @@ end
 function MainState:update(dt)
     self.lifetime = self.lifetime + dt
 
+    self.player:bakeShadows(self:world().physicsWorld)
     self:world():update(dt)
 
     if self.levelFade > 0 then
