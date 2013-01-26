@@ -19,11 +19,25 @@ function Player:update(dt)
     local mx, my = main:getMousePosition()
     self.angle = math.atan2(my - self.y, mx - self.x)
 
+    walking = false
+    
     local dx, dy = 0, 0
-    if love.keyboard.isDown("a") then dx = dx - 1 end
-    if love.keyboard.isDown("d") then dx = dx + 1 end
-    if love.keyboard.isDown("w") then dy = dy - 1 end
-    if love.keyboard.isDown("s") then dy = dy + 1 end
+    if love.keyboard.isDown("a") then 
+        dx = dx - 1 
+        walking = true 
+    end
+    if love.keyboard.isDown("d") then 
+        dx = dx + 1 
+        walking = true 
+    end
+    if love.keyboard.isDown("w") then 
+        dy = dy - 1 
+        walking = true 
+    end
+    if love.keyboard.isDown("s") then 
+        dy = dy + 1 
+        walking = true 
+    end
     if math.abs(dy) + math.abs(dx) == 2 then
         dx = dx * 0.84
         dy = dy * 0.84
@@ -43,8 +57,9 @@ function Player:update(dt)
 
     main.centerX = self.x
     main.centerY = self.y
-
-    self.anim:update(dt)
+    if walking then
+        self.anim:update(dt)
+    end
 
     love.audio.setPosition(self.x, 0, self.y)
     love.audio.setOrientation(math.cos(self.angle), math.sin(self.angle), 0, 0, 0, -1, 0)
