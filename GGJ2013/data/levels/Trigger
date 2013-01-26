@@ -4,7 +4,8 @@ Spielstart:
     spawn_01
 
 trigger_01:	
-    trigger_02: enable
+    trigger_02: enable 
+    Hammertextur
 
 trigger_02:	
     door_09: unlock
