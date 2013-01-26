@@ -4,8 +4,9 @@ require("core/actionobject")
 
 File = class("File", ActionObject)
 
-function File:__init(x, y, text, type)
-    self.text = text or "- empty file -"
+function File:__init(x, y, headline, text, type)
+    self.headline = headline or "- no patient -"
+    self.text     = text or "- empty file -"
 
     self.x = x
     self.y = y
@@ -33,6 +34,7 @@ function File:draw()
 end
 
 function File:onAction()
+    file.headline = self.headline
     file.text = self.text
     stack:push(file)
 end
