@@ -41,6 +41,9 @@ function Player:update(dt)
 
     main.centerX = self.x
     main.centerY = self.y
+
+    love.audio.setPosition(self.x, 0, self.y)
+    love.audio.setOrientation(math.cos(self.angle), math.sin(self.angle), 0, 0, 0, -1, 0)
 end
 
 function Player:draw()
