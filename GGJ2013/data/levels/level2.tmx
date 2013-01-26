@@ -9,6 +9,9 @@
  <tileset firstgid="65" name="meta" tilewidth="64" tileheight="64">
   <image source="tilesets/meta.png" width="256" height="256"/>
  </tileset>
+ <tileset firstgid="81" name="decorations2" tilewidth="64" tileheight="64" spacing="4">
+  <image source="tilesets/decorations2.png" trans="ff00ff" width="268" height="540"/>
+ </tileset>
  <layer name="base" width="57" height="56">
   <data>
    <tile gid="0"/>
@@ -9650,6 +9653,7 @@
    </properties>
   </object>
   <object name="trigger_01" type="trigger" x="896" y="960" width="64" height="64"/>
+  <object name="3_patient447" type="item" x="960" y="896" width="64" height="128"/>
  </objectgroup>
  <layer name="meta" width="57" height="56" visible="0" opacity="0.34">
   <data>
