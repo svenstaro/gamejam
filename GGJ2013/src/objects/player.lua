@@ -2,6 +2,7 @@
 
 require("core/object")
 require("objects/toast")
+require("src/external/AnAL")
 
 Player = class("Player", Object)
 
@@ -11,6 +12,7 @@ function Player:__init()
     self.z = 1
     self.angle = 0
     self.timeSinceLastStep = 0
+    self.anim = newAnimation(resources.images.player_anim, 16, 16, 0.1, 4)
 end
 
 function Player:update(dt)
@@ -42,11 +44,15 @@ function Player:update(dt)
     main.centerX = self.x
     main.centerY = self.y
 
+    self.anim:update(dt)
+
     love.audio.setPosition(self.x, 0, self.y)
     love.audio.setOrientation(math.cos(self.angle), math.sin(self.angle), 0, 0, 0, -1, 0)
+
 end
 
 function Player:draw()
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(resources.images.player, self.x, self.y, self.angle, 1, 1, resources.images.player:getWidth() / 2, resources.images.player:getHeight() / 2)
+    self.anim:draw(self.x, self.y, self.angle, 4, 4, 8, 8)
 end
+ 
