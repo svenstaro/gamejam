@@ -31,9 +31,17 @@ function love.load()
     -- load images
     resources:addImage("level_decorations", "levels/tilesets/decorations.png")
     resources:addImage("level_base", "levels/tilesets/base.png")
-    resources:addImage("player", "gfx/player.png")
+    resources:addImage("player_head", "gfx/player_head.png")
     resources:addImage("player_anim", "gfx/player_anim.png")
+    resources:addImage("file", "gfx/file.png")
+    resources:addImage("zombie", "gfx/zombie.png")
+    resources:addImage("slime", "gfx/slime.png")
+    resources:addImage("fire", "gfx/fire.png")
+    resources:addImage("spike", "gfx/spike.png")
+    resources:addImage("heart", "gfx/heart.png")
+    resources:addImage("bug", "gfx/mob-animation.png")
 
+    
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
     resources:addFont("normal", "DejaVuSans.ttf", 20)
@@ -48,6 +56,8 @@ function love.load()
     resources:addShader("darkness", "shaders/darkness.glsl")
 
     resources:load()
+    
+    love.physics.setMeter(64)
 
     reset()
 end

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="door" color="#ff0000"/>
+ <objecttype name="steps" color="#0000c0"/>
+ <objecttype name="trigger" color="#00ff00"/>
+</objecttypes>

@@ -6,8 +6,8 @@ require("core/object")
 Toast = class("Toast", Object)
 
 function Toast:__init(text, x, y, angle, color, font)
-    self.x = x
-    self.y = y
+    self.x = x + math.random(-20, 20)
+    self.y = y + math.random(-20, 20)
     self.z = 1
     self.angle = angle
     self.lifetime = 0
@@ -36,9 +36,12 @@ function Toast:draw()
 
     love.graphics.setFont(self.font)
 
-    love.graphics.print(self.text, self.x - self.font:getWidth(self.text) / 2, self.y - 50 * self.lifetime, self.angle)
+    love.graphics.print(self.text, self.x - (self.font:getWidth(self.text) / 2),
+                                   self.y - (self.font:getHeight(self.text) / 2), self.angle,
+                                   2 * math.pow(self.lifetime / 0.5, 5) + 1,
+                                   2 * math.pow(self.lifetime / 0.5, 5) + 1)   
 end
 
 function Object:makeToast(text, color, font)
-    self.group:add(Toast(text, self.x, self.y, color, font))
+    self.group:add(Toast(text, self.x, self.y, 0.5 - math.random(), color, font))
 end

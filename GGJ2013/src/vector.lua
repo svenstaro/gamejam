@@ -1,4 +1,4 @@
-require("util/helper")
+require("core/helper")
 
 function assert_vector(v)
     assert(v ~= nil and v.__name == "Vector")

@@ -14,6 +14,14 @@ end
 
 function Object:update(dt)
     self.lifetime = self.lifetime + dt
+
+    if self.physicsObject ~= nil and self.physicsObject.body ~= nil then
+        self.x = self.physicsObject.body:getX()
+        self.y = self.physicsObject.body:getY()
+        -- which direction do we wanna do this?
+        --self.physicsObject.body:setPosition(self.x, self.y)
+        --self.physicsObject.body:setAngle(self.angle)
+    end
 end
 
 function Object:suicide()
