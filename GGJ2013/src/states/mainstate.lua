@@ -154,9 +154,11 @@ function MainState:draw()
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
     love.graphics.setPixelEffect()
 
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.setFont(resources.fonts.tiny)
-    love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
+    if debug then
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.setFont(resources.fonts.tiny)
+        love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
+    end
 
     love.graphics.setFont(resources.fonts.normal)
     if activeActionObject then

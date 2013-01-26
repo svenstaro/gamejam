@@ -10,8 +10,7 @@ require("core/settings")
 resources = Resources("data/")
 settings = Settings()
 settings:load()
-
-debug = settings:get("debug", true)
+debug = settings:get("debug", false)
 fullscreen = settings:get("fullscreen", false)
 
 function reset()
