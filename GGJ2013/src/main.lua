@@ -34,6 +34,13 @@ function love.load()
     resources:addImage("player", "gfx/player.png")
     resources:addImage("player_anim", "gfx/player_anim.png")
     resources:addImage("file", "gfx/file.png")
+    resources:addImage("zombie", "gfx/zombie.png")
+    resources:addImage("slime", "gfx/slime.png")
+    resources:addImage("fire", "gfx/fire.png")
+    resources:addImage("spike", "gfx/spike.png")
+    resources:addImage("heart", "gfx/heart.png")
+    resources:addImage("bug", "gfx/mob-animation.png")
+
     
     -- load fonts
     resources:addFont("tiny", "DejaVuSans.ttf", 10)
