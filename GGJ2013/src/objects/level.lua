@@ -100,6 +100,12 @@ function Level:__init(file, group)
                         object.y = cy
                     end
 
+                    if obj.type == "steam" then
+                        object = Steam(obj.direction)
+                        object.x = cx
+                        object.y = cy
+                    end
+
                     if object then
                         object.name = obj.name
                         group:add(object)
