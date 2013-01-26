@@ -40,7 +40,11 @@ function Player:update(dt)
     self.y = self.physicsObject.body:getY()
 
     local mx, my = main:getMousePosition()
-    self.head_angle = math.atan2(my - self.y, mx - self.x)
+    local tmphead_angle = math.atan2(my - self.y, mx - self.x)
+    
+    if math.abs(math.abs(tmphead_angle) - math.abs(self.walk_angle)) < 1 then 
+        self.head_angle = math.atan2(my - self.y, mx - self.x)
+    end
 
     walking = false
 
@@ -63,6 +67,21 @@ function Player:update(dt)
         walking = true
     end
 
+    --change head directon on turn
+    if olddx == -1 * dx then
+        self.head_angle  = self.head_angle + 3.14
+    end
+    if olddy == -1 * dy then
+        self.head_angle  = self.head_angle + 3.14
+    end
+
+    if dy ~= 0 then
+        olddy = dy
+    end
+    if dx ~= 0 then
+        olddx = dx
+    end
+
     if math.abs(dy) + math.abs(dx) == 2 then
         dx = dx * 0.84
         dy = dy * 0.84
@@ -76,7 +95,6 @@ function Player:update(dt)
 
     if (dx ~= 0 or dy ~= 0) and self.timeSinceLastStep >= 0.3 then
         --self:makeToast("Tap", {100, 100, 100, 50}, resources.fonts.tiny)
-
         if walking == "walk_high" then
             walking = "walk_low"
         else
@@ -103,7 +121,7 @@ function Player:update(dt)
 
     love.audio.setPosition(self.x, 0, self.y)
     love.audio.setOrientation(math.cos(self.walk_angle), math.sin(self.walk_angle), 0, 0, 0, -1, 0)
-
+    
 end
 
 function Player:draw()
