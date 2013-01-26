@@ -43,6 +43,7 @@ function love.load()
     resources:addImage("doorBot", "gfx/door_bot.png")
     resources:addImage("doorTop", "gfx/door_top.png")
     resources:addImage("ggj_logo", "gfx/ggj_logo.png")
+    resources:addImage("headphones", "gfx/headphones.png")
     resources:makeGradientImage("fill", {255, 255, 255}, {255, 255, 255})
 
     -- load fonts
@@ -53,7 +54,8 @@ function love.load()
     resources:addAudio("door_slide", "sfx/door_slide.ogg")
     resources:addAudio("walk_high", "sfx/walk_high.ogg")
     resources:addAudio("walk_low", "sfx/walk_low.ogg")
-
+    resources:addAudio("heartbeat", "sfx/heartbeat.ogg")
+    resources:addAudio("heartbeat_pulse", "sfx/heartbeat_pulse.ogg")
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")

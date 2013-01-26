@@ -141,7 +141,7 @@ function MainState:draw()
     love.graphics.pop()
 
     -- draw darkness
-    resources:sendShaderValue("darkness", "range", 64 * 2.5 * (1 + 0.05 * (math.sin(self.lifetime * 2))))
+    resources:sendShaderValue("darkness", "range", 46 * 2.5 * (1 + 0.05 * (math.sin(self.lifetime * 2))))
     resources:sendShaderValue("darkness", "blur", 128)
     resources:sendShaderValue("darkness", "width", love.graphics.getWidth())
     resources:sendShaderValue("darkness", "height", love.graphics.getHeight())
