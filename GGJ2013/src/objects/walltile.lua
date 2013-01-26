@@ -21,6 +21,10 @@ function WallTile:enablePhysics()
     table.insert(self.group.physicsObjects, self.physicsObject)
 end
 
+function WallTile:disablePhysics()
+    self.physicsObject.body:destroy()
+end
+
 function WallTile:update(dt)
 end
 
