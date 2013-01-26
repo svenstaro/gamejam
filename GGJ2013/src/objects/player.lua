@@ -37,7 +37,7 @@ function Player:update(dt)
         self.timeSinceLastStep = 0
     end
 
-    local speed = 100
+    local speed = 200
     self.x = self.x + dx * speed * dt
     self.y = self.y + dy * speed * dt
 
