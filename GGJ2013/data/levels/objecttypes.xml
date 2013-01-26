@@ -3,4 +3,5 @@
  <objecttype name="door" color="#ff0000"/>
  <objecttype name="steps" color="#0000c0"/>
  <objecttype name="trigger" color="#00ff00"/>
+ <objecttype name="hazard" color="#ff8000"/>
 </objecttypes>
