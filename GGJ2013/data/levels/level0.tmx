@@ -6,14 +6,30 @@
  <tileset firstgid="17" name="decorations" tilewidth="64" tileheight="64" spacing="4">
   <image source="tilesets/decorations.png" width="268" height="268"/>
  </tileset>
+ <tileset firstgid="33" name="meta" tilewidth="64" tileheight="64">
+  <image source="tilesets/meta.png" width="256" height="256"/>
+ </tileset>
  <layer name="base" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0bEJACAMAMHo/kOLkMIqlZAUd/ATfAQA/LGf6Hc/rIx+fsziBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUDkBwQAT
+   eJzt1rEKACAIQEHr/z862qshEoTuwKnNB1IEALzRL4Y8c79tM6s3PXLpUcupx64RefSoxb2qRY9a/HcBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/jEA9XYAkw==
   </data>
  </layer>
  <layer name="decorations" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0TENAAAIBLG3gH+zLEhggKRNTsElALCjJu7w5BY/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfmi6gQBn
+   eJzt1ksKwCAMBUDBXsD7X9atFAn4K0JnwJVZvQchKQHAHmXicU6Ub+9PH2fp4y5RvnlwnnVRvs/gPOvsq7u0+b73kz6+594FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+I8K6tAC1Q==
   </data>
  </layer>
+ <layer name="meta" width="100" height="100" opacity="0.4">
+  <data encoding="base64" compression="zlib">
+   eJzt1sEJACAMBMHUYv9F2oAIioEDZyAvf1kIVgHAG+Ni6LPb7+pNj156ZDndrx699MjiXmXRI4v/LgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA/JgqKBZU=
+  </data>
+ </layer>
+ <objectgroup name="objects" width="100" height="100">
+  <object name="door_1" type="door" x="768" y="448" width="64" height="128"/>
+  <object name="switch_1" type="switch" x="512" y="640" width="64" height="64">
+   <properties>
+    <property name="resettable" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
