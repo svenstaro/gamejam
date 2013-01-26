@@ -112,6 +112,11 @@ function MainState:screenToWorld(x, y)
     return (x - ox) / scale, (y - oy) / scale
 end
 
+function MainState:worldToScreen(x, y)
+    local ox, oy = self:getOffset()
+    return x + ox, y + oy
+end
+
 function MainState:getMousePosition()
     return self:screenToWorld(love.mouse.getPosition())
 end
