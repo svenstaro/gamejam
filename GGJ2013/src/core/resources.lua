@@ -64,6 +64,7 @@ function Resources:load(threaded)
 
     for name, src in pairs(self.imageQueue) do
         self.images[name] = love.graphics.newImage(self.prefix .. src)
+        self.images[name]:setFilter("nearest", "nearest"d)
         self.imageQueue[name] = nil
     end
 
