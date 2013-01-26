@@ -23,8 +23,10 @@ end
 
 function Door:toggle()
     self.open = not self.open
-    --play audio
-
+    -- love.audio.play(resources.audio.door_slide)
+    local snd = resources:makeSound("door_slide")
+    snd:setPosition(self.x, 0, self.y)
+    snd:play()
 end
 
 function Door:draw()

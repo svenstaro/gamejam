@@ -4,6 +4,32 @@
 require("core/object")
 require("objects/walltile")
 
+function hasBitFlag(set, flag)
+    return set % (2*flag) >= flag
+end
+
+function removeBitFlag(set, flag)
+    if set % (2*flag) >= flag then
+        return set - flag
+    end
+    return set
+end
+
+function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
 Level = class("Level", Object)
 
 function Level:__init(file, group)
@@ -57,6 +83,7 @@ function Level:__init(file, group)
         local layer = level.layers[l]
         if layer.visible then
             if layer.type == "objectgroup" then
+                -- objectfactory:create()
                 for i = 1, #layer.objects do
                     -- name, x, y, properties, type, width, height
                     local obj = layer.objects[i]
@@ -91,7 +118,34 @@ function Level:__init(file, group)
                                     group:add(WallTile(j * level.tilewidth, i * level.tileheight))
                                 end
                             else
+
+                                if not self.quads[index] then
+                                    local flipHorizontallyFlag = 0x80000000
+                                    local flipVerticallyFlag   = 0x40000000
+                                    local flipHorizontal = false
+                                    local flipVertical   = false
+
+                                    if hasBitFlag(index, flipHorizontallyFlag) then
+                                        flipHorizontal = true
+                                    end
+
+                                    if hasBitFlag(index, flipVerticallyFlag) then
+                                        flipVertical = true
+                                    end
+
+                                    local realIndex = removeBitFlag(index, flipHorizontallyFlag)
+                                          realIndex = removeBitFlag(realIndex, flipVerticallyFlag)
+
+                                    print(realIndex)
+                                    local quad = self.quads[realIndex]
+                                    local quadCopy  = deepcopy(quad[2])
+                                    quadCopy:flip(flipHorizontal, flipVertical)
+                                        
+                                    self.quads[index] = {quad[1], quadCopy}
+                                end
+
                                 local quad = self.quads[index]
+
                                 quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
                             end
                         end
