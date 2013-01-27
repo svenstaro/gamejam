@@ -25,7 +25,7 @@ function Resources:addImage(name, src)
     self.imageQueue[name] = src
 end
 
-function Resources:addAudio(name, src)
+function Resources:addAudio(name, src, type)
     self.audioQueue[name] = src
 end
 
@@ -83,6 +83,16 @@ function Resources:load(threaded)
     end
 end
 
-function Resources:makeSound(name)
-    return love.audio.newSource(self.audio[name], "static")
+
+function Resources:makeSound(name, mode, loop)
+
+    local audio_mode = "static"
+
+    if mode ~= nil then audio_mode = "stream" end
+
+    local audio = love.audio.newSource(self.audio[name], audio_mode)
+
+    if loop == true then audio:setLooping(true) end
+
+    return audio
 end

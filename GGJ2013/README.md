@@ -27,3 +27,8 @@ The following files and directories are not part of this project and were redist
 * lib/windows_x86 (license file included)
 * lib/windows_x64 (license file included)
 * ambient-water-drips [page](http://opengameart.org/content/ambient-water-drips)
+* Bottle_Smashes_Glass_Grind_Finale_FF225.mp3 [page](http://www.freesound.org/people/martinimeniscus/sounds/164325/)
+* 200_pounds_stepping_on_a_glass_object.mp3 [page](http://www.freesound.org/people/Tomlija/sounds/106881/)
+
+* Cave Theme [page](http://opengameart.org/content/cave-theme)
+* Dark Factory [page](http://opengameart.org/content/dark-factory)

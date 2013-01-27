@@ -54,6 +54,9 @@ function love.load()
     resources:addAudio("walk_high", "sfx/walk_high.ogg")
     resources:addAudio("walk_low", "sfx/walk_low.ogg")
 
+    -- load background
+    resources:addAudio("dark_factory", "sfx/dark-factory.ogg", "stream")
+    resources:addAudio("cave_theme", "sfx/cave-theme.ogg", "stream")
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")
