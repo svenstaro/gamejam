@@ -3,19 +3,19 @@
 require("core/gamestate")
 require("core/resources")
 
-GameOver = class("Gameover", GameState)
+GameOverState = class("GameOverState", GameState)
 
-function GameOver:__init()
+function GameOverState:__init()
     self.lifetime = 0
 
     self.heartbeat = resources:makeSound("heartbeat")
 end
 
-function GameOver:update(dt)
+function GameOverState:update(dt)
     self.lifetime = self.lifetime + dt
 end
 
-function GameOver:draw()
+function GameOverState:draw()
     local w, h = love.graphics.getWidth(), love.graphics.getHeight()
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(resources.images.failure, w / 2, h / 2, 0, 4, 4, resources.images.failure:getWidth() / 2, resources.images.failure:getHeight() / 2)
@@ -27,7 +27,7 @@ function GameOver:draw()
     end
 end
 
-function GameOver:keypressed(k, u)
+function GameOverState:keypressed(k, u)
     stack:pop()
     stack:push(menu)
 end
