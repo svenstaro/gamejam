@@ -7653,7 +7653,7 @@
   <object name="monsterroute_01" type="monsterroute" x="960" y="1280">
    <polyline points="0,0 -192,0 -256,64 -448,64 -448,-128 -256,-128 -192,0 0,0 0,384 0,-512 0,0"/>
   </object>
-  <object name="watersound_01" type="steps" x="896" y="1408" width="128" height="256">
+  <object name="watersound_01" type="trigger" x="896" y="1408" width="128" height="256">
    <properties>
     <property name="sounds" value=""/>
    </properties>
