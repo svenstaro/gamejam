@@ -182,5 +182,6 @@ function Player:draw()
 end
 
 function Player:kill()
+    stack:push(gameover)
     print("Player died")
 end

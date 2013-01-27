@@ -13,6 +13,7 @@ end
 
 function GameOverState:update(dt)
     self.lifetime = self.lifetime + dt
+    
 end
 
 function GameOverState:draw()
