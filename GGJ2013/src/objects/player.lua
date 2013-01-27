@@ -16,7 +16,6 @@ function Player:__init()
     self.head_angle = 0
     self.timeSinceLastStep = 0
     self.head = resources.images.player_head
-    self.anim = newAnimation(resources.images.player_anim, 16, 16, 0.1, 4)
 
     self.physicsObject = {}
 
@@ -78,11 +77,6 @@ function Player:update(dt)
     self.y = self.physicsObject.body:getY()
 
     local mx, my = main:getMousePosition()
-    local tmphead_angle = math.atan2(my - self.y, mx - self.x)
-
-    if math.abs(math.abs(tmphead_angle) - math.abs(self.walk_angle)) < 1 then
-        self.head_angle = math.atan2(my - self.y, mx - self.x)
-    end
 
     walking = false
 
@@ -91,18 +85,35 @@ function Player:update(dt)
     if love.keyboard.isDown("a") then
         dx = dx - 1
         walking = true
+        goleft = false
     end
     if love.keyboard.isDown("d") then
         dx = dx + 1
         walking = true
+        goleft = true
     end
     if love.keyboard.isDown("w") then
         dy = dy - 1
         walking = true
+        goleft = true
     end
     if love.keyboard.isDown("s") then
         dy = dy + 1
         walking = true
+        goleft = true
+    end
+
+    local tmphead_angle = math.atan2(my - self.y, mx - self.x)
+    
+    print("head:" .. tmphead_angle)
+    print("walk:" .. self.walk_angle % math.pi)
+
+    if math.abs(tmphead_angle - self.walk_angle) < 1 then
+        self.head_angle = math.atan2(my - self.y, mx - self.x)
+    end
+    if not goleft and ((tmphead_angle > (math.pi -0.5) or (tmphead_angle < -2.1))) then
+        print("fix")
+        self.head_angle = math.atan2(my - self.y, mx - self.x)
     end
 
     --change head directon on turn

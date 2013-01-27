@@ -5,14 +5,14 @@ An atmospheric Lovecraft-ish adventure game set in a dark place.
 You wake up in an abandoned lab and you are missing something rather important... 
 
 ## Authors
-Arne Beer
+[Arne Beer](https://github.com/nukesor)
 Fabian Stegemann
-Hans-Ole Hatzel
+Hans Ole Hatzel
 Julian Tobergte
 Marvin Arnold
-Rafael Epplee
-Paul Bienkowski
-Sven-Hendrik Haase
+[Rafael Epplee](https://github.com/raffomania)
+[Paul Bienkowski](https://github.com/opatut)
+[Sven-Hendrik Haase](https://github.com/svenstaro/)
 Tönjes Peters
 Manuel Riecke
 
