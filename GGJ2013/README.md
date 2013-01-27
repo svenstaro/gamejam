@@ -4,6 +4,8 @@ An atmospheric Lovecraft-ish adventure game set in a dark place.
 
 You wake up in an abandoned lab and you are missing something rather important... 
 
+[Entry](http://globalgamejam.org/2013/7th-sense) for the Global Game Jam 2013!
+
 ## Authors
 [Arne Beer](https://github.com/nukesor)
 
