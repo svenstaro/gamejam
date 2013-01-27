@@ -109,15 +109,19 @@ function MainState:loadLevel(i)
     -- HERE STARTS MAGIC
     local o = self.objects[i]
     if i == 0 then
+        o:byName("door_08").locked = true
+        o:byName("trigger_01").visible = true
+        o:byName("trigger_02").visible = true
+        o:byName("trigger_01").angle = math.pi * 0
+        o:byName("trigger_02").angle = math.pi * 0.5
         o:byName("trigger_01").onEnter = function()
             o:byName("trigger_02").enabled = true
-
+            o:byName("door_08").locked = false
             -- TODO: Hammer graphics
         end
 
         o:byName("trigger_02").onEnter = function()
             o:byName("door_09").locked = false
-
             -- TODO: Button graphics
         end
     elseif i == 1 then
