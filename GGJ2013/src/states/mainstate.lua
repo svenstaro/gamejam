@@ -66,6 +66,7 @@ function MainState:setLevel(i)
         self.nextLevelSpawn = nil
     end
     self:world():add(self.player)
+    self:playLevelMusic(i)
 
     -- TODO: set player position in new level
 
@@ -77,6 +78,18 @@ function MainState:setLevel(i)
     enemy:addRoutePoint(dx + 128, dy + 128)
     enemy:run()
     self:world():add(enemy)
+end
+
+function MainState:playLevelMusic (i)
+    local playlist = {
+        { "dark_factory", 0.1 },
+        { "cave_theme", 0.1 }
+    }
+
+    local audio_set = resources:makeSound(playlist[i+1][1], "stream", true)
+    audio_set:setVolume(playlist[i+1][2])
+    audio_set:play()
+
 end
 
 function MainState:loadLevel(i)
