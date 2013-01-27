@@ -64,6 +64,7 @@ function love.load()
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")
+    resources:addShader("distort", "shaders/distort.glsl")
 
     resources:load()
 
