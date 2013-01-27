@@ -12856,7 +12856,7 @@
   </object>
   <object name="trigger_01" type="trigger" x="896" y="960" width="64" height="64"/>
   <object name="3_patient447" type="item" x="960" y="960" width="64" height="128"/>
-  <object name="01_diaryentry" type="item" x="1152" y="576" width="64" height="64"/>
+  <object name="1_diaryentry" type="item" x="1152" y="576" width="64" height="64"/>
   <object name="waterdrop_1" type="waterdrop" x="1152" y="960" width="64" height="64">
    <properties>
     <property name="sounds" value="waterdrip_1,waterdrip_2,waterdrip3,waterdrip_4"/>
