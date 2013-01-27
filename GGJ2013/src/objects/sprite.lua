@@ -64,7 +64,9 @@ function Sprite:update(dt)
         end
     end
 
-    self.animation:update(dt)
+    if visible then
+        self.animation:update(dt)
+    end
 end
 
 function Sprite:draw()
