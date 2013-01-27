@@ -72,7 +72,14 @@ end
 function MainState:playLevelMusic(i)
     local playlist = {
         { "dark_factory", 0.1 },
-        { "cave_theme", 0.1 }
+        { "SoftElectro1", 0.1 },
+        { "cave_theme", 0.1 },        
+        { "AmbientSound1", 0.1 },
+        { "AmbientSound1", 0.1 },
+        { "SoftElectro2", 0.1 },
+        { "AmbientSound2", 0.1 },
+        { "AmbientSound2", 0.1 },
+        { "cave_theme", 0.1 }    
     }
 
     local music = resources.music[playlist[i + 1][1]]

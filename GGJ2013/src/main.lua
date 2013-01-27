@@ -79,6 +79,11 @@ function love.load()
     resources:addSound("heartbeat_pulse", "sfx/heartbeat_pulse.ogg")
     resources:addMusic("dark_factory", "sfx/dark-factory.ogg", "stream")
     resources:addMusic("cave_theme", "sfx/cave-theme.ogg", "stream")
+    resources:addMusic("AmbientSound1", "sfx/bgm_AmbientSound.ogg", "stream")
+    resources:addMusic("AmbientSound2", "sfx/bgm_AmbientSounds002.ogg", "stream")
+    resources:addMusic("AmbientSound3", "sfx/bgm_AmbientSounds006.ogg", "stream")
+    resources:addMusic("SoftElectro1", "sfx/THA-emptychasms.ogg", "stream")
+    resources:addMusic("SoftElectro2", "sfx/THA-simplythink.ogg", "stream")
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")
