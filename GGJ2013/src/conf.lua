@@ -1,6 +1,6 @@
 function love.conf(t)
     t.title = "7th Sense"
-    t.author = "GGJ13 Team UHH"
+    t.author = "GGJ13-Team-UHH"
     t.identity = "7thsense"
     t.version = "0.8.0" -- Löve version
     t.console = false
