@@ -53,7 +53,10 @@ function love.load()
     resources:addImage("doorTop", "gfx/door_top.png")
     resources:addImage("ggj_logo", "gfx/ggj_logo.png")
     resources:addImage("headphones", "gfx/headphones.png")
+
     resources:addImage("failure", "gfx/failure.png")
+    resources:addImage("trigger", "gfx/trigger.png")
+    resources:addImage("triggerOn", "gfx/triggerOn.png")
     resources:makeGradientImage("fill", {255, 255, 255}, {255, 255, 255})
 
     -- load fonts

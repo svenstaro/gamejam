@@ -6,6 +6,13 @@ require("objects/walltile")
 require("objects/waterdrop")
 require("objects/steam")
 
+function string:split(sep)
+    local sep, fields = sep or ":", {}
+    local pattern = string.format("([^%s]+)", sep)
+    self:gsub(pattern, function(c) fields[#fields+1] = c end)
+    return fields
+end
+
 function hasBitFlag(set, flag)
     return set % (2*flag) >= flag
 end
@@ -99,6 +106,10 @@ function Level:__init(file, group)
                         if obj.properties and obj.properties.disabled then
                             object.enabled = false
                         end
+
+                        if obj.properties.angle ~= nil then
+                            object.angle = obj.properties.angle * math.pi / 180
+                        end
                     end
 
                     if obj.type == "waterdrop" then
@@ -121,14 +132,15 @@ function Level:__init(file, group)
                         end
                         object.x = cx
                         object.y = cy
+                        object.angle = (obj.properties.angle or 0) * math.pi / 180
 
                         if obj.properties.sounds then
-                            local snds = split(obj.properties.sounds, ",")
+                            local snds = obj.properties.sounds:split(",")
                             object:setSounds(snds, obj.properties.sounds_interval or 10, obj.properties.sounds_random or 5)
                         end
 
                         if obj.properties.animation then
-                            local img, w, h, time, count = split(obj.properties.animation, ",")
+                            local img, w, h, time, count = obj.properties.animation:split(",")
                             object:setAnimation(resources.images[img], tonumber(w), tonumber(h), tonumber(time), tonumber(count))
                         elseif obj.image then
                             object:setImage(resources.images[obj.properties.animation])
@@ -160,7 +172,6 @@ function Level:__init(file, group)
                                     end
                                 end
                             end
-                            object:run()
                         end
                     end
 
