@@ -6,15 +6,24 @@ You wake up in an abandoned lab and you are missing something rather important..
 
 ## Authors
 [Arne Beer](https://github.com/nukesor)
-Fabian Stegemann
-Hans Ole Hatzel
+
+[Fabian Stegemann](https://github.com/zetaron)
+
+[Hans Ole Hatzel](https://github.com/hatzel)
+
 Julian Tobergte
+
 Marvin Arnold
+
 [Rafael Epplee](https://github.com/raffomania)
+
 [Paul Bienkowski](https://github.com/opatut)
+
 [Sven-Hendrik Haase](https://github.com/svenstaro/)
+
 Tönjes Peters
-Manuel Riecke
+
+[Manuel Riecke](https://github.com/MrBeast)
 
 ## License
 
