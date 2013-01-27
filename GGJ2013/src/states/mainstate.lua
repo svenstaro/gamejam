@@ -9,6 +9,7 @@ require("objects/file")
 require("objects/trigger")
 require("objects/level")
 require("objects/enemy")
+require("objects/sprite")
 
 MainState = class("MainState", GameState)
 
@@ -31,8 +32,6 @@ function MainState:__init()
 
     self.levelFade = 0
     self.nextLevel = 0
-
-    -- self.objects:add(File("This is patient number 12391. You died."))
 end
 
 function MainState:parseLevel(i)
