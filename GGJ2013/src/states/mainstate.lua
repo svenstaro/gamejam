@@ -32,6 +32,8 @@ function MainState:__init()
 
     self.levelFade = 0
     self.nextLevel = 0
+
+    self.canvas = nil
 end
 
 function MainState:parseLevel(i)
@@ -120,20 +122,16 @@ function MainState:getMousePosition()
 end
 
 function MainState:draw()
-    love.graphics.setBackgroundColor(17, 17, 17)
+    local w, h = love.graphics.getWidth(), love.graphics.getHeight()
+    if not self.canvas or self.canvas:getWidth() ~= w or self.canvas:getHeight() ~= h then
+        self.canvas = love.graphics.newCanvas(w, h)
+    end
+    love.graphics.setCanvas(self.canvas)
+    love.graphics.setBackgroundColor(0, 0, 0)
     love.graphics.clear()
 
     love.graphics.push()
     love.graphics.translate(self:getOffset())
-
-    love.graphics.setColor(20, 20, 20)
-    for x = -20, 20 do
-        for y = -20, 20 do
-            if (x + y) % 2 == 0 then
-                love.graphics.rectangle("fill", x * 64, y * 64, 64, 64)
-            end
-        end
-    end
 
     self:world():draw()
     love.graphics.pop()
@@ -161,6 +159,17 @@ function MainState:draw()
         local t = "[E] " .. activeActionObject.actionText
         love.graphics.print(t, love.graphics.getWidth() / 2 -  love.graphics.getFont():getWidth(t) / 2, love.graphics.getHeight() - 100)
     end
+
+
+    -- distortion shader
+    resources:sendShaderValue("distort", "lifetime", self.lifetime)
+    resources:sendShaderValue("distort", "distortion", 1)
+    love.graphics.setPixelEffect(resources.shaders.distort)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setCanvas()
+    love.graphics.draw(self.canvas, 0, 0)
+    love.graphics.setPixelEffect()
+
 
     if self.levelFade > 0 then
         love.graphics.setColor(0, 0, 0, math.sin(math.pi * self.levelFade) * 255)

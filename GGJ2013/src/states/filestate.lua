@@ -48,7 +48,7 @@ function FileState:draw()
 
     love.graphics.setFont(resources.fonts.handSmall)
     love.graphics.printf(self.text, 30, 65, 400, "left")
-    love.graphics.printf("Press any to continue", 30, 575, 420, "center")
+    love.graphics.printf("Press [E] to continue", 30, 575, 420, "center")
 
     love.graphics.pop()
 end
