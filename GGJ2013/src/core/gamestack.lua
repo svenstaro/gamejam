@@ -20,6 +20,7 @@ function GameStack:push(state)
     if self:current() then self:current():stop() end
     table.insert(self.states, state)
     self:current():start()
+    self:current():onPush()
 end
 
 function GameStack:quit()
@@ -30,6 +31,7 @@ function GameStack:pop(number)
     if not self:current() then return end
 
     self:current():stop()
+    self:current():onPop()
     table.remove(self.states, #self.states)
 
     if number and number > 1 then

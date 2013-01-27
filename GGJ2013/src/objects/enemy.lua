@@ -6,9 +6,8 @@ require("core/vector")
 
 Enemy = class("Enemy", Sprite)
 
-function Enemy:__init(x, y)
-    Sprite.__init(self)
-    self:setAnimation(resources.images.slime, 16, 16, 0.5, 3)
+function Enemy:__init(x, y, image)
+    Sprite.__init(self, image)
     self.x = x
     self.y = y
     self.z = 0.8

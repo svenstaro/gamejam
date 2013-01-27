@@ -13,7 +13,7 @@ require("objects/sprite")
 
 MainState = class("MainState", GameState)
 
-function MainState:__init()
+function MainState:onPush()
     self.lifetime = 0
     self.centerX = 0
     self.centerY = 0
@@ -30,7 +30,7 @@ function MainState:__init()
     self.nextLevelSpawn = "spawn_01"
     self:setLevel(0)
 
-    self.levelFade = 0
+    self.levelFade = 0.5
     self.nextLevel = 0
 
     self.canvas = nil
@@ -69,16 +69,15 @@ function MainState:setLevel(i)
     self:playLevelMusic(i)
 end
 
-function MainState:playLevelMusic (i)
+function MainState:playLevelMusic(i)
     local playlist = {
         { "dark_factory", 0.1 },
         { "cave_theme", 0.1 }
     }
 
-    local audio_set = resources:makeSound(playlist[i+1][1], "stream", true)
-    audio_set:setVolume(playlist[i+1][2])
-    audio_set:play()
-
+    local music = resources.music[playlist[i + 1][1]]
+    music:setVolume(playlist[i + 1][2])
+    music:play()
 end
 
 function MainState:loadLevel(i)
