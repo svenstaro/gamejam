@@ -46,7 +46,8 @@ trigger_01:
 
 button_01:	
     door_05: unlock
-	
+	electric_01
+
 levelswitch_03:
     level3 spawn_01
 
@@ -60,6 +61,9 @@ button_01:
     door_03: unlock
     level2.door_03: unlock
     level4.door_01: unlock
+
+trigger_01:
+    dicker Heartsound
 
 #
 button_02:
