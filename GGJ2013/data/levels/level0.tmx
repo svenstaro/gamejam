@@ -15,9 +15,6 @@
  <tileset firstgid="113" name="baseDark" tilewidth="64" tileheight="64" spacing="4">
   <image source="tilesets/baseDark.png" trans="ff00ff" width="268" height="540"/>
  </tileset>
- <tileset firstgid="145" name="decorations3" tilewidth="64" tileheight="64" spacing="4">
-  <image source="tilesets/decorations3.png" trans="ff00ff" width="268" height="540"/>
- </tileset>
  <layer name="base" width="47" height="41">
   <data>
    <tile gid="0"/>
@@ -6591,8 +6588,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="171"/>
-   <tile gid="172"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -6638,8 +6633,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="175"/>
-   <tile gid="176"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7776,17 +7773,11 @@
   <object name="monstersound_01" type="music" x="704" y="1472" width="64" height="64">
    <properties>
     <property name="duration" value="10"/>
-    <property name="sounds" value=""/>
+    <property name="soundfiles" value=""/>
    </properties>
   </object>
   <object name="1_patient187" type="item" x="960" y="1216" width="128" height="128"/>
-  <object name="monsterspawn_01" type="monsterspawn" x="1024" y="512" width="64" height="64">
-   <properties>
-    <property name="animation" value="crab"/>
-    <property name="intervals" value="7"/>
-    <property name="sounds" value="monster_random_1,monster_random_2,monster_random_3_knurren"/>
-   </properties>
-  </object>
+  <object name="monsterspawn_01" type="monsterspawn" x="1024" y="512" width="64" height="64"/>
   <object name="monstertrigger_05" type="trigger" x="896" y="448" width="64" height="128"/>
   <object name="monstertrigger_06" type="trigger" x="768" y="512" width="128" height="64"/>
   <object name="monstertrigger_11" type="trigger" x="640" y="448" width="64" height="128"/>
