@@ -25,6 +25,26 @@ Tönjes Peters
 
 [Manuel Riecke](https://github.com/MrBeast)
 
+## Usage
+
+Download the Folder 'GGJ2013'. To do that, clone this repository or download it as a zip from [github](https://github.com/svenstaro/gamejam).
+
+### Linux
+
+Open a terminal, change into the directory 'GGJ2013' and run 
+
+    make run
+
+### Windows
+
+Open the folder you just downloaded and execute 'build.bat'.
+
+### Mac OS X
+
+We didn't try this yet; Try the instructions in the [Löve Wiki](https://love2d.org/wiki/Getting_Started).
+
+Alternatively, just install [Arch Linux](https://www.archlinux.org/).
+
 ## License
 
     This program is free software: you can redistribute it and/or modify
