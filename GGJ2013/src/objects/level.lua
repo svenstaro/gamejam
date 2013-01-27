@@ -130,7 +130,7 @@ function Level:__init(file, group)
                     if obj.type == "item" then
                         local headline = false
                         local text = ""
-                        for line in love.filesystem.lines("data/story/patientfiles/" .. obj.name) do
+                        for line in love.filesystem.lines("data/story/" .. obj.name) do
                             if not headline then
                                 headline = line
                             else
