@@ -54,6 +54,8 @@ The following files and directories are not part of this project and were redist
 * Bottle_Smashes_Glass_Grind_Finale_FF225.mp3 [page](http://www.freesound.org/people/martinimeniscus/sounds/164325/)
 * 200_pounds_stepping_on_a_glass_object.mp3 [page](http://www.freesound.org/people/Tomlija/sounds/106881/)
 * 16 button clicks [page](http://opengameart.org/content/16-button-clicks)
+* JacobsLadderSingle2.flac [page](http://www.freesound.org/people/Halleck/sounds/19487/)
+* electric_wire_03.wav (http://www.freesound.org/people/Glaneur%20de%20sons/sounds/34170/)
 
 * Cave Theme [page](http://opengameart.org/content/cave-theme)
 * Dark Factory [page](http://opengameart.org/content/dark-factory)
