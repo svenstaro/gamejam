@@ -82,7 +82,9 @@ function Level:__init(file, group)
                         if obj.properties and obj.properties.locked then
                             object.locked = true
                         end
-                    elseif obj.type == "trigger" or obj.type == "node" or obj.type == "hazard" then
+                    end
+
+                    if obj.type == "trigger" or obj.type == "node" or obj.type == "hazard" then
                         object = RectangleTrigger(obj.x, obj.y, obj.width, obj.height)
 
                         if obj.type == "hazard" then
@@ -97,16 +99,26 @@ function Level:__init(file, group)
                         if obj.properties and obj.properties.disabled then
                             object.enabled = false
                         end
-                    elseif obj.type == "waterdrop" then
+                    end
+
+                    if obj.type == "waterdrop" then
                         object = WaterDrop()
                         object.x = cx
                         object.y = cy
-                    elseif obj.type == "steam" then
+                    end
+
+                    if obj.type == "steam" then
                         object = Steam(obj.direction)
                         object.x = cx
                         object.y = cy
-                    elseif obj.type == "sprite" then
-                        object = Sprite(resources.images[obj.properties.image])
+                    end
+
+                    if obj.type == "sprite" or obj.type == "monsterspawn" then
+                        if obj.type == "monsterspawn" then
+                            object = Enemy(cx, cy, resources.images[obj.properties.image])
+                        else
+                            object = Sprite(resources.images[obj.properties.image])
+                        end
                         object.x = cx
                         object.y = cy
 
@@ -121,7 +133,9 @@ function Level:__init(file, group)
                         elseif obj.image then
                             object:setImage(resources.images[obj.properties.animation])
                         end
-                    elseif obj.type == "item" then
+                    end
+
+                    if obj.type == "item" then
                         local headline = false
                         local text = ""
                         for line in love.filesystem.lines("data/story/" .. obj.name) do
@@ -133,8 +147,9 @@ function Level:__init(file, group)
                         end
 
                         object = File(cx, cy, headline, text, "file")
-                    elseif obj.type == "monsterspawn" then
-                        object = Enemy(cx, cy)
+                    end
+
+                    if obj.type == "monsterspawn" then
                         if obj.properties.route then
                             -- find route
                             for j = 1, #layer.objects do

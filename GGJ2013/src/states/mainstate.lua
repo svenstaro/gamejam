@@ -67,17 +67,6 @@ function MainState:setLevel(i)
     end
     self:world():add(self.player)
     self:playLevelMusic(i)
-
-    -- TODO: set player position in new level
-
-    local dx, dy = self.player.x + 64 * 6, self.player.y
-
-    local enemy = Enemy(dx, dy)
-    enemy:addRoutePoint(dx, dy)
-    enemy:addRoutePoint(dx + 128, dy)
-    enemy:addRoutePoint(dx + 128, dy + 128)
-    enemy:run()
-    self:world():add(enemy)
 end
 
 function MainState:playLevelMusic (i)

@@ -2,7 +2,7 @@
 
 require("core/helper")
 require("core/object")
-require("src/external/AnAL")
+require("external/AnAL")
 
 Sprite = class("Sprite", Object)
 
@@ -64,7 +64,9 @@ function Sprite:update(dt)
         end
     end
 
-    self.animation:update(dt)
+    if visible then
+        self.animation:update(dt)
+    end
 end
 
 function Sprite:draw()
