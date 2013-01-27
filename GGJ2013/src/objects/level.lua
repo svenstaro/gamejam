@@ -169,8 +169,8 @@ function Level:__init(file, group)
                                 index = index - meta_firstgid
 
                                 -- wall tile
-                                if index == 1 then
-                                    group:add(WallTile(j * level.tilewidth, i * level.tileheight))
+                                if index <= 1 then
+                                    group:add(WallTile(j * level.tilewidth, i * level.tileheight, index == 1))
                                 end
                             else
 

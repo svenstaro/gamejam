@@ -4,11 +4,13 @@ require("core/object")
 
 WallTile = class("WallTile", Object)
 
-function WallTile:__init(x, y)
+function WallTile:__init(x, y, castShadow)
     self.x = x
     self.y = y
     self.z = 100
     self.blocking = true -- to toggle whether the wall is there or not
+
+    self.castShadow = castShadow
 
     self.physicsObject = {}
 end
