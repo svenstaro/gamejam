@@ -61,7 +61,7 @@ function RectangleTrigger:draw()
 
     if self.visible then
         love.graphics.setColor(255, 255, 255)
-        love.graphics.draw(resources.images[self.triggered and "trigger" or "triggerOn"], self.x + self.w / 2, self.y + self.h / 2, self.angle, 4, 4, 16, 16)
+        love.graphics.draw(resources.images[self.triggered and "triggerOn" or "trigger"], self.x + self.w / 2, self.y + self.h / 2, self.angle, 4, 4, 8, 8)
     end
 end
 
