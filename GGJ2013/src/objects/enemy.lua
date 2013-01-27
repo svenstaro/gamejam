@@ -15,7 +15,7 @@ function Enemy:__init(x, y, image)
     self.speed = 64
     self.scale = 4
     self.startled = false
-    self.range = 64 * 3
+    self.range = 64 * 2.25
     self.attack = false
 
     self.route = {}
