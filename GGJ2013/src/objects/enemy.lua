@@ -16,12 +16,15 @@ function Enemy:__init(x, y, image)
     self.scale = 4
     self.startled = false
     self.range = 64 * 3
+    self.attack = false
 
     self.route = {}
     self.currentTargetPoint = 1
 
     self.gotoTarget = nil
     self.gotoCallback = nil
+
+    self.eating = resources:makeSound("knurren_bad_boy_2")
 end
 
 function Enemy:run()
@@ -60,7 +63,10 @@ function Enemy:update(dt)
     local speed = 64 * 4
 
     if diff:len() <= self.range or self.startled then
-        -- follow player
+        if self.attack == false then
+            self.eating:play()
+            self.attack = true
+        end
     elseif self.gotoTarget and self.gotoCallback then
         diff = Vector(self.gotoTarget[1] - self.x, self.gotoTarget[2] - self.y)
 
