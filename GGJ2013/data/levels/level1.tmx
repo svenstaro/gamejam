@@ -4611,8 +4611,8 @@
    </properties>
   </object>
   <object name="2_patient343" type="item" x="1728" y="576" width="64" height="128"/>
-  <object x="960" y="1216">
-   <polyline points="0,0 0,64 -192,64 -256,128 -384,128 -384,0 -320,-64 -192,-64 -192,64 0,64 0,512 0,-384"/>
+  <object name="monsterroute_01" type="monsterroute" x="960" y="1280">
+   <polyline points="0,0 -192,0 -256,64 -448,64 -448,-128 -256,-128 -192,0 0,0 0,384 0,-512 0,0"/>
   </object>
  </objectgroup>
  <layer name="meta" width="36" height="42" visible="0" opacity="0.2">
