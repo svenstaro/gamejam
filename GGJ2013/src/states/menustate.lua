@@ -20,10 +20,10 @@ function MenuState:__init()
                          800, resources.fonts.handBig, 50)
 
     self.menu.callback = function(index, text)
-        if index == 1 then
+        if index == 2 then
             stack:pop()
             stack:push(main)
-        elseif index == 2 then
+        elseif index == 1 then
             stack:push(credits)
         elseif index == 3 then
             stack:pop()
@@ -36,7 +36,7 @@ function MenuState:update(dt)
 
     self.menu:update(dt)
 
-    self.heart.scale = ((self.lifetime + 0.08) % 1) > 0.1 and 1 or 1.05
+    self.heart.scale = ((self.lifetime + 0.08) % 1) > 0.15 and 1 or 1.05
     self.heart:update(dt)
 end
 

@@ -15,7 +15,7 @@ function ListMenu:__init(entries, x, y, width, font, line_height)
     self.callback = function(index, text) end -- empty callback
 
     self.selected = 2
-    self.prev_selected = 1
+    self.prev_selected = 2
 
     self.selected_with_mouse = false
 
