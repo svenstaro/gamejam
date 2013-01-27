@@ -1,6 +1,29 @@
 # 7th sense
 
-More later.
+An atmospheric Lovecraft-ish adventure game set in a dark place.
+
+You wake up in an abandoned lab and you are missing something rather important... 
+
+## Authors
+[Arne Beer](https://github.com/nukesor)
+
+[Fabian Stegemann](https://github.com/zetaron)
+
+[Hans Ole Hatzel](https://github.com/hatzel)
+
+Julian Tobergte
+
+Marvin Arnold
+
+[Rafael Epplee](https://github.com/raffomania)
+
+[Paul Bienkowski](https://github.com/opatut)
+
+[Sven-Hendrik Haase](https://github.com/svenstaro/)
+
+Tönjes Peters
+
+[Manuel Riecke](https://github.com/MrBeast)
 
 ## License
 
@@ -22,6 +45,7 @@ The following files and directories are not part of this project and were redist
 * the 7-Zip binary, see [here](http://www.7-zip.org/license.txt) for the license
 * src/external/AnAL.lua [GITHUB](https://github.com/bartbes/love-misc-libs/tree/master/AnAL)
 * data/DejaVuSans.ttf [LICENSE](http://dejavu-fonts.org/wiki/License)
+* data/SwankyandMooMoo.ttf, a google webfont
 * lib/linux_x86 (license file included)
 * lib/linux_x64 (license file included)
 * lib/windows_x86 (license file included)

@@ -20,7 +20,7 @@ end
 Level = class("Level", Object)
 
 function Level:__init(file, group)
-    level = require("data/levels/" .. file)
+    level = require("data/levels/lua/" .. file)
 
     self.x = 0
     self.y = 0
@@ -82,22 +82,22 @@ function Level:__init(file, group)
                         if obj.properties and obj.properties.locked then
                             object.locked = true
                         end
-                    elseif obj.type == "trigger" or obj.type == "node" then
+                    elseif obj.type == "trigger" or obj.type == "node" or obj.type == "hazard" then
                         object = RectangleTrigger(obj.x, obj.y, obj.width, obj.height)
-                        if obj.properties and obj.properties.to_level then
-                            print("Creating level switch")
-                            -- this is a level switch
+
+                        if obj.type == "hazard" then
                             object.onEnter = function()
-                                print("Entering level switch")
+                                player:kill(object)
+                            end
+                        elseif obj.properties and obj.properties.to_level then
+                            object.onEnter = function()
                                 main:fadeToLevel(obj.properties.to_level, obj.properties.location)
                             end
                         end
                         if obj.properties and obj.properties.disabled then
                             object.enabled = false
                         end
-                    end
-
-                    if obj.type == "waterdrop" then
+                    elseif obj.type == "waterdrop" then
                         object = WaterDrop()
                         object.x = cx
                         object.y = cy
@@ -107,6 +107,38 @@ function Level:__init(file, group)
                         object = Steam(obj.direction)
                         object.x = cx
                         object.y = cy
+                    end
+
+                    if obj.type == "sprite" then
+                        object = Sprite(resources.images[obj.properties.image])
+                        object.x = cx
+                        object.y = cy
+
+                        if obj.properties.sounds then
+                            local snds = split(obj.properties.sounds, ",")
+                            object:setSounds(snds, obj.properties.sounds_interval or 10, obj.properties.sounds_random or 5)
+                        end
+
+                        if obj.properties.animation then
+                            local img, w, h, time, count = split(obj.properties.animation, ",")
+                            object:setAnimation(resources.images[img], tonumber(w), tonumber(h), tonumber(time), tonumber(count))
+                        elseif obj.image then
+                            object:setImage(resources.images[obj.properties.animation])
+                        end
+                    end
+
+                    if obj.type == "item" then
+                        local headline = false
+                        local text = ""
+                        for line in love.filesystem.lines("data/story/patientfiles/" .. obj.name) do
+                            if not headline then
+                                headline = line
+                            else
+                                text = text .. "\n" .. line
+                            end
+                        end
+
+                        object = File(cx, cy, headline, text, "file")
                     end
 
                     if object then
@@ -138,17 +170,21 @@ function Level:__init(file, group)
                                     local realIndex = removeBitFlag(removeBitFlag(index, 0x40000000), 0x80000000)
 
                                     local quad = self.quads[realIndex]
-                                    local x, y, w, h = quad[2]:getViewport()
-                                    local flippedQuad = love.graphics.newQuad(
-                                            x, y, w, h,
-                                            quad[1]:getImage():getWidth(),
-                                            quad[1]:getImage():getHeight())
-                                    flippedQuad:flip(flipX, flipY)
-                                    self.quads[index] = {quad[1], flippedQuad}
+                                    if quad then
+                                        local x, y, w, h = quad[2]:getViewport()
+                                        local flippedQuad = love.graphics.newQuad(
+                                                x, y, w, h,
+                                                quad[1]:getImage():getWidth(),
+                                                quad[1]:getImage():getHeight())
+                                        flippedQuad:flip(flipX, flipY)
+                                        self.quads[index] = {quad[1], flippedQuad}
+                                    end
                                 end
 
                                 local quad = self.quads[index]
-                                quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
+                                if quad then
+                                    quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
+                                end
                             end
                         end
                     end

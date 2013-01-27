@@ -9,6 +9,7 @@ require("objects/file")
 require("objects/trigger")
 require("objects/level")
 require("objects/enemy")
+require("objects/sprite")
 
 MainState = class("MainState", GameState)
 
@@ -31,9 +32,8 @@ function MainState:__init()
 
     self.levelFade = 0
     self.nextLevel = 0
-    self:world():add(File("Patient: 47 \nShowed violent behavior."))
 
-    -- self.objects:add(File("This is patient number 12391. You died."))
+    self.canvas = nil
 end
 
 function MainState:parseLevel(i)
@@ -135,20 +135,16 @@ function MainState:getMousePosition()
 end
 
 function MainState:draw()
-    love.graphics.setBackgroundColor(17, 17, 17)
+    local w, h = love.graphics.getWidth(), love.graphics.getHeight()
+    if not self.canvas or self.canvas:getWidth() ~= w or self.canvas:getHeight() ~= h then
+        self.canvas = love.graphics.newCanvas(w, h)
+    end
+    love.graphics.setCanvas(self.canvas)
+    love.graphics.setBackgroundColor(0, 0, 0)
     love.graphics.clear()
 
     love.graphics.push()
     love.graphics.translate(self:getOffset())
-
-    love.graphics.setColor(20, 20, 20)
-    for x = -20, 20 do
-        for y = -20, 20 do
-            if (x + y) % 2 == 0 then
-                love.graphics.rectangle("fill", x * 64, y * 64, 64, 64)
-            end
-        end
-    end
 
     self:world():draw()
     love.graphics.pop()
@@ -158,20 +154,35 @@ function MainState:draw()
     resources:sendShaderValue("darkness", "blur", 128)
     resources:sendShaderValue("darkness", "width", love.graphics.getWidth())
     resources:sendShaderValue("darkness", "height", love.graphics.getHeight())
+
+    resources:sendShaderValue("darkness", "shadowmap", self.player.shadowMap)
     love.graphics.setPixelEffect(resources.shaders.darkness)
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
     love.graphics.setPixelEffect()
 
     love.graphics.setColor(255, 255, 255)
-    love.graphics.setFont(resources.fonts.tiny)
-    love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
+    if debug then
+        love.graphics.setFont(resources.fonts.tiny)
+        love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
+    end
 
-    love.graphics.setFont(resources.fonts.normal)
+    love.graphics.setFont(resources.fonts.handBig)
     if activeActionObject then
         local t = "[E] " .. activeActionObject.actionText
         love.graphics.print(t, love.graphics.getWidth() / 2 -  love.graphics.getFont():getWidth(t) / 2, love.graphics.getHeight() - 100)
     end
+
+
+    -- distortion shader
+    resources:sendShaderValue("distort", "lifetime", self.lifetime)
+    resources:sendShaderValue("distort", "distortion", 1)
+    love.graphics.setPixelEffect(resources.shaders.distort)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.setCanvas()
+    love.graphics.draw(self.canvas, 0, 0)
+    love.graphics.setPixelEffect()
+
 
     if self.levelFade > 0 then
         love.graphics.setColor(0, 0, 0, math.sin(math.pi * self.levelFade) * 255)
@@ -182,6 +193,7 @@ end
 function MainState:update(dt)
     self.lifetime = self.lifetime + dt
 
+    self.player:bakeShadows(self:world().physicsWorld)
     self:world():update(dt)
 
     if self.levelFade > 0 then
