@@ -18296,7 +18296,7 @@
   <object name="door_04" type="door" x="3072" y="4352" width="64" height="128"/>
   <object name="door_03" type="door" x="1152" y="2048" width="128" height="64"/>
  </objectgroup>
- <layer name="meta" width="77" height="79" visible="0" opacity="0.2">
+ <layer name="meta" width="77" height="79" opacity="0.2">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>

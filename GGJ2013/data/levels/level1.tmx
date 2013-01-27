@@ -573,9 +573,9 @@
    <tile gid="139"/>
    <tile gid="2147483787"/>
    <tile gid="6"/>
-   <tile gid="65"/>
-   <tile gid="65"/>
-   <tile gid="65"/>
+   <tile gid="139"/>
+   <tile gid="132"/>
+   <tile gid="2147483787"/>
    <tile gid="6"/>
    <tile gid="1073741963"/>
    <tile gid="3221225611"/>
@@ -8211,9 +8211,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
+   <tile gid="65"/>
+   <tile gid="65"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
