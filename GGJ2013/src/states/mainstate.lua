@@ -13,6 +13,10 @@ require("objects/sprite")
 
 MainState = class("MainState", GameState)
 
+function MainState:__init()
+    self.checkpoint = {}
+end
+
 function MainState:onPush()
     self.lifetime = 0
     self.centerX = 0
@@ -37,6 +41,7 @@ function MainState:onPush()
 end
 
 function MainState:parseLevel(i)
+    if type(i) == "number" then return i end
     -- relative level switching ("+1")
     local fc = string.sub(i, 0, 1)
     if fc == "+" or fc == "-" then
@@ -62,11 +67,19 @@ function MainState:setLevel(i)
         else
             self.player.x = spawn.x + spawn.w / 2
             self.player.y = spawn.y + spawn.h / 2
+
+            self.checkpoint = {self.currentLevel, self.nextLevelSpawn}
         end
         self.nextLevelSpawn = nil
     end
     self:world():add(self.player)
     self:playLevelMusic(i)
+end
+
+function MainState:respawn()
+    self.nextLevelSpawn = self.checkpoint[2]
+    self:setLevel(self.checkpoint[1])
+    self.levelFade = 0.5
 end
 
 function MainState:playLevelMusic(i)
@@ -98,12 +111,72 @@ function MainState:loadLevel(i)
     if i == 0 then
         o:byName("trigger_01").onEnter = function()
             o:byName("trigger_02").enabled = true
+
+            -- TODO: Hammer graphics
         end
 
         o:byName("trigger_02").onEnter = function()
             o:byName("door_09").locked = false
+
+            -- TODO: Button graphics
         end
+    elseif i == 1 then
+        o:byName("button_01").onEnter = function()
+            o:byName("door_06").locked = false
+            o:byName("door_07").locked = false
+            o:byName("door_08").locked = false
+            o:byName("monsterspawn_01").visible = true
+            o:byName("hazard_01").enabled = true
+            -- TODO
+            -- o:byName("hazard_01_sprite").visible = true
+            o:byName("door_05").locked = true
+            o:byName("monstersound_01").audible = false
+            o:byName("trigger_02").enabled = true
+
+            -- TODO: Button graphics
+        end
+
+        o:byName("trigger_01").onEnter = function()
+            o:byName("door_08").locked = true
+        end
+
+        o:byName("trigger_02").onEnter = function()
+            o:byName("door_02").locked = true
+            o:byName("monsterspawn_01"):run()
+        end
+    elseif i == 2 then
+        o:byName("trigger_01").onEnter = function()
+            o:byName("door_00").locked = false
+        end
+
+        o:byName("button_01").onEnter = function()
+            o:byName("door_05").locked = false
+        end
+    elseif i == 3 then
+        o:byName("button_01").onEnter = function()
+            o:byName("door_02").locked = false
+            o:byName("door_03").locked = false
+            self.objects[2]:byName("door_03").locked = false
+            self.objects[4]:byName("door_01").locked = false
+        end
+
+        o:byName("button_02").onEnter = function()
+            self.objects[2]:byName("door_03").locked = false
+        end
+    elseif i == 4 then
+        o:byName("button_01").onEnter = function()
+            for i = 1, 7 do
+                o:byName("hazard_0" .. i).enabled = true
+                o:byName("hazard_0" .. i .. "_sprite").visible = true
+            end
+            self.objects[2]:byName("door_06").locked = false
+        end
+    elseif i == 5 then
+    elseif i == 7 then
+
     end
+
+
     -- HERE ENDS MAGIC
 end
 

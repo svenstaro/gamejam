@@ -13,6 +13,7 @@ function Trigger:__init()
     self.onChange = function() end
 
     self.enabled = true
+    self.triggered = false
 end
 
 function Trigger:isInside(player)
@@ -28,6 +29,7 @@ function Trigger:update(dt)
     if inside ~= self.inside then
         if inside then
             self.onEnter()
+            self.triggered = true
         else
             self.onLeave()
         end
@@ -47,12 +49,19 @@ function RectangleTrigger:__init(x, y, w, h)
     self.y = y
     self.w = w
     self.h = h
+
+    self.visible = false
 end
 
 function RectangleTrigger:draw()
     if debug then
         love.graphics.setColor(0, 255, 0)
         love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
+    end
+
+    if self.visible then
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.draw(resources.images[self.triggered and "trigger" or "triggerOn"], self.x + self.w / 2, self.y + self.h / 2, self.angle, 4, 4, 16, 16)
     end
 end
 
