@@ -34,13 +34,13 @@ float cnoise4(const in vec3 xx)
 }
 
 vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 pixel_coords) {
-    float dist = distortion * abs(sin(round(lifetime * 0.4)));
-    float dist2 = distortion * abs(sin(round(lifetime * 0.6))) * 0.2;
+    float dist = distortion * abs(sin(floor(lifetime * 0.4)));
+    float dist2 = distortion * abs(sin(floor(lifetime * 0.6))) * 0.2;
     vec2 distCoords = texture_coords;
     float dx = cnoise4(vec3(lifetime + texture_coords.y * 25 * dist2, 0, 0));
-    dx = mod(dx, 0.9) > 0.8 ? 0.0 : round(dx * 5.0) / 9.0;
+    dx = mod(dx, 0.9) > 0.8 ? 0.0 : floor(dx * 5.0) / 9.0;
     distCoords.x += dx * 0.0006 * cnoise4(vec3(0, lifetime * dist * dist, 0) * dist * 100);
-    color.b += 0.06 + dx * 0.06 * cnoise4(vec3(0, sin(round(lifetime)), 0) * dist * 100000);
+    color.b += 0.06 + dx * 0.06 * cnoise4(vec3(0, sin(floor(lifetime)), 0) * dist * 100000);
     //distCoords.y += noise(vec2(texture_coords.y, texture_coords.x) * -213.21) * dist * 0.01;
 
     if(mod(pixel_coords.y, 4) <= 2) {

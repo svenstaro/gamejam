@@ -1,5 +1,7 @@
 extern number range;  // radius of fog circle
 extern number blur;   // size of blur in each direction of circle radius
+extern number frontblur; 
+extern number angle;
 extern number width;  // screen width
 extern number height; // screen height
 extern sampler2D shadowmap;
