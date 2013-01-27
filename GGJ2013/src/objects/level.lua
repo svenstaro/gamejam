@@ -142,6 +142,7 @@ function Level:__init(file, group)
 
                         if obj.properties.animation then
                             local img, w, h, time, count = unpack(obj.properties.animation:split(","))
+                            print(img, resources.images[img])
                             object:setAnimation(resources.images[img], tonumber(w), tonumber(h), tonumber(time), tonumber(count))
                         elseif obj.image then
                             object:setImage(resources.images[obj.properties.animation])
