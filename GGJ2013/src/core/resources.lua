@@ -95,5 +95,9 @@ function Resources:load(threaded)
 end
 
 function Resources:makeSound(name, mode)
-    return love.audio.newSource(self.sounds[name], "static")
+    if self.sounds[name] then
+        return love.audio.newSource(self.sounds[name], "static")
+    else
+        error("No sound " .. name .. " loaded.")
+    end
 end
