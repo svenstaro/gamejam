@@ -12,6 +12,9 @@
  <tileset firstgid="81" name="decorations2" tilewidth="64" tileheight="64" spacing="4">
   <image source="tilesets/decorations2.png" trans="ff00ff" width="268" height="540"/>
  </tileset>
+ <tileset firstgid="113" name="decorations3" tilewidth="64" tileheight="64" spacing="4">
+  <image source="tilesets/decorations3.png" width="268" height="540"/>
+ </tileset>
  <layer name="base" width="31" height="32">
   <data>
    <tile gid="0"/>
@@ -1340,6 +1343,8 @@
    <tile gid="0"/>
    <tile gid="2147483673"/>
    <tile gid="0"/>
+   <tile gid="105"/>
+   <tile gid="106"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1353,6 +1358,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="85"/>
+   <tile gid="86"/>
+   <tile gid="87"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1366,13 +1374,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="109"/>
+   <tile gid="110"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1386,6 +1389,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="89"/>
+   <tile gid="90"/>
+   <tile gid="91"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1403,6 +1409,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="136"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1509,6 +1516,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="3221225599"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1539,12 +1547,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="2147483775"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1575,6 +1578,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="1073741955"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1584,8 +1588,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="84"/>
    <tile gid="1073741849"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1618,6 +1621,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="86"/>
+   <tile gid="87"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1642,15 +1647,13 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="93"/>
+   <tile gid="94"/>
+   <tile gid="95"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="90"/>
+   <tile gid="91"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1675,9 +1678,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="97"/>
+   <tile gid="98"/>
+   <tile gid="99"/>
    <tile gid="0"/>
    <tile gid="25"/>
    <tile gid="0"/>
@@ -1706,9 +1709,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="101"/>
+   <tile gid="102"/>
+   <tile gid="103"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1779,7 +1782,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="83"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1810,6 +1813,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="83"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -1840,8 +1844,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="83"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2351,6 +2354,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="2147483686"/>
+   <tile gid="2147483685"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2380,6 +2385,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="2147483690"/>
+   <tile gid="2147483689"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2610,6 +2617,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="96"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2640,12 +2648,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="100"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3007,7 +3010,11 @@
     <property name="to_level" value="-2"/>
    </properties>
   </object>
-  <object name="button_01" type="trigger" x="1024" y="1152" width="64" height="64"/>
+  <object name="button_01" type="trigger" x="1024" y="1152" width="64" height="64">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
   <object name="hazard_02" type="hazard" x="1344" y="1344" width="64" height="64"/>
   <object name="hazard_01" type="hazard" x="896" y="1600" width="64" height="64"/>
   <object name="hazard_03" type="hazard" x="640" y="1088" width="64" height="64"/>
@@ -3017,15 +3024,20 @@
   <object name="hazard_05" type="hazard" x="768" y="1280" width="64" height="64"/>
   <object name="door_01" type="door" x="256" y="384" width="128" height="64"/>
   <object name="monster_01" type="monsterspawn" x="576" y="320" width="64" height="64"/>
-  <object name="spawn_01" type="node" x="320" y="256" width="64" height="64"/>
+  <object name="spawn_01" type="node" x="256" y="256" width="128" height="64"/>
   <object name="monstersound_01" type="music" x="320" y="1728" width="64" height="64">
    <properties>
     <property name="durations" value="10"/>
     <property name="soundfiles" value=""/>
    </properties>
   </object>
+  <object name="waterdrop_3" type="waterdrop" x="1536" y="768" width="64" height="64">
+   <properties>
+    <property name="sounds" value="waterdrip_1,waterdrip_2,waterdrip_3,waterdrip_4"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer name="meta" width="31" height="32" visible="0" opacity="0.37">
+ <layer name="meta" width="31" height="32" opacity="0.37">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3530,7 +3542,7 @@
    <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="66"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3561,48 +3573,17 @@
    <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="66"/>
+   <tile gid="65"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
@@ -3623,6 +3604,37 @@
    <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="66"/>
+   <tile gid="65"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="65"/>
+   <tile gid="66"/>
+   <tile gid="66"/>
+   <tile gid="66"/>
+   <tile gid="66"/>
+   <tile gid="66"/>
+   <tile gid="66"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3635,6 +3647,13 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="66"/>
+   <tile gid="65"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3643,13 +3662,6 @@
    <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3666,7 +3678,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="66"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4021,4 +4033,44 @@
    <tile gid="0"/>
   </data>
  </layer>
+ <objectgroup name="hazards" width="31" height="32">
+  <object name="hazard_02_sprite" type="sprite" x="1344" y="1344" width="64" height="64">
+   <properties>
+    <property name="angle" value="-45"/>
+    <property name="animation" value="fire,48,13,0.4,3"/>
+   </properties>
+  </object>
+  <object name="hazard_03_sprite" type="sprite" x="640" y="1088" width="64" height="64">
+   <properties>
+    <property name="angle" value="180"/>
+    <property name="animation" value="fire,48,13,0.4,3"/>
+   </properties>
+  </object>
+  <object name="hazard_01_sprite" type="sprite" x="896" y="1600" width="64" height="64">
+   <properties>
+    <property name="angle" value="-45"/>
+    <property name="animation" value="fire,48,13,0.4,3"/>
+   </properties>
+  </object>
+  <object name="hazard_04_sprite" type="sprite" x="1536" y="1600" width="64" height="64">
+   <properties>
+    <property name="animation" value="spike,48,16,0.4,3"/>
+   </properties>
+  </object>
+  <object name="hazard_05_sprite" type="sprite" x="768" y="1280" width="64" height="64">
+   <properties>
+    <property name="animation" value="spike,48,16,0.4,3"/>
+   </properties>
+  </object>
+  <object name="hazard_06_sprite" type="sprite" x="384" y="832" width="64" height="64">
+   <properties>
+    <property name="animation" value="spike,48,16,0.4,3"/>
+   </properties>
+  </object>
+  <object name="hazard_07_sprite" type="sprite" x="768" y="576" width="64" height="64">
+   <properties>
+    <property name="animation" value="spike,48,16,0.4,3"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
