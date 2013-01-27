@@ -35,6 +35,7 @@ function Player:bakeShadows(world)
         world:rayCast(self.x, self.y, dx, dy, function(fixture, x, y, xn, yn, fraction)
             local user = fixture:getUserData()
             if user.__name == "Player" then return 1 end
+            if user.__name == "WallTile" and not user.castShadow then return 1 end
 
             --love.graphics.setColor(255, 0, 0)
             --love.graphics.circle("fill", x, y, 2)
@@ -105,15 +106,11 @@ function Player:update(dt)
     end
 
     local tmphead_angle = math.atan2(my - self.y, mx - self.x)
-    
-    print("head:" .. tmphead_angle)
-    print("walk:" .. self.walk_angle % math.pi)
 
     if math.abs(tmphead_angle - self.walk_angle) < 1 then
         self.head_angle = math.atan2(my - self.y, mx - self.x)
     end
     if not goleft and ((tmphead_angle > (math.pi -0.5) or (tmphead_angle < -2.1))) then
-        print("fix")
         self.head_angle = math.atan2(my - self.y, mx - self.x)
     end
 
