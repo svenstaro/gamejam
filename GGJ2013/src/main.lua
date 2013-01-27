@@ -61,15 +61,15 @@ function love.load()
     resources:addFont("handBig", "SwankyandMooMoo.ttf", 32)
 
     -- load sounds
-    resources:addAudio("door_slide", "sfx/door_slide.ogg")
-    resources:addAudio("walk_high", "sfx/walk_high.ogg")
-    resources:addAudio("walk_low", "sfx/walk_low.ogg")
+    resources:addSound("door_slide", "sfx/door_slide.ogg")
+    resources:addSound("walk_high", "sfx/walk_high.ogg")
+    resources:addSound("walk_low", "sfx/walk_low.ogg")
 
     -- load background sounds
-    resources:addAudio("dark_factory", "sfx/dark-factory.ogg", "stream")
-    resources:addAudio("cave_theme", "sfx/cave-theme.ogg", "stream")
-    resources:addAudio("heartbeat", "sfx/heartbeat.ogg")
-    resources:addAudio("heartbeat_pulse", "sfx/heartbeat_pulse.ogg")
+    resources:addSound("heartbeat", "sfx/heartbeat.ogg")
+    resources:addSound("heartbeat_pulse", "sfx/heartbeat_pulse.ogg")
+    resources:addMusic("dark_factory", "sfx/dark-factory.ogg", "stream")
+    resources:addMusic("cave_theme", "sfx/cave-theme.ogg", "stream")
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")

@@ -7,12 +7,14 @@ Resources = class("Resources")
 function Resources:__init(prefix)
     self.prefix = prefix
     self.imageQueue = {}
-    self.audioQueue = {}
+    self.soundQueue = {}
+    self.musicQueue = {}
     self.fontQueue = {}
     self.shaderQueue = {}
 
     self.images = {}
-    self.audio = {}
+    self.sounds = {}
+    self.music = {}
     self.fonts = {}
     self.shaders = {}
 end
@@ -25,8 +27,12 @@ function Resources:addImage(name, src)
     self.imageQueue[name] = src
 end
 
-function Resources:addAudio(name, src, type)
-    self.audioQueue[name] = src
+function Resources:addSound(name, src)
+    self.soundQueue[name] = src
+end
+
+function Resources:addMusic(name, src)
+    self.musicQueue[name] = src
 end
 
 function Resources:addShader(name, src)
@@ -68,9 +74,14 @@ function Resources:load(threaded)
         self.imageQueue[name] = nil
     end
 
-    for name, src in pairs(self.audioQueue) do
-        self.audio[name] = love.sound.newSoundData(self.prefix .. src)
-        self.audioQueue[name] = nil
+    for name, src in pairs(self.soundQueue) do
+        self.sounds[name] = love.sound.newSoundData(self.prefix .. src)
+        self.soundQueue[name] = nil
+    end
+
+    for name, src in pairs(self.musicQueue) do
+        self.music[name] = love.audio.newSource(self.prefix .. src, "stream")
+        self.musicQueue[name] = nil
     end
 
     for name, src in pairs(self.shaderQueue) do
@@ -83,16 +94,6 @@ function Resources:load(threaded)
     end
 end
 
-
-function Resources:makeSound(name, mode, loop)
-
-    local audio_mode = "static"
-
-    if mode ~= nil then audio_mode = "stream" end
-
-    local audio = love.audio.newSource(self.audio[name], audio_mode)
-
-    if loop == true then audio:setLooping(true) end
-
-    return audio
+function Resources:makeSound(name, mode)
+    return love.audio.newSource(self.sounds[name], "static")
 end
