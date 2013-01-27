@@ -15,12 +15,13 @@ function Enemy:__init(x, y)
     self.angle = 0
     self.speed = 64
     self.scale = 4
-    self.startled = true
+    self.startled = false
+    self.range = 64 * 3
 
     self.route = {}
     self.currentTargetPoint = 1
 
-    self.gotoTarget = {self.x, self.y}
+    self.gotoTarget = nil
     self.gotoCallback = nil
 end
 
@@ -51,17 +52,31 @@ end
 function Enemy:update(dt)
     Sprite.update(self, dt)
 
-    if self.gotoTarget and self.gotoCallback then
-        local diff = Vector(self.gotoTarget[1] - self.x, self.gotoTarget[2] - self.y)
+    local diff = Vector(main.player.x - self.x, main.player.y - self.y)
+
+    if diff:len() < 32 then
+        main.player:kill(self)
+    end
+
+    local speed = 64 * 4
+
+    if diff:len() <= self.range or self.startled then
+        -- follow player
+    elseif self.gotoTarget and self.gotoCallback then
+        diff = Vector(self.gotoTarget[1] - self.x, self.gotoTarget[2] - self.y)
+
         if (self.gotoTarget[1] == self.x and self.gotoTarget[2] == self.y) or diff:len() <= 1 then
             self.x, self.y = unpack(self.gotoTarget)
             self.gotoCallback()
-        else
-            diff:normalize()
-            self.x = self.x + diff.x * dt * self.speed
-            self.y = self.y + diff.y * dt * self.speed
+            return
         end
-
-        self.angle = diff:angleTo(Vector(1, 0))-- math.atan2(main.player.y - self.y, main.player.x - self.x)
+        speed = self.speed
+    else
+        return -- don't go anywhere
     end
+
+    diff:normalize()
+    self.x = self.x + diff.x * dt * speed
+    self.y = self.y + diff.y * dt * speed
+    self.angle = math.atan2(diff.y, diff.x)
 end
