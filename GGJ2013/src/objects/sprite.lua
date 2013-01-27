@@ -2,7 +2,7 @@
 
 require("core/helper")
 require("core/object")
-require("src/external/AnAL")
+require("external/AnAL")
 
 Sprite = class("Sprite", Object)
 
