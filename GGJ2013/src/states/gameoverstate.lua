@@ -7,13 +7,29 @@ GameOverState = class("GameOverState", GameState)
 
 function GameOverState:__init()
     self.lifetime = 0
+    self.counter = 0
+    self.kill = true
+    self.eating = resources:makeSound("final_monster_1")
+    
+    require("core/gamestate")
+    require("core/resources")
+    require("core/listmenu")
 
-    self.heartbeat = resources:makeSound("heartbeat")
 end
 
 function GameOverState:update(dt)
     self.lifetime = self.lifetime + dt
-    
+    if self.counter < 1 then
+        self.eating:setVolume(0.2)
+        self.eating:play()
+        self.counter = self.counter + 1
+    end
+    if self.kill then
+        local eating2 = resources:makeSound("final_monster_2")
+        eating2:setVolume(1)
+        eating2:play()
+        self.kill = false
+    end 
 end
 
 function GameOverState:draw()
@@ -29,6 +45,11 @@ function GameOverState:draw()
 end
 
 function GameOverState:keypressed(k, u)
-    stack:pop()
-    stack:push(menu)
+    self.counter = 0
+    self.eating:setVolume(0)
+    self.kill = true
+    if self.lifetime > 2 then
+        stack:pop()
+        stack:push(menu)
+    end
 end

@@ -68,6 +68,8 @@ function love.load()
     resources:addSound("walk_high", "sfx/walking_footstep_1.ogg")
     resources:addSound("walk_normal", "sfx/walking_footstep_2.ogg")
     resources:addSound("walk_low", "sfx/walking_footstep_3.ogg")
+    resources:addSound("final_monster_1", "sfx/final_monster_1.ogg", "stream")
+    resources:addSound("final_monster_2", "sfx/final_monster_2.ogg", "stream")
 
     -- load background sounds
     resources:addSound("heartbeat", "sfx/heartbeat.ogg")
