@@ -21,7 +21,6 @@ function MenuState:__init()
 
     self.menu.callback = function(index, text)
         if index == 2 then
-            stack:pop()
             stack:push(main)
         elseif index == 1 then
             stack:push(credits)
