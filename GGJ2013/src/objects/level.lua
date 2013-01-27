@@ -109,6 +109,7 @@ function Level:__init(file, group)
 
                         if obj.properties.angle ~= nil then
                             object.angle = obj.properties.angle * math.pi / 180
+                            object.visible = true
                         end
                     end
 
