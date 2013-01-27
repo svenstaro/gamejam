@@ -22,12 +22,17 @@
  </layer>
  <layer name="decorations" width="44" height="43">
   <data encoding="base64" compression="zlib">
-   eJztlT0OwjAMhX0JBg5C1/gSwJqhYwaOkIWFIsGRcjTsBiGrVVRaqNLhfaqV1/z1KXUSIgAAAABMcSBKjYStc7k+rvXNi8wd3uVuwXhntHhnfWdax7P4TOIzhZlz342+Gd1R7zlKkP/d3oiQY7bf1uhHQds+/+IocZI4zxij/5zzGqZhGxd0TVh8+lyq93Q1baU8qQnL09JnT7H1+zTa5kZNdC+5XMbKVr7GG605IOvc50Y3qN8Kdu9rDjQ54trnwxL0TnPT3TaD3ltc20SBfUEDAAAAAAAAAACWF/xsJmw=
+   eJztmEtugzAQhn2JLLrPBdJewGeIknbLIktL4QQNXXTTVEqP5KPVYwaYjkzKw2BHmk8aMRg7/jOMzYBSgiAIwqPwgSasz04p7cyyNrBqqTlL99sGj5sJ46k28FGv5f8jBk6ndTqtGRmPb+J/Ef+qupgXEfRxTG2j9Z6If+vxaZ9YHJ29OnsbMQbjF8zRHes3S1wkQEehulz9JNf68iQloPGk2jhrqveH+DeVBxhXO+V+41rxFl9ZPwXxIQeaWF9ZO8fp1IaNXwO69iEHcP39uz+UtVVz9o73kf1Rm54yF2gt6z1/NpeBGpr8jTDlJJ5xH70Erj31+Cl5UV6zTa1jKFsX30fSC2zZs3XT1UF+D8J1orGW000fOiaUT2sBdSXq87UQ1nGV+atXEFqOE9boeQEdQt5gvZgdJTkGzHJ/n8EzKaQRvw20795oer/gN4khGBLDRiM51/QacEiisiN077lu0lblkg+mri2oPnruaw7omzofBEG4zy/zl2yd
   </data>
  </layer>
- <layer name="decoration 2" width="44" height="43">
+ <layer name="decorations 2" width="44" height="43">
   <data encoding="base64" compression="zlib">
-   eJzt1zsOgCAQRdHZBrtxafRG2RJL05JYyc8ZxnsqCiEvZnhGEcCvILIV66yXBBYxH98p33Xj/jwmCVZxaAeodGoHcGjXDlApvXzu2Yf0W73V+gF23PctWj5/dr4/oFN9Cf3744gco/X+G8GX1ea8dX7pZ8C/1j6z+r0GZrgA5eMN0A==
+   eJzt100KgCAQBWCv4W06RUFdxmgVUV3Jo+UmkDbl78zY+0BokfEoe5lSAO3SSnXesaVLAhxhfdTj3+vI+TZPEpBipw4Q6KAO0KCNOkCg8+N5zz6U0G+9GwN1CM9bP4xuTDWCgDjufTOcr186H1ez68Ulca94q9Wp60+fVW06fb7JkSO31H8jaIu0dR67fiXseQEgTWyfcf1eA5RwAc8fEb8=
+  </data>
+ </layer>
+ <layer name="decorations 3" width="44" height="43">
+  <data encoding="base64" compression="zlib">
+   eJztzrENAAAEADCvG33tBwORtBc0AgAAAGBfXgcG6joAAAC80zvXAQs=
   </data>
  </layer>
  <objectgroup name="obj" width="44" height="43">
