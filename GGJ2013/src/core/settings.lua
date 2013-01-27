@@ -10,7 +10,7 @@ function Settings:__init()
 end
 
 function Settings:get(key, default)
-    if self.data[key] then
+    if table.containsKey(self.data, key) then
         return self.data[key]
     else
         self:set(key, default)

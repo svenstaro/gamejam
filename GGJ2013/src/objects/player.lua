@@ -172,3 +172,7 @@ function Player:draw()
     -- debug
     -- if self.shadowMap then love.graphics.draw(self.shadowMap, self.x, self.y - 20, 0, 1, 10) end
 end
+
+function Player:kill()
+    print("Player died")
+end

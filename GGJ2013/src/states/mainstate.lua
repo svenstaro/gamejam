@@ -152,10 +152,12 @@ function MainState:draw()
     love.graphics.setPixelEffect()
 
     love.graphics.setColor(255, 255, 255)
-    love.graphics.setFont(resources.fonts.tiny)
-    love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
+    if debug then
+        love.graphics.setFont(resources.fonts.tiny)
+        love.graphics.print(love.timer.getFPS() .. " FPS", 10, 10)
+    end
 
-    love.graphics.setFont(resources.fonts.normal)
+    love.graphics.setFont(resources.fonts.handBig)
     if activeActionObject then
         local t = "[E] " .. activeActionObject.actionText
         love.graphics.print(t, love.graphics.getWidth() / 2 -  love.graphics.getFont():getWidth(t) / 2, love.graphics.getHeight() - 100)
