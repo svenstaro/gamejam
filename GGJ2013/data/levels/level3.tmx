@@ -12,19 +12,32 @@
  <tileset firstgid="81" name="decorations2" tilewidth="64" tileheight="64" spacing="4">
   <image source="tilesets/decorations2.png" trans="ff00ff" width="268" height="540"/>
  </tileset>
+ <tileset firstgid="113" name="decorations3" tilewidth="64" tileheight="64" spacing="4">
+  <image source="tilesets/decorations3.png" width="268" height="540"/>
+ </tileset>
  <layer name="base" width="44" height="43">
   <data encoding="base64" compression="zlib">
-   eJztmEEOwiAQRenGhQZrTBPtbXoUFx6Eo/VoDkLNlDAWYSit4Sc/pZLQZ/uBCUJUVf2vOvBJiEG7Kw0ToFaI8W7dloYJkOa9We+Ft4FrY9qbzwcwKszr3m9NS7zTu44xx/fpnTHPYIr3YK+xTv0+vcPnG5/iffzY5uC9OOMBuzoH8j6J/5jz/bq8F7OGkfktnYe98UJ+9Xz/GO7Vlnk9/LP5J41ZebnWN816XHheKu/Vw5+LlYOXIx8UK/w26kxLVE9wO4YXzyfMquce1Z+Qh4GbF7O6/e7zfjXOk4ycbx5eBbzj1G/rybdxO8YctR6Rhxkzl3LxTszcNSMHb2/YknIZOoe4an+7LysO7jV4He5g47VZmjyI3HmIlebCtYWuNZayLQvypu4jlfe7qL3Dl2mf1z7LwOcoVEZ9mS515hKbh1JnLpU3rypvXsXWwls8k62qyqUXzAdHRw==
+   eJztmFEOgyAQRPGnH22opjFpvY1H42gerUvBZiVQdVkEGyaZqCXBlzoLG4Soqvpf9eCbEKN2nxtmg1ohppd1mxtmgzTv0/osvA1cG3NffD6AUWFe97k0rfHO/zXFHN9ncOa8g0O8F3ulOvb7DA6fb/6SeDtnPmBX9xPxdmYNC+a38u4T5FfX+9fwrErm9fAv6k8as/JyrW+a9bryvljeh4c/FSsHL0c+Qqzw26QzLVE/wW0KL64nzKprLzQekYeRmxezuuPu+/Ya50kS683Dq4B3msdtP/kxvqeYo9cL5GHBzKVUvDMzd8/IwTsYtqhcbq0hrt7f7suKg/sIXod7s/HaLE0eROo8UKW5cG+he421bMuMvLH7SOX9rdDe4cu0z0efZeBzlFBGfZnOdeZCzUOuM5fKm1aVN62ovXCJZ7JVVan0BoUvRWg=
   </data>
  </layer>
  <layer name="decorations" width="44" height="43">
   <data encoding="base64" compression="zlib">
-   eJztzrENgDAMRUEvQcFgwBIpGCGjZTQsQQEFgi4g3UlfdvkiAIAvWiNqOe7QO+ZBdrbsbHlr75Y3yr7f9E65Obf0DgHgYrz5AQAA4GwDX6AJYg==
+   eJzt1iEOwDAQA8E8OP/HJUUBJZHbu3RGMl/oMYBK5r0u9GatvdX7T+qdG9OrV6/ek3oT7d16V3rf0613l94svVl6s77srfh9nnTrBQD+4QJTH3mB
   </data>
  </layer>
- <layer name="decoration 2" width="44" height="43">
+ <layer name="decorations 2" width="44" height="43">
   <data encoding="base64" compression="zlib">
-   eJzt18ENABAMheGuYRujGc1oHMWxiqr/O7lUGqknRIC4kkge1vVeJ/CI+ThnPGtlfbXpBADumvOQfAPO6feteN5/d38/IFNjSev1xaIPa6t/I8Ty2pxr55d8BuLT5pnX9xrYoQFm7wsO
+   eJztmEtugzAQhn2JLLrPBdJewGeIknbLIktL4QQNXXTTVEqP5KPVYwaYjkzKw2BHmk8aMRg7/jOMzYBSgiAIwqPwgSasz04p7cyyNrBqqTlL99sGj5sJ46k28FGv5f8jBk6ndTqtGRmPb+J/Ef+qupgXEfRxTG2j9Z6If+vxaZ9YHJ29OnsbMQbjF8zRHes3S1wkQEehulz9JNf68iQloPGk2jhrqveH+DeVBxhXO+V+41rxFl9ZPwXxIQeaWF9ZO8fp1IaNXwO69iEHcP39uz+UtVVz9o73kf1Rm54yF2gt6z1/NpeBGpr8jTDlJJ5xH70Erj31+Cl5UV6zTa1jKFsX30fSC2zZs3XT1UF+D8J1orGW000fOiaUT2sBdSXq87UQ1nGV+atXEFqOE9boeQEdQt5gvZgdJTkGzHJ/n8EzKaQRvw20795oer/gN4khGBLDRiM51/QacEiisiN077lu0lblkg+mri2oPnruaw7omzofBEG4zy/zl2yd
+  </data>
+ </layer>
+ <layer name="decorations 3" width="44" height="43">
+  <data encoding="base64" compression="zlib">
+   eJzt100KgCAQBWCv4W06RUFdxmgVUV3Jo+UmkDbl78zY+0BokfEoe5lSAO3SSnXesaVLAhxhfdTj3+vI+TZPEpBipw4Q6KAO0KCNOkCg8+N5zz6U0G+9GwN1CM9bP4xuTDWCgDjufTOcr186H1ez68Ulca94q9Wp60+fVW06fb7JkSO31H8jaIu0dR67fiXseQEgTWyfcf1eA5RwAc8fEb8=
+  </data>
+ </layer>
+ <layer name="decorations 4" width="44" height="43">
+  <data encoding="base64" compression="zlib">
+   eJztzrENAAAEADCvG33tBwORtBc0AgAAAGBfXgcG6joAAAC80zvXAQs=
   </data>
  </layer>
  <objectgroup name="obj" width="44" height="43">

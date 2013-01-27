@@ -13,6 +13,10 @@ require("objects/sprite")
 
 MainState = class("MainState", GameState)
 
+function MainState:__init()
+    self.checkpoint = {}
+end
+
 function MainState:onPush()
     self.lifetime = 0
     self.centerX = 0
@@ -37,6 +41,7 @@ function MainState:onPush()
 end
 
 function MainState:parseLevel(i)
+    if type(i) == "number" then return i end
     -- relative level switching ("+1")
     local fc = string.sub(i, 0, 1)
     if fc == "+" or fc == "-" then
@@ -62,11 +67,19 @@ function MainState:setLevel(i)
         else
             self.player.x = spawn.x + spawn.w / 2
             self.player.y = spawn.y + spawn.h / 2
+
+            self.checkpoint = {self.currentLevel, self.nextLevelSpawn}
         end
         self.nextLevelSpawn = nil
     end
     self:world():add(self.player)
     self:playLevelMusic(i)
+end
+
+function MainState:respawn()
+    self.nextLevelSpawn = self.checkpoint[2]
+    self:setLevel(self.checkpoint[1])
+    self.levelFade = 0.5
 end
 
 function MainState:playLevelMusic(i)

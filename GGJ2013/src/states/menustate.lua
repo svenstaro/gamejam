@@ -12,9 +12,6 @@ function MenuState:__init()
 
     self.heart = Sprite(resources.images.heart)
     self.heart:setSounds({"heartbeat"}, 1, 0)
-    self.heart.scale = 0.5
-    self.heart.x = love.graphics.getWidth() / 2 + 25
-    self.heart.y = love.graphics.getHeight() / 2 
 
     self.menu = ListMenu({"CREDITS", "START GAME", "QUIT"}, 200, 550,
                          800, resources.fonts.handBig, 50)
@@ -35,6 +32,8 @@ function MenuState:update(dt)
 
     self.menu:update(dt)
 
+    self.heart.x = love.graphics.getWidth() / 2 + 25
+    self.heart.y = love.graphics.getHeight() / 2
     self.heart.scale = ((self.lifetime + 0.08) % 1) > 0.15 and 0.57 or 0.5
     self.heart:update(dt)
 end
@@ -52,6 +51,6 @@ function MenuState:keypressed(k, u)
     self.menu:keypressed(k, u)
 
     if k == "escape" then
-        stack:pop() 
+        stack:pop()
     end
 end
