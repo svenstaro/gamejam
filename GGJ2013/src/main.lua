@@ -11,7 +11,7 @@ resources = Resources("data/")
 settings = Settings()
 settings:load()
 debug = settings:get("debug", false)
-fullscreen = settings:get("fullscreen", false)
+fullscreen = settings:get("fullscreen", true)
 
 function reset()
     -- start game
@@ -61,16 +61,16 @@ function love.load()
     resources:addFont("handBig", "SwankyandMooMoo.ttf", 32)
 
     -- load sounds
-    resources:addAudio("door_slide", "sfx/door_slide.ogg")
-    resources:addAudio("walk_high", "sfx/walking_footstep_1.ogg")
-    resources:addAudio("walk_normal", "sfx/walking_footstep_2.ogg")
-    resources:addAudio("walk_low", "sfx/walking_footstep_3.ogg")
+    resources:addSound("door_slide", "sfx/door_slide.ogg")
+    resources:addSound("walk_high", "sfx/walking_footstep_1.ogg")
+    resources:addSound("walk_normal", "sfx/walking_footstep_2.ogg")
+    resources:addSound("walk_low", "sfx/walking_footstep_3.ogg")
 
     -- load background sounds
-    resources:addAudio("dark_factory", "sfx/dark-factory.ogg", "stream")
-    resources:addAudio("cave_theme", "sfx/cave-theme.ogg", "stream")
-    resources:addAudio("heartbeat", "sfx/heartbeat.ogg")
-    resources:addAudio("heartbeat_pulse", "sfx/heartbeat_pulse.ogg")
+    resources:addSound("heartbeat", "sfx/heartbeat.ogg")
+    resources:addSound("heartbeat_pulse", "sfx/heartbeat_pulse.ogg")
+    resources:addMusic("dark_factory", "sfx/dark-factory.ogg", "stream")
+    resources:addMusic("cave_theme", "sfx/cave-theme.ogg", "stream")
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")

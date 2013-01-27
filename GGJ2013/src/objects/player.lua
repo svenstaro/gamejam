@@ -148,7 +148,9 @@ function Player:update(dt)
             walking = "walk_high"
         end
 
-        resources:makeSound(walking):play()
+        local snd = resources:makeSound(walking)
+        snd:setVolume(0.2)
+        snd:play()
 
         self.timeSinceLastStep = 0
     end

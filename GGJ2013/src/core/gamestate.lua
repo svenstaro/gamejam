@@ -12,6 +12,8 @@ function GameState:update(dt)end
 function GameState:draw()end
 function GameState:start()end
 function GameState:stop()end
+function GameState:onPush()end
+function GameState:onPop()end
 function GameState:keypressed(k, u)end
 function GameState:keyreleased(k, u)end
 function GameState:mousepressed(x, y, button)end
