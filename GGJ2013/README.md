@@ -56,6 +56,7 @@ The following files and directories are not part of this project and were redist
 * 16 button clicks [page](http://opengameart.org/content/16-button-clicks)
 * JacobsLadderSingle2.flac [page](http://www.freesound.org/people/Halleck/sounds/19487/)
 * electric_wire_03.wav (http://www.freesound.org/people/Glaneur%20de%20sons/sounds/34170/)
+* Bug Zapper2  http://www.freesound.org/people/CGEffex/sounds/107004/)
 
 * Cave Theme [page](http://opengameart.org/content/cave-theme)
 * Dark Factory [page](http://opengameart.org/content/dark-factory)
