@@ -13,7 +13,7 @@ require("objects/sprite")
 
 MainState = class("MainState", GameState)
 
-function MainState:start()
+function MainState:onPush()
     self.lifetime = 0
     self.centerX = 0
     self.centerY = 0
@@ -69,7 +69,7 @@ function MainState:setLevel(i)
     self:playLevelMusic(i)
 end
 
-function MainState:playLevelMusic (i)
+function MainState:playLevelMusic(i)
     local playlist = {
         { "dark_factory", 0.1 },
         { "cave_theme", 0.1 }
