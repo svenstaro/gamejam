@@ -105,15 +105,11 @@ function Player:update(dt)
     end
 
     local tmphead_angle = math.atan2(my - self.y, mx - self.x)
-    
-    print("head:" .. tmphead_angle)
-    print("walk:" .. self.walk_angle % math.pi)
 
     if math.abs(tmphead_angle - self.walk_angle) < 1 then
         self.head_angle = math.atan2(my - self.y, mx - self.x)
     end
     if not goleft and ((tmphead_angle > (math.pi -0.5) or (tmphead_angle < -2.1))) then
-        print("fix")
         self.head_angle = math.atan2(my - self.y, mx - self.x)
     end
 

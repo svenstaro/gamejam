@@ -57,7 +57,6 @@ function Sprite:update(dt)
         if self.timeUntilSound <= 0 then
             -- play a sound
             local sound = self.sounds[math.random(1, #self.sounds)]
-            print("Playing " .. sound)
             local source = resources:makeSound(sound)
             source:setPosition(self.x, 0, self.y)
             source:play()

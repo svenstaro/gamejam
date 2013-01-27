@@ -87,7 +87,7 @@ function Level:__init(file, group)
 
                         if obj.type == "hazard" then
                             object.onEnter = function()
-                                player:kill(object)
+                                main.player:kill(object)
                             end
                         elseif obj.properties and obj.properties.to_level then
                             object.onEnter = function()
@@ -101,15 +101,11 @@ function Level:__init(file, group)
                         object = WaterDrop()
                         object.x = cx
                         object.y = cy
-                    end
-
-                    if obj.type == "steam" then
+                    elseif obj.type == "steam" then
                         object = Steam(obj.direction)
                         object.x = cx
                         object.y = cy
-                    end
-
-                    if obj.type == "sprite" then
+                    elseif obj.type == "sprite" then
                         object = Sprite(resources.images[obj.properties.image])
                         object.x = cx
                         object.y = cy
@@ -125,9 +121,7 @@ function Level:__init(file, group)
                         elseif obj.image then
                             object:setImage(resources.images[obj.properties.animation])
                         end
-                    end
-
-                    if obj.type == "item" then
+                    elseif obj.type == "item" then
                         local headline = false
                         local text = ""
                         for line in love.filesystem.lines("data/story/" .. obj.name) do
@@ -139,7 +133,24 @@ function Level:__init(file, group)
                         end
 
                         object = File(cx, cy, headline, text, "file")
+                    elseif obj.type == "monsterspawn" then
+                        object = Enemy(cx, cy)
+                        if obj.properties.route then
+                            -- find route
+                            for j = 1, #layer.objects do
+                                local route = layer.objects[j]
+                                if route.name == obj.properties.route and route.polyline then
+                                    for k = 1, #route.polyline do
+                                        object:addRoutePoint(route.x + route.polyline[k].x, route.y + route.polyline[k].y)
+                                    end
+                                end
+                            end
+                            object:run()
+                        end
                     end
+
+
+
 
                     if object then
                         object.name = obj.name

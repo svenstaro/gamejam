@@ -68,6 +68,15 @@ function MainState:setLevel(i)
     self:world():add(self.player)
 
     -- TODO: set player position in new level
+
+    local dx, dy = self.player.x + 64 * 6, self.player.y
+
+    local enemy = Enemy(dx, dy)
+    enemy:addRoutePoint(dx, dy)
+    enemy:addRoutePoint(dx + 128, dy)
+    enemy:addRoutePoint(dx + 128, dy + 128)
+    enemy:run()
+    self:world():add(enemy)
 end
 
 function MainState:loadLevel(i)
@@ -169,7 +178,6 @@ function MainState:draw()
     love.graphics.setCanvas()
     love.graphics.draw(self.canvas, 0, 0)
     love.graphics.setPixelEffect()
-
 
     if self.levelFade > 0 then
         love.graphics.setColor(0, 0, 0, math.sin(math.pi * self.levelFade) * 255)
