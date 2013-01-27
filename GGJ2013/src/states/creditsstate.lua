@@ -23,7 +23,7 @@ function CreditsState:draw()
     love.graphics.setFont(resources.fonts.normal)
     love.graphics.print("Team:", 200, 300)
 
-    local team = {"Arne Beer", "Fabian Stegemann", "Hans-Ole Hatzel",
+    local team = {"Arne Beer", "Fabian Stegemann", "Hans Ole Hatzel",
                   "Julian Tobergte", "Marvin Arnold", "Rafael Epplee",
                   "Paul Bienkowski", "Sven-Hendrik Haase", "Tönjes Peters",
                   "Manuel Riecke"}
