@@ -62,8 +62,9 @@ function love.load()
 
     -- load sounds
     resources:addAudio("door_slide", "sfx/door_slide.ogg")
-    resources:addAudio("walk_high", "sfx/walk_high.ogg")
-    resources:addAudio("walk_low", "sfx/walk_low.ogg")
+    resources:addAudio("walk_high", "sfx/walking_footstep_1.ogg")
+    resources:addAudio("walk_normal", "sfx/walking_footstep_2.ogg")
+    resources:addAudio("walk_low", "sfx/walking_footstep_3.ogg")
 
     -- load background sounds
     resources:addAudio("dark_factory", "sfx/dark-factory.ogg", "stream")
