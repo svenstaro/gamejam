@@ -57,6 +57,10 @@ The following files and directories are not part of this project and were redist
 * JacobsLadderSingle2.flac [page](http://www.freesound.org/people/Halleck/sounds/19487/)
 * electric_wire_03.wav (http://www.freesound.org/people/Glaneur%20de%20sons/sounds/34170/)
 * Bug Zapper2  http://www.freesound.org/people/CGEffex/sounds/107004/)
+* Ambient Sound [page](http://www.freesound.org/people/GoodSoundForYou/sounds/138585/)
+* Ambient Sounds 006 [page](http://www.freesound.org/people/burning-mir/sounds/149068/)
+* Ambient Sounds 002 [page](http://www.freesound.org/people/burning-mir/sounds/149066/)
+* THA-emptychasms.mp3 [CC-BY-NC-ND](http://creativecommons.org/licenses/by-nc-nd/3.0/)
 
 * Cave Theme [page](http://opengameart.org/content/cave-theme)
 * Dark Factory [page](http://opengameart.org/content/dark-factory)
