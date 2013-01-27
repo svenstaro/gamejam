@@ -32,6 +32,7 @@ function love.load()
     math.randomseed(os.time())
 
     -- load images
+    resources:addImage("heart", "gfx/heart.png")
     resources:addImage("level_decorations", "levels/tilesets/decorations.png")
     resources:addImage("level_base", "levels/tilesets/base.png")
     resources:addImage("player_head", "gfx/player_head.png")
@@ -64,6 +65,7 @@ function love.load()
 
     -- load shaders
     resources:addShader("darkness", "shaders/darkness.glsl")
+    resources:addShader("distort", "shaders/distort.glsl")
 
     resources:load()
 

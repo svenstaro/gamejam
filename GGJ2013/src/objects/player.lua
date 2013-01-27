@@ -15,7 +15,6 @@ function Player:__init()
     self.walk_angle = 0
     self.head_angle = 0
     self.timeSinceLastStep = 0
-    self.anim = newAnimation(resources.images.player_anim, 16, 16, 0.1, 4)
     self.head = resources.images.player_head
 
     self.physicsObject = {}

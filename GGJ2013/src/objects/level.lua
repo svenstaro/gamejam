@@ -85,7 +85,7 @@ function Level:__init(file, group)
                     elseif obj.type == "trigger" or obj.type == "node" or obj.type == "hazard" then
                         object = RectangleTrigger(obj.x, obj.y, obj.width, obj.height)
 
-                        if obj.type == hazard then
+                        if obj.type == "hazard" then
                             object.onEnter = function()
                                 player:kill(object)
                             end
@@ -107,6 +107,24 @@ function Level:__init(file, group)
                         object = Steam(obj.direction)
                         object.x = cx
                         object.y = cy
+                    end
+
+                    if obj.type == "sprite" then
+                        object = Sprite(resources.images[obj.properties.image])
+                        object.x = cx
+                        object.y = cy
+
+                        if obj.properties.sounds then
+                            local snds = split(obj.properties.sounds, ",")
+                            object:setSounds(snds, obj.properties.sounds_interval or 10, obj.properties.sounds_random or 5)
+                        end
+
+                        if obj.properties.animation then
+                            local img, w, h, time, count = split(obj.properties.animation, ",")
+                            object:setAnimation(resources.images[img], tonumber(w), tonumber(h), tonumber(time), tonumber(count))
+                        elseif obj.image then
+                            object:setImage(resources.images[obj.properties.animation])
+                        end
                     end
 
                     if obj.type == "item" then

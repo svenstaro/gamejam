@@ -61,7 +61,7 @@ function IntroState:draw()
         love.graphics.draw(resources.images.headphones, w / 2, h / 2, 0, scale, scale, resources.images.headphones:getWidth() / 2, resources.images.headphones:getHeight())
     else
         stack:pop()
-        stack:push(main)
+        stack:push(menu)
     end
 end
 
