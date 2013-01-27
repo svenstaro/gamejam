@@ -75,10 +75,9 @@ function MainState:playLevelMusic (i)
         { "cave_theme", 0.1 }
     }
 
-    local audio_set = resources:makeSound(playlist[i+1][1], "stream", true)
-    audio_set:setVolume(playlist[i+1][2])
-    audio_set:play()
-
+    local music = resources.music[playlist[i + 1][1]]
+    music:setVolume(playlist[i + 1][2])
+    music:play()
 end
 
 function MainState:loadLevel(i)
