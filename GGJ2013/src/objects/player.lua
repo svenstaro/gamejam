@@ -35,6 +35,7 @@ function Player:bakeShadows(world)
         world:rayCast(self.x, self.y, dx, dy, function(fixture, x, y, xn, yn, fraction)
             local user = fixture:getUserData()
             if user.__name == "Player" then return 1 end
+            if user.__name == "WallTile" and not user.castShadow then return 1 end
 
             --love.graphics.setColor(255, 0, 0)
             --love.graphics.circle("fill", x, y, 2)
