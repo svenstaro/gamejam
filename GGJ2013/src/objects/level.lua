@@ -99,6 +99,10 @@ function Level:__init(file, group)
                         if obj.properties and obj.properties.disabled then
                             object.enabled = false
                         end
+
+                        if obj.properties.angle ~= nil then
+                            object.angle = obj.properties.angle * math.pi / 180
+                        end
                     end
 
                     if obj.type == "waterdrop" then
@@ -121,6 +125,7 @@ function Level:__init(file, group)
                         end
                         object.x = cx
                         object.y = cy
+                        object.angle = (obj.properties.angle or 0) * math.pi / 180
 
                         if obj.properties.sounds then
                             local snds = split(obj.properties.sounds, ",")
@@ -160,7 +165,6 @@ function Level:__init(file, group)
                                     end
                                 end
                             end
-                            object:run()
                         end
                     end
 
