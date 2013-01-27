@@ -4605,7 +4605,7 @@
   </object>
   <object name="monsterspawn_01" type="monsterspawn" x="896" y="1216" width="128" height="64">
    <properties>
-    <property name="route" value="monsterroute:01"/>
+    <property name="route" value="monsterroute_01"/>
    </properties>
   </object>
   <object name="monstersound_01" type="music" x="960" y="448" width="64" height="64">
