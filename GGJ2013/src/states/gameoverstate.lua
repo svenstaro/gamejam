@@ -10,7 +10,7 @@ function GameOverState:__init()
     self.counter = 0
     self.kill = true
     self.eating = resources:makeSound("final_monster_1")
-    
+
     require("core/gamestate")
     require("core/resources")
     require("core/listmenu")
@@ -29,7 +29,7 @@ function GameOverState:update(dt)
         eating2:setVolume(1)
         eating2:play()
         self.kill = false
-    end 
+    end
 end
 
 function GameOverState:draw()
@@ -50,6 +50,7 @@ function GameOverState:keypressed(k, u)
     self.kill = true
     if self.lifetime > 2 then
         stack:pop()
-        stack:push(menu)
+        main:respawn()
+        -- stack:push(menu)
     end
 end
