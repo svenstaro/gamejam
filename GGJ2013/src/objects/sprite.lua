@@ -47,7 +47,8 @@ function Sprite:setSounds(sounds, interval, random)
 end
 
 function Sprite:startSounds()
-    self.timeUntilSound = self.soundInterval + math.random(-1.0, 1.0) * self.soundRandom * self.soundInterval
+    if not self.timeUntilSound then self.timeUntilSound = 0 end
+    self.timeUntilSound = self.timeUntilSound + self.soundInterval + math.random(-1.0, 1.0) * self.soundRandom * self.soundInterval
 end
 
 function Sprite:update(dt)
@@ -69,6 +70,7 @@ end
 
 function Sprite:draw()
     if self.visible then
+        love.graphics.setColor(255,255,255)
         self.animation:draw(self.x, self.y, self.angle, self.scale, self.scale, self.width / 2, self.height / 2)
     end
 end
