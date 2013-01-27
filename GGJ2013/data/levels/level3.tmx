@@ -55,9 +55,9 @@
   <object name="spawn_01" type="node" x="576" y="512" width="64" height="64"/>
   <object name="2_diaryentry" type="item" x="1536" y="2304" width="64" height="64"/>
  </objectgroup>
- <layer name="meta" width="44" height="43" visible="0" opacity="0.2">
+ <layer name="meta" width="44" height="43" opacity="0.2">
   <data encoding="base64" compression="zlib">
-   eJztllEKwCAMQz2b9z/U/jetbiY2kzwQhGH7mLW0FGPOpd6WOrWzV+Xvvur10fJtfVNh5Lu6dvuiYqOwL+78KKZ98dj3GQ/Z36IY6P+r7suIF9UDGnVfdj0w+wPjvSHmm14/QN0bc37c4YucGdm+6PP2XXs/GfUwS+S7sz/MojirMfNl1cNsTTNmyTes+GbwNa99uXnty82b6Yue34w5jQsIyT2f
+   eJztllEKACEIBTtb9z/U/kasUTZmiQ+CgvU5uRaVkkrFVe3G7arC/Fa9znt7f0Tg7dc74zQv5U0pKu/q/G9NKCrvrjelqPXV8tL328iD7oeTvJr69l4078jTk3eUjzwjdD9I7wXSX/LW+tHvG+k+oP6bhSft3e6dqK81bxtP7XuUYzeP5EnHW/Fqz49HfWelvUva70/Ksm8s9CLvSk+v3HsW2uH1kCZv8q7l1sQk73xuTYwnL/1+S6Wi6QOhm0fv
   </data>
  </layer>
 </map>
