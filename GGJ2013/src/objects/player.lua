@@ -2,7 +2,7 @@
 
 require("core/object")
 require("objects/toast")
-require("src/external/AnAL")
+require("external/AnAL")
 
 Player = class("Player", Object)
 

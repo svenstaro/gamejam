@@ -68,12 +68,25 @@ levelswitch_02:
 # Level 4
 
 button_01:  
-    hazard_01-03: enable (fireanimation left->right)
-    hazard_04-07: enable (trap on hazard)
+    hazard_01-03: enable, fireanimation, angle: 0°
+    hazard_04-07: enable, spiketrap
 	level2.door_06: unlock
 
 levelswitch_02:
     level2 spawn_03
 
 # Level 5
+
+
+# Level 6
+
+hazard_01: angle: 90°
+hazard_02: angle: 0°
+
+# Level 7
+
+hazard_01-02: angle: 180°
+hazard_03-05: angle: 270°
+hazard_06-08: spiketrap
+hazard_09: angle: 90°
 
