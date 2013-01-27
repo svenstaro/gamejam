@@ -13,6 +13,10 @@ trigger_02:
 levelswitch_01: 
     level1 spawn_01
 
+monstertrigger_01-11:
+    triggert monster von monsterspawn_01
+
+
 # Level 1
 
 button_01:	
