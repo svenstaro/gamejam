@@ -3010,7 +3010,11 @@
     <property name="to_level" value="-2"/>
    </properties>
   </object>
-  <object name="button_01" type="trigger" x="1024" y="1152" width="64" height="64"/>
+  <object name="button_01" type="trigger" x="1024" y="1152" width="64" height="64">
+   <properties>
+    <property name="angle" value="90"/>
+   </properties>
+  </object>
   <object name="hazard_02" type="hazard" x="1344" y="1344" width="64" height="64"/>
   <object name="hazard_01" type="hazard" x="896" y="1600" width="64" height="64"/>
   <object name="hazard_03" type="hazard" x="640" y="1088" width="64" height="64"/>
@@ -3033,7 +3037,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="meta" width="31" height="32" visible="0" opacity="0.37">
+ <layer name="meta" width="31" height="32" opacity="0.37">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
