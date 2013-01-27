@@ -79,6 +79,7 @@ function love.load()
     resources:addSound("monster_random_3_knurren", "sfx/monster_random_3_knurren.ogg")
     resources:addSound("final_monster_1", "sfx/final_monster_1.ogg", "stream")
     resources:addSound("final_monster_2", "sfx/final_monster_2.ogg", "stream")
+    resources:addSound("knurren_bad_boy_2", "sfx/knurren_bad_boy_2.ogg", "stream")
 
     -- load background sounds
     resources:addSound("heartbeat", "sfx/heartbeat.ogg")
