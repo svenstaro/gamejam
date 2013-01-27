@@ -13,7 +13,7 @@ require("objects/sprite")
 
 MainState = class("MainState", GameState)
 
-function MainState:__init()
+function MainState:start()
     self.lifetime = 0
     self.centerX = 0
     self.centerY = 0
@@ -30,7 +30,7 @@ function MainState:__init()
     self.nextLevelSpawn = "spawn_01"
     self:setLevel(0)
 
-    self.levelFade = 0
+    self.levelFade = 0.5
     self.nextLevel = 0
 
     self.canvas = nil

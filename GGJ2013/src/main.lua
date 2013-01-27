@@ -11,7 +11,7 @@ resources = Resources("data/")
 settings = Settings()
 settings:load()
 debug = settings:get("debug", false)
-fullscreen = settings:get("fullscreen", false)
+fullscreen = settings:get("fullscreen", true)
 
 function reset()
     -- start game
