@@ -29,7 +29,7 @@ function GameOverState:update(dt)
         self.eating2:setVolume(1)
         self.eating2:play()
         self.kill = false
-    end 
+    end
 end
 
 function GameOverState:draw()
@@ -53,6 +53,7 @@ function GameOverState:keypressed()
     
     if self.lifetime > 2 then
         stack:pop()
-        stack:push(menu)
+        main:respawn()
+        -- stack:push(menu)
     end
 end
