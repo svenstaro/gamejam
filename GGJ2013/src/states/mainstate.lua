@@ -144,7 +144,7 @@ function MainState:loadLevel(i)
             -- TODO
             -- o:byName("hazard_01_sprite").visible = true
             o:byName("door_05").locked = true
-            o:byName("monstersound_01").audible = false
+            --o:byName("monstersound_01").audible = false
             o:byName("trigger_02").enabled = true
 
             -- TODO: Button graphics
@@ -240,10 +240,12 @@ function MainState:draw()
     resources:sendShaderValue("darkness", "height", love.graphics.getHeight())
 
     resources:sendShaderValue("darkness", "shadowmap", self.player.shadowMap)
-    love.graphics.setPixelEffect(resources.shaders.darkness)
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-    love.graphics.setPixelEffect()
+    if not debug then
+        love.graphics.setPixelEffect(resources.shaders.darkness)
+        love.graphics.setColor(0, 0, 0)
+        love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+        love.graphics.setPixelEffect()
+    end
 
     love.graphics.setColor(255, 255, 255)
     if debug then
@@ -259,10 +261,12 @@ function MainState:draw()
 
 
     -- distortion shader
-    resources:sendShaderValue("distort", "lifetime", self.lifetime)
-    resources:sendShaderValue("distort", "distortion", 1)
-    resources:sendShaderValue("distort", "danger", 0) -- TODO determine danger
-    love.graphics.setPixelEffect(resources.shaders.distort)
+    if not debug then
+        resources:sendShaderValue("distort", "lifetime", self.lifetime)
+        resources:sendShaderValue("distort", "distortion", 1)
+        resources:sendShaderValue("distort", "danger", 0) -- TODO determine danger
+        love.graphics.setPixelEffect(resources.shaders.distort)
+    end
     love.graphics.setColor(255, 255, 255)
     love.graphics.setCanvas()
     love.graphics.draw(self.canvas, 0, 0)

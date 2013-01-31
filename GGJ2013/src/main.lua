@@ -55,6 +55,8 @@ function love.load()
     resources:addImage("spike", "gfx/spike.png")
     resources:addImage("doorBot", "gfx/door_bot.png")
     resources:addImage("doorTop", "gfx/door_top.png")
+    resources:addImage("doorlight_green", "gfx/doorlight_green.png")
+    resources:addImage("doorlight_red", "gfx/doorlight_red.png")
     resources:addImage("ggj_logo", "gfx/ggj_logo.png")
     resources:addImage("headphones", "gfx/headphones.png")
 
