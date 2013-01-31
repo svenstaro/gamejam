@@ -261,6 +261,7 @@ function MainState:draw()
     -- distortion shader
     resources:sendShaderValue("distort", "lifetime", self.lifetime)
     resources:sendShaderValue("distort", "distortion", 1)
+    resources:sendShaderValue("distort", "danger", 0) -- TODO determine danger
     love.graphics.setPixelEffect(resources.shaders.distort)
     love.graphics.setColor(255, 255, 255)
     love.graphics.setCanvas()

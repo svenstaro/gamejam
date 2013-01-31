@@ -1,5 +1,6 @@
 extern number lifetime;     // time since start
 extern number distortion;   // level of distortion (0..1)
+extern number danger;       // level of danger (0..1)
 
 vec4 randomizer4(const vec4 x)
 {
@@ -37,9 +38,9 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 pixel_coords) {
     float dist = distortion * abs(sin(floor(lifetime * 0.4)));
     float dist2 = distortion * abs(sin(floor(lifetime * 0.6))) * 0.2;
     vec2 distCoords = texture_coords;
-    float dx = cnoise4(vec3(lifetime + texture_coords.y * 25 * dist2, 0, 0));
+    float dx = cnoise4(vec3(lifetime + distCoords.y * 25 * dist2, 0, 0));
     dx = mod(dx, 0.9) > 0.8 ? 0.0 : floor(dx * 5.0) / 9.0;
-    distCoords.x += dx * 0.0006 * cnoise4(vec3(0, lifetime * dist * dist, 0) * dist * 100);
+    distCoords.x += dx * (0.0006 * (1 + danger * 3)) * cnoise4(vec3(0, lifetime * dist * dist, 0) * dist * 100);
     color.b += 0.06 + dx * 0.06 * cnoise4(vec3(0, sin(floor(lifetime)), 0) * dist * 100000);
     //distCoords.y += noise(vec2(texture_coords.y, texture_coords.x) * -213.21) * dist * 0.01;
 
@@ -49,6 +50,13 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 pixel_coords) {
 
     if(mod(pixel_coords.y + 1, 4) <= 2) {
         color.b += 0.1;
+    }
+
+    // red tint for danger
+    if(danger > 0) {
+        color.r *= (1 + danger * 0.9);
+        color.g *= (1 - danger * 0.9);
+        color.b *= (1 - danger * 0.9);
     }
 
     return texture2D(texture, distCoords) * color;
