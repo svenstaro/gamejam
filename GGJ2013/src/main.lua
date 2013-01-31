@@ -69,7 +69,7 @@ function love.load()
     resources:addFont("huge", "DejaVuSans.ttf", 40)
     resources:addFont("handSmall", "SwankyandMooMoo.ttf", 19)
     resources:addFont("handBig", "SwankyandMooMoo.ttf", 32)
-
+    resources:addFont("handHuge", "SwankyandMooMoo.ttf", 64)
     -- load sounds
     resources:addSound("door_slide", "sfx/door_slide.ogg")
     resources:addSound("walk_high", "sfx/walking_footstep_1.ogg")
