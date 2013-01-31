@@ -4,6 +4,8 @@ An atmospheric Lovecraft-ish adventure game set in a dark place.
 
 You wake up in an abandoned lab and you are missing something rather important... 
 
+[Entry](http://globalgamejam.org/2013/7th-sense) for the Global Game Jam 2013!
+
 ## Authors
 [Arne Beer](https://github.com/nukesor)
 
@@ -24,6 +26,26 @@ Marvin Arnold
 Tönjes Peters
 
 [Manuel Riecke](https://github.com/MrBeast)
+
+## Usage
+
+Download the Folder 'GGJ2013'. To do that, clone this repository or download it as a zip from [github](https://github.com/svenstaro/gamejam).
+
+### Linux
+
+Open a terminal, change into the directory 'GGJ2013' and run 
+
+    make run
+
+### Windows
+
+Open the folder you just downloaded and execute 'build.bat'.
+
+### Mac OS X
+
+We didn't try this yet; Try the instructions in the [Löve Wiki](https://love2d.org/wiki/Getting_Started).
+
+Alternatively, just install [Arch Linux](https://www.archlinux.org/).
 
 ## License
 

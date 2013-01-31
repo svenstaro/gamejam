@@ -25,7 +25,8 @@ if [[ $ext == ".love" ]]; then ext=""; fi
 # prepare directory
 mkdir -p $PKGDIR
 
-cp $LIBDIR/* $PKGDIR
+cp -r $LIBDIR/* $PKGDIR
+cp lib/run.sh $PKGDIR
 
 cd $PKGDIR
 cat $ROOTDIR/game.love >> "$BINARY"

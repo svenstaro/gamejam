@@ -1,5 +1,4 @@
 -- menu
-
 require("core/gamestate")
 require("core/resources")
 require("core/listmenu")
@@ -33,7 +32,7 @@ function MenuState:update(dt)
     self.menu:update(dt)
 
     self.heart.x = love.graphics.getWidth() / 2 + 25
-    self.heart.y = love.graphics.getHeight() / 2
+    self.heart.y = self.menu.y - love.graphics.getHeight() / 4  
     self.heart.scale = ((self.lifetime + 0.08) % 1) > 0.15 and 0.57 or 0.5
     self.heart:update(dt)
 end
