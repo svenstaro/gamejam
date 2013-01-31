@@ -142,14 +142,10 @@ function Player:update(dt)
 
     if (dx ~= 0 or dy ~= 0) and self.timeSinceLastStep >= 0.3 then
         --self:makeToast("Tap", {100, 100, 100, 50}, resources.fonts.tiny)
-        if walking == "walk_high" then
-            walking = "walk_low"
-        else
-            walking = "walk_high"
-        end
-
-        local snd = resources:makeSound(walking)
-        snd:setVolume(0.2)
+        local sounds = {"walk_high", "walk_low", "walk_normal"}
+        local snd = resources:makeSound(sounds[math.random(1,#sounds)])
+        snd:setVolume(0.05)
+        snd:setPosition(self.x, 0, self.y)
         snd:play()
 
         self.timeSinceLastStep = 0

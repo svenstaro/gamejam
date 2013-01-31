@@ -34,6 +34,7 @@ function love.load()
     end
 
     math.randomseed(os.time())
+    love.audio.setDistanceModel("linear")
 
     -- load images
     resources:addImage("heart", "gfx/heart.png")

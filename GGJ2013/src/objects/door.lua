@@ -81,6 +81,7 @@ function Door:toggle()
     -- love.audio.play(resources.audio.door_slide)
     local snd = resources:makeSound("door_slide")
     snd:setPosition(self.x, 0, self.y)
+    snd:setVolume(0.1)
     snd:play()
 end
 

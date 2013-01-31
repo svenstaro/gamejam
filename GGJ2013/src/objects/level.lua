@@ -33,6 +33,8 @@ function Level:__init(file, group)
     self.y = 0
     self.z = 0
     self.angle = 0
+    self.width = level.width * 32
+    self.height = level.height * 32
 
     self.tiles = ObjectGroup()
     self.spritebatches = {}
