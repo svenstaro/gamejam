@@ -48,7 +48,6 @@ function CreditsState:draw()
         love.graphics.print(v, 185 + 15 * k, 200 + 35 * k)
     end
 
-
     -- distortion shader
     resources:sendShaderValue("distort", "lifetime", self.lifetime)
     resources:sendShaderValue("distort", "distortion", 1)

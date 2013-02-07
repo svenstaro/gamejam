@@ -24,6 +24,35 @@ function removeBitFlag(set, flag)
     return set
 end
 
+Layer = class("Layer")
+
+function Layer:__init(name, z)
+    self.name = name
+    self.z = z
+    self.tiles = {}
+    self.w = 0
+    self.h = 0
+end
+
+function Layer:set(x, y, quad, image)
+    if not table.containsKey(self.tiles, x) then
+        self.tiles[x] = {}
+    end
+
+    self.tiles[x][y] = {quad, image}
+
+    if x + 1 > self.w then self.w = x + 1 end
+    if y + 1 > self.h then self.h = y + 1 end
+end
+
+function Layer:draw()
+    for x, row in pairs(self.tiles) do
+        for y, quadImage in pairs(row) do
+            love.graphics.drawq(quadImage[2], quadImage[1], x * 64, y * 64)
+        end
+    end
+end
+
 Level = class("Level", Object)
 
 function Level:__init(file, group)
@@ -36,9 +65,8 @@ function Level:__init(file, group)
     self.width = level.width * 32
     self.height = level.height * 32
 
-    self.tiles = ObjectGroup()
-    self.spritebatches = {}
     self.quads = {}
+    self.layers = {}
 
     local meta_firstgid = 0
 
@@ -52,9 +80,6 @@ function Level:__init(file, group)
 
         local image = resources.images["level_" .. name]
         if image then
-            local batch = love.graphics.newSpriteBatch(image, level.width * level.height)
-            self.spritebatches[name] = batch
-
             local tileset_tileheight = ((tileset.imageheight - (tileset.imageheight % level.tileheight)) / level.tileheight)
             local tileset_tilewidth = ((tileset.imagewidth - (tileset.imagewidth % level.tilewidth)) / level.tilewidth)
             for x = 0, tileset_tilewidth - 1 do
@@ -66,7 +91,7 @@ function Level:__init(file, group)
                             level.tileheight,
                             image:getWidth(),
                             image:getHeight())
-                    self.quads[tileset.firstgid + x + (y * tileset_tilewidth)] = {batch, quad}
+                    self.quads[tileset.firstgid + x + (y * tileset_tilewidth)] = {quad, image}
                 end
             end
         end
@@ -74,6 +99,9 @@ function Level:__init(file, group)
 
     for l = 1, #level.layers do
         local layer = level.layers[l]
+
+        local layerObject = Layer(layer.name, l)
+
         if layer.visible or layer.name == "meta" then
             if layer.type == "objectgroup" then
                 -- objectfactory:create()
@@ -179,9 +207,6 @@ function Level:__init(file, group)
                         end
                     end
 
-
-
-
                     if object then
                         object.name = obj.name
                         group:add(object)
@@ -203,28 +228,29 @@ function Level:__init(file, group)
                                     group:add(WallTile(j * level.tilewidth, i * level.tileheight, index == 1))
                                 end
                             else
-
-                                if not self.quads[index] then
+                                if not table.containsKey(self.quads, index) then
                                     local flipX = hasBitFlag(index, 0x80000000)
                                     local flipY = hasBitFlag(index, 0x40000000)
 
                                     local realIndex = removeBitFlag(removeBitFlag(index, 0x40000000), 0x80000000)
 
-                                    local quad = self.quads[realIndex]
+                                    quad = self.quads[realIndex]
                                     if quad then
-                                        local x, y, w, h = quad[2]:getViewport()
+                                        local x, y, w, h = quad[1]:getViewport()
                                         local flippedQuad = love.graphics.newQuad(
                                                 x, y, w, h,
-                                                quad[1]:getImage():getWidth(),
-                                                quad[1]:getImage():getHeight())
+                                                quad[2]:getWidth(),
+                                                quad[2]:getHeight())
                                         flippedQuad:flip(flipX, flipY)
-                                        self.quads[index] = {quad[1], flippedQuad}
+                                        self.quads[index] = {flippedQuad, quad[2]}
                                     end
                                 end
 
                                 local quad = self.quads[index]
                                 if quad then
-                                    quad[1]:addq(quad[2], j * level.tilewidth, i * level.tileheight)
+                                    layerObject:set(j, i, quad[1], quad[2]) -- x, y, quad, image
+                                else
+                                    print("Invalid quad index " .. index .. " at " .. l .. "|" .. j .. "x" .. i)
                                 end
                             end
                         end
@@ -232,6 +258,8 @@ function Level:__init(file, group)
                 end
             end
         end
+
+        self.layers[l] = layerObject
     end
 end
 
@@ -240,7 +268,7 @@ end
 
 function Level:draw()
     love.graphics.setColor(255, 255, 255)
-    for k, v in pairs(self.spritebatches) do
-        love.graphics.draw(v)
+    for k, v in pairs(self.layers) do
+        v:draw()
     end
 end
