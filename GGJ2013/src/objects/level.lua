@@ -46,9 +46,18 @@ function Layer:set(x, y, quad, image)
 end
 
 function Layer:draw()
+    local minX, minY = main:screenToWorld(0, 0)
+    local maxX, maxY = main:screenToWorld(love.graphics.getWidth(), love.graphics.getHeight())
+    minX, minY = math.floor(minX / 64), math.floor(minY / 64)
+    maxX, maxY = math.ceil(maxX / 64), math.floor(maxY / 64)
+
     for x, row in pairs(self.tiles) do
-        for y, quadImage in pairs(row) do
-            love.graphics.drawq(quadImage[2], quadImage[1], x * 64, y * 64)
+        if x >= minX and x <= maxX then
+            for y, quadImage in pairs(row) do
+                if y >= minY and y <= maxY then
+                    love.graphics.drawq(quadImage[2], quadImage[1], x * 64, y * 64)
+                end
+            end
         end
     end
 end
