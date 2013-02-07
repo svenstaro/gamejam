@@ -15,6 +15,9 @@
  <tileset firstgid="113" name="baseDark" tilewidth="64" tileheight="64" spacing="4">
   <image source="tilesets/baseDark.png" trans="ff00ff" width="268" height="540"/>
  </tileset>
+ <tileset firstgid="145" name="decorations3" tilewidth="64" tileheight="64" spacing="4">
+  <image source="tilesets/decorations3.png" trans="ff00ff" width="268" height="540"/>
+ </tileset>
  <layer name="base" width="47" height="41">
   <data>
    <tile gid="0"/>
@@ -3331,56 +3334,9 @@
    <tile gid="0"/>
    <tile gid="3221225584"/>
    <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
-   <tile gid="3221225584"/>
+   <tile gid="112"/>
+   <tile gid="112"/>
+   <tile gid="112"/>
    <tile gid="3221225584"/>
    <tile gid="3221225584"/>
    <tile gid="3221225584"/>
@@ -3425,7 +3381,54 @@
    <tile gid="0"/>
    <tile gid="3221225584"/>
    <tile gid="3221225584"/>
-   <tile gid="46"/>
+   <tile gid="112"/>
+   <tile gid="112"/>
+   <tile gid="112"/>
+   <tile gid="3221225584"/>
+   <tile gid="3221225584"/>
+   <tile gid="3221225584"/>
+   <tile gid="3221225584"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="3221225584"/>
+   <tile gid="3221225584"/>
+   <tile gid="112"/>
    <tile gid="3221225584"/>
    <tile gid="3221225584"/>
    <tile gid="3221225584"/>
@@ -4590,7 +4593,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="53"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4657,8 +4660,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="2147483735"/>
+   <tile gid="171"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4704,8 +4707,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="2147483739"/>
+   <tile gid="175"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4754,7 +4757,7 @@
    <tile gid="3221225580"/>
    <tile gid="0"/>
    <tile gid="108"/>
-   <tile gid="0"/>
+   <tile gid="1073741999"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4800,8 +4803,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="166"/>
+   <tile gid="1073741995"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4846,9 +4849,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="87"/>
-   <tile gid="0"/>
+   <tile gid="3221225647"/>
+   <tile gid="2147483816"/>
+   <tile gid="3221225639"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4892,10 +4895,10 @@
    <tile gid="108"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="112"/>
    <tile gid="0"/>
-   <tile gid="91"/>
-   <tile gid="0"/>
+   <tile gid="3221225643"/>
+   <tile gid="168"/>
+   <tile gid="3221225638"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4941,8 +4944,8 @@
    <tile gid="108"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="1073741990"/>
+   <tile gid="171"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4989,7 +4992,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="1073741932"/>
-   <tile gid="0"/>
+   <tile gid="175"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -5130,7 +5133,7 @@
    <tile gid="3221225580"/>
    <tile gid="0"/>
    <tile gid="1073741932"/>
-   <tile gid="0"/>
+   <tile gid="96"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -5177,7 +5180,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="100"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -5401,7 +5404,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="112"/>
+   <tile gid="40"/>
    <tile gid="112"/>
    <tile gid="112"/>
    <tile gid="108"/>
@@ -7740,7 +7743,11 @@
   </data>
  </layer>
  <objectgroup name="obj" width="47" height="41">
-  <object name="door_03" type="door" x="768" y="1472" width="64" height="128"/>
+  <object name="door_03" type="door" x="768" y="1472" width="64" height="128">
+   <properties>
+    <property name="locked" value="true"/>
+   </properties>
+  </object>
   <object name="door_02" type="door" x="1088" y="1472" width="64" height="128"/>
   <object name="door_01" type="door" x="1088" y="1216" width="64" height="128"/>
   <object name="door_04" type="door" x="1088" y="1728" width="64" height="128"/>
@@ -7751,7 +7758,11 @@
    </properties>
   </object>
   <object name="door_07" type="door" x="640" y="768" width="128" height="64"/>
-  <object name="door_08" type="door" x="2112" y="576" width="64" height="128"/>
+  <object name="door_08" type="door" x="2112" y="576" width="64" height="128">
+   <properties>
+    <property name="locked" value="true"/>
+   </properties>
+  </object>
   <object name="trigger_02" type="trigger" x="2368" y="1536" width="64" height="64">
    <properties>
     <property name="disabled" value="true"/>
@@ -7773,11 +7784,17 @@
   <object name="monstersound_01" type="music" x="704" y="1472" width="64" height="64">
    <properties>
     <property name="duration" value="10"/>
-    <property name="soundfiles" value=""/>
+    <property name="sounds" value=""/>
    </properties>
   </object>
   <object name="1_patient187" type="item" x="960" y="1216" width="128" height="128"/>
-  <object name="monsterspawn_01" type="monsterspawn" x="1024" y="512" width="64" height="64"/>
+  <object name="monsterspawn_01" type="monsterspawn" x="1024" y="512" width="64" height="64">
+   <properties>
+    <property name="animation" value="crab,16,16,0.5,2"/>
+    <property name="intervals" value="7"/>
+    <property name="sounds" value="monster_random_1,monster_random_2,monster_random_3_knurren"/>
+   </properties>
+  </object>
   <object name="monstertrigger_05" type="trigger" x="896" y="448" width="64" height="128"/>
   <object name="monstertrigger_06" type="trigger" x="768" y="512" width="128" height="64"/>
   <object name="monstertrigger_11" type="trigger" x="640" y="448" width="64" height="128"/>
@@ -7789,14 +7806,8 @@
   <object name="monstertrigger_01" type="trigger" x="960" y="448" width="64" height="192"/>
   <object name="monstertrigger_03" type="trigger" x="1152" y="448" width="64" height="192"/>
   <object name="monstertrigger_04" type="trigger" x="1216" y="704" width="64" height="64"/>
-  <object name="hammer" type="sprite" x="1216" y="512" width="64" height="64">
-   <properties>
-    <property name="image" value="hammer"/>
-   </properties>
-  </object>
-  <object x="1280" y="512"/>
  </objectgroup>
- <layer name="meta" width="47" height="41" visible="0" opacity="0.3">
+ <layer name="meta" width="47" height="41" opacity="0.3">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -8577,7 +8588,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="66"/>
@@ -8624,7 +8635,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="66"/>
@@ -8673,7 +8684,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -8720,7 +8731,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -8861,7 +8872,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -8908,7 +8919,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -9049,7 +9060,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -9096,7 +9107,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="65"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -9178,53 +9189,6 @@
    <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -9326,6 +9290,53 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="66"/>
@@ -9512,8 +9523,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="66"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="66"/>
+   <tile gid="66"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
