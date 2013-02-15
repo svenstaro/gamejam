@@ -7634,8 +7634,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="2147483813"/>
-   <tile gid="168"/>
+   <tile gid="0"/>
+   <tile gid="167"/>
    <tile gid="3221225640"/>
    <tile gid="168"/>
    <tile gid="168"/>
@@ -10831,7 +10831,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="166"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
