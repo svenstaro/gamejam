@@ -5,7 +5,7 @@ clean:
 	@[[ ! -e pkg ]] || rm -r pkg
 
 build:
-	@zip -r game.love data/
+	@zip -0 -r game.love data/
 	@cd src/ && zip -r ../game.love *
 
 run:
