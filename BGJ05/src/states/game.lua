@@ -17,9 +17,13 @@ function Game:__init()
     self.wisp.position = Vector(-10, -100)
     self.world:add(self.wisp)
 
-    local lamp = LampStatic()
-    lamp.position = Vector(0, -200)
-    self.world:add(lamp)
+    local lampstatic = LampStatic()
+    lampstatic.position = Vector(0, -200)
+    self.world:add(lampstatic)
+
+    local lampchain = LampChain()
+    lampchain.position = Vector(200, -200)
+    self.world:add(lampchain)
 
     self.generatedUntil = -SIZE.x*5
 

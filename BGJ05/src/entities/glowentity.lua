@@ -20,7 +20,8 @@ function GlowEntity:draw()
         love.graphics.setColor(unpack(c))
 
         local s = resources.images.particle:getWidth()
-        love.graphics.draw(resources.images.particle_square, self.position.x, self.position.y, 0,
+        love.graphics.draw(resources.images.particle_square,
+                           self:getPosition().x, self:getPosition().y, 0,
             self.glowSize / s, self.glowSize / s, s / 2, s / 2)
 
         setLightRendering(false)

@@ -13,9 +13,9 @@ function World:beginContact(a, b, coll)
     -- print("collision : " .. uA.__name .. " / " .. uB.__name)
     if areUserData(uA, uB, "LampChain", "Wisp") then
         if uA.__name == "LampChain" then
-            uB:kill()
+            -- uB:kill()
         else
-            uA:kill()
+            -- uA:kill()
         end
     end
 end
