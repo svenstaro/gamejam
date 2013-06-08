@@ -9,6 +9,7 @@ require("entities/wisp")
 require("entities/lamp-chain")
 require("entities/lamp-static")
 require("entities/lamp-antenna")
+require("entities/lamp-airplane")
 
 Game = class("Game", GameState)
 
@@ -30,6 +31,10 @@ function Game:__init()
     local lampantenna = LampAntenna()
     lampantenna.position = Vector(-200, -200)
     self.world:add(lampantenna)
+
+    local lampairplane = LampAirplane()
+    lampairplane.position = Vector(0, -500)
+    self.world:add(lampairplane)
 
     self.generatedUntil = -SIZE.x*5
 
@@ -72,6 +77,10 @@ function Game:generateWorld()
     local w = math.random(4, 10) * 50
     local h = randf(500, MAX_HEIGHT)
     self.world:add(Building(x, Vector(w, h)))
+
+    local antenna = LampAntenna()
+    antenna.position = Vector(x + randf(0, w), -h)
+    self.world:add(antenna)
 
     self.generatedUntil = x + w * randf(1.0, 4)
 
