@@ -27,24 +27,24 @@ function GameStack:pop()
     self:current():stop()
     table.remove(self.states, #self.states)
     if self:current() then
-        self:current():start()
+        self:current():onStart()
     else
         love.event.quit()
     end
 end
 
 function GameStack:update(dt)
-    if self:current() then self:current():update(dt) end
+    if self:current() then self:current():onUpdate(dt) end
 end
 
 function GameStack:draw()
-    if self:current() then self:current():draw() end
+    if self:current() then self:current():onDraw() end
 end
 
 function GameStack:keypressed(k, u)
-    if self:current() then self:current():keypressed(k, u) end
+    if self:current() then self:current():onKeyPressed(k, u) end
 end
 
 function GameStack:mousepressed(x, y, button)
-    if self:current() then self:current():mousepressed(x, y, button) end
+    if self:current() then self:current():onMousePressed(x, y, button) end
 end

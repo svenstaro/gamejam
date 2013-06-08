@@ -20,6 +20,6 @@ function love.conf(t)
     t.modules.timer = true
     t.modules.mouse = true
     t.modules.sound = false
-    t.modules.physics = false
+    t.modules.physics = true
 end
 

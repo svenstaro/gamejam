@@ -22,11 +22,20 @@ function Entity:update(dt)
         self.position = self.position + (self.velocity * dt)
         self.rotation = self.rotation + self.rotationSpeed * dt
     end
+
+    self:onUpdate(dt)
 end
+
+function Entity:draw()
+    self:onDraw()
+end
+
 
 function Entity:kill()
     if self.world then self.world:remove(self) end
 end
 
-function Entity:draw()
-end
+function Entity:onDraw() end
+function Entity:onUpdate(dt) end
+function Entity:onAdd() end
+function Entity:onRemove() end

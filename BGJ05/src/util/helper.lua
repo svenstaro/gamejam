@@ -43,6 +43,7 @@ function class(name, super)
                 obj[k] = v
             --end
         end
+        setmetatable(obj, cls)
         if obj.__init then obj:__init(...) end
         return obj
     end})

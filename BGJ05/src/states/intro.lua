@@ -5,7 +5,7 @@ require("util/resources")
 
 Intro = class("Intro", GameState)
 
-function Intro:draw()
+function Intro:onDraw()
     love.graphics.setBackgroundColor(17, 17, 17)
     love.graphics.setColor(255, 255, 255)
 
@@ -14,6 +14,6 @@ function Intro:draw()
     love.graphics.print("Hi there", 10, 10)
 end
 
-function Intro:keypressed(k, u)
+function Intro:onKeyPressed(k, u)
     stack:pop()
 end

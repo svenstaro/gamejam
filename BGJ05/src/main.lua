@@ -2,6 +2,7 @@ require("util/resources")
 require("util/gamestack")
 
 require("states/intro")
+require("states/game")
 
 resources = Resources("data/")
 
@@ -9,8 +10,9 @@ function reset()
     -- start game
     states = {}
     states.intro = Intro()
+    states.game = Game()
     stack = GameStack()
-    stack:push(states.intro)
+    stack:push(states.game)
 end
 
 function love.load()

@@ -40,10 +40,7 @@ end
 function World:add(entity)
     table.insert(self.entities, entity)
     entity.world = self
-
-    if entity.physicsObject ~= nil then
-        entity:enablePhysics()
-    end
+    entity:onAdd()
 end
 
 function World:addNewAsteroid(asteroid)
@@ -62,16 +59,11 @@ end
 function World:remove(entity)
     for k,v in pairs(self.entities) do
         if v == entity then
+            entity:onRemove()
             self.entities[k] = nil
             entity.world = nil
-            if entity.physicsObject and entity.physicsObject.body then entity.physicsObject.body:destroy() end
-        end
-    end
-
-    if entity.__name == "Asteroid" then
-        for k,v in pairs(self.newAsteroids) do
-            if v == entity then
-                self.newAsteroids[k] = nil
+            if entity.physicsObject and entity.physicsObject.body then
+                entity.physicsObject.body:destroy()
             end
         end
     end
