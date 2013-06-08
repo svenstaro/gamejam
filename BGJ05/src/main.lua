@@ -12,6 +12,7 @@ SIZE = Vector(love.graphics.getWidth(), love.graphics.getHeight())
 HALFSIZE = SIZE / 2
 GENERATE_AHEAD = SIZE.x * 4
 MAX_HEIGHT = 1000
+DEBUG = true
 
 function reset()
     -- start game
