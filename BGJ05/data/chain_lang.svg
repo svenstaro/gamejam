@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1000px" height="1000px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="273.752" y1="445.5" x2="273.752" y2="556.0005">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0.0026" style="stop-color:#FDFDFD"/>
+		<stop  offset="0.0634" style="stop-color:#C8C8C8"/>
+		<stop  offset="0.1269" style="stop-color:#999999"/>
+		<stop  offset="0.1941" style="stop-color:#707070"/>
+		<stop  offset="0.2643" style="stop-color:#4D4D4D"/>
+		<stop  offset="0.3384" style="stop-color:#313131"/>
+		<stop  offset="0.4175" style="stop-color:#1B1B1B"/>
+		<stop  offset="0.5043" style="stop-color:#0C0C0C"/>
+		<stop  offset="0.6044" style="stop-color:#030303"/>
+		<stop  offset="0.7488" style="stop-color:#000000"/>
+	</linearGradient>
+	<ellipse fill="url(#SVGID_1_)" cx="273.752" cy="500.75" rx="54.16" ry="55.25"/>
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="714.8311" y1="446.5" x2="714.8311" y2="556.5005">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0.0026" style="stop-color:#FDFDFD"/>
+		<stop  offset="0.0634" style="stop-color:#C8C8C8"/>
+		<stop  offset="0.1269" style="stop-color:#999999"/>
+		<stop  offset="0.1941" style="stop-color:#707070"/>
+		<stop  offset="0.2643" style="stop-color:#4D4D4D"/>
+		<stop  offset="0.3384" style="stop-color:#313131"/>
+		<stop  offset="0.4175" style="stop-color:#1B1B1B"/>
+		<stop  offset="0.5043" style="stop-color:#0C0C0C"/>
+		<stop  offset="0.6044" style="stop-color:#030303"/>
+		<stop  offset="0.7488" style="stop-color:#000000"/>
+	</linearGradient>
+	<ellipse fill="url(#SVGID_2_)" cx="714.831" cy="501.5" rx="58.169" ry="55"/>
+	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="494.4995" y1="447" x2="494.4995" y2="557.0005">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0.0026" style="stop-color:#FDFDFD"/>
+		<stop  offset="0.0634" style="stop-color:#C8C8C8"/>
+		<stop  offset="0.1269" style="stop-color:#999999"/>
+		<stop  offset="0.1941" style="stop-color:#707070"/>
+		<stop  offset="0.2643" style="stop-color:#4D4D4D"/>
+		<stop  offset="0.3384" style="stop-color:#313131"/>
+		<stop  offset="0.4175" style="stop-color:#1B1B1B"/>
+		<stop  offset="0.5043" style="stop-color:#0C0C0C"/>
+		<stop  offset="0.6044" style="stop-color:#030303"/>
+		<stop  offset="0.7488" style="stop-color:#000000"/>
+	</linearGradient>
+	<rect x="274" y="447" fill="url(#SVGID_3_)" width="441" height="110"/>
+</g>
+</svg>
