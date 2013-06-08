@@ -11,7 +11,7 @@ resources = Resources("data/")
 SIZE = Vector(love.graphics.getWidth(), love.graphics.getHeight())
 HALFSIZE = SIZE / 2
 GENERATE_AHEAD = SIZE.x * 4
-MAX_HEIGHT = 1000
+MAX_HEIGHT = 1500
 LIGHT_CANVAS = nil
 DEBUG = false
 LIGHTRANGE = 200
@@ -33,6 +33,7 @@ function love.load()
     -- load images
     resources:addImage("particle", "particle.png")
     resources:addImage("particle_square", "particle-square.png")
+    resources:addImage("sparkle", "sparkle.png")
     resources:addImage("ring", "ring.png")
     resources:addImage("lantern", "lantern.png")
     resources:addImage("chain0", "chain0.png")
@@ -42,6 +43,7 @@ function love.load()
     resources:addImage("key_space", "key-space.png")
 
     resources:makeGradientImage("left", {0, 0, 0, 255}, {0, 0, 0, 0}, true)
+    resources:makeGradientImage("sky",  {10, 20, 40}, {120, 150, 255})
 
     -- load fonts
     resources:addFont("normal", "DejaVuSans.ttf", 12)

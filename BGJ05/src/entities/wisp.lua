@@ -10,17 +10,29 @@ function Wisp:__init()
     self.physicsObject = {}
     self.z = -1000
 
-    self.particleSystem = love.graphics.newParticleSystem(resources.images["ring"], 128)
-    self.particleSystem:start()
-    self.particleSystem:setSizes(0.2, 0.01)
-    self.particleSystem:setColors(
+    self.body = love.graphics.newParticleSystem(resources.images.particle, 128)
+    self.body:start()
+    self.body:setSizes(0.5, 1.5)
+    self.body:setColors(
         127, 20, 209, 250,
         15, 128, 215, 0)
-    self.particleSystem:setEmissionRate(100)
-    self.particleSystem:setParticleLife(0.5)
-    self.particleSystem:setSpread(0.5)
+    self.body:setEmissionRate(500)
+    self.body:setParticleLife(0.1)
+    self.body:setSpread(0.5)
 
-    self.glowSize = 255
+    self.sparkle = love.graphics.newParticleSystem(resources.images.sparkle, 1000)
+    self.sparkle:start()
+    self.sparkle:setSizes(0.4, 0.5)
+    self.sparkle:setColors(
+        230, 230, 255, 255,
+        100, 120, 255, 0)
+    self.sparkle:setEmissionRate(30)
+    self.sparkle:setParticleLife(0.4, 1.0)
+    self.sparkle:setSpread(math.pi * 2)
+    self.sparkle:setSpeed(30, 100)
+
+    self.glowSize = 400
+    self.glowColor = {200, 220, 255}
 
     self.nextLamp = nil
 end
@@ -36,8 +48,10 @@ function Wisp:onAdd()
 end
 
 function Wisp:onUpdate(dt)
-    self.particleSystem:update(dt)
-    self.particleSystem:setPosition(self.position.x, self.position.y)
+    self.body:update(dt)
+    self.body:setPosition(self.position.x, self.position.y)
+    self.sparkle:update(dt)
+    self.sparkle:setPosition(self.position.x, self.position.y)
 
     local dNext = (self.nextLamp == nil and 0 or self.position:dist(self.nextLamp.position))
     self.nextLamp = nil
@@ -61,30 +75,34 @@ end
 
 function Wisp:onDraw()
     love.graphics.setColor(255, 255, 255)
-    love.graphics.circle("fill", self.position.x, self.position.y, 20)
+    --love.graphics.circle("fill", self.position.x, self.position.y, 20)
 
     love.graphics.setBlendMode("additive")
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(self.particleSystem)
+    love.graphics.draw(self.body)
+    love.graphics.draw(self.sparkle)
+    setLightRendering(true)
+    love.graphics.draw(self.sparkle)
+    setLightRendering(false)
     love.graphics.setBlendMode("alpha")
 
     if DEBUG then
         love.graphics.setColor(255, 0, 0)
         love.graphics.circle("fill", self.physicsObject.body:getX(), self.physicsObject.body:getY(),
                              self.physicsObject.shape:getRadius())
+    end
 
-        if self.nextLamp then
-            love.graphics.setColor(255, 255, 255)
-            love.graphics.setLineWidth(6)
-            love.graphics.line(self.nextLamp.position.x, self.nextLamp.position.y, self.position.x, self.position.y)
-            love.graphics.setLineWidth(1)
-        end
+    if self.nextLamp then
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.setLineWidth(6)
+        love.graphics.line(self.nextLamp.position.x, self.nextLamp.position.y, self.position.x, self.position.y)
+        love.graphics.setLineWidth(1)
     end
 end
 
 function Wisp:move(vec)
     -- self.position = self.position + vec
-    --self.physicsObject.body:applyForce((vec*30):unpack())
+    self.physicsObject.body:applyForce((vec*30):unpack())
 end
 
 function Wisp:jump(dir)
