@@ -8,6 +8,7 @@ function Entity:__init()
     self.velocity = Vector()
     self.rotation = 0
     self.rotationSpeed = 0
+    self.scale = 1
     self.lifetime = 0
 end
 

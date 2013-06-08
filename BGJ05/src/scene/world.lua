@@ -33,7 +33,7 @@ function World:__init()
     self.entities = {}
 
     love.physics.setMeter(64)
-    self.physicsWorld = love.physics.newWorld(0, 0, false)
+    self.physicsWorld = love.physics.newWorld(0, 100, false)
     self.physicsWorld:setCallbacks(function(a, b, coll) self:beginContact(a, b, coll) end,
                                    function(a, b, coll) self:endContact(a, b, coll) end,
                                    function(a, b, coll) self:preSolve(a, b, coll) end,
