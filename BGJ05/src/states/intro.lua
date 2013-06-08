@@ -11,9 +11,10 @@ function Intro:onDraw()
 
     love.graphics.clear()
     love.graphics.setFont(resources.fonts.normal)
-    love.graphics.print("Hi there", 10, 10)
+    love.graphics.print("Woooosh.", 10, 10)
 end
 
 function Intro:onKeyPressed(k, u)
     stack:pop()
+    stack:push(states.game)
 end
