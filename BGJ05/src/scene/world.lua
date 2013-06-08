@@ -11,7 +11,12 @@ function World:beginContact(a, b, coll)
     local uB = b:getUserData()
 
     -- print("collision : " .. uA.__name .. " / " .. uB.__name)
-    if areUserData(uA, uB, "TypeA", "TypeB") then
+    if areUserData(uA, uB, "LampChain", "Wisp") then
+        if uA.__name == "LampChain" then
+            uB:kill()
+        else
+            uA:kill()
+        end
     end
 end
 
@@ -26,7 +31,6 @@ end
 
 function World:__init()
     self.entities = {}
-    self.newAsteroids = {}
 
     love.physics.setMeter(64)
     self.physicsWorld = love.physics.newWorld(0, 0, false)
@@ -41,13 +45,6 @@ function World:add(entity)
     table.insert(self.entities, entity)
     entity.world = self
     entity:onAdd()
-end
-
-function World:addNewAsteroid(asteroid)
-    if asteroid.__name == "Asteroid" then
-        table.insert(self.newAsteroids, asteroid)
-        self:add(asteroid)
-    end
 end
 
 function World:clear()
@@ -81,16 +78,6 @@ function World:draw()
     table.sort(self.entities, function(a, b) return a.z > b.z end)
     for k, v in pairs(self.entities) do
         v:draw()
-    end
-end
-
-function World:drawNewAsteroids()
-    for k, v in pairs(self.newAsteroids) do
-        if not v:finishedBeingTransparent() then
-            v:drawTransparent()
-        else
-            self.newAsteroids[k] = nil
-        end
     end
 end
 

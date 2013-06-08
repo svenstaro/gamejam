@@ -5,6 +5,7 @@ require("scene/world")
 
 require("entities/building")
 require("entities/wisp")
+require("entities/lamp-chain")
 
 Game = class("Game", GameState)
 
@@ -14,6 +15,10 @@ function Game:__init()
     self.wisp = Wisp()
     self.wisp.position = Vector(0, -200)
     self.world:add(self.wisp)
+
+    self.lamp = LampChain()
+    self.lamp.position = Vector(0, -400)
+    self.world:add(self.lamp)
 
     self.world:add(Building(0, Vector(300, 100)))
 
