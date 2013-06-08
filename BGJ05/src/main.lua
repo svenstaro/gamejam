@@ -4,7 +4,13 @@ require("util/gamestack")
 require("states/intro")
 require("states/game")
 
+-- global subsystems
 resources = Resources("data/")
+
+-- global variables
+SIZE = Vector(love.graphics.getWidth(), love.graphics.getHeight())
+HALFSIZE = SIZE / 2
+
 
 function reset()
     -- start game

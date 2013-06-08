@@ -25,3 +25,7 @@ function Wisp:onDraw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.circle("fill", self.position.x, self.position.y, 20)
 end
+
+function Wisp:move(vec)
+    self.position = self.position + vec
+end

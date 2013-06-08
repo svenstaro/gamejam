@@ -152,6 +152,10 @@ function Vector:cross(v)
 	return self.x * v.y - self.y * v.x
 end
 
+function Vector:unpack()
+    return self.x, self.y
+end
+
 -- returns the mouse position in entity space
 function getMouseVector()
     local x, y = love.mouse.getPosition()
