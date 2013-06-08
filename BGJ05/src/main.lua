@@ -13,6 +13,7 @@ HALFSIZE = SIZE / 2
 GENERATE_AHEAD = SIZE.x * 4
 MAX_HEIGHT = 1000
 LIGHT_CANVAS = nil
+DEBUG = true
 
 function reset()
     -- start game

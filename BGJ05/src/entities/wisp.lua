@@ -33,15 +33,6 @@ function Wisp:onAdd()
 end
 
 function Wisp:onUpdate(dt)
-    if self.physicsObject ~= nil and self.physicsObject.body ~= nil then
-        self.position = Vector(self.physicsObject.body:getX(), self.physicsObject.body:getY()) + (self.velocity * dt)
-        self.physicsObject.body:setPosition(self.position.x, self.position.y)
-        self.physicsObject.body:setAngle(self.rotation)
-    else
-        self.position = self.position + (self.velocity * dt)
-        self.rotation = self.rotation + self.rotationSpeed * dt
-    end
-
     self.particleSystem:update(dt)
     self.particleSystem:setPosition(self.position.x, self.position.y)
 end
@@ -54,6 +45,13 @@ function Wisp:onDraw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.particleSystem)
     love.graphics.setBlendMode("alpha")
+
+    if DEBUG then
+        love.graphics.setColor(255, 0, 0)
+        love.graphics.circle("fill", self.physicsObject.body:getX(), self.physicsObject.body:getY(),
+                             self.physicsObject.shape:getRadius())
+        love.graphics.setColor(255, 255, 255)
+    end
 end
 
 function Wisp:move(vec)
