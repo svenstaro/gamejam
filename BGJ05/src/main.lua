@@ -16,6 +16,7 @@ LIGHT_CANVAS = nil
 DEBUG = false
 LIGHTRANGE = 200
 WINDOWDATA = "a29ujosdkkqjwebanldkjsnldkfmnlasjnd1fkl2qawkcsmnxlkj2ma2"
+TRANSLATION = Vector()
 
 function reset()
     -- start game

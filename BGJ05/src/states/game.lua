@@ -3,6 +3,7 @@ require("util/resources")
 
 require("scene/world")
 
+require("entities/background")
 require("entities/building")
 require("entities/wisp")
 require("entities/lamp-chain")
@@ -60,6 +61,8 @@ function Game:generateWorld()
 
     self.generatedUntil = x + w * randf(1.0, 4)
 
+    local bx = x
+
     if x > 200 then
         while x < self.generatedUntil do
             local lamp = LampStatic()
@@ -69,6 +72,10 @@ function Game:generateWorld()
         end
     end
 
+    while bx < self.generatedUntil do
+        self.world:add(Background(bx))
+        bx = bx + randf(20, 90)/3
+    end
 end
 
 function Game:onDraw()
@@ -81,16 +88,23 @@ function Game:onDraw()
     love.graphics.draw(resources.images.sky, 0, 0, 0, (HALFSIZE):unpack())
 
     local center = self.wisp.position
+    TRANSLATION = -(center - HALFSIZE)
     love.graphics.push()
-    love.graphics.translate((HALFSIZE-center):unpack())
+    love.graphics.translate(TRANSLATION:unpack())
 
     -- ground
+    for i=3,1,-1 do
+        local a = 10 + 10 * i
+        love.graphics.setColor(a, a, a)
+        love.graphics.rectangle("fill", center.x - HALFSIZE.x, -50-50*i, SIZE.x, 100)
+    end
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle("fill", center.x - HALFSIZE.x, 0, SIZE.x, SIZE.y)
 
     self.world:draw()
 
     love.graphics.pop()
+    TRANSLATION = Vector()
 
     -- lights
     love.graphics.setColor(255, 255, 255, 180)
@@ -102,8 +116,9 @@ function Game:onDraw()
     love.graphics.setBlendMode("alpha")
 
     -- help
+    TRANSLATION = HALFSIZE - center
     love.graphics.push()
-    love.graphics.translate((HALFSIZE-center):unpack())
+    love.graphics.translate(TRANSLATION:unpack())
 
     --love.graphics.setColor(255, 255, 255)
     --love.graphics.draw(resources.images.left, -SIZE.x, center.y-HALFSIZE.y, 0, SIZE.x, SIZE.y)
@@ -117,6 +132,7 @@ function Game:onDraw()
 
 
     love.graphics.pop()
+    TRANSLATION = Vector()
 
     -- debug info
     love.graphics.setFont(resources.fonts.normal)

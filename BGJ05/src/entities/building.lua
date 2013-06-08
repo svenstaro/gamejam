@@ -21,7 +21,7 @@ end
 
 function Building:onDraw()
     local a = (1 - self.size.y / MAX_HEIGHT) * 0.5 * 255 + 100
-    local a = 30
+    local a = 50
     love.graphics.setColor(a, a, a)
     love.graphics.rectangle("fill", self.position.x, 0, self.size.x, -self.size.y)
 
