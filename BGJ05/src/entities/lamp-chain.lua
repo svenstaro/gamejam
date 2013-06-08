@@ -8,6 +8,8 @@ function LampChain:__init()
     Entity.__init(self)
     self.physicsObject = {}
     self.z = -100
+    self.scale = 0.1
+    self.image = resources.images.lantern
 
     self.particleSystem = love.graphics.newParticleSystem(resources.images["particle"], 128)
     self.particleSystem:start()
@@ -48,6 +50,13 @@ function LampChain:kill()
 end
 
 function LampChain:onDraw()
+    love.graphics.draw(resources.images.lantern,
+                       self.position.x - (self.image:getWidth() / 2) * self.scale,
+                       self.position.y - (self.image:getHeight() / 2) * self.scale,
+                       self.rotation, self.scale)
+
+    love.graphics.polygon("fill", self.physicsObject.body:getWorldPoints(self.physicsObject.shape:getPoints()))
+
     love.graphics.setBlendMode("additive")
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.particleSystem)
