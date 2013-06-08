@@ -14,24 +14,14 @@ function Game:__init()
     self.world = World()
 
     self.wisp = Wisp()
-    self.wisp.position = Vector(0, -200)
+    self.wisp.position = Vector(-10, -100)
     self.world:add(self.wisp)
 
-    self.lamp = LampChain()
-    self.lamp.position = Vector(0, -400)
-    self.world:add(self.lamp)
-
     local lamp = LampStatic()
-    lamp.position = Vector(300, -100)
-    self.world:add(lamp)
-    local lamp = LampStatic()
-    lamp.position = Vector(600, -200)
+    lamp.position = Vector(0, -200)
     self.world:add(lamp)
 
-
-    self.world:add(Building(0, Vector(300, 100)))
-
-    self.generatedUntil = -SIZE.x
+    self.generatedUntil = -SIZE.x*5
 
     self.keyHelpOpacity = 1
 end
@@ -48,7 +38,7 @@ end
 function Game:onUpdate(dt)
     self.wisp:move(self:getKeyboardVector())
 
-    self.keyHelpOpacity = math.max(0, self.keyHelpOpacity - dt / 5)
+    self.keyHelpOpacity = math.max(0, self.keyHelpOpacity - dt / 10)
 
     -- generate full view and a bit (GENEREATE_AHEAD)
     while self.wisp.position.x + GENERATE_AHEAD > self.generatedUntil do
@@ -60,15 +50,21 @@ end
 
 function Game:generateWorld()
     local x = self.generatedUntil
-    local w = randf(50, 300)
-    local h = randf(50, MAX_HEIGHT)
+    local w = randf(200, 500)
+    local h = randf(500, MAX_HEIGHT)
     self.world:add(Building(x, Vector(w, h)))
 
-    local lamp = LampStatic()
-    lamp.position = Vector(randf(x, self.generatedUntil), randf(-100, -500))
-    self.world:add(lamp)
+    self.generatedUntil = x + w * randf(1.0, 4)
 
-    self.generatedUntil = x + w * randf(0.6, 1.2)
+    if x > 200 then
+        while x < self.generatedUntil do
+            local lamp = LampStatic()
+            lamp.position = Vector(x, randf(-100, -500))
+            self.world:add(lamp)
+            x = x + randf(100, 300)
+        end
+    end
+
 end
 
 function Game:onDraw()
@@ -76,6 +72,9 @@ function Game:onDraw()
 
     love.graphics.setBackgroundColor(20, 10, 50)
     love.graphics.clear()
+
+    love.graphics.setBackgroundColor(255, 255, 255)
+    love.graphics.draw(resources.images.sky, 0, 0, 0, (HALFSIZE):unpack())
 
     local center = self.wisp.position
     love.graphics.push()
@@ -87,26 +86,33 @@ function Game:onDraw()
 
     self.world:draw()
 
+    love.graphics.pop()
+
+    -- lights
+    love.graphics.setColor(255, 255, 255, 100)
+    love.graphics.setBlendMode("multiplicative")
+    love.graphics.draw(LIGHT_CANVAS, 0, 0)
+    love.graphics.setColor(255, 255, 255, 0)
+    love.graphics.setBlendMode("additive")
+    --love.graphics.draw(LIGHT_CANVAS, 0, 0)
+    love.graphics.setBlendMode("alpha")
+
     -- help
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(resources.images.left, -SIZE.x/2, -SIZE.y*10, 0, SIZE.x/2/2, SIZE.y*20/2)
+    love.graphics.push()
+    love.graphics.translate((HALFSIZE-center):unpack())
+
+    --love.graphics.setColor(255, 255, 255)
+    --love.graphics.draw(resources.images.left, -SIZE.x, center.y-HALFSIZE.y, 0, SIZE.x, SIZE.y)
 
     love.graphics.setColor(255, 255, 255, 255 * self.keyHelpOpacity)
-    local ax, ay, s = 0, 40, resources.images.key_arrow:getWidth() * 0.5 + 4
+    local ax, ay, s = 0, -400, resources.images.key_arrow:getWidth() * 0.5 + 4
     love.graphics.draw(resources.images.key_arrow, ax,   ay,   math.pi * 0.5, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
     love.graphics.draw(resources.images.key_arrow, ax+s, ay+s, math.pi * 1.0, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
     love.graphics.draw(resources.images.key_arrow, ax,   ay+s, math.pi * 1.5, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
     love.graphics.draw(resources.images.key_arrow, ax-s, ay+s, math.pi * 0.0, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
 
-    love.graphics.pop()
 
-    love.graphics.setColor(255, 255, 255, 200)
-    love.graphics.setBlendMode("multiplicative")
-    love.graphics.draw(LIGHT_CANVAS, 0, 0)
-    love.graphics.setColor(255, 255, 255, 60)
-    love.graphics.setBlendMode("additive")
-    love.graphics.draw(LIGHT_CANVAS, 0, 0)
-    love.graphics.setBlendMode("alpha")
+    love.graphics.pop()
 
     -- debug info
     love.graphics.setFont(resources.fonts.normal)
