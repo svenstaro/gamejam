@@ -7,6 +7,7 @@ require("entities/building")
 require("entities/wisp")
 require("entities/lamp-chain")
 require("entities/lamp-static")
+require("entities/lamp-antenna")
 
 Game = class("Game", GameState)
 
@@ -24,6 +25,10 @@ function Game:__init()
     local lampchain = LampChain()
     lampchain.position = Vector(200, -200)
     self.world:add(lampchain)
+
+    local lampantenna = LampAntenna()
+    lampantenna.position = Vector(-200, -200)
+    self.world:add(lampantenna)
 
     self.generatedUntil = -SIZE.x*5
 

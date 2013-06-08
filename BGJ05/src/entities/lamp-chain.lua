@@ -24,10 +24,11 @@ function LampChain:__init()
     self.physicsObjectChain3 = {}
     self.physicsObjectLantern = {}
     self.z = -100
+    self.mirror = false
     self.scale = 0.1
     self.chain_scale = 0.3
     self.impulse = randf(-10, 10)
-    self.image_attachment = resources.images.lantern
+    self.image_attachment = resources.images.chainlamp
     self.image_lantern = resources.images.lantern
     self.image_chain0 = resources.images.chain0
     self.image_chain1 = resources.images.chain1
@@ -104,7 +105,7 @@ function LampChain:onAdd()
     self.physicsObjectLantern.joint = love.physics.newRopeJoint(self.physicsObjectChain3.body, self.physicsObjectLantern.body,
                                                                     self.positionChain3.x * love08bugfix, self.positionChain3.y * love08bugfix,
                                                                     self.positionLantern.x * love08bugfix, self.positionLantern.y * love08bugfix + offset,
-                                                                    20)
+                                                                    40)
     table.insert(self.world.physicsObjects, self.physicsObjectLantern)
     self.physicsObjectLantern.body:setAngularDamping(4) 
     self.physicsObjectLantern.body:applyLinearImpulse(self.impulse, 0)
@@ -155,9 +156,10 @@ end
 
 function LampChain:onDraw()
     love.graphics.setColor(255, 255, 255)
+
     love.graphics.draw(self.image_attachment,
-                       self.position.x, self.position.y, self.rotation,
-                       self.scale, self.scale,
+                       self.position.x - 40, self.position.y + 40, self.rotation,
+                       self.scale * 3, self.scale * 3,
                        self.image_attachment:getWidth() / 2, self.image_attachment:getHeight() / 2)
 
     love.graphics.draw(self.image_chain0,
