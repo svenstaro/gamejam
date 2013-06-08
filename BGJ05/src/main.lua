@@ -19,7 +19,7 @@ function reset()
     states.intro = Intro()
     states.game = Game()
     stack = GameStack()
-    stack:push(states.game)
+    stack:push(states.intro)
 end
 
 function love.load()
@@ -29,6 +29,11 @@ function love.load()
     resources:addImage("particle", "particle.png")
     resources:addImage("ring", "ring.png")
     resources:addImage("lantern", "lantern.png")
+    resources:addImage("key_arrow", "key-arrow.png")
+    resources:addImage("key_esc", "key-esc.png")
+    resources:addImage("key_space", "key-space.png")
+
+    resources:makeGradientImage("left", {0, 0, 0, 255}, {0, 0, 0, 0}, true)
 
     -- load fonts
     resources:addFont("normal", "DejaVuSans.ttf", 12)
