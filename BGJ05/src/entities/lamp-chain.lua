@@ -25,6 +25,7 @@ function LampChain:__init()
     self.physicsObjectLantern = {}
     self.z = -100
     self.scale = 0.1
+    self.chain_scale = 0.3
     self.image_attachment = resources.images.lantern
     self.image_lantern = resources.images.lantern
     self.image_chain0 = resources.images.chain0
@@ -143,37 +144,43 @@ function LampChain:onUpdate(dt)
 end
 
 function LampChain:onRemove()
-    -- TODO implement this
+    entity.physicsObjectAttachment.body:destroy()
+    entity.physicsObjectChain0.body:destroy()
+    entity.physicsObjectChain1.body:destroy()
+    entity.physicsObjectChain2.body:destroy()
+    entity.physicsObjectChain3.body:destroy()
+    entity.physicsObjectLantern.body:destroy()
 end
 
 function LampChain:onDraw()
+    love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.image_attachment,
-                       self.position.x, self.position.x, self.rotation,
+                       self.position.x, self.position.y, self.rotation,
                        self.scale, self.scale,
                        self.image_attachment:getWidth() / 2, self.image_attachment:getHeight() / 2)
 
     love.graphics.draw(self.image_chain0,
-                       self.positionChain0.x, self.positionChain0.y,
-                       self.scale, self.scale,
+                       self.positionChain0.x, self.positionChain0.y, self.rotationChain0 + math.pi/2,
+                       self.chain_scale, self.chain_scale,
                        self.image_chain0:getWidth() / 2, self.image_chain0:getHeight() / 2)
 
     love.graphics.draw(self.image_chain1,
-                       self.positionChain1.x, self.positionChain1.y,
-                       self.scale, self.scale,
+                       self.positionChain1.x, self.positionChain1.y, self.rotationChain1 + math.pi/2,
+                       self.chain_scale, self.chain_scale,
                        self.image_chain1:getWidth() / 2, self.image_chain1:getHeight() / 2)
 
     love.graphics.draw(self.image_chain0,
-                       self.positionChain2.x, self.positionChain2.y,
-                       self.scale, self.scale,
+                       self.positionChain2.x, self.positionChain2.y, self.rotationChain2 + math.pi/2,
+                       self.chain_scale, self.chain_scale,
                        self.image_chain0:getWidth() / 2, self.image_chain0:getHeight() / 2)
 
     love.graphics.draw(self.image_chain1,
-                       self.positionChain3.x, self.positionChain3.y,
-                       self.scale, self.scale,
+                       self.positionChain3.x, self.positionChain3.y, self.rotationChain3 + math.pi/2,
+                       self.chain_scale, self.chain_scale,
                        self.image_chain1:getWidth() / 2, self.image_chain1:getHeight() / 2)
 
     love.graphics.draw(self.image_lantern,
-                       self.positionLantern.x, self.positionLantern.y,
+                       self.positionLantern.x, self.positionLantern.y, self.rotationLantern,
                        self.scale, self.scale,
                        self.image_lantern:getWidth() / 2, self.image_lantern:getHeight() / 2)
 
