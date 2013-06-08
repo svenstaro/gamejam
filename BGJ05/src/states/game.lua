@@ -29,6 +29,8 @@ function Game:__init()
     self.generatedUntil = -SIZE.x*5
 
     self.keyHelpOpacity = 1
+
+    self.camCenter = Vector()
 end
 
 function Game:getKeyboardVector()
@@ -87,8 +89,20 @@ function Game:onDraw()
     love.graphics.setBackgroundColor(255, 255, 255)
     love.graphics.draw(resources.images.sky, 0, 0, 0, (HALFSIZE):unpack())
 
-    local center = self.wisp.position
-    TRANSLATION = -(center - HALFSIZE)
+    local wp = Vector(self.wisp.position:unpack())
+    local s = SIZE/3/2
+
+    if wp.x < self.camCenter.x - s.x then self.camCenter.x = wp.x + s.x
+    elseif wp.x > self.camCenter.x + s.x then self.camCenter.x = wp.x - s.x
+    end
+
+    if wp.y < self.camCenter.y - s.y then self.camCenter.y = wp.y + s.y
+    elseif wp.y > self.camCenter.y + s.y then self.camCenter.y = wp.y - s.y
+    end
+
+    self.camCenter.y = math.min(self.camCenter.y, 0)
+
+    TRANSLATION = -(self.camCenter - HALFSIZE)
     love.graphics.push()
     love.graphics.translate(TRANSLATION:unpack())
 
@@ -96,10 +110,10 @@ function Game:onDraw()
     for i=3,1,-1 do
         local a = 10 + 10 * i
         love.graphics.setColor(a, a, a)
-        love.graphics.rectangle("fill", center.x - HALFSIZE.x, -50-50*i, SIZE.x, 100)
+        love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x, -50-50*i, SIZE.x, 100)
     end
     love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("fill", center.x - HALFSIZE.x, 0, SIZE.x, SIZE.y)
+    love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x, 0, SIZE.x, SIZE.y)
 
     self.world:draw()
 
@@ -116,7 +130,7 @@ function Game:onDraw()
     love.graphics.setBlendMode("alpha")
 
     -- help
-    TRANSLATION = HALFSIZE - center
+    TRANSLATION = -(self.camCenter - HALFSIZE)
     love.graphics.push()
     love.graphics.translate(TRANSLATION:unpack())
 
