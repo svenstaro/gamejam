@@ -25,15 +25,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="90.466439"
-     inkscape:cy="56.082706"
+     inkscape:cx="103.59217"
+     inkscape:cy="21.068804"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      showguides="false"
-     inkscape:window-width="1362"
+     inkscape:window-width="679"
      inkscape:window-height="729"
-     inkscape:window-x="0"
+     inkscape:window-x="683"
      inkscape:window-y="37"
      inkscape:window-maximized="0"
      inkscape:snap-bbox="true"
@@ -80,25 +80,31 @@
          x="201.66298"
          y="484.02518" />
     </g>
-    <rect
-       y="528.30151"
-       x="240.93935"
-       height="28.121315"
-       width="28.121315"
-       id="rect2987"
-       style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+    <g
+       id="g4346"
        inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-arrow.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
-    <path
-       sodipodi:nodetypes="cccccccc"
-       inkscape:connector-curvature="0"
-       id="path3777"
-       d="m 245,542.36218 10,-10 0,6 10,0 0,8 -10,0 0,6 z"
-       style="fill:#ffffff;fill-opacity:1;stroke:none"
-       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-arrow.png"
-       inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
+       inkscape:export-ydpi="300">
+      <rect
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-arrow.png"
+         style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect2987"
+         width="28.121315"
+         height="28.121315"
+         x="240.93935"
+         y="528.30151" />
+      <path
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-arrow.png"
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         d="M 247.14286,542.36218 255,534.50504 l 0,4.71428 7.85714,0 0,6.28572 -7.85714,0 0,4.71428 z"
+         id="path3777"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccc" />
+    </g>
     <rect
        style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3819"
@@ -124,30 +130,98 @@
          x="319.92834"
          y="586.15717"
          style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold">SPACE</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:11px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="299.77527"
-       y="546.15717"
-       id="text3823-5"
-       sodipodi:linespacing="125%"
-       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+    <g
+       id="g4333"
+       transform="translate(-9.9999884,9.0057182e-6)">
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         sodipodi:linespacing="125%"
+         id="text3823-5"
+         y="546.15717"
+         x="299.77527"
+         style="font-size:11px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold"
+           y="546.15717"
+           x="299.77527"
+           id="tspan3825-9"
+           sodipodi:role="line">ESC</tspan></text>
+      <rect
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect2987-6"
+         width="28.121315"
+         height="28.121315"
+         x="285.93933"
+         y="528.30151" />
+    </g>
+    <g
+       id="g4328"
+       transform="translate(25.000012,9.0057182e-6)"
+       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-f.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
-         sodipodi:role="line"
-         id="tspan3825-9"
+       inkscape:export-ydpi="300">
+      <text
+         xml:space="preserve"
+         style="font-size:11px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          x="299.77527"
          y="546.15717"
-         style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold">ESC</tspan></text>
-    <rect
-       y="528.30151"
-       x="285.93933"
-       height="28.121315"
-       width="28.121315"
-       id="rect2987-6"
-       style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         id="text4322"
+         sodipodi:linespacing="125%"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"><tspan
+           sodipodi:role="line"
+           id="tspan4324"
+           x="299.77527"
+           y="546.15717"
+           style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold">F</tspan></text>
+      <rect
+         y="528.30151"
+         x="285.93933"
+         height="28.121315"
+         width="28.121315"
+         id="rect4326"
+         style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+    </g>
+    <g
+       transform="translate(60.000012,9.0057182e-6)"
+       id="g4338"
+       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-m.png"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300" />
+       inkscape:export-ydpi="300">
+      <text
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         sodipodi:linespacing="125%"
+         id="text4340"
+         y="546.15717"
+         x="299.77527"
+         style="font-size:11px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold"
+           y="546.15717"
+           x="299.77527"
+           id="tspan4342"
+           sodipodi:role="line">M</tspan></text>
+      <rect
+         inkscape:export-ydpi="300"
+         inkscape:export-xdpi="300"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect4344"
+         width="28.121315"
+         height="28.121315"
+         x="285.93933"
+         y="528.30151" />
+    </g>
   </g>
 </svg>
