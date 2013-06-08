@@ -78,6 +78,7 @@ function World:update(dt)
 end
 
 function World:draw()
+    table.sort(self.entities, function(a, b) return a.z > b.z end)
     for k, v in pairs(self.entities) do
         v:draw()
     end

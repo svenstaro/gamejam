@@ -7,6 +7,7 @@ Wisp = class("Wisp", Entity)
 
 function Wisp:__init()
     Entity.__init(self)
+    self.z = -1000
 end
 
 function Wisp:onAdd()
