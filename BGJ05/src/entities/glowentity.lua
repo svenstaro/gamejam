@@ -24,7 +24,7 @@ function GlowEntity:draw()
 
         local s = resources.images.particle:getWidth()
         local scale = self.glowSize / s * (math.sin((self.glowOffset + self.lifetime) * self.glowSpeed) * self.glowVariance + 1)
-        love.graphics.draw(resources.images.particle_square, self.position.x, self.position.y, 0,
+        love.graphics.draw(resources.images.particle_square, self:getPosition().x, self:getPosition().y, 0,
             scale, scale, s / 2, s / 2)
 
         setLightRendering(false)
