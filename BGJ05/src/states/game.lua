@@ -23,6 +23,8 @@ function Game:__init()
     self.world:add(Building(0, Vector(300, 100)))
 
     self.generatedUntil = -SIZE.x
+
+    self.keyHelpOpacity = 1
 end
 
 function Game:onUpdate(dt)
@@ -31,6 +33,8 @@ function Game:onUpdate(dt)
     if love.keyboard.isDown("right") then self.wisp:move(Vector( 1,  0) * speed) end
     if love.keyboard.isDown("up")    then self.wisp:move(Vector( 0, -1) * speed) end
     if love.keyboard.isDown("down")  then self.wisp:move(Vector( 0,  1) * speed) end
+
+    self.keyHelpOpacity = math.max(0, self.keyHelpOpacity - dt / 5)
 
     -- generate full view and a bit (GENEREATE_AHEAD)
     while self.wisp.position.x + GENERATE_AHEAD > self.generatedUntil do
@@ -61,6 +65,19 @@ function Game:onDraw()
     love.graphics.rectangle("fill", center.x - HALFSIZE.x, 0, SIZE.x, SIZE.y)
 
     self.world:draw()
+
+    -- help
+
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.draw(resources.images.left, -SIZE.x/2, -SIZE.y*10, 0, SIZE.x/2/2, SIZE.y*20/2)
+
+    love.graphics.setColor(255, 255, 255, 255 * self.keyHelpOpacity)
+    local ax, ay, s = 0, 40, resources.images.key_arrow:getWidth() * 0.5 + 4
+    love.graphics.draw(resources.images.key_arrow, ax,   ay,   math.pi * 0.5, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
+    love.graphics.draw(resources.images.key_arrow, ax+s, ay+s, math.pi * 1.0, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
+    love.graphics.draw(resources.images.key_arrow, ax,   ay+s, math.pi * 1.5, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
+    love.graphics.draw(resources.images.key_arrow, ax-s, ay+s, math.pi * 0.0, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
+
     love.graphics.pop()
 
     -- debug info
