@@ -21,7 +21,7 @@ function Lamp:__init()
     self.particleSystem:setParticleLife(0.5)
     self.particleSystem:setSpread(0.5)
 
-    self.glowColor = {255, 200, 0}
+    self.glowColor = {255, 230, 0}
     self.glowSize = 300
 end
 
@@ -43,6 +43,8 @@ function Lamp:onUpdate(dt)
 
     self.particleSystem:update(dt)
     self.particleSystem:setPosition(self.position.x, self.position.y)
+
+    self.z = - 100 - self.position.y / 100000
 end
 
 function Lamp:onDraw()

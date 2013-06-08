@@ -15,6 +15,7 @@ MAX_HEIGHT = 1500
 LIGHT_CANVAS = nil
 DEBUG = false
 LIGHTRANGE = 200
+WINDOWDATA = "a29ujosdkkqjwebanldkjsnldkfmnlasjnd1fkl2qawkcsmnxlkj2ma2"
 
 function reset()
     -- start game
@@ -36,6 +37,7 @@ function love.load()
     resources:addImage("sparkle", "sparkle.png")
     resources:addImage("ring", "ring.png")
     resources:addImage("lantern", "lantern.png")
+    resources:addImage("streetlamp1", "streetlamp1.png")
     resources:addImage("key_arrow", "key-arrow.png")
     resources:addImage("key_esc", "key-esc.png")
     resources:addImage("key_space", "key-space.png")

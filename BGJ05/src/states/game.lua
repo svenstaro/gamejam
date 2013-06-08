@@ -50,7 +50,7 @@ end
 
 function Game:generateWorld()
     local x = self.generatedUntil
-    local w = randf(200, 500)
+    local w = math.random(4, 10) * 50
     local h = randf(500, MAX_HEIGHT)
     self.world:add(Building(x, Vector(w, h)))
 
@@ -89,12 +89,12 @@ function Game:onDraw()
     love.graphics.pop()
 
     -- lights
-    love.graphics.setColor(255, 255, 255, 100)
+    love.graphics.setColor(255, 255, 255, 180)
     love.graphics.setBlendMode("multiplicative")
     love.graphics.draw(LIGHT_CANVAS, 0, 0)
-    love.graphics.setColor(255, 255, 255, 0)
+    love.graphics.setColor(255, 255, 255, 50)
     love.graphics.setBlendMode("additive")
-    --love.graphics.draw(LIGHT_CANVAS, 0, 0)
+    love.graphics.draw(LIGHT_CANVAS, 0, 0)
     love.graphics.setBlendMode("alpha")
 
     -- help

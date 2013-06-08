@@ -10,6 +10,7 @@ function Building:__init(x, size)
     self.position = Vector(x, 0)
     self.size = size
     self.z = self.size.y / MAX_HEIGHT
+    self.windows = math.floor(size.x / 70)
 end
 
 function Building:onAdd()
@@ -20,6 +21,25 @@ end
 
 function Building:onDraw()
     local a = (1 - self.size.y / MAX_HEIGHT) * 0.5 * 255 + 100
+    local a = 30
     love.graphics.setColor(a, a, a)
     love.graphics.rectangle("fill", self.position.x, 0, self.size.x, -self.size.y)
+
+    local r = 3
+    local s = self.size.x / (self.windows * (r+1) + 1)
+
+    local S = r * s
+    for x=0,self.windows-1 do
+        for y=-100,-self.size.y,-S-s do
+            local id = math.abs(math.floor(x * 27 + y * 31 + math.floor(self.position.x * 13)))
+            local id2 = id % (string.len(WINDOWDATA)-1) + 1
+            local on = string.byte(WINDOWDATA, id2)
+
+            if on % 2 == 1 then
+                local light = (on % 7 < 2 and 30 or -30)
+                love.graphics.setColor(a+light, a+light, a+light)
+                love.graphics.rectangle("fill", self.position.x + x * (r+1) * s + s, y, S, S)
+            end
+        end
+    end
 end
