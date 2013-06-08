@@ -53,11 +53,11 @@ function Wisp:onUpdate(dt)
     self.sparkle:update(dt)
     self.sparkle:setPosition(self.position.x, self.position.y)
 
-    local dNext = (self.nextLamp == nil and 0 or self.position:dist(self.nextLamp.position))
+    local dNext = (self.nextLamp == nil and 0 or self.position:dist(self.nextLamp:getPosition()))
     self.nextLamp = nil
     for k, lamp in pairs(self.world:findByType("Lamp", true)) do
         lamp.isNextLamp = false
-        local d = self.position:dist(lamp.position)
+        local d = self.position:dist(lamp:getPosition())
         if d < LIGHTRANGE and lamp.burning and (self.nextLamp == nil or d <= dNext) then
             self.nextLamp = lamp
         end
@@ -66,7 +66,7 @@ function Wisp:onUpdate(dt)
     if self.nextLamp then
         self.nextLamp.isNextLamp = true
 
-        local f = self.nextLamp.position - self.position
+        local f = self.nextLamp:getPosition() - self.position
         local l = math.max(10, f:len())
         f = f * (1 - l / LIGHTRANGE) * 3
         self.physicsObject.body:applyForce(f:unpack())
@@ -95,7 +95,7 @@ function Wisp:onDraw()
     if self.nextLamp then
         love.graphics.setColor(255, 255, 255)
         love.graphics.setLineWidth(6)
-        love.graphics.line(self.nextLamp.position.x, self.nextLamp.position.y, self.position.x, self.position.y)
+        love.graphics.line(self.nextLamp:getPosition().x, self.nextLamp:getPosition().y, self.position.x, self.position.y)
         love.graphics.setLineWidth(1)
     end
 end

@@ -31,16 +31,6 @@ function LampChain:__init()
     self.image_chain0 = resources.images.chain0
     self.image_chain1 = resources.images.chain1
 
-    self.particleSystem = love.graphics.newParticleSystem(resources.images.particle, 128)
-    self.particleSystem:start()
-    self.particleSystem:setSizes(0.2, 0.9)
-    self.particleSystem:setColors(
-        240, 250, 50, 250,
-        250, 10, 10, 0)
-    self.particleSystem:setEmissionRate(100)
-    self.particleSystem:setParticleLife(0.5)
-    self.particleSystem:setSpread(0.5)
-
     self.glowColor = {255, 200, 0}
 end
 
@@ -117,6 +107,17 @@ function LampChain:onAdd()
 end
 
 function LampChain:onUpdate(dt)
+    if self.isNextLamp then
+        self.wasActive = true
+    end
+
+    if not self.isNextLamp and self.wasActive then
+        self:burnout()
+    end
+
+    self.glow = self.burning
+    self.particleSystem:setEmissionRate(self.glowing and 100 or 0)
+
     self.particleSystem:update(dt)
     self.particleSystem:setPosition(self.positionLantern.x, self.positionLantern.y)
 
