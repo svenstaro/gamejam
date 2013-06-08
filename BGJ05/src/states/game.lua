@@ -21,7 +21,7 @@ function Game:__init()
 end
 
 function Game:onUpdate(dt)
-    local speed = dt * 100
+    local speed = dt * 400
     if love.keyboard.isDown("left")  then self.wisp:move(Vector(-1,  0) * speed) end
     if love.keyboard.isDown("right") then self.wisp:move(Vector( 1,  0) * speed) end
     if love.keyboard.isDown("up")    then self.wisp:move(Vector( 0, -1) * speed) end
@@ -29,7 +29,6 @@ function Game:onUpdate(dt)
 
     -- generate full view and a bit (GENEREATE_AHEAD)
     while self.wisp.position.x + GENERATE_AHEAD > self.generatedUntil do
-        print("Generate")
         self:generateWorld()
     end
 

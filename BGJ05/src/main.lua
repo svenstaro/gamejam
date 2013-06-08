@@ -29,7 +29,7 @@ function love.load()
     -- resources:addImage("logo", "logo.png")
 
     -- load fonts
-    resources:addFont("normal", "DejaVuSans.ttf", 20)
+    resources:addFont("normal", "DejaVuSans.ttf", 12)
 
     -- load music
     -- resources:addMusic("background", "background.mp3")
