@@ -2,10 +2,10 @@ require("util/helper")
 require("util/vector")
 require("scene/entity")
 
-LampChain = class("LampChain", Entity)
+LampChain = class("LampChain", GlowEntity)
 
 function LampChain:__init()
-    Entity.__init(self)
+    GlowEntity.__init(self)
     self.physicsObject = {}
     self.z = -100
     self.scale = 0.1
@@ -15,11 +15,13 @@ function LampChain:__init()
     self.particleSystem:start()
     self.particleSystem:setSizes(0.2, 0.9)
     self.particleSystem:setColors(
-        240, 250, 50, 250, 
+        240, 250, 50, 250,
         250, 10, 10, 0)
     self.particleSystem:setEmissionRate(100)
     self.particleSystem:setParticleLife(0.5)
-    self.particleSystem:setSpread(0.5) 
+    self.particleSystem:setSpread(0.5)
+
+    self.glowColor = {255, 200, 0}
 end
 
 function LampChain:onAdd()

@@ -12,6 +12,7 @@ SIZE = Vector(love.graphics.getWidth(), love.graphics.getHeight())
 HALFSIZE = SIZE / 2
 GENERATE_AHEAD = SIZE.x * 4
 MAX_HEIGHT = 1000
+LIGHT_CANVAS = nil
 
 function reset()
     -- start game
@@ -24,6 +25,8 @@ end
 
 function love.load()
     math.randomseed(os.time())
+
+    LIGHT_CANVAS = love.graphics.newCanvas(SIZE:unpack())
 
     -- load images
     resources:addImage("particle", "particle.png")

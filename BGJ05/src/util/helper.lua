@@ -19,6 +19,20 @@ function class(name, superclass)
 end
 ]]--
 
+function pack(...)
+    return {...}
+end
+
+function setLightRendering(enabled)
+    if enabled then
+        love.graphics.setCanvas(LIGHT_CANVAS)
+        love.graphics.setBlendMode("additive")
+    else
+        love.graphics.setCanvas()
+        love.graphics.setBlendMode("alpha")
+    end
+end
+
 function class(name, super)
     -- main metadata
     local cls = {}

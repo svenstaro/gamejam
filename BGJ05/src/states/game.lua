@@ -53,6 +53,8 @@ function Game:generateWorld()
 end
 
 function Game:onDraw()
+    LIGHT_CANVAS:clear(0, 0, 0)
+
     love.graphics.setBackgroundColor(20, 10, 50)
     love.graphics.clear()
 
@@ -67,7 +69,6 @@ function Game:onDraw()
     self.world:draw()
 
     -- help
-
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(resources.images.left, -SIZE.x/2, -SIZE.y*10, 0, SIZE.x/2/2, SIZE.y*20/2)
 
@@ -79,6 +80,11 @@ function Game:onDraw()
     love.graphics.draw(resources.images.key_arrow, ax-s, ay+s, math.pi * 0.0, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
 
     love.graphics.pop()
+
+    love.graphics.setColor(255, 255, 255, 200)
+    love.graphics.setBlendMode("multiplicative")
+    love.graphics.draw(LIGHT_CANVAS, 0, 0)
+    love.graphics.setBlendMode("alpha")
 
     -- debug info
     love.graphics.setFont(resources.fonts.normal)

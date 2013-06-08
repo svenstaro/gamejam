@@ -1,11 +1,12 @@
 require("util/helper")
 require("util/vector")
-require("scene/entity")
 
-Wisp = class("Wisp", Entity)
+require("entities/glowentity")
+
+Wisp = class("Wisp", GlowEntity)
 
 function Wisp:__init()
-    Entity.__init(self)
+    GlowEntity.__init(self)
     self.physicsObject = {}
     self.z = -1000
 
@@ -13,11 +14,13 @@ function Wisp:__init()
     self.particleSystem:start()
     self.particleSystem:setSizes(0.2, 0.01)
     self.particleSystem:setColors(
-        127, 20, 209, 250, 
+        127, 20, 209, 250,
         15, 128, 215, 0)
     self.particleSystem:setEmissionRate(100)
     self.particleSystem:setParticleLife(0.5)
-    self.particleSystem:setSpread(0.5) 
+    self.particleSystem:setSpread(0.5)
+
+    self.glowSize = 255
 end
 
 function Wisp:onAdd()
