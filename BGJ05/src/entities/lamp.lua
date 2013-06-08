@@ -51,11 +51,3 @@ function Lamp:onDraw()
     love.graphics.draw(self.particleSystem)
     love.graphics.setBlendMode("alpha")
 end
-
-function Lamp:getPosition()
-    if self.__name == "LampChain" then
-        return self.positionLantern
-    elseif self.__name == "LampStatic" then
-        return self.position
-    end
-end

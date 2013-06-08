@@ -41,3 +41,6 @@ function Entity:onDraw() end
 function Entity:onUpdate(dt) end
 function Entity:onAdd() end
 function Entity:onRemove() end
+function Entity:getPosition()
+    return self.position
+end

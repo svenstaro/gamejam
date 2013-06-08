@@ -26,6 +26,7 @@ function LampChain:__init()
     self.z = -100
     self.scale = 0.1
     self.chain_scale = 0.3
+    self.impulse = randf(-10, 10)
     self.image_attachment = resources.images.lantern
     self.image_lantern = resources.images.lantern
     self.image_chain0 = resources.images.chain0
@@ -41,7 +42,8 @@ function LampChain:onAdd()
     self.positionChain3 = self.positionChain2 + Vector(0, 20)
     self.positionLantern = self.positionChain3 + Vector(0, 20)
 
-    love08bugfix = 64 -- TODO
+    local love08bugfix = 64 -- TODO
+    local offset = -5
 
     self.physicsObjectAttachment.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "static")
     self.physicsObjectAttachment.shape = love.physics.newRectangleShape(10, 10)
@@ -57,7 +59,7 @@ function LampChain:onAdd()
     self.physicsObjectChain0.fixture:setUserData(self)
     self.physicsObjectChain0.joint = love.physics.newRopeJoint(self.physicsObjectAttachment.body, self.physicsObjectChain0.body,
                                                                     self.position.x * love08bugfix, self.position.y * love08bugfix,
-                                                                    self.positionChain0.x * love08bugfix, self.positionChain0.y * love08bugfix,
+                                                                    self.positionChain0.x * love08bugfix, self.positionChain0.y * love08bugfix + offset,
                                                                     20)
     table.insert(self.world.physicsObjects, self.physicsObjectChain0)
 
@@ -66,9 +68,9 @@ function LampChain:onAdd()
     self.physicsObjectChain1.fixture = love.physics.newFixture(self.physicsObjectChain1.body, self.physicsObjectChain1.shape, 1)
     self.physicsObjectChain1.fixture:setSensor(true)
     self.physicsObjectChain1.fixture:setUserData(self)
-    self.physicsObjectChain0.joint = love.physics.newRopeJoint(self.physicsObjectChain0.body, self.physicsObjectChain1.body,
+    self.physicsObjectChain1.joint = love.physics.newRopeJoint(self.physicsObjectChain0.body, self.physicsObjectChain1.body,
                                                                     self.positionChain0.x * love08bugfix, self.positionChain0.y * love08bugfix,
-                                                                    self.positionChain1.x * love08bugfix, self.positionChain1.y * love08bugfix,
+                                                                    self.positionChain1.x * love08bugfix, self.positionChain1.y * love08bugfix + offset,
                                                                     20)
     table.insert(self.world.physicsObjects, self.physicsObjectChain1)
 
@@ -77,9 +79,9 @@ function LampChain:onAdd()
     self.physicsObjectChain2.fixture = love.physics.newFixture(self.physicsObjectChain2.body, self.physicsObjectChain2.shape, 1)
     self.physicsObjectChain2.fixture:setSensor(true)
     self.physicsObjectChain2.fixture:setUserData(self)
-    self.physicsObjectChain0.joint = love.physics.newRopeJoint(self.physicsObjectChain1.body, self.physicsObjectChain2.body,
+    self.physicsObjectChain2.joint = love.physics.newRopeJoint(self.physicsObjectChain1.body, self.physicsObjectChain2.body,
                                                                     self.positionChain1.x * love08bugfix, self.positionChain1.y * love08bugfix,
-                                                                    self.positionChain2.x * love08bugfix, self.positionChain2.y * love08bugfix,
+                                                                    self.positionChain2.x * love08bugfix, self.positionChain2.y * love08bugfix + offset,
                                                                     20)
     table.insert(self.world.physicsObjects, self.physicsObjectChain2)
 
@@ -88,9 +90,9 @@ function LampChain:onAdd()
     self.physicsObjectChain3.fixture = love.physics.newFixture(self.physicsObjectChain3.body, self.physicsObjectChain3.shape, 1)
     self.physicsObjectChain3.fixture:setSensor(true)
     self.physicsObjectChain3.fixture:setUserData(self)
-    self.physicsObjectChain0.joint = love.physics.newRopeJoint(self.physicsObjectChain2.body, self.physicsObjectChain3.body,
+    self.physicsObjectChain3.joint = love.physics.newRopeJoint(self.physicsObjectChain2.body, self.physicsObjectChain3.body,
                                                                     self.positionChain2.x * love08bugfix, self.positionChain2.y * love08bugfix,
-                                                                    self.positionChain3.x * love08bugfix, self.positionChain3.y * love08bugfix,
+                                                                    self.positionChain3.x * love08bugfix, self.positionChain3.y * love08bugfix + offset,
                                                                     20)
     table.insert(self.world.physicsObjects, self.physicsObjectChain3)
 
@@ -99,11 +101,13 @@ function LampChain:onAdd()
     self.physicsObjectLantern.fixture = love.physics.newFixture(self.physicsObjectLantern.body, self.physicsObjectLantern.shape, 1)
     self.physicsObjectLantern.fixture:setSensor(true)
     self.physicsObjectLantern.fixture:setUserData(self)
-    self.physicsObjectChain0.joint = love.physics.newRopeJoint(self.physicsObjectChain3.body, self.physicsObjectLantern.body,
+    self.physicsObjectLantern.joint = love.physics.newRopeJoint(self.physicsObjectChain3.body, self.physicsObjectLantern.body,
                                                                     self.positionChain3.x * love08bugfix, self.positionChain3.y * love08bugfix,
-                                                                    self.positionLantern.x * love08bugfix, self.positionLantern.y * love08bugfix,
+                                                                    self.positionLantern.x * love08bugfix, self.positionLantern.y * love08bugfix + offset,
                                                                     20)
     table.insert(self.world.physicsObjects, self.physicsObjectLantern)
+    self.physicsObjectLantern.body:setAngularDamping(4) 
+    self.physicsObjectLantern.body:applyLinearImpulse(self.impulse, 0)
 end
 
 function LampChain:onUpdate(dt)
@@ -117,13 +121,6 @@ function LampChain:onUpdate(dt)
 
     self.glow = self.burning
     self.particleSystem:setEmissionRate(self.glowing and 100 or 0)
-
-    self.particleSystem:update(dt)
-    self.particleSystem:setPosition(self.positionLantern.x, self.positionLantern.y)
-
-    if love.keyboard.isDown("k") then
-        self.physicsObjectLantern.body:applyLinearImpulse(20, 20)
-    end
 
     self.position = Vector(self.physicsObjectAttachment.body:getX(), self.physicsObjectAttachment.body:getY())
     self.rotation = self.physicsObjectAttachment.body:getAngle()
@@ -142,6 +139,9 @@ function LampChain:onUpdate(dt)
 
     self.positionLantern = Vector(self.physicsObjectLantern.body:getX(), self.physicsObjectLantern.body:getY())
     self.rotationLantern = self.physicsObjectLantern.body:getAngle()
+
+    self.particleSystem:update(dt)
+    self.particleSystem:setPosition(self.positionLantern.x, self.positionLantern.y)
 end
 
 function LampChain:onRemove()
@@ -200,4 +200,8 @@ function LampChain:onDraw()
         love.graphics.polygon("fill", self.physicsObjectLantern.body:getWorldPoints(self.physicsObjectLantern.shape:getPoints()))
         love.graphics.setColor(255, 255, 255)
     end
+end
+
+function LampChain:getPosition()
+    return self.positionLantern
 end
