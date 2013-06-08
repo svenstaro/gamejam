@@ -9,6 +9,9 @@ function GlowEntity:__init()
     self.glowSize = 100
     self.glowColor = {255, 255, 255}
     self.glowStrength = 1
+    self.glowVariance = 0.2
+    self.glowOffset = randf(0, 100)
+    self.glowSpeed = 1
 end
 
 function GlowEntity:draw()
@@ -20,8 +23,9 @@ function GlowEntity:draw()
         love.graphics.setColor(unpack(c))
 
         local s = resources.images.particle:getWidth()
+        local scale = self.glowSize / s * (math.sin((self.glowOffset + self.lifetime) * self.glowSpeed) * self.glowVariance + 1)
         love.graphics.draw(resources.images.particle_square, self.position.x, self.position.y, 0,
-            self.glowSize / s, self.glowSize / s, s / 2, s / 2)
+            scale, scale, s / 2, s / 2)
 
         setLightRendering(false)
     end

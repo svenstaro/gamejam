@@ -35,7 +35,7 @@ function Game:__init()
 
     self.keyHelpOpacity = 1
 
-    self.camCenter = Vector()
+    self.camCenter = Vector(0, -300)
 end
 
 function Game:getKeyboardVector()
@@ -126,13 +126,7 @@ function Game:onDraw()
     TRANSLATION = Vector()
 
     -- lights
-    love.graphics.setColor(255, 255, 255, 180)
-    love.graphics.setBlendMode("multiplicative")
-    love.graphics.draw(LIGHT_CANVAS, 0, 0)
-    love.graphics.setColor(255, 255, 255, 50)
-    love.graphics.setBlendMode("additive")
-    love.graphics.draw(LIGHT_CANVAS, 0, 0)
-    love.graphics.setBlendMode("alpha")
+    drawLights()
 
     -- help
     TRANSLATION = -(self.camCenter - HALFSIZE)

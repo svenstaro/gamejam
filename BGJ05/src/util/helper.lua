@@ -33,6 +33,16 @@ function setLightRendering(enabled)
     end
 end
 
+function drawLights()
+    love.graphics.setColor(255, 255, 255, 180)
+    love.graphics.setBlendMode("multiplicative")
+    love.graphics.draw(LIGHT_CANVAS, 0, 0)
+    love.graphics.setColor(255, 255, 255, 50)
+    love.graphics.setBlendMode("additive")
+    love.graphics.draw(LIGHT_CANVAS, 0, 0)
+    love.graphics.setBlendMode("alpha")
+end
+
 function class(name, super)
     -- main metadata
     local cls = {}
