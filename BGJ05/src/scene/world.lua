@@ -38,7 +38,6 @@ function World:__init()
                                    function(a, b, coll) self:endContact(a, b, coll) end,
                                    function(a, b, coll) self:preSolve(a, b, coll) end,
                                    function(a, b, coll) self:postSolve(a, b, coll) end)
-    self.physicsObjects = {}
 end
 
 function World:add(entity)
@@ -54,19 +53,25 @@ function World:clear()
 end
 
 function World:remove(entity)
+    entity:kill()
+end
+
+function World:removeDead()
     for k,v in pairs(self.entities) do
-        if v == entity then
-            entity:onRemove()
-            self.entities[k] = nil
-            entity.world = nil
-            if entity.physicsObject and entity.physicsObject.body then
-                entity.physicsObject.body:destroy()
+        if v.dead then
+            v:onRemove()
+            table.remove(self.entities, k)
+            v.world = nil
+            if v.physicsObject and v.physicsObject.body then
+                v.physicsObject.body:destroy()
             end
         end
     end
 end
 
 function World:update(dt)
+    self:removeDead()
+
     for k, v in pairs(self.entities) do
         v:update(dt)
     end

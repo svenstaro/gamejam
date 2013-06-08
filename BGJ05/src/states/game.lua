@@ -36,6 +36,7 @@ function Game:__init()
     self.keyHelpOpacity = 1
 
     self.camCenter = Vector(0, -300)
+    self.maxCamX = self.camCenter.x
 end
 
 function Game:getKeyboardVector()
@@ -55,6 +56,12 @@ function Game:onUpdate(dt)
     -- generate full view and a bit (GENEREATE_AHEAD)
     while self.wisp.position.x + GENERATE_AHEAD > self.generatedUntil do
         self:generateWorld()
+    end
+
+    for k,v in pairs(self.world.entities) do
+        if v.position.x + (v.size and v.size.x or 0) < self.camCenter.x - SIZE.x * 2 then
+            v:kill()
+        end
     end
 
     self.world:update(dt)
@@ -106,6 +113,8 @@ function Game:onDraw()
     end
 
     self.camCenter.y = math.min(self.camCenter.y, 0)
+    self.maxCamX = math.max(self.camCenter.x, self.maxCamX)
+    self.camCenter.x = math.max(self.maxCamX - SIZE.x, self.camCenter.x)
 
     TRANSLATION = -(self.camCenter - HALFSIZE)
     love.graphics.push()

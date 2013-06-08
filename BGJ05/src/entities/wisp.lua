@@ -44,7 +44,6 @@ function Wisp:onAdd()
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setSensor(true)
     self.physicsObject.fixture:setUserData(self)
-    table.insert(self.world.physicsObjects, self.physicsObject)
 end
 
 function Wisp:onUpdate(dt)

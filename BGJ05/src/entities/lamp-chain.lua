@@ -51,7 +51,6 @@ function LampChain:onAdd()
     self.physicsObjectAttachment.fixture = love.physics.newFixture(self.physicsObjectAttachment.body, self.physicsObjectAttachment.shape, 1)
     self.physicsObjectAttachment.fixture:setSensor(true)
     self.physicsObjectAttachment.fixture:setUserData(self)
-    table.insert(self.world.physicsObjects, self.physicsObjectAttachment)
 
     self.physicsObjectChain0.body = love.physics.newBody(self.world.physicsWorld, self.positionChain0.x, self.positionChain0.y, "dynamic")
     self.physicsObjectChain0.shape = love.physics.newRectangleShape(10, 10)
@@ -62,7 +61,6 @@ function LampChain:onAdd()
                                                                     self.position.x * love08bugfix, self.position.y * love08bugfix,
                                                                     self.positionChain0.x * love08bugfix, self.positionChain0.y * love08bugfix + offset,
                                                                     20)
-    table.insert(self.world.physicsObjects, self.physicsObjectChain0)
 
     self.physicsObjectChain1.body = love.physics.newBody(self.world.physicsWorld, self.positionChain1.x, self.positionChain1.y, "dynamic")
     self.physicsObjectChain1.shape = love.physics.newRectangleShape(10, 10)
@@ -73,7 +71,6 @@ function LampChain:onAdd()
                                                                     self.positionChain0.x * love08bugfix, self.positionChain0.y * love08bugfix,
                                                                     self.positionChain1.x * love08bugfix, self.positionChain1.y * love08bugfix + offset,
                                                                     20)
-    table.insert(self.world.physicsObjects, self.physicsObjectChain1)
 
     self.physicsObjectChain2.body = love.physics.newBody(self.world.physicsWorld, self.positionChain2.x, self.positionChain2.y, "dynamic")
     self.physicsObjectChain2.shape = love.physics.newRectangleShape(10, 10)
@@ -84,7 +81,6 @@ function LampChain:onAdd()
                                                                     self.positionChain1.x * love08bugfix, self.positionChain1.y * love08bugfix,
                                                                     self.positionChain2.x * love08bugfix, self.positionChain2.y * love08bugfix + offset,
                                                                     20)
-    table.insert(self.world.physicsObjects, self.physicsObjectChain2)
 
     self.physicsObjectChain3.body = love.physics.newBody(self.world.physicsWorld, self.positionChain3.x, self.positionChain3.y, "dynamic")
     self.physicsObjectChain3.shape = love.physics.newRectangleShape(10, 10)
@@ -95,7 +91,6 @@ function LampChain:onAdd()
                                                                     self.positionChain2.x * love08bugfix, self.positionChain2.y * love08bugfix,
                                                                     self.positionChain3.x * love08bugfix, self.positionChain3.y * love08bugfix + offset,
                                                                     20)
-    table.insert(self.world.physicsObjects, self.physicsObjectChain3)
 
     self.physicsObjectLantern.body = love.physics.newBody(self.world.physicsWorld, self.positionLantern.x, self.positionLantern.y, "dynamic")
     self.physicsObjectLantern.shape = love.physics.newRectangleShape(10, 10)
@@ -106,8 +101,8 @@ function LampChain:onAdd()
                                                                     self.positionChain3.x * love08bugfix, self.positionChain3.y * love08bugfix,
                                                                     self.positionLantern.x * love08bugfix, self.positionLantern.y * love08bugfix + offset,
                                                                     40)
-    table.insert(self.world.physicsObjects, self.physicsObjectLantern)
-    self.physicsObjectLantern.body:setAngularDamping(4) 
+
+    self.physicsObjectLantern.body:setAngularDamping(4)
     self.physicsObjectLantern.body:applyLinearImpulse(self.impulse, 0)
 end
 
@@ -146,12 +141,12 @@ function LampChain:onUpdate(dt)
 end
 
 function LampChain:onRemove()
-    entity.physicsObjectAttachment.body:destroy()
-    entity.physicsObjectChain0.body:destroy()
-    entity.physicsObjectChain1.body:destroy()
-    entity.physicsObjectChain2.body:destroy()
-    entity.physicsObjectChain3.body:destroy()
-    entity.physicsObjectLantern.body:destroy()
+    self.physicsObjectAttachment.body:destroy()
+    self.physicsObjectChain0.body:destroy()
+    self.physicsObjectChain1.body:destroy()
+    self.physicsObjectChain2.body:destroy()
+    self.physicsObjectChain3.body:destroy()
+    self.physicsObjectLantern.body:destroy()
 end
 
 function LampChain:onDraw()

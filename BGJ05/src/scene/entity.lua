@@ -11,6 +11,7 @@ function Entity:__init()
     self.rotationSpeed = 0
     self.scale = 1
     self.lifetime = 0
+    self.dead = false
 end
 
 function Entity:update(dt)
@@ -34,7 +35,7 @@ end
 
 
 function Entity:kill()
-    if self.world then self.world:remove(self) end
+    self.dead = true
 end
 
 function Entity:onDraw() end
