@@ -14,6 +14,7 @@ GENERATE_AHEAD = SIZE.x * 4
 MAX_HEIGHT = 1000
 LIGHT_CANVAS = nil
 DEBUG = true
+LIGHTRANGE = 200
 
 function reset()
     -- start game
@@ -31,6 +32,7 @@ function love.load()
 
     -- load images
     resources:addImage("particle", "particle.png")
+    resources:addImage("particle_square", "particle-square.png")
     resources:addImage("ring", "ring.png")
     resources:addImage("lantern", "lantern.png")
     resources:addImage("key_arrow", "key-arrow.png")

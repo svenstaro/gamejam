@@ -36,8 +36,6 @@ end
 function class(name, super)
     -- main metadata
     local cls = {}
-    cls.__name = name
-    cls.__super = super
 
     -- copy the members of the superclass
     if super then
@@ -45,6 +43,9 @@ function class(name, super)
             cls[k] = v
         end
     end
+
+    cls.__name = name
+    cls.__super = super
 
     -- when the class object is being called,
     -- create a new object containing the class'
@@ -59,9 +60,19 @@ function class(name, super)
         end
         setmetatable(obj, cls)
         if obj.__init then obj:__init(...) end
+        obj.__class = cls
         return obj
     end})
     return cls
+end
+
+function inherits(obj, name)
+    local c = obj.__class
+    while c do
+        if c.__name == name then return true end
+        c = c.__super
+    end
+    return false
 end
 
 function randf(from, to)

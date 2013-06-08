@@ -5,6 +5,7 @@ Entity = class("Entity")
 
 function Entity:__init()
     self.position = Vector()
+    self.z = 0
     self.velocity = Vector()
     self.rotation = 0
     self.rotationSpeed = 0

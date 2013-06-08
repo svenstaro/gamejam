@@ -6,6 +6,7 @@ require("scene/world")
 require("entities/building")
 require("entities/wisp")
 require("entities/lamp-chain")
+require("entities/lamp-static")
 
 Game = class("Game", GameState)
 
@@ -20,6 +21,14 @@ function Game:__init()
     self.lamp.position = Vector(0, -400)
     self.world:add(self.lamp)
 
+    local lamp = LampStatic()
+    lamp.position = Vector(300, -100)
+    self.world:add(lamp)
+    local lamp = LampStatic()
+    lamp.position = Vector(600, -200)
+    self.world:add(lamp)
+
+
     self.world:add(Building(0, Vector(300, 100)))
 
     self.generatedUntil = -SIZE.x
@@ -27,12 +36,17 @@ function Game:__init()
     self.keyHelpOpacity = 1
 end
 
+function Game:getKeyboardVector()
+    local v = Vector()
+    if love.keyboard.isDown("left")  then v.x = v.x - 1 end
+    if love.keyboard.isDown("right") then v.x = v.x + 1 end
+    if love.keyboard.isDown("up")    then v.y = v.y - 1 end
+    if love.keyboard.isDown("down")  then v.y = v.y + 1 end
+    return v:normalized()
+end
+
 function Game:onUpdate(dt)
-    local speed = dt * 400
-    if love.keyboard.isDown("left")  then self.wisp:move(Vector(-1,  0) * speed) end
-    if love.keyboard.isDown("right") then self.wisp:move(Vector( 1,  0) * speed) end
-    if love.keyboard.isDown("up")    then self.wisp:move(Vector( 0, -1) * speed) end
-    if love.keyboard.isDown("down")  then self.wisp:move(Vector( 0,  1) * speed) end
+    self.wisp:move(self:getKeyboardVector())
 
     self.keyHelpOpacity = math.max(0, self.keyHelpOpacity - dt / 5)
 
@@ -49,6 +63,11 @@ function Game:generateWorld()
     local w = randf(50, 300)
     local h = randf(50, MAX_HEIGHT)
     self.world:add(Building(x, Vector(w, h)))
+
+    local lamp = LampStatic()
+    lamp.position = Vector(randf(x, self.generatedUntil), randf(-100, -500))
+    self.world:add(lamp)
+
     self.generatedUntil = x + w * randf(0.6, 1.2)
 end
 
@@ -84,6 +103,9 @@ function Game:onDraw()
     love.graphics.setColor(255, 255, 255, 200)
     love.graphics.setBlendMode("multiplicative")
     love.graphics.draw(LIGHT_CANVAS, 0, 0)
+    love.graphics.setColor(255, 255, 255, 60)
+    love.graphics.setBlendMode("additive")
+    love.graphics.draw(LIGHT_CANVAS, 0, 0)
     love.graphics.setBlendMode("alpha")
 
     -- debug info
@@ -95,5 +117,7 @@ end
 function Game:onKeyPressed(k, u)
     if k == "escape" then
         stack:pop()
+    elseif k == " " then
+        self.wisp:jump(self:getKeyboardVector())
     end
 end

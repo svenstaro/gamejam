@@ -33,7 +33,7 @@ function World:__init()
     self.entities = {}
 
     love.physics.setMeter(64)
-    self.physicsWorld = love.physics.newWorld(0, 100, false)
+    self.physicsWorld = love.physics.newWorld(0, 400, false)
     self.physicsWorld:setCallbacks(function(a, b, coll) self:beginContact(a, b, coll) end,
                                    function(a, b, coll) self:endContact(a, b, coll) end,
                                    function(a, b, coll) self:preSolve(a, b, coll) end,
@@ -81,10 +81,12 @@ function World:draw()
     end
 end
 
-function World:findByType(typename)
+function World:findByType(typename, matchChildren)
     l = {}
     for k, v in pairs(self.entities) do
-        if v.__name == typename then table.insert(l, v) end
+        if (v.__name == typename) or (matchChildren and inherits(v, typename)) then
+            table.insert(l, v)
+        end
     end
     return l
 end

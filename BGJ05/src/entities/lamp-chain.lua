@@ -11,7 +11,7 @@ function LampChain:__init()
     self.scale = 0.1
     self.image = resources.images.lantern
 
-    self.particleSystem = love.graphics.newParticleSystem(resources.images["particle"], 128)
+    self.particleSystem = love.graphics.newParticleSystem(resources.images.particle, 128)
     self.particleSystem:start()
     self.particleSystem:setSizes(0.2, 0.9)
     self.particleSystem:setColors(
@@ -36,10 +36,6 @@ end
 function LampChain:onUpdate(dt)
     self.particleSystem:update(dt)
     self.particleSystem:setPosition(self.position.x, self.position.y)
-end
-
-function LampChain:kill()
-    if self.world then self.world:remove(self) end
 end
 
 function LampChain:onDraw()
