@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="46.853686"
+     inkscape:cx="2.0322573"
      inkscape:cy="33.857584"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -59,7 +59,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -106,9 +106,9 @@
          sodipodi:nodetypes="cccccccc" />
     </g>
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:none;stroke:#ffffff;stroke-width:1.87868547;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3819"
-       width="158.12132"
+       width="98.12133"
        height="28.121315"
        x="240.93933"
        y="568.30151"
@@ -118,7 +118,7 @@
     <text
        xml:space="preserve"
        style="font-size:11px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="319.92834"
+       x="289.9437"
        y="586.15717"
        id="text3823"
        sodipodi:linespacing="125%"
@@ -127,7 +127,7 @@
        inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan3825"
-         x="319.92834"
+         x="289.9437"
          y="586.15717"
          style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold">SPACE</tspan></text>
     <g
@@ -226,7 +226,7 @@
     <g
        inkscape:export-ydpi="300"
        inkscape:export-xdpi="300"
-       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-m.png"
+       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-q.png"
        id="g4647"
        transform="translate(95.000012,8.6480903e-6)">
       <text
@@ -255,5 +255,30 @@
          inkscape:export-xdpi="300"
          inkscape:export-ydpi="300" />
     </g>
+    <rect
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-space.png"
+       y="568.30151"
+       x="370.93933"
+       height="28.121315"
+       width="28.121319"
+       id="rect4666"
+       style="fill:none;stroke:#ffffff;stroke-width:1.87868547;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <text
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-space.png"
+       sodipodi:linespacing="125%"
+       id="text4668"
+       y="584.77716"
+       x="385.00385"
+       style="font-size:11px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:7px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold"
+         y="584.77716"
+         x="385.00385"
+         sodipodi:role="line"
+         id="tspan4680">SPACE</tspan></text>
   </g>
 </svg>

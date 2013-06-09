@@ -31,6 +31,7 @@ BACKGROUND_COLORS = {
     {40, 40, 60},
     {60, 60, 90}
 }
+HIGHSCORE = settings:get("hightscore", 0)
 
 function reset()
     -- start game
