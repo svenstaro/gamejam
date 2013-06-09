@@ -50,6 +50,7 @@ function love.load()
     -- load images
     resources:addImage("particle", "particle.png")
     resources:addImage("particle_square", "particle-square.png")
+    resources:addImage("particle_thick", "particle-thick.png")
     resources:addImage("spotlight", "spotlight.png")
     resources:addImage("sparkle", "sparkle.png")
     resources:addImage("ring", "ring.png")

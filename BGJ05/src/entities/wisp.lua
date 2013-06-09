@@ -10,15 +10,15 @@ function Wisp:__init()
     self.physicsObject = {}
     self.z = -1000
 
-    self.body = love.graphics.newParticleSystem(resources.images.particle, 128)
-    self.body:start()
-    self.body:setSizes(0.5, 1.5)
-    self.body:setColors(
-        127, 20, 209, 250,
-        15, 128, 215, 0)
-    self.body:setEmissionRate(500)
-    self.body:setParticleLife(0.1)
-    self.body:setSpread(0.5)
+    --self.body = love.graphics.newParticleSystem(resources.images.particle, 128)
+    --self.body:start()
+    --self.body:setSizes(0.5, 1.5)
+    --self.body:setColors(
+        --127, 20, 209, 250,
+        --15, 128, 215, 0)
+    --self.body:setEmissionRate(500)
+    --self.body:setParticleLife(0.1)
+    --self.body:setSpread(0.5)
 
     self.sparkle = love.graphics.newParticleSystem(resources.images.sparkle, 1000)
     self.sparkle:start()
@@ -33,6 +33,7 @@ function Wisp:__init()
 
     self.glowSize = 400
     self.glowColor = {200, 220, 255}
+    self.glowImage = resources.images.particle
 
     self.nextLamp = nil
 end
@@ -46,8 +47,8 @@ function Wisp:onAdd()
 end
 
 function Wisp:onUpdate(dt)
-    self.body:update(dt)
-    self.body:setPosition(self.position.x, self.position.y)
+    --self.body:update(dt)
+    --self.body:setPosition(self.position.x, self.position.y)
     self.sparkle:update(dt)
     self.sparkle:setPosition(self.position.x, self.position.y)
 
@@ -79,8 +80,20 @@ function Wisp:onDraw()
     --love.graphics.circle("fill", self.position.x, self.position.y, 20)
 
     love.graphics.setBlendMode("additive")
+    --love.graphics.draw(self.body)
+
+    local s, r = 0.2, 12
+    love.graphics.setColor(127, 20, 209)
+    love.graphics.setColor(10, 60, 255)
+    for i=0,20 do
+        local a, b = 0.9 + i * 0.02, 1.2 - math.pow(i,1.5)  * 0.04
+        a, b = a * 5, b * 3
+        love.graphics.draw(resources.images.particle_thick,
+            self.position.x + r * math.sin(i + self.lifetime * a), self.position.y + r * math.cos(i + self.lifetime * b),
+            0, s, s, 128, 128)
+    end
+
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(self.body)
     love.graphics.draw(self.sparkle)
     setLightRendering(true)
     love.graphics.draw(self.sparkle)

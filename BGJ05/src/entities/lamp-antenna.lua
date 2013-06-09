@@ -9,7 +9,7 @@ function LampAntenna:__init()
 
     self.size = Vector(randf(10, 30), randf(100, 400))
     self.glowColor = {randf(100, 255), randf(100, 255), randf(100, 255)}
-    self.glowSize = 500
+    self.maxGlowSize = 500
 end
 
 function LampAntenna:onUpdate(dt)

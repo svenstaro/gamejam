@@ -10,6 +10,8 @@ function Lamp:__init()
 
     self.burning = true
     self.wasActive = false
+    self.energy = 1
+    self.energyDrainSpeed = 0.8
 
     self.particleSystem = love.graphics.newParticleSystem(resources.images.particle, 128)
     self.particleSystem:start()
@@ -22,7 +24,7 @@ function Lamp:__init()
     self.particleSystem:setSpread(0.5)
 
     self.glowColor = {255, 230, 0}
-    self.glowSize = 300
+    self.maxGlowSize = 300
     self.burnoutFade = 1
 
     self.onOffPattern = {}
@@ -44,7 +46,13 @@ function Lamp:onUpdate(dt)
 
     if self.isNextLamp then
         self.wasActive = true
+        self.energy = self.energy - dt * self.energyDrainSpeed
+        if self.energy <= 0 then
+            self:burnout()
+        end
     end
+
+    self.glowSize = self.maxGlowSize * self.energy
 
     if not self.isNextLamp and self.wasActive then
         self:burnout()

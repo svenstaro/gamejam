@@ -116,15 +116,7 @@ function LampChain:onAdd()
 end
 
 function LampChain:onUpdate(dt)
-    if self.isNextLamp then
-        self.wasActive = true
-    end
-
-    if not self.isNextLamp and self.wasActive then
-        self:burnout()
-    end
-
-    self.glow = self.burning
+    Lamp.onUpdate(self, dt)
 
     self.position = Vector(self.physicsObjectAttachment.body:getX(), self.physicsObjectAttachment.body:getY())
     self.rotation = self.physicsObjectAttachment.body:getAngle()

@@ -30,6 +30,7 @@ function Game:reset()
 
     local lampstatic = LampStatic()
     lampstatic.position = Vector(0, -200)
+    lampstatic.energyDrainSpeed = 0
     self.world:add(lampstatic)
 
     -- local lampantenna = LampAntenna()
@@ -157,7 +158,7 @@ function Game:onDraw()
     self.camCenter.x = math.max(self.maxCamX - SIZE.x, self.camCenter.x)
 
     local zoomSpeed = 400 / (Vector(self.wisp.physicsObject.body:getLinearVelocity()):len() or 1)
-    local zoomHeight = 1 + self.wisp.position.y * 0.0006
+    local zoomHeight = 1 + self.wisp.position.y * 0.0003
     local zoom = math.min(zoomSpeed, zoomHeight) * 0.01 + self.zoom * 0.99
     self.zoom = math.min(MAX_ZOOM, math.max(MIN_ZOOM, zoom))
 

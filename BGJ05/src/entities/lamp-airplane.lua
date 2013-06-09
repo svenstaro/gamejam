@@ -9,7 +9,8 @@ function LampAirplane:__init()
 
     self.z = 1000
     self.mirror = math.random(0, 1) == 0
-    self.glowSize = 500
+    self.maxGlowSize = 500
+    self.energyDrainSpeed = 0.3
     self.glowColor = {255, 255, 255}
     self.glowAngle = self.mirror and math.pi or 0
     self.glowImage = resources.images.spotlight
