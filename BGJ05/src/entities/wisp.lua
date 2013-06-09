@@ -85,17 +85,13 @@ function Wisp:onDraw()
 
     --love.graphics.draw(self.body)
 
-    local s, r = 0.2*self.charge, 12*self.charge
-    love.graphics.setColor(127, 20, 209)
+    local chargeVis = self.charge / 3 + 1/3
+    self.glowSize = chargeVis * 400
 
-    local low, mid, high = {255, 0, 0}, {255, 255, 0}, {100, 120, 255}
-    local a = self.charge / 2 * 255
-    if self.charge >= 1 then
-        self.glowColor = pack(fadeColor(mid, high, self.charge - 1))
-    else
-        self.glowColor = pack(fadeColor(low, mid, self.charge))
-    end
-    love.graphics.setColor(unpack(self.glowColor))
+    local s, r = 0.3*math.pow(chargeVis, 2), 12*chargeVis
+
+    self.glowColor = {100, 200, 255}
+    love.graphics.setColor(40, 100, 255, chargeVis*255)
 
     love.graphics.draw(resources.images.particle_thick, self.position.x, self.position.y, 0, s, s, 128, 128)
     love.graphics.setBlendMode("additive")
