@@ -101,6 +101,7 @@ end
 
 function Wisp:move(vec)
     -- self.position = self.position + vec
+    if not self.nextLamp then vec.y = 0 end
     self.physicsObject.body:applyForce((vec*30):unpack())
 end
 

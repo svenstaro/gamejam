@@ -39,6 +39,7 @@ function Game:__init()
     self.generatedUntil = -SIZE.x*5
 
     self.keyHelpOpacity = 1
+    self.zoom = 1
 
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
@@ -64,7 +65,7 @@ function Game:onUpdate(dt)
     end
 
     for k,v in pairs(self.world.entities) do
-        if v.position.x + (v.size and v.size.x or 0) < self.camCenter.x - SIZE.x * 2 then
+        if v.position.x + (v.size and v.size.x or 0) < self.camCenter.x - SIZE.x/MIN_ZOOM * 2 then
             v:kill()
         end
     end
@@ -125,18 +126,25 @@ function Game:onDraw()
     self.maxCamX = math.max(self.camCenter.x, self.maxCamX)
     self.camCenter.x = math.max(self.maxCamX - SIZE.x, self.camCenter.x)
 
+    local zoomSpeed = 400 / (Vector(self.wisp.physicsObject.body:getLinearVelocity()):len() or 1)
+    local zoomHeight = 1 + self.wisp.position.y * 0.0006
+    local zoom = math.min(zoomSpeed, zoomHeight) * 0.01 + self.zoom * 0.99
+    self.zoom = math.min(MAX_ZOOM, math.max(MIN_ZOOM, zoom))
+
     TRANSLATION = -(self.camCenter - HALFSIZE)
     love.graphics.push()
-    love.graphics.translate(TRANSLATION:unpack())
+    love.graphics.translate(HALFSIZE:unpack())
+    love.graphics.scale(self.zoom)
+    love.graphics.translate((-self.camCenter):unpack())
 
     -- ground
     for i=3,1,-1 do
         local a = 10 + 10 * i
         love.graphics.setColor(a, a, a)
-        love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x, -50-50*i, SIZE.x, 100)
+        love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x/self.zoom, -50-50*i, SIZE.x/self.zoom, 100)
     end
     love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x, 0, SIZE.x, SIZE.y)
+    love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x/self.zoom, 0, SIZE.x/self.zoom, SIZE.y)
 
     self.world:draw()
 
@@ -150,6 +158,7 @@ function Game:onDraw()
     TRANSLATION = -(self.camCenter - HALFSIZE)
     love.graphics.push()
     love.graphics.translate(TRANSLATION:unpack())
+    love.graphics.scale(self.zoom)
 
     --love.graphics.setColor(255, 255, 255)
     --love.graphics.draw(resources.images.left, -SIZE.x, center.y-HALFSIZE.y, 0, SIZE.x, SIZE.y)

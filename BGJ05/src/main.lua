@@ -22,6 +22,8 @@ WINDOWDATA = "a29ujosdkkqjwebanldkjsnldkfmnlasjnd1fkl2qawkcsmnxlkj2ma2"
 TRANSLATION = Vector()
 DEFAULT_WINDOW_SIZE = Vector(800, 600)
 FULLSCREEN = settings:get("fullscreen", false)
+MIN_ZOOM = 0.4
+MAX_ZOOM = 1
 
 function reset()
     -- start game
