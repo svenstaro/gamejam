@@ -5,8 +5,9 @@ require("entities/lamp")
 
 LampChain = class("LampChain", Lamp)
 
-function LampChain:__init()
+function LampChain:__init(flipped)
     Lamp.__init(self)
+    self.flipped = flipped
     self.positionChain0 = Vector()
     self.positionChain1 = Vector()
     self.positionChain2 = Vector()
@@ -161,9 +162,9 @@ function LampChain:onDraw()
     love.graphics.setColor(255, 255, 255)
 
     love.graphics.draw(self.image_attachment,
-                       self.position.x - 40, self.position.y + 40, self.rotation,
-                       self.scale * 3, self.scale * 3,
-                       self.image_attachment:getWidth() / 2, self.image_attachment:getHeight() / 2)
+                       self.position.x, self.position.y + 40, self.rotation,
+                       self.scale * 3 * (self.flipped and -1 or 1), self.scale * 3,
+                       self.image_attachment:getWidth() - 5, self.image_attachment:getHeight()/2)
 
     love.graphics.draw(self.image_chain0,
                        self.positionChain0.x, self.positionChain0.y, self.rotationChain0 + math.pi/2,

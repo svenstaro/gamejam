@@ -14,6 +14,18 @@ function Building:__init(x, size)
 end
 
 function Building:onAdd()
+    self.antenna = LampAntenna()
+    self.antenna.position = Vector(self.position.x + randf(0.1, 0.9) * self.size.x, -self.size.y)
+    self.world:add(self.antenna)
+
+    for i=1,math.random(0, 2) do
+        local flipped = randf() < 0.5
+        local lantern = LampChain(flipped)
+        local x = self.position.x
+        if not flipped then x = x + self.size.x end
+        lantern.position = Vector(x + (flipped and -110 or 110), randf(-400, -self.size.y))
+        self.world:add(lantern)
+    end
 end
 
 function Building:onUpdate(dt)
@@ -24,6 +36,11 @@ function Building:onDraw()
     local a = 50
     love.graphics.setColor(a, a, a)
     love.graphics.rectangle("fill", self.position.x, 0, self.size.x, -self.size.y)
+
+    setLightRendering(true, true)
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.rectangle("fill", self.position.x, 0, self.size.x, -self.size.y)
+    setLightRendering(false)
 
     local r = 3
     local s = self.size.x / (self.windows * (r+1) + 1)

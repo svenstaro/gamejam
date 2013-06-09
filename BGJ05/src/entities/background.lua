@@ -13,7 +13,7 @@ function Background:__init(x)
     elseif l < 7 then self.layer = 2
     else self.layer = 3 end
 
-    self.position = Vector(x,-50-50* self.layer)
+    self.position = Vector(x, -100-100* self.layer)
     self.size = Vector(randf(20, 60), randf(60, 120))
     self.z = 100 * self.layer
     self.parallax = 1 - 0.1 * self.layer
@@ -21,7 +21,7 @@ end
 
 function Background:onDraw()
     local a = 10 + 10 * self.layer
-    love.graphics.setColor(a, a, a)
+    love.graphics.setColor(unpack(BACKGROUND_COLORS[self.layer]))
     local screenCenter = - TRANSLATION + HALFSIZE
     local dx = self.position.x - screenCenter.x
     local x = screenCenter.x + dx * self.parallax

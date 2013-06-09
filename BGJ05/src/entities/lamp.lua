@@ -65,8 +65,6 @@ function Lamp:onUpdate(dt)
 
     self.particleSystem:update(dt)
     self.particleSystem:setPosition(self.position.x, self.position.y)
-
-    self.z = - 100 - self.position.y / 100000
 end
 
 function Lamp:onDraw()

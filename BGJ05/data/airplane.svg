@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1052.36"
-   height="500"
+   width="891"
+   height="205.44444"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -28,23 +28,29 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="461.47801"
-     inkscape:cy="203.07106"
+     inkscape:cx="380.79802"
+     inkscape:cy="55.793284"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1362"
-     inkscape:window-height="723"
+     inkscape:window-height="729"
      inkscape:window-x="0"
-     inkscape:window-y="-3"
-     inkscape:window-maximized="0">
+     inkscape:window-y="37"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
     <inkscape:grid
        type="xygrid"
        id="grid3050"
        empspacing="5"
        visible="true"
        enabled="true"
-       snapvisiblegridlinesonly="true" />
+       snapvisiblegridlinesonly="true"
+       originx="-80.679993px"
+       originy="-147.27778px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -54,7 +60,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -62,7 +68,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-552.36217)">
+     transform="translate(-80.679993,-699.63995)">
     <path
        style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 101.17999,700.13995 50,0 c 0,0 100,120 130,110 0,0 460,0 590,0 23.63723,2.72713 47.49563,5.4174 60,10 11.52554,9.27688 40,20 40,30 -10,10 -70,30 -90,30 -60,10 -150,0 -190,10 l 0,10 c -30,10 -120,0 -120,0 l 0,-10 c 0,0 -55,0 -120,0 -160,10 -270,-50 -330,-60 l -39.999997,-20 69.999997,0 z"

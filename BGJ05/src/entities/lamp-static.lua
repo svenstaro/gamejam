@@ -10,6 +10,8 @@ end
 
 function LampStatic:onUpdate(dt)
     Lamp.onUpdate(self, dt)
+
+    self.z = - 100 - self.position.y / 100000
 end
 
 function LampStatic:onDraw()

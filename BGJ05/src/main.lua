@@ -25,6 +25,11 @@ FULLSCREEN = settings:get("fullscreen", false)
 MUTE = settings:get("mute", false)
 MIN_ZOOM = 0.2
 MAX_ZOOM = 1
+BACKGROUND_COLORS = {
+    {20, 20, 30},
+    {40, 40, 60},
+    {60, 60, 90}
+}
 
 function reset()
     -- start game
@@ -45,6 +50,7 @@ function love.load()
     -- load images
     resources:addImage("particle", "particle.png")
     resources:addImage("particle_square", "particle-square.png")
+    resources:addImage("spotlight", "spotlight.png")
     resources:addImage("sparkle", "sparkle.png")
     resources:addImage("ring", "ring.png")
     resources:addImage("lantern", "lantern.png")

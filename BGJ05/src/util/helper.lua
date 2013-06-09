@@ -23,10 +23,10 @@ function pack(...)
     return {...}
 end
 
-function setLightRendering(enabled)
+function setLightRendering(enabled, notAdditive)
     if enabled then
         love.graphics.setCanvas(LIGHT_CANVAS)
-        love.graphics.setBlendMode("additive")
+        if not notAdditive then love.graphics.setBlendMode("additive") end
     else
         love.graphics.setCanvas()
         love.graphics.setBlendMode("alpha")

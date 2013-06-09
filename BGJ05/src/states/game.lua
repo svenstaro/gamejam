@@ -15,6 +15,7 @@ require("entities/lamp-star")
 Game = class("Game", GameState)
 
 function Game:__init()
+    self.keyHelpOpacity = 1
     self:reset()
 
     music = love.audio.newSource("data/Cupids Revenge.ogg")
@@ -31,10 +32,6 @@ function Game:reset()
     lampstatic.position = Vector(0, -200)
     self.world:add(lampstatic)
 
-    -- local lampchain = LampChain()
-    -- lampchain.position = Vector(200, -200)
-    -- self.world:add(lampchain)
-
     -- local lampantenna = LampAntenna()
     -- lampantenna.position = Vector(-200, -200)
     -- self.world:add(lampantenna)
@@ -49,7 +46,6 @@ function Game:reset()
 
     self.generatedUntil = -SIZE.x*5
 
-    self.keyHelpOpacity = 1
     self.zoom = 1
     self.gameOver = false
     self.gameOverTimer = 0
@@ -79,7 +75,7 @@ function Game:onUpdate(dt)
     end
 
     for k,v in pairs(self.world.entities) do
-        if v.position.x + (v.size and v.size.x or 0) < self.camCenter.x - SIZE.x/MIN_ZOOM * 2 then
+        if v.__name ~= "Wisp" and v.position.x + (v.size and v.size.x or 0) < self.camCenter.x - SIZE.x/MIN_ZOOM * 2 then
             v:kill()
         end
     end
@@ -109,17 +105,9 @@ function Game:generateWorld()
     local h = randf(500, MAX_HEIGHT)
     self.world:add(Building(x, Vector(w, h)))
 
-    local antenna = LampAntenna()
-    antenna.position = Vector(x + randf(0, w), -h)
-    self.world:add(antenna)
-
     local airplane = LampAirplane()
     airplane.position = Vector(x + w, -randf(1000, 5000))
     self.world:add(airplane)
-
-    local chainlamp = LampChain()
-    chainlamp.position = Vector(x + w, -randf(500, h))
-    self.world:add(chainlamp)
 
     local starlamp = LampStar()
     starlamp.position = Vector(x + w, -randf(4000, 8000))
@@ -132,9 +120,9 @@ function Game:generateWorld()
     if x > 200 then
         while x < self.generatedUntil do
             local lamp = LampStatic()
-            lamp.position = Vector(x, randf(-100, -500))
+            lamp.position = Vector(x, -300) --randf(-100, -500))
             self.world:add(lamp)
-            x = x + randf(100, 300)
+            x = x + randf(600, 1000)
         end
     end
 
@@ -182,11 +170,11 @@ function Game:onDraw()
     -- ground
     for i=3,1,-1 do
         local a = 10 + 10 * i
-        love.graphics.setColor(a, a, a)
-        love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x/self.zoom, -50-50*i, SIZE.x/self.zoom, 100)
+        love.graphics.setColor(unpack(BACKGROUND_COLORS[i]))
+        love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x/self.zoom, -100-100*i, SIZE.x/self.zoom, 500)
     end
     love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x/self.zoom, 0, SIZE.x/self.zoom, SIZE.y)
+    love.graphics.rectangle("fill", self.camCenter.x - HALFSIZE.x/self.zoom, 0, SIZE.x/self.zoom, SIZE.y/self.zoom)
 
     self.world:draw()
 
@@ -199,8 +187,9 @@ function Game:onDraw()
     -- help
     TRANSLATION = -(self.camCenter - HALFSIZE)
     love.graphics.push()
-    love.graphics.translate(TRANSLATION:unpack())
+    love.graphics.translate(HALFSIZE:unpack())
     love.graphics.scale(self.zoom)
+    love.graphics.translate((-self.camCenter):unpack())
 
     --love.graphics.setColor(255, 255, 255)
     --love.graphics.draw(resources.images.left, -SIZE.x, center.y-HALFSIZE.y, 0, SIZE.x, SIZE.y)
