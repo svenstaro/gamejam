@@ -25,7 +25,6 @@ function LampChain:__init(flipped)
     self.physicsObjectChain3 = {}
     self.physicsObjectLantern = {}
     self.z = -100
-    self.mirror = false
     self.scale = 0.1
     self.chain_scale = 0.3
     self.impulse = randf(-10, 10)
@@ -135,10 +134,6 @@ function LampChain:onUpdate(dt)
 
     self.positionLantern = Vector(self.physicsObjectLantern.body:getX(), self.physicsObjectLantern.body:getY())
     self.rotationLantern = self.physicsObjectLantern.body:getAngle()
-
-    self.particleSystem:update(dt)
-    self.particleSystem:setEmissionRate(self.glow and 20 or 0)
-    self.particleSystem:setPosition(self.positionLantern.x, self.positionLantern.y + 10)
 end
 
 function LampChain:onRemove()
