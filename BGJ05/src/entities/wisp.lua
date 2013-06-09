@@ -10,16 +10,6 @@ function Wisp:__init()
     self.physicsObject = {}
     self.z = -1000
 
-    --self.body = love.graphics.newParticleSystem(resources.images.particle, 128)
-    --self.body:start()
-    --self.body:setSizes(0.5, 1.5)
-    --self.body:setColors(
-        --127, 20, 209, 250,
-        --15, 128, 215, 0)
-    --self.body:setEmissionRate(500)
-    --self.body:setParticleLife(0.1)
-    --self.body:setSpread(0.5)
-
     self.sparkle = love.graphics.newParticleSystem(resources.images.sparkle, 1000)
     self.sparkle:start()
     self.sparkle:setSizes(0.4, 0.5)
@@ -49,11 +39,8 @@ function Wisp:onAdd()
 end
 
 function Wisp:onUpdate(dt)
-    --self.body:update(dt)
-    --self.body:setPosition(self.position.x, self.position.y)
     self.sparkle:update(dt)
     self.sparkle:setPosition(self.position.x, self.position.y)
-
 
     local dNext = (self.nextLamp == nil and 0 or self.position:dist(self.nextLamp:getPosition()))
     self.nextLamp = nil
@@ -81,9 +68,6 @@ end
 
 function Wisp:onDraw()
     love.graphics.setColor(255, 255, 255)
-    --love.graphics.circle("fill", self.position.x, self.position.y, 20)
-
-    --love.graphics.draw(self.body)
 
     local chargeVis = self.charge / 3 + 1/3
     self.glowSize = chargeVis * 400
