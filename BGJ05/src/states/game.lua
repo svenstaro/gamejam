@@ -277,6 +277,8 @@ function Game:onKeyPressed(k, u)
         else
             self.wisp:jump(self:getKeyboardVector())
         end
+    elseif k == "r" then
+        self:reset()
     end
 end
 
