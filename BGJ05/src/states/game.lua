@@ -44,6 +44,12 @@ function Game:reset()
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
 
+    self.lastNotification = 0
+    self.nextScore = 1000
+    self.showNotification = false
+    self.checkpoints = {10000, 25000, 50000, 100000, 250000, 1000000}
+    self.checkpoint = 1
+
     HIGHSCORE = settings:get("highscore", 0)
 end
 
@@ -114,6 +120,28 @@ function Game:onUpdate(dt)
     local zoomSpeed = 0.7
     local zoom = math.min(zoomSpeed, zoomHeight) * (zoomSpeed*dt) + self.zoom * (1-zoomSpeed*dt)
     self.zoom = math.min(MAX_ZOOM, math.max(MIN_ZOOM, zoom))
+
+
+    if self.score >= self.checkpoints[self.checkpoint] then
+        if self.checkpoint < 7 then
+            self.checkpoint = self.checkpoint + 1
+        end
+        self.showNotification = true
+    end
+    print(self.checkpoints[self.checkpoint])
+
+    if self.showNotification then
+        self.lastNotification = self.lastNotification + dt
+    end
+
+    if self.lastNotification >= 2 then
+        self.lastNotification = 0
+        self.showNotification = false
+        print(self.showNotification)
+    end
+    -- if self.lastNotification > 2 then
+    --     self.lastNotification = 0
+    -- end 
 end
 
 function Game:generateWorld()
@@ -231,6 +259,22 @@ function Game:onDraw()
     love.graphics.print("Score " .. string.gsub(""..self.score, "0", "O"), 10, 10)
     love.graphics.print("Highest " .. string.gsub(""..HIGHSCORE, "0", "O"), 10, 40)
 
+    if self.showNotification then
+        if self.score >= self.checkpoints[1] and self.score < self.checkpoints[2] then
+            love.graphics.print("Even my grandmother is better!", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[2] and self.score < self.checkpoints[3] then
+            love.graphics.print("Okay...", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[3] and self.score < self.checkpoints[4] then
+            love.graphics.print("Not bad at all.", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[4] and self.score < self.checkpoints[5] then
+            love.graphics.print("That's impressive.", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[5] and self.score < self.checkpoints[6] then
+            love.graphics.print("How do you got so far...", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[6] then
+            love.graphics.print("Just fuck you...", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        end
+    end
+
     -- pause screen
     if self.paused then
         love.graphics.setColor(0, 0, 0, 200)
@@ -238,7 +282,9 @@ function Game:onDraw()
 
         love.graphics.setColor(255, 255, 255)
         love.graphics.setFont(resources.fonts.big)
-        love.graphics.printf("Game paused", 0, SIZE.y/3, SIZE.x, "center")
+        -- love.graphics.printfif self.lastNotification >= 2 then
+        --     love.graphics.clear()
+        -- end("Game paused", 0, SIZE.y/3, SIZE.x, "center")
 
         local scale = 0.5
         local s = resources.images.key_f:getWidth() * scale
