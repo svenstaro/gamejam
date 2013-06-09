@@ -48,8 +48,10 @@ function Game:reset()
     self.generatedUntil = -SIZE.x*5
 
     self.zoom = 1
+    self.paused = false
     self.gameOver = false
     self.gameOverTimer = 0
+    self.score = 0
 
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
@@ -65,6 +67,10 @@ function Game:getKeyboardVector()
 end
 
 function Game:onUpdate(dt)
+    if self.paused then return end
+
+    self.score = math.floor(self.maxCamX/10)*10
+
     self.wisp:move(self:getKeyboardVector())
 
     self.keyHelpOpacity = math.max(0, self.keyHelpOpacity - dt / 10)
@@ -98,6 +104,12 @@ function Game:onUpdate(dt)
 
         self.gameOverTimer = self.gameOverTimer + dt
     end
+
+    local zoomSpeed = 400 / (Vector(self.wisp.physicsObject.body:getLinearVelocity()):len() or 1)
+    local zoomHeight = (self.wisp.position.y / SIZE.y)
+    local zoomSpeed = 0.4
+    local zoom = math.min(zoomSpeed, zoomHeight) * (zoomSpeed*dt) + self.zoom * (1-zoomSpeed*dt)
+    self.zoom = math.min(MAX_ZOOM, math.max(MIN_ZOOM, zoom))
 end
 
 function Game:generateWorld()
@@ -106,13 +118,17 @@ function Game:generateWorld()
     local h = randf(500, MAX_HEIGHT)
     self.world:add(Building(x, Vector(w, h)))
 
-    local airplane = LampAirplane()
-    airplane.position = Vector(x + w, -randf(1000, 5000))
-    self.world:add(airplane)
+    if math.random(0, 2) <= 0 then
+        local airplane = LampAirplane()
+        airplane.position = Vector(x + w, -randf(1000, 5000))
+        self.world:add(airplane)
+    end
 
-    local starlamp = LampStar()
-    starlamp.position = Vector(x + w, -randf(4000, 8000))
-    self.world:add(starlamp)
+    for i=0,4 do
+        local starlamp = LampStar()
+        starlamp.position = Vector(x + randf()*w, -randf(3000, 30000))
+        self.world:add(starlamp)
+    end
 
     self.generatedUntil = x + w * randf(1.0, 4)
 
@@ -157,11 +173,6 @@ function Game:onDraw()
     self.maxCamX = math.max(self.camCenter.x, self.maxCamX)
     self.camCenter.x = math.max(self.maxCamX - SIZE.x, self.camCenter.x)
 
-    local zoomSpeed = 400 / (Vector(self.wisp.physicsObject.body:getLinearVelocity()):len() or 1)
-    local zoomHeight = 1 + self.wisp.position.y * 0.0003
-    local zoom = math.min(zoomSpeed, zoomHeight) * 0.01 + self.zoom * 0.99
-    self.zoom = math.min(MAX_ZOOM, math.max(MIN_ZOOM, zoom))
-
     TRANSLATION = -(self.camCenter - HALFSIZE)
     love.graphics.push()
     love.graphics.translate(HALFSIZE:unpack())
@@ -205,19 +216,50 @@ function Game:onDraw()
     love.graphics.pop()
     TRANSLATION = Vector()
 
-    local p = 1 - math.pow(1-math.min(1, self.gameOverTimer - 1), 3)
-    love.graphics.setColor(255, 255, 255, 100)
+    local p = 1 - math.pow(1-math.min(1, self.gameOverTimer * 2 - 1), 3)
+    love.graphics.setColor(255, 255, 255)
     love.graphics.draw(resources.images.key_space, SIZE.x / 2, SIZE.y - p * 100,
         0.0, 0.5, 0.5, resources.images.key_space:getWidth() / 2, 0)
 
+    love.graphics.setFont(resources.fonts.big)
+    love.graphics.printf("Game Over", 0, p * 100, SIZE.x, "center")
+
     -- debug info
-    love.graphics.setFont(resources.fonts.normal)
+    love.graphics.setFont(resources.fonts.medium)
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print(self.gameOver and "Game over" or "Good luck", 10, 10)
+    love.graphics.print("Score " .. string.gsub(""..self.score, "0", "O"), 10, 10)
+
+    -- pause screen
+    if self.paused then
+        love.graphics.setColor(0, 0, 0, 200)
+        love.graphics.rectangle("fill", 0, 0, SIZE.x, SIZE.y)
+
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.setFont(resources.fonts.big)
+        love.graphics.printf("Game paused", 0, SIZE.y/3, SIZE.x, "center")
+
+        local scale = 0.5
+        local s = resources.images.key_f:getWidth() * scale
+        local x = SIZE.x / 2
+        local y = SIZE.y / 2
+
+        love.graphics.setFont(resources.fonts.normal)
+
+        love.graphics.draw(resources.images.key_esc, x-0.25*s, y, 0, scale, scale, s/scale, s/scale*0.5)
+        love.graphics.print("Continue", x+0.25*s, y - love.graphics.getFont():getHeight() / 2)
+        y = y + s * 1.5
+
+        love.graphics.draw(resources.images.key_q, x-0.25*s, y, 0, scale, scale, s/scale, s/scale*0.5)
+        love.graphics.print("Quit", x+0.25*s, y - love.graphics.getFont():getHeight() / 2)
+        y = y + s * 1.5
+
+    end
 end
 
 function Game:onKeyPressed(k, u)
     if k == "escape" then
+        self.paused = not self.paused
+    elseif k == "q" then
         stack:pop()
     elseif k == " " then
         if self.gameOver then

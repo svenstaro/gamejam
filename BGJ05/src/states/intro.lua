@@ -31,8 +31,7 @@ function Intro:onDraw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.normal)
 
-    local w = SIZE.x
-    local scale = 0.3
+    local scale = 0.5
     local s = resources.images.key_f:getWidth() * scale
     local x = SIZE.x / 2
     local y = SIZE.y - 5 * (s * 1.5)

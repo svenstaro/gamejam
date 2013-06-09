@@ -25,15 +25,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="103.59217"
-     inkscape:cy="21.068804"
+     inkscape:cx="46.853686"
+     inkscape:cy="33.857584"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      showguides="false"
-     inkscape:window-width="679"
+     inkscape:window-width="1362"
      inkscape:window-height="729"
-     inkscape:window-x="683"
+     inkscape:window-x="0"
      inkscape:window-y="37"
      inkscape:window-maximized="0"
      inkscape:snap-bbox="true"
@@ -59,7 +59,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -222,6 +222,38 @@
          height="28.121315"
          x="285.93933"
          y="528.30151" />
+    </g>
+    <g
+       inkscape:export-ydpi="300"
+       inkscape:export-xdpi="300"
+       inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-m.png"
+       id="g4647"
+       transform="translate(95.000012,8.6480903e-6)">
+      <text
+         xml:space="preserve"
+         style="font-size:11px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         x="299.77527"
+         y="546.15717"
+         id="text4649"
+         sodipodi:linespacing="125%"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300"><tspan
+           sodipodi:role="line"
+           id="tspan4651"
+           x="299.77527"
+           y="546.15717"
+           style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Russo One;-inkscape-font-specification:Russo One Bold">Q</tspan></text>
+      <rect
+         y="528.30151"
+         x="285.93933"
+         height="28.121315"
+         width="28.121315"
+         id="rect4653"
+         style="fill:none;stroke:#ffffff;stroke-width:1.87868536;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         inkscape:export-filename="/home/paul/src/games/jam/sven/BGJ05/data/key-esc.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
     </g>
   </g>
 </svg>

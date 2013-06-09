@@ -65,12 +65,15 @@ function love.load()
     resources:addImage("key_space", "key-space.png")
     resources:addImage("key_f", "key-f.png")
     resources:addImage("key_m", "key-m.png")
+    resources:addImage("key_q", "key-q.png")
 
     resources:makeGradientImage("left", {0, 0, 0, 255}, {0, 0, 0, 0}, true)
     resources:makeGradientImage("sky",  {10, 20, 40}, {120, 150, 255})
 
     -- load fonts
-    resources:addFont("normal", "DejaVuSans.ttf", 12)
+    resources:addFont("normal", "PostazBold-Regular.otf", 20)
+    resources:addFont("medium", "PostazBold-Regular.otf", 30)
+    resources:addFont("big", "PostazBold-Regular.otf", 60)
 
     -- load music
     -- resources:addMusic("background", "background.mp3")
