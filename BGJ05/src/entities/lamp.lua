@@ -23,6 +23,14 @@ function Lamp:__init()
 
     self.glowColor = {255, 230, 0}
     self.glowSize = 300
+    self.burnoutFade = 1
+
+    self.onOffPattern = {}
+    x = 0
+    while x < 1 do
+        table.insert(self.onOffPattern, x)
+        x = x + randf(0, 0.3) * randf(0, 0.3)
+    end
 end
 
 function Lamp:burnout()
@@ -30,6 +38,10 @@ function Lamp:burnout()
 end
 
 function Lamp:onUpdate(dt)
+    if not self.burning then
+        self.burnoutFade = math.max(0, self.burnoutFade - dt * 2)
+    end
+
     if self.isNextLamp then
         self.wasActive = true
     end
@@ -38,7 +50,17 @@ function Lamp:onUpdate(dt)
         self:burnout()
     end
 
-    self.glow = self.burning
+    self.glow = self.burnoutFade > 0
+    if not self.burning then
+        local on = true
+        for k, v in pairs(self.onOffPattern) do
+            if v>self.burnoutFade then
+                break
+            end
+            on = not on
+        end
+        self.glowStrength = on and self.burnoutFade or 0
+    end
     self.particleSystem:setEmissionRate(self.glowing and 100 or 0)
 
     self.particleSystem:update(dt)

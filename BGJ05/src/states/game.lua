@@ -14,8 +14,11 @@ require("entities/lamp-airplane")
 Game = class("Game", GameState)
 
 function Game:__init()
-    self.world = World()
+    self:reset()
+end
 
+function Game:reset()
+    self.world = World()
     self.wisp = Wisp()
     self.wisp.position = Vector(-10, -100)
     self.world:add(self.wisp)
@@ -40,6 +43,8 @@ function Game:__init()
 
     self.keyHelpOpacity = 1
     self.zoom = 1
+    self.gameOver = false
+    self.gameOverTimer = 0
 
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
@@ -71,6 +76,22 @@ function Game:onUpdate(dt)
     end
 
     self.world:update(dt)
+
+    if self.wisp.position.y > SIZE.y / 2 / self.zoom then
+        self.gameOver = true
+    end
+
+    if self.wisp.position.x < self.camCenter.x - SIZE.x/2/self.zoom then
+        self.gameOver = true
+    end
+
+    if self.gameOver then
+        for k,v in pairs(self.world:findByType("Lamp", true)) do
+            v:burnout()
+        end
+
+        self.gameOverTimer = self.gameOverTimer + dt
+    end
 end
 
 function Game:generateWorld()
@@ -170,20 +191,28 @@ function Game:onDraw()
     love.graphics.draw(resources.images.key_arrow, ax,   ay+s, math.pi * 1.5, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
     love.graphics.draw(resources.images.key_arrow, ax-s, ay+s, math.pi * 0.0, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
 
-
     love.graphics.pop()
     TRANSLATION = Vector()
+
+    local p = 1 - math.pow(1-math.min(1, self.gameOverTimer - 1), 3)
+    love.graphics.setColor(255, 255, 255, 100)
+    love.graphics.draw(resources.images.key_space, SIZE.x / 2, SIZE.y - p * 100,
+        0.0, 0.5, 0.5, resources.images.key_space:getWidth() / 2, 0)
 
     -- debug info
     love.graphics.setFont(resources.fonts.normal)
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print("Generated until " .. self.generatedUntil, 10, 10)
+    love.graphics.print(self.gameOver and "Game over" or "Good luck", 10, 10)
 end
 
 function Game:onKeyPressed(k, u)
     if k == "escape" then
         stack:pop()
     elseif k == " " then
-        self.wisp:jump(self:getKeyboardVector())
+        if self.gameOver then
+            self:reset()
+        else
+            self.wisp:jump(self:getKeyboardVector())
+        end
     end
 end
