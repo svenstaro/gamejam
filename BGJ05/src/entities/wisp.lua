@@ -39,7 +39,6 @@ end
 
 function Wisp:onAdd()
     self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
-    self.physicsObject.body:setLinearDamping(0.3)
     self.physicsObject.shape = love.physics.newCircleShape(10)
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setSensor(true)
@@ -51,6 +50,7 @@ function Wisp:onUpdate(dt)
     self.body:setPosition(self.position.x, self.position.y)
     self.sparkle:update(dt)
     self.sparkle:setPosition(self.position.x, self.position.y)
+
 
     local dNext = (self.nextLamp == nil and 0 or self.position:dist(self.nextLamp:getPosition()))
     self.nextLamp = nil
@@ -67,9 +67,11 @@ function Wisp:onUpdate(dt)
 
         local f = self.nextLamp:getPosition() - self.position
         local l = math.max(10, f:len())
-        f = f * (1 - l / LIGHTRANGE) * 3
+        f = f * (1 - l / LIGHTRANGE) * 5
         self.physicsObject.body:applyForce(f:unpack())
     end
+
+    self.physicsObject.body:setLinearDamping(self.nextLamp == nil and 0.3 or 1.0)
 end
 
 function Wisp:onDraw()

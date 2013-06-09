@@ -31,21 +31,21 @@ function Game:reset()
     lampstatic.position = Vector(0, -200)
     self.world:add(lampstatic)
 
-    local lampchain = LampChain()
-    lampchain.position = Vector(200, -200)
-    self.world:add(lampchain)
+    -- local lampchain = LampChain()
+    -- lampchain.position = Vector(200, -200)
+    -- self.world:add(lampchain)
 
-    local lampantenna = LampAntenna()
-    lampantenna.position = Vector(-200, -200)
-    self.world:add(lampantenna)
+    -- local lampantenna = LampAntenna()
+    -- lampantenna.position = Vector(-200, -200)
+    -- self.world:add(lampantenna)
 
-    local lampairplane = LampAirplane()
-    lampairplane.position = Vector(0, -500)
-    self.world:add(lampairplane)
+    -- local lampairplane = LampAirplane()
+    -- lampairplane.position = Vector(0, -500)
+    -- self.world:add(lampairplane)
 
-    local lampstar = LampStar()
-    lampstar.position = Vector(0, -600)
-    self.world:add(lampstar)
+    -- local lampstar = LampStar()
+    -- lampstar.position = Vector(0, -600)
+    -- self.world:add(lampstar)
 
     self.generatedUntil = -SIZE.x*5
 
