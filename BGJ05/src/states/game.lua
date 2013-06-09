@@ -16,6 +16,9 @@ Game = class("Game", GameState)
 
 function Game:__init()
     self:reset()
+
+    music = love.audio.newSource("data/Cupids Revenge.ogg")
+    love.audio.play(music)
 end
 
 function Game:reset()
