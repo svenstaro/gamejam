@@ -11,7 +11,7 @@ function Lamp:__init()
     self.burning = true
     self.wasActive = false
     self.energy = 1
-    self.energyDrainSpeed = 0.8
+    self.energyDrainSpeed = 0.7
     self.chargeRate = 1
 
     self.particleSystem = love.graphics.newParticleSystem(resources.images.particle, 128)
@@ -80,10 +80,10 @@ function Lamp:onUpdate(dt)
         end
         self.glowStrength = on and self.burnoutFade or 0
     end
-    self.particleSystem:setEmissionRate(self.glowing and 100 or 0)
 
+    self.particleSystem:setEmissionRate(self.glow and 20 or 0)
     self.particleSystem:update(dt)
-    self.particleSystem:setPosition(self.position.x, self.position.y)
+    self.particleSystem:setPosition(self:getPosition().x, self:getPosition().y)
 end
 
 function Lamp:onDraw()

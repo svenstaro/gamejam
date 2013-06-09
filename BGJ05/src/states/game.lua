@@ -30,18 +30,6 @@ function Game:reset()
     lampstatic.energyDrainSpeed = 0
     self.world:add(lampstatic)
 
-    -- local lampantenna = LampAntenna()
-    -- lampantenna.position = Vector(-200, -200)
-    -- self.world:add(lampantenna)
-
-    -- local lampairplane = LampAirplane()
-    -- lampairplane.position = Vector(0, -500)
-    -- self.world:add(lampairplane)
-
-    -- local lampstar = LampStar()
-    -- lampstar.position = Vector(0, -600)
-    -- self.world:add(lampstar)
-
     self.generatedUntil = -SIZE.x*5
 
     self.zoom = 1
@@ -279,8 +267,10 @@ function Game:onKeyPressed(k, u)
         else
             self.wisp:jump(self:getKeyboardVector())
         end
-    elseif k== "left"or k=="right"then
+    elseif k == "left" or k == "right" or k == "up" or k == "down" then
         self.mouseMovementEnabled=false
+    elseif k == "r" then
+        self:reset()
     end
 end
 
