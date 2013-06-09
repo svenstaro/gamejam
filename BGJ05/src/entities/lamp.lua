@@ -35,8 +35,18 @@ function Lamp:__init()
     end
 end
 
-function Lamp:burnout()
-    self.burning = false
+function Lamp:burnout(mute)
+    if self.burning then
+        self.burning = false
+
+        if not mute then
+            local s = resources:makeSound("bell")
+            states.game.bellStreak = states.game.bellStreak + 1
+            states.game.bellTimeout = 1.5
+            s:setPitch(0.5 + states.game.bellStreak * (1/12))
+            s:play()
+        end
+    end
 end
 
 function Lamp:onUpdate(dt)

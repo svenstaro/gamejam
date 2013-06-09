@@ -6,8 +6,8 @@ LampStar = class("LampStar", Lamp)
 
 function LampStar:__init()
     Lamp.__init(self)
-    self.scale = randf(20, 50)
-    self.glowColor = {255, 255, 255}
+    self.scale = randf(20, 40)
+    self.glowColor = {255, 255, 128}
 end
 
 function LampStar:onUpdate(dt)

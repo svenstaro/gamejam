@@ -17,9 +17,6 @@ Game = class("Game", GameState)
 function Game:__init()
     self.keyHelpOpacity = 1
     self:reset()
-
-    music = love.audio.newSource("data/Cupids Revenge.ogg")
-    love.audio.play(music)
 end
 
 function Game:reset()
@@ -52,6 +49,8 @@ function Game:reset()
     self.gameOver = false
     self.gameOverTimer = 0
     self.score = 0
+    self.bellStreak = 0
+    self.bellTimeout = 0
 
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
@@ -69,7 +68,14 @@ end
 function Game:onUpdate(dt)
     if self.paused then return end
 
-    self.score = math.floor(self.maxCamX/10)*10
+    if not self.gameOver then
+        self.score = math.floor(self.maxCamX/10)*10
+    end
+
+    self.bellTimeout = self.bellTimeout - dt
+    if self.bellTimeout < 0 then
+        self.bellStreak = 0
+    end
 
     self.wisp:move(self:getKeyboardVector())
 
@@ -99,15 +105,15 @@ function Game:onUpdate(dt)
 
     if self.gameOver then
         for k,v in pairs(self.world:findByType("Lamp", true)) do
-            v:burnout()
+            v:burnout(true)
         end
 
         self.gameOverTimer = self.gameOverTimer + dt
     end
 
     local zoomSpeed = 400 / (Vector(self.wisp.physicsObject.body:getLinearVelocity()):len() or 1)
-    local zoomHeight = (self.wisp.position.y / SIZE.y)
-    local zoomSpeed = 0.4
+    local zoomHeight = self.wisp.position.y < 0 and (SIZE.y-150)/-self.wisp.position.y/2 or zoomSpeed
+    local zoomSpeed = 0.7
     local zoom = math.min(zoomSpeed, zoomHeight) * (zoomSpeed*dt) + self.zoom * (1-zoomSpeed*dt)
     self.zoom = math.min(MAX_ZOOM, math.max(MIN_ZOOM, zoom))
 end

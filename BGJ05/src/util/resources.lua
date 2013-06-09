@@ -9,10 +9,12 @@ function Resources:__init(prefix)
     self.imageQueue = {}
     self.musicQueue = {}
     self.fontQueue = {}
+    self.soundQueue = {}
 
     self.images = {}
     self.music = {}
     self.fonts = {}
+    self.sounds = {}
 end
 
 function Resources:addFont(name, src, size)
@@ -25,6 +27,10 @@ end
 
 function Resources:addMusic(name, src)
     self.musicQueue[name] = src
+end
+
+function Resources:addSound(name, src)
+    self.soundQueue[name] = src
 end
 
 function Resources:load(threaded)
@@ -42,6 +48,15 @@ function Resources:load(threaded)
         self.music[name] = love.audio.newSource(self.prefix .. src)
         self.musicQueue[name] = nil
     end
+
+    for name, src in pairs(self.soundQueue) do
+        self.sounds[name] = love.sound.newSoundData(self.prefix .. src)
+        self.soundQueue[name] = nil
+    end
+end
+
+function Resources:makeSound(name)
+    return love.audio.newSource(self.sounds[name])
 end
 
 function Resources:makeGradientImage(name, from, to, horizontal)
@@ -52,4 +67,3 @@ function Resources:makeGradientImage(name, from, to, horizontal)
     data:setPixel(1, 1, to[1], to[2], to[3], to[4] or 255)
     self.images[name] = love.graphics.newImage(data)
 end
-

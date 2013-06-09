@@ -76,11 +76,17 @@ function love.load()
     resources:addFont("big", "PostazBold-Regular.otf", 60)
 
     -- load music
-    -- resources:addMusic("background", "background.mp3")
+    resources:addMusic("background", "Cupids Revenge.ogg")
+
+    -- load sounds
+    resources:addSound("bell", "bell.wav")
 
     resources:load()
 
     reset()
+
+    resources.music.background:play()
+    resources.music.background:setVolume(0.1)
 end
 
 function love.update(dt)
