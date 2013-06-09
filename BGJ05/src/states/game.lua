@@ -10,6 +10,7 @@ require("entities/lamp-chain")
 require("entities/lamp-static")
 require("entities/lamp-antenna")
 require("entities/lamp-airplane")
+require("entities/lamp-star")
 
 Game = class("Game", GameState)
 
@@ -38,6 +39,10 @@ function Game:reset()
     local lampairplane = LampAirplane()
     lampairplane.position = Vector(0, -500)
     self.world:add(lampairplane)
+
+    local lampstar = LampStar()
+    lampstar.position = Vector(0, -600)
+    self.world:add(lampstar)
 
     self.generatedUntil = -SIZE.x*5
 
@@ -111,6 +116,10 @@ function Game:generateWorld()
     local chainlamp = LampChain()
     chainlamp.position = Vector(x + w, -randf(500, h))
     self.world:add(chainlamp)
+
+    local starlamp = LampStar()
+    starlamp.position = Vector(x + w, -randf(4000, 8000))
+    self.world:add(starlamp)
 
     self.generatedUntil = x + w * randf(1.0, 4)
 

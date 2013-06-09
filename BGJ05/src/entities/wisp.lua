@@ -109,7 +109,7 @@ function Wisp:jump(dir)
     if self.nextLamp then
         local b = self.physicsObject.body
         local v = (dir:len() == 0 and Vector(b:getLinearVelocity()):normalized() or dir)
-        v = v * 30
+        v = v * 50
         b:applyLinearImpulse(v:unpack())
         self.nextLamp:burnout()
     end
