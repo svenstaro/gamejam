@@ -78,6 +78,12 @@ function Game:onUpdate(dt)
     end
 
     self.wisp:move(self:getKeyboardVector())
+    if love.mouse.isDown("l") then
+        local d = (getMouseVector() - self.wisp.position):normalized()
+        if d:len() > 0 then
+            self.wisp:move(d)
+        end
+    end
 
     self.keyHelpOpacity = math.max(0, self.keyHelpOpacity - dt / 10)
 
@@ -121,18 +127,18 @@ end
 function Game:generateWorld()
     local x = self.generatedUntil
     local w = math.random(4, 10) * 50
-    local h = randf(500, MAX_HEIGHT)
+    local h = randf(MIN_HEIGHT, MAX_HEIGHT)
     self.world:add(Building(x, Vector(w, h)))
 
     if math.random(0, 2) <= 0 then
         local airplane = LampAirplane()
-        airplane.position = Vector(x + w, -randf(1000, 5000))
+        airplane.position = Vector(x + w, -randf(MIN_HEIGHT/2+MAX_HEIGHT/2, MAX_HEIGHT*3))
         self.world:add(airplane)
     end
 
     for i=0,4 do
         local starlamp = LampStar()
-        starlamp.position = Vector(x + randf()*w, -randf(3000, 30000))
+        starlamp.position = Vector(x + randf()*w, -randf(MAX_HEIGHT, 30000))
         self.world:add(starlamp)
     end
 
@@ -209,9 +215,6 @@ function Game:onDraw()
     love.graphics.scale(self.zoom)
     love.graphics.translate((-self.camCenter):unpack())
 
-    --love.graphics.setColor(255, 255, 255)
-    --love.graphics.draw(resources.images.left, -SIZE.x, center.y-HALFSIZE.y, 0, SIZE.x, SIZE.y)
-
     love.graphics.setColor(255, 255, 255, 255 * self.keyHelpOpacity)
     local ax, ay, s = 0, -400, resources.images.key_arrow:getWidth() * 0.5 + 4
     love.graphics.draw(resources.images.key_arrow, ax,   ay,   math.pi * 0.5, 0.5, 0.5, resources.images.key_arrow:getWidth()/2, resources.images.key_arrow:getHeight()/2)
@@ -234,6 +237,7 @@ function Game:onDraw()
     love.graphics.setFont(resources.fonts.medium)
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("Score " .. string.gsub(""..self.score, "0", "O"), 10, 10)
+    love.graphics.print("Charge " .. string.gsub(""..math.ceil(self.wisp.charge*100), "0", "O") .. "%", 10, 40)
 
     -- pause screen
     if self.paused then
@@ -273,5 +277,11 @@ function Game:onKeyPressed(k, u)
         else
             self.wisp:jump(self:getKeyboardVector())
         end
+    end
+end
+
+function Game:onMousePressed()
+    if not self.gameOver then
+        self.wisp:jump((getMouseVector() - self.wisp.position):normalized())
     end
 end

@@ -159,5 +159,5 @@ end
 -- returns the mouse position in entity space
 function getMouseVector()
     local x, y = love.mouse.getPosition()
-    return Vector(x - 580, y - 320)
+    return (Vector(x, y) - HALFSIZE) / states.game.zoom + states.game.camCenter
 end

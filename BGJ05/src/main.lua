@@ -14,7 +14,8 @@ settings:load()
 SIZE = Vector(love.graphics.getWidth(), love.graphics.getHeight())
 HALFSIZE = SIZE / 2
 GENERATE_AHEAD = SIZE.x * 2
-MAX_HEIGHT = 1500
+MIN_HEIGHT = 1000
+MAX_HEIGHT = 3000
 LIGHT_CANVAS = nil
 DEBUG = false
 LIGHTRANGE = 300

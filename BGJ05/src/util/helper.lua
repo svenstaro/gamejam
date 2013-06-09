@@ -114,3 +114,10 @@ function hsl2rgb(h, s, l)
     end
     return math.ceil((r+m)*256),math.ceil((g+m)*256),math.ceil((b+m)*256)
 end
+
+function fadeColor(a, b, s)
+    return
+        a[1]*(1-s)+b[1]*s,
+        a[2]*(1-s)+b[2]*s,
+        a[3]*(1-s)+b[3]*s
+end

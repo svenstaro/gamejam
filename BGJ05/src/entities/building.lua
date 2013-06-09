@@ -23,7 +23,7 @@ function Building:onAdd()
         local lantern = LampChain(flipped)
         local x = self.position.x
         if not flipped then x = x + self.size.x end
-        lantern.position = Vector(x + (flipped and -110 or 110), randf(0.2, 0.95) * -self.size.y)
+        lantern.position = Vector(x + (flipped and -110 or 110), randf(0.4, 0.95) * -self.size.y)
         self.world:add(lantern)
     end
 end

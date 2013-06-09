@@ -35,6 +35,8 @@ function Wisp:__init()
     self.glowColor = {200, 220, 255}
     self.glowImage = resources.images.particle
 
+    self.charge = 1
+
     self.nextLamp = nil
 end
 
@@ -70,6 +72,8 @@ function Wisp:onUpdate(dt)
         local l = math.max(10, f:len())
         f = f * (1 - l / LIGHTRANGE) * 5
         self.physicsObject.body:applyForce(f:unpack())
+
+        self.charge = math.min(self.charge + self.nextLamp.chargeRate * dt, 2)
     end
 
     self.physicsObject.body:setLinearDamping(self.nextLamp == nil and 0.3 or 1.0)
@@ -79,12 +83,22 @@ function Wisp:onDraw()
     love.graphics.setColor(255, 255, 255)
     --love.graphics.circle("fill", self.position.x, self.position.y, 20)
 
-    love.graphics.setBlendMode("additive")
     --love.graphics.draw(self.body)
 
-    local s, r = 0.2, 12
+    local s, r = 0.2*self.charge, 12*self.charge
     love.graphics.setColor(127, 20, 209)
-    love.graphics.setColor(10, 60, 255)
+
+    local low, mid, high = {255, 0, 0}, {255, 255, 0}, {100, 120, 255}
+    local a = self.charge / 2 * 255
+    if self.charge >= 1 then
+        self.glowColor = pack(fadeColor(mid, high, self.charge - 1))
+    else
+        self.glowColor = pack(fadeColor(low, mid, self.charge))
+    end
+    love.graphics.setColor(unpack(self.glowColor))
+
+    love.graphics.draw(resources.images.particle_thick, self.position.x, self.position.y, 0, s, s, 128, 128)
+    love.graphics.setBlendMode("additive")
     for i=0,20 do
         local a, b = 0.9 + i * 0.02, 1.2 - math.pow(i,1.5)  * 0.04
         a, b = a * 5, b * 3
@@ -93,12 +107,12 @@ function Wisp:onDraw()
             0, s, s, 128, 128)
     end
 
+    love.graphics.setBlendMode("alpha")
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.sparkle)
     setLightRendering(true)
     love.graphics.draw(self.sparkle)
     setLightRendering(false)
-    love.graphics.setBlendMode("alpha")
 
     if DEBUG then
         love.graphics.setColor(255, 0, 0)
@@ -117,15 +131,16 @@ end
 function Wisp:move(vec)
     -- self.position = self.position + vec
     if not self.nextLamp then vec.y = 0 end
-    self.physicsObject.body:applyForce((vec*30):unpack())
+    self.physicsObject.body:applyForce((vec:normalized()*30):unpack())
 end
 
 function Wisp:jump(dir)
     if self.nextLamp then
         local b = self.physicsObject.body
         local v = (dir:len() == 0 and Vector(b:getLinearVelocity()):normalized() or dir)
-        v = v * 50
+        v = v * 50 * self.charge
         b:applyLinearImpulse(v:unpack())
         self.nextLamp:burnout()
+        self.charge = math.max(0, self.charge - 1)
     end
 end
