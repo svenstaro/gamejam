@@ -39,7 +39,7 @@ end
 
 function Wisp:onAdd()
     self.physicsObject.body = love.physics.newBody(self.world.physicsWorld, self.position.x, self.position.y, "dynamic")
-    self.physicsObject.body:setLinearDamping(1)
+    self.physicsObject.body:setLinearDamping(0.3)
     self.physicsObject.shape = love.physics.newCircleShape(10)
     self.physicsObject.fixture = love.physics.newFixture(self.physicsObject.body, self.physicsObject.shape, 1)
     self.physicsObject.fixture:setSensor(true)

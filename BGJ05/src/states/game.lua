@@ -104,6 +104,14 @@ function Game:generateWorld()
     antenna.position = Vector(x + randf(0, w), -h)
     self.world:add(antenna)
 
+    local airplane = LampAirplane()
+    airplane.position = Vector(x + w, -randf(1000, 5000))
+    self.world:add(airplane)
+
+    local chainlamp = LampChain()
+    chainlamp.position = Vector(x + w, -randf(500, h))
+    self.world:add(chainlamp)
+
     self.generatedUntil = x + w * randf(1.0, 4)
 
     local bx = x

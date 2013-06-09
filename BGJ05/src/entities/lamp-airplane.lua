@@ -8,6 +8,9 @@ function LampAirplane:__init()
     Lamp.__init(self)
 
     self.velocity = Vector(50, 0)
+    self.mirror = false
+    self.glowSize = 200
+    self.glowColor = {255,255,255}
 end
 
 function LampAirplane:onUpdate(dt)
@@ -21,6 +24,6 @@ function LampAirplane:onDraw()
 
     local w = self.scale * 20
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(resources.images.airplane, self.position.x, self.position.y, 0, self.scale, self.scale, 80, 150)
+    love.graphics.draw(resources.images.airplane, self.position.x, self.position.y, 0, self.scale, self.scale, 550, 165)
     love.graphics.setColor(0, 0, 0)
 end

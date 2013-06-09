@@ -34,6 +34,14 @@ function LampChain:__init()
     self.image_chain1 = resources.images.chain1
 
     self.glowColor = {255, 200, 0}
+
+    self.particleSystem = love.graphics.newParticleSystem(resources.images.particle, 1000)
+    self.particleSystem:start()
+    self.particleSystem:setSizes(1, 0.9)
+    self.particleSystem:setColors(
+        230, 230, 100, 100,
+        200, 120, 100, 0)
+    self.particleSystem:setParticleLife(1.0)
 end
 
 function LampChain:onAdd()
@@ -116,7 +124,6 @@ function LampChain:onUpdate(dt)
     end
 
     self.glow = self.burning
-    self.particleSystem:setEmissionRate(self.glowing and 100 or 0)
 
     self.position = Vector(self.physicsObjectAttachment.body:getX(), self.physicsObjectAttachment.body:getY())
     self.rotation = self.physicsObjectAttachment.body:getAngle()
@@ -137,7 +144,8 @@ function LampChain:onUpdate(dt)
     self.rotationLantern = self.physicsObjectLantern.body:getAngle()
 
     self.particleSystem:update(dt)
-    self.particleSystem:setPosition(self.positionLantern.x, self.positionLantern.y)
+    self.particleSystem:setEmissionRate(self.glow and 20 or 0)
+    self.particleSystem:setPosition(self.positionLantern.x, self.positionLantern.y + 10)
 end
 
 function LampChain:onRemove()
