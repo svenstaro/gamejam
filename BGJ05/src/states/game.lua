@@ -43,6 +43,8 @@ function Game:reset()
 
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
+
+    HIGHSCORE = settings:get("highscore", 0)
 end
 
 function Game:getKeyboardVector()
@@ -91,12 +93,12 @@ function Game:onUpdate(dt)
 
     self.world:update(dt)
 
-    if self.wisp.position.y > SIZE.y / 2 / self.zoom then
+    if self.wisp.position.y > SIZE.y / 2 / self.zoom or self.wisp.position.x < self.camCenter.x - SIZE.x/2/self.zoom then
         self.gameOver = true
-    end
-
-    if self.wisp.position.x < self.camCenter.x - SIZE.x/2/self.zoom then
-        self.gameOver = true
+        if self.score > HIGHSCORE then
+            settings:set("highscore", self.score)
+            settings:save()
+        end
     end
 
     if self.gameOver then
@@ -227,7 +229,7 @@ function Game:onDraw()
     love.graphics.setFont(resources.fonts.medium)
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("Score " .. string.gsub(""..self.score, "0", "O"), 10, 10)
-    love.graphics.print("Charge " .. string.gsub(""..math.ceil(self.wisp.charge*100), "0", "O") .. "%", 10, 40)
+    love.graphics.print("Highest " .. string.gsub(""..HIGHSCORE, "0", "O"), 10, 40)
 
     -- pause screen
     if self.paused then
@@ -275,7 +277,9 @@ function Game:onKeyPressed(k, u)
 end
 
 function Game:onMousePressed()
-    if not self.gameOver then
+    if self.gameOver then
+        self:reset()
+    else
         self.wisp:jump((getMouseVector() - self.wisp.position):normalized())
         self.mouseMovementEnabled=true
     end
