@@ -252,6 +252,9 @@ function Game:onDraw()
         y = y + s * 1.5
 
     end
+    if DEBUG then
+        love.graphics.print("Current FPS: " .. string.gsub(""..tostring(love.timer.getFPS( )), "0", "O"), love.graphics.getWidth() - 250, 10)
+    end
 end
 
 function Game:onKeyPressed(k, u)
