@@ -51,6 +51,7 @@ function Game:reset()
     self.score = 0
     self.bellStreak = 0
     self.bellTimeout = 0
+    self.mouseMovementEnabled = false
 
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
@@ -78,7 +79,8 @@ function Game:onUpdate(dt)
     end
 
     self.wisp:move(self:getKeyboardVector())
-    if love.mouse.isDown("l") then
+
+    if self.mouseMovementEnabled then
         local d = (getMouseVector() - self.wisp.position):normalized()
         if d:len() > 0 then
             self.wisp:move(d)
@@ -277,11 +279,14 @@ function Game:onKeyPressed(k, u)
         else
             self.wisp:jump(self:getKeyboardVector())
         end
+    elseif k== "left"or k=="right"then
+        self.mouseMovementEnabled=false
     end
 end
 
 function Game:onMousePressed()
     if not self.gameOver then
         self.wisp:jump((getMouseVector() - self.wisp.position):normalized())
+        self.mouseMovementEnabled=true
     end
 end
