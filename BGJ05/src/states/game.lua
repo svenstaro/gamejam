@@ -128,7 +128,6 @@ function Game:onUpdate(dt)
         end
         self.showNotification = true
     end
-    print(self.checkpoints[self.checkpoint])
 
     if self.showNotification then
         self.lastNotification = self.lastNotification + dt
@@ -137,7 +136,6 @@ function Game:onUpdate(dt)
     if self.lastNotification >= 2 then
         self.lastNotification = 0
         self.showNotification = false
-        print(self.showNotification)
     end
     -- if self.lastNotification > 2 then
     --     self.lastNotification = 0
