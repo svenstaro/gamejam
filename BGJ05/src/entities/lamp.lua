@@ -11,7 +11,7 @@ function Lamp:__init()
     self.burning = true
     self.wasActive = false
     self.energy = 1
-    self.energyDrainSpeed = 0.8
+    self.energyDrainSpeed = 0.7
     self.chargeRate = 1
 
     self.particleSystem = love.graphics.newParticleSystem(resources.images.particle, 128)
