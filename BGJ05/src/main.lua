@@ -13,7 +13,7 @@ settings:load()
 -- global variables
 SIZE = Vector(love.graphics.getWidth(), love.graphics.getHeight())
 HALFSIZE = SIZE / 2
-GENERATE_AHEAD = SIZE.x * 4
+GENERATE_AHEAD = SIZE.x * 2
 MAX_HEIGHT = 1500
 LIGHT_CANVAS = nil
 DEBUG = false
@@ -22,7 +22,8 @@ WINDOWDATA = "a29ujosdkkqjwebanldkjsnldkfmnlasjnd1fkl2qawkcsmnxlkj2ma2"
 TRANSLATION = Vector()
 DEFAULT_WINDOW_SIZE = Vector(800, 600)
 FULLSCREEN = settings:get("fullscreen", false)
-MIN_ZOOM = 0.4
+MUTE = settings:get("mute", false)
+MIN_ZOOM = 0.2
 MAX_ZOOM = 1
 
 function reset()
@@ -38,6 +39,7 @@ function love.load()
     math.randomseed(os.time())
 
     setFullscreen(FULLSCREEN)
+    setMute(MUTE)
 
     LIGHT_CANVAS = love.graphics.newCanvas(SIZE:unpack())
     -- load images
@@ -86,6 +88,7 @@ function love.keypressed(k, u)
     if k == "f" then
         setFullscreen(not FULLSCREEN)
     elseif k == "m" then
+        setMute(not MUTE)
     end
     stack:keypressed(k, u)
 end
@@ -114,6 +117,13 @@ function setFullscreen(fullscreen)
 
     FULLSCREEN = fullscreen
     settings:set("fullscreen", fullscreen)
+    settings:save()
+end
+
+function setMute(mute)
+    love.audio.setVolume(mute and 0 or 1)
+    MUTE = mute
+    settings:set("mute", mute)
     settings:save()
 end
 

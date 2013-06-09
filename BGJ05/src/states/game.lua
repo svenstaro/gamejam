@@ -73,7 +73,8 @@ function Game:onUpdate(dt)
     self.keyHelpOpacity = math.max(0, self.keyHelpOpacity - dt / 10)
 
     -- generate full view and a bit (GENEREATE_AHEAD)
-    while self.wisp.position.x + GENERATE_AHEAD > self.generatedUntil do
+    local ahead = GENERATE_AHEAD / self.zoom
+    while self.wisp.position.x + ahead > self.generatedUntil do
         self:generateWorld()
     end
 
@@ -163,7 +164,7 @@ function Game:onDraw()
     elseif wp.y > self.camCenter.y + s.y then self.camCenter.y = wp.y - s.y
     end
 
-    self.camCenter.y = math.min(self.camCenter.y, 0)
+    self.camCenter.y = math.min(self.camCenter.y, (-HALFSIZE.y+150)/self.zoom)
     self.maxCamX = math.max(self.camCenter.x, self.maxCamX)
     self.camCenter.x = math.max(self.maxCamX - SIZE.x, self.camCenter.x)
 
