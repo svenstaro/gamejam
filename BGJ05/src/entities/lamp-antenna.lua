@@ -20,8 +20,8 @@ function LampAntenna:onDraw()
     Lamp.onDraw(self)
 
     love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("fill", self.position.x - self.size.x/2, self.position.y - self.size.y,
-                            self.size.x, self.size.y)
+    love.graphics.rectangle("fill", self.position.x - self.size.x/4, self.position.y - self.size.y,
+                            self.size.x/2, self.size.y)
 
     love.graphics.setColor(unpack(self.glowColor))
     love.graphics.rectangle("fill", self.position.x - self.size.x/2, self.position.y - self.size.y,
