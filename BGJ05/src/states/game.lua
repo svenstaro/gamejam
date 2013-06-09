@@ -50,7 +50,7 @@ function Game:reset()
     self.showNotification = false
     self.checkpoints = {10000, 25000, 50000, 100000, 250000, 1000000}
     self.checkpoint = 1
-    self.switch = true
+    self.switch = false
 
     HIGHSCORE = settings:get("highscore", 0)
 end
@@ -133,7 +133,7 @@ function Game:onUpdate(dt)
             self.checkpoint = self.checkpoint + 1
         end
         self.showNotification = true
-        self.switch = false
+        self.switch = true
     end
 
     if self.showNotification then
@@ -144,7 +144,7 @@ function Game:onUpdate(dt)
     if self.lastNotification >= 0.3 then
         self.lastNotification = 0
         self.showNotification = false
-        self.switch = true
+        self.switch = false
     end
     -- if self.lastNotification > 2 then
     --     self.lastNotification = 0
@@ -265,7 +265,7 @@ function Game:onDraw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("Score " .. string.gsub(""..self.score, "0", "O"), 10, 10)
     love.graphics.print("Highest " .. string.gsub(""..HIGHSCORE, "0", "O"), 10, 40)
-    love.graphics.print("Next Checkpoint: " ..string.gsub(""..self.checkpoints[self.checkpoint], "0", "O"), 10, 70)
+    -- love.graphics.print("Next Checkpoint: " ..string.gsub(""..self.checkpoints[self.checkpoint], "0", "O"), 10, 70)
 
     if self.showNotification then
         if self.score >= self.checkpoints[1] and self.score < self.checkpoints[2] then
