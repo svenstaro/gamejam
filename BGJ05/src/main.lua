@@ -89,6 +89,7 @@ function love.load()
 
     resources.music.background:play()
     resources.music.background:setVolume(0.1)
+    resources.music.background:setLooping(true)
 end
 
 function love.update(dt)

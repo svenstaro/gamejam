@@ -1,7 +1,7 @@
 function love.conf(t)
-    t.title = "Woooosh"
-    t.author = "AUTHOR"
-    t.identity = "woooosh"
+    t.title = "The Little Whisp That Could"
+    t.author = "ikum-team"
+    t.identity = "little-wisp"
     t.version = "0.8.0" -- Löve version
     t.console = false
     t.release = false

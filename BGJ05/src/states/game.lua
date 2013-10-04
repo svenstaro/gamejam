@@ -24,6 +24,7 @@ function Game:reset()
     self.wisp = Wisp()
     self.wisp.position = Vector(-10, -100)
     self.world:add(self.wisp)
+    resources:makeGradientImage("sky",  {10, 20, 40}, {120, 150, 255})
 
     local lampstatic = LampStatic()
     lampstatic.position = Vector(0, -200)
@@ -44,6 +45,13 @@ function Game:reset()
     self.camCenter = Vector(0, -300)
     self.maxCamX = self.camCenter.x
 
+    self.lastNotification = 0
+    self.nextScore = 1000
+    self.showNotification = false
+    self.checkpoints = {10000, 25000, 50000, 100000, 250000, 1000000}
+    self.checkpoint = 1
+    self.switch = false
+
     HIGHSCORE = settings:get("highscore", 0)
 end
 
@@ -54,6 +62,10 @@ function Game:getKeyboardVector()
     if love.keyboard.isDown("up")    then v.y = v.y - 1 end
     if love.keyboard.isDown("down")  then v.y = v.y + 1 end
     return v:normalized()
+end
+
+function Game:skyChange(x, y, z, a, b, c)
+        resources:makeGradientImage("sky",  {x, y, z}, {a, b, c})
 end
 
 function Game:onUpdate(dt)
@@ -114,6 +126,29 @@ function Game:onUpdate(dt)
     local zoomSpeed = 0.7
     local zoom = math.min(zoomSpeed, zoomHeight) * (zoomSpeed*dt) + self.zoom * (1-zoomSpeed*dt)
     self.zoom = math.min(MAX_ZOOM, math.max(MIN_ZOOM, zoom))
+
+
+    if self.score >= self.checkpoints[self.checkpoint] then
+        if self.checkpoint < 7 then
+            self.checkpoint = self.checkpoint + 1
+        end
+        self.showNotification = true
+        self.switch = true
+    end
+
+    if self.showNotification then
+        self.lastNotification = self.lastNotification + dt
+        self.switch = not self.switch
+    end
+
+    if self.lastNotification >= 0.3 then
+        self.lastNotification = 0
+        self.showNotification = false
+        self.switch = false
+    end
+    -- if self.lastNotification > 2 then
+    --     self.lastNotification = 0
+    -- end 
 end
 
 function Game:generateWorld()
@@ -230,6 +265,54 @@ function Game:onDraw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.print("Score " .. string.gsub(""..self.score, "0", "O"), 10, 10)
     love.graphics.print("Highest " .. string.gsub(""..HIGHSCORE, "0", "O"), 10, 40)
+    -- love.graphics.print("Next Checkpoint: " ..string.gsub(""..self.checkpoints[self.checkpoint], "0", "O"), 10, 70)
+
+    if self.showNotification then
+        if self.score >= self.checkpoints[1] and self.score < self.checkpoints[2] then
+            if self.switch then
+                self:skyChange(10, 0, 200, 40, 20, 55)
+            elseif not self.switch then
+                self:skyChange(255, 20, 40, 40, 20, 255)
+            end
+        elseif self.score >= self.checkpoints[2] and self.score < self.checkpoints[3] then
+            if self.switch then
+                self:skyChange(255, 20, 40, 40, 20, 255)
+            elseif not self.switch then
+                self:skyChange(0, 255, 50, 255, 30, 80)
+            end 
+            -- love.graphics.print("Okay...", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[3] and self.score < self.checkpoints[4] then
+            if self.switch then
+                self:skyChange(0, 255, 50, 255, 30, 80)
+            elseif not self.switch then
+                self:skyChange(50, 80, 200, 255, 255, 80)
+            end
+            -- love.graphics.print("Not bad at all.", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[4] and self.score < self.checkpoints[5] then
+            if self.switch then
+                self:skyChange(50, 80, 200, 255, 255, 80)
+            elseif not self.switch then
+                self:skyChange(200, 0, 150, 80, 255, 30)
+            end
+            -- love.graphics.print("That's impressive.", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[5] and self.score < self.checkpoints[6] then
+            if self.switch then
+                self:skyChange(200, 0, 150, 80, 255, 30)
+            elseif not self.switch then
+                self:skyChange(255, 255, 255, 0, 0, 0)
+            end
+            -- love.graphics.print("How do you got so far...", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        elseif self.score >= self.checkpoints[6] then
+            if self.switch then
+                self:skyChange(255, 255, 255, 0, 0, 0)
+                self.switch = not self.switch
+            elseif not self.switch then
+                self:skyChange(0, 0, 0, 0, 0, 0)
+                self.switch = not self.switch
+            end
+            -- love.graphics.print("Just fuck you...", love.graphics.getHeight() / 2, love.graphics.getWidth() / 2)
+        end
+    end
 
     -- pause screen
     if self.paused then
@@ -238,7 +321,9 @@ function Game:onDraw()
 
         love.graphics.setColor(255, 255, 255)
         love.graphics.setFont(resources.fonts.big)
-        love.graphics.printf("Game paused", 0, SIZE.y/3, SIZE.x, "center")
+        -- love.graphics.printfif self.lastNotification >= 2 then
+        --     love.graphics.clear()
+        -- end("Game paused", 0, SIZE.y/3, SIZE.x, "center")
 
         local scale = 0.5
         local s = resources.images.key_f:getWidth() * scale
