@@ -30,6 +30,8 @@ var Game = Class.create({
 
         // setup grid
         this.grid = new THREE.GridHelper(100, 1);
+        this.grid.position.x = 0.5;
+        this.grid.position.z = 0.5;
         this.scene.add(this.grid);
 
         // and the camera
