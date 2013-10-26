@@ -7,11 +7,14 @@ var City = Class.create(Entity, {
 
     onAdd: function(scene) {
     	for (var x = -this.width; x < this.width; x++) {
-    		for (var y = -this.height; y < this.height; y++) 
-    		{
+    		for (var y = -this.height; y < this.height; y++) {
     			if (x % 2 == 0 && y % 2 == 0) {
-    				var building = new Building(x, y);
-    	   			this.game.addEntity(building);
+    				var chance = THREE.Math.randInt(0, 1);
+    				if (chance == 0) {
+    					var building = new Building(x, y);
+    	   				this.game.addEntity(building);
+    				}
+    				else {}
     	   		}
     	    }
     	}
