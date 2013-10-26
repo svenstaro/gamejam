@@ -8,8 +8,8 @@ var Game = Class.create({
         // set some camera attributes
         this.view_angle = 80;
         this.aspect = this.width / this.height;
-        this.near = 0.1;
-        this.far = 10000;
+        this.near = 0.001;
+        this.far = 10;
 
         // create a WebGL renderer, camera
         // and a scene
@@ -26,7 +26,7 @@ var Game = Class.create({
         document.body.appendChild(this.renderer.domElement);
 
 
-        this.tank = new Tank(this);
+        this.tank = new Tank();
         this.addEntity(this.tank);
 
         // setup ground
@@ -74,6 +74,14 @@ var Game = Class.create({
         entity.game = this;
         this.entities.push(entity);
         entity.onAdd(this.scene);
+    },
+
+    removeEntity: function(entity) {
+        var index = this.entities.indexOf(entity);
+        if (index < 0) return;
+        entity.onRemove(this.scene);
+        this.entities.splice(index, 1);
+        entity.game = null;
     },
 
     render: function() {

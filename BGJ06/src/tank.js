@@ -1,13 +1,15 @@
 var Tank = Class.create(Entity, {
-    initialize: function(game) {
+    initialize: function() {
         this.velocity = new THREE.Vector3(0, 0, 0);
         this.acceleration = 50;
         this.damping = 15;
+    },
 
+    onAdd: function(scene) {
         // create root node
         this.node = new THREE.Object3D();
         this.node.name = "tank";
-        game.scene.add(this.node);
+        scene.add(this.node);
 
         var material = new THREE.MeshLambertMaterial({color: 0x555555});
         // create the body
@@ -37,13 +39,27 @@ var Tank = Class.create(Entity, {
         if(this.game.keyboard.pressed("a")) dir.x -= 1;
         if(this.game.keyboard.pressed("w")) dir.z -= 1;
         if(this.game.keyboard.pressed("s")) dir.z += 1;
+        dir.normalize();
         this.velocity.add(dir.multiplyScalar(dt * this.acceleration));
 
         this.velocity.multiplyScalar(Math.max(0, 1 - this.damping * dt));
         this.node.position.add(this.velocity.clone().multiplyScalar(dt));
 
         //console.log(this.game.worldMouse());
-        var mouseDiff = this.game.worldMouse().sub(this.node.position);
-        this.barrelRoot.rotation.y = -Math.atan2(mouseDiff.z, mouseDiff.x);
+        var bd = this.getBarrelDirection();
+        this.barrelRoot.rotation.y = -Math.atan2(bd.z, bd.x);
+
+        // move camera
+        var target = this.node.position.clone();
+        target.y = this.game.camera.position.y;
+        this.game.camera.position.lerp(target, dt*6);
+    },
+
+    getBarrelDirection: function() {
+        return this.game.worldMouse().sub(this.node.position).normalize();
+    },
+
+    shoot: function(dt) {
+        this.game.addEntity(new Shot(this));
     }
 });

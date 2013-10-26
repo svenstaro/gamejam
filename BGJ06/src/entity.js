@@ -4,5 +4,6 @@ var Entity = Class.create({
     },
 
     onAdd: function(scene) {},
+    onRemove: function(scene) {},
     update: function(dt) {}
 });

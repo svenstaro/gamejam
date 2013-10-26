@@ -15,7 +15,7 @@ var Enemy = Class.create(Entity, {
 
     onAdd: function(scene) {
         scene.add(this.mesh);
-        scene.add(this.light);
+        //scene.add(this.light);
     },
 
     update: function(dt) {}
