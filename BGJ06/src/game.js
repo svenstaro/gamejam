@@ -21,11 +21,10 @@ var Game = Class.create({
 
         // start the renderer
         this.renderer.setSize(this.width, this.height);
-        this.renderer.shadowMapEnabled = true;
-        this.renderer.shadowMapSoft = false;
 
         // attach the render-supplied DOM element
         document.body.appendChild(this.renderer.domElement);
+
 
         this.tank = new Tank();
         this.addEntity(this.tank);
@@ -34,7 +33,6 @@ var Game = Class.create({
         var material = new THREE.MeshLambertMaterial({color: 0xFF0000});
         this.ground = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), material);
         this.ground.rotation.x = -Math.PI/2;
-        this.ground.receiveShadow = true;
         this.scene.add(this.ground);
 
         // setup grid

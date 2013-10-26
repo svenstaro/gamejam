@@ -10,8 +10,6 @@ var Building = Class.create(Entity, {
         this.mesh.position.x = posX;
         this.mesh.position.y += this.height / 2
         this.mesh.position.z = posZ;
-        this.mesh.castShadow = true;
-        this.mesh.receiveShadow = true;
     },
 
     onAdd: function(scene) {
