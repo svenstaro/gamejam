@@ -1,6 +1,6 @@
 var App = new Game();
 var clock = new THREE.Clock(true);
-var building = new Building(THREE.Math.randInt(0, 100), THREE.Math.randInt(0, 100));
+var building = new Building(THREE.Math.randInt(-10, 10), THREE.Math.randInt(-10, 10));
 App.addEntity(building);
 function mainloop () {
     requestAnimationFrame(mainloop);
