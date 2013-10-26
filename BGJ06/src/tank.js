@@ -42,10 +42,11 @@ var Tank = Class.create(Entity, {
         dir.normalize();
         this.velocity.add(dir.multiplyScalar(dt * this.acceleration));
 
+        this.body.rotation.y = -Math.atan2(this.velocity.z, this.velocity.x);
+
         this.velocity.multiplyScalar(Math.max(0, 1 - this.damping * dt));
         this.node.position.add(this.velocity.clone().multiplyScalar(dt));
 
-        //console.log(this.game.worldMouse());
         var bd = this.getBarrelDirection();
         this.barrelRoot.rotation.y = -Math.atan2(bd.z, bd.x);
 
