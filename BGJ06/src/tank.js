@@ -1,19 +1,32 @@
 var Tank = Class.create(Entity, {
     initialize: function(game) {
+        this.speed = 5;
+
+        // create root node
+        this.node = new THREE.Object3D();
+        this.node.name = "tank";
+        game.scene.add(this.node);
+
+        // create the mesh
         var material = new THREE.MeshLambertMaterial({color: 0x00FF00});
         this.mesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
-        game.scene.add(this.mesh);
+        this.node.add(this.mesh);
+        this.mesh.position = new THREE.Vector3(0, 0, 0);
 
-        this.speed = 5;
+        // create a point light
+        this.light = new THREE.PointLight(0xFFFFFF);
+        this.light.position = new THREE.Vector3(0, 2, 0);
+        this.node.add(this.light);
     },
+
     update: function(dt) {
         if(this.game.keyboard.pressed("d"))
-            this.mesh.position.x += dt * this.speed;
+            this.node.position.x += dt * this.speed;
         if(this.game.keyboard.pressed("a"))
-            this.mesh.position.x -= dt * this.speed;
+            this.node.position.x -= dt * this.speed;
         if(this.game.keyboard.pressed("w"))
-            this.mesh.position.z -= dt * this.speed;
+            this.node.position.z -= dt * this.speed;
         if(this.game.keyboard.pressed("s"))
-            this.mesh.position.z += dt * this.speed;
+            this.node.position.z += dt * this.speed;
     }
 });

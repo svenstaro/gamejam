@@ -37,17 +37,6 @@ var Game = Class.create({
         // and the camera
         this.scene.add(this.camera);
 
-        // create a point light
-        this.pointLight = new THREE.PointLight(0xFFFFFF);
-
-        // set its position
-        this.pointLight.position.x = 10;
-        this.pointLight.position.y = 50;
-        this.pointLight.position.z = 130;
-
-        // add to the scene
-        this.scene.add(this.pointLight);
-
         this.keyboard = new THREEx.KeyboardState();
     },
 
