@@ -38,6 +38,10 @@ var Game = Class.create({
         this.scene.add(this.camera);
 
         this.keyboard = new THREEx.KeyboardState();
+
+        this.sun = new THREE.DirectionalLight( 0xCCDDFF, 0.3 );
+        this.sun.position.set(0, 1, 0);
+        this.scene.add(this.sun);
     },
 
     update: function(dt) {
