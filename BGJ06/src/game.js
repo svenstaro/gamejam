@@ -13,7 +13,7 @@ var Game = Class.create({
 
         // create a WebGL renderer, camera
         // and a scene
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({antialias: true});
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(this.view_angle, this.aspect, this.near, this.far);
         this.camera.position.y = 3.5;
