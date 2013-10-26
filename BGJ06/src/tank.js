@@ -11,11 +11,10 @@ var Tank = Class.create(Entity, {
         var material = new THREE.MeshLambertMaterial({color: 0x00FF00});
         this.mesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
         this.node.add(this.mesh);
-        this.mesh.position = new THREE.Vector3(0, 0, 0);
 
         // create a point light
         this.light = new THREE.PointLight(0xFFFFFF);
-        this.light.position = new THREE.Vector3(0, 2, 0);
+        this.light.position.set(0, 2, 0);
         this.node.add(this.light);
     },
 
