@@ -1,5 +1,7 @@
 var Tank = Class.create(Entity, {
-    initialize: function() {
+    className: "Tank",
+    initialize: function($super) {
+        $super();
         this.velocity = new THREE.Vector3(0, 0, 0);
         this.acceleration = 50;
         this.damping = 15;
@@ -30,6 +32,7 @@ var Tank = Class.create(Entity, {
         // create a point light
         this.light = new THREE.PointLight(0xFFFFFF);
         this.light.position.set(0, 2, 0);
+        this.light.distance = 5;
         this.node.add(this.light);
     },
 
@@ -54,6 +57,9 @@ var Tank = Class.create(Entity, {
         var target = this.node.position.clone();
         target.y = this.game.camera.position.y;
         this.game.camera.position.lerp(target, dt*6);
+
+        // update box
+        this.setBox(this.node.position, new THREE.Vector3(0.3, 0.1, 0.3));
     },
 
     getBarrelDirection: function() {

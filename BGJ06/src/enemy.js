@@ -1,5 +1,7 @@
 var Enemy = Class.create(Entity, {
-    initialize: function(posX, posZ) {
+    className: "Enemy",
+    initialize: function($super, posX, posZ) {
+        $super();
         this.speed = 1;
 
         // create the mesh
@@ -18,5 +20,11 @@ var Enemy = Class.create(Entity, {
         //scene.add(this.light);
     },
 
-    update: function(dt) {}
+    onRemove: function(scene) {
+        scene.remove(this.mesh);
+    },
+
+    update: function(dt) {
+        this.setBox(this.mesh.position, new THREE.Vector3(1, 1, 1));
+    }
 });

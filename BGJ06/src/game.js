@@ -1,4 +1,5 @@
 var Game = Class.create({
+    className: "Game",
     initialize: function() {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
@@ -30,7 +31,7 @@ var Game = Class.create({
         this.addEntity(this.tank);
 
         // setup ground
-        var material = new THREE.MeshLambertMaterial({color: 0xFF0000});
+        var material = new THREE.MeshLambertMaterial({color: 0x333333});
         this.ground = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), material);
         this.ground.rotation.x = -Math.PI/2;
         this.scene.add(this.ground);
@@ -40,7 +41,7 @@ var Game = Class.create({
         this.grid.position.y = 0.01;
         this.grid.position.x = 0.5;
         this.grid.position.z = 0.5;
-        this.scene.add(this.grid);
+        //this.scene.add(this.grid);
 
         // and the camera
         this.scene.add(this.camera);
