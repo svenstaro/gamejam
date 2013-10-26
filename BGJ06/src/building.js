@@ -2,7 +2,7 @@ var Building = Class.create(Entity, {
     initialize: function(posX, posY) {
         this.height = THREE.Math.randInt(1,8);
         //shape
-        this.geometry = new THREE.CubeGeometry(1, 1, this.height);
+        this.geometry = new THREE.CubeGeometry(1, this.height, 1);
         //color
         this.material = new THREE.MeshLambertMaterial(0x999966);
         //this.mesh = new THREE.Mesh(this.geometry, new THREE.MeshLambertMaterial( { envMap: THREE.ImageUtils.loadTexture( 'textures/metal.jpg', new THREE.SphericalReflectionMapping() ), overdraw: true } ));
