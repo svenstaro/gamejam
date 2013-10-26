@@ -1,5 +1,6 @@
 var Entity = Class.create({
-    initialize: function(scene) {
+    initialize: function(game) {
+        this.game = game;
     },
 
     update: function(delta) {
