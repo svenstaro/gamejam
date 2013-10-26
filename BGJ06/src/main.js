@@ -17,7 +17,8 @@ var Game = Class.create({
         this.scene = new THREE.Scene();
 
         // the camera starts at 0,0,0 so pull it back
-        this.camera.position.z = 300;
+        this.camera.position.y = 10;
+        this.camera.rotation.x = -Math.PI/2;
 
         // start the renderer
         this.renderer.setSize(this.width, this.height);
@@ -42,6 +43,11 @@ var Game = Class.create({
 
         // add the sphere to the scene
         this.scene.add(this.sphere);
+
+
+        // setup grid
+        this.grid = new THREE.GridHelper(100, 1);
+        this.scene.add(this.grid);
 
         // and the camera
         this.scene.add(this.camera);
