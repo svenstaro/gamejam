@@ -8,4 +8,11 @@ function mainloop () {
     App.render();
 }
 
+document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+function onDocumentMouseMove(event) {
+    // event.preventDefault();
+    App.mouse.set(( event.clientX / window.innerWidth ) * 2 - 1, App.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1);
+}
+
 mainloop();
