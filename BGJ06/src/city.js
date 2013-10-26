@@ -20,5 +20,13 @@ var City = Class.create(Entity, {
     	}
     },
 
-    update: function(dt) {}
+    update: function(dt) {
+    	var chance = THREE.Math.randInt(0, 100);
+        if (chance == 0) {
+            var tank = this.game.scene.getObjectByName("tank");
+            var enemy = new Enemy(tank.position.x + THREE.Math.randInt(-5, 5),
+                                  tank.position.z + THREE.Math.randInt(-5, 5));
+        	this.game.addEntity(enemy);
+        }
+    }
 });
