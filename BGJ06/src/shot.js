@@ -17,7 +17,6 @@ var Shot = Class.create(Entity, {
 
         var material = new THREE.MeshLambertMaterial({color: 0xFFFF00});
         this.body = new THREE.Mesh(new THREE.SphereGeometry(0.02), material);
-        this.body.castShadow = true;
         this.node.add(this.body);
 
     },
@@ -51,6 +50,5 @@ var Shot = Class.create(Entity, {
                 e.die();
             }
         });
-        console.log();
     }
 });

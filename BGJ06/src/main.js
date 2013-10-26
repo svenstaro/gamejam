@@ -1,5 +1,6 @@
 var App = new Game();
 var clock = new THREE.Clock(true);
+var debug = false;
 
 var city = new City(100, 100);
 App.addEntity(city);
@@ -18,4 +19,8 @@ document.addEventListener('mousedown', function(event) {
     App.tank.shoot();
 }, false);
 
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 67)
+        debug = !debug;
+})
 mainloop();

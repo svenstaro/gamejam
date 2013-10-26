@@ -14,14 +14,17 @@ var Tank = Class.create(Entity, {
         scene.add(this.node);
 
         var material = new THREE.MeshLambertMaterial({color: 0x555555});
+
         // create the body
         this.body = new THREE.Mesh(new THREE.CubeGeometry(0.3, 0.1, 0.2), material);
         this.body.castShadow = true;
         this.node.add(this.body);
+
         // tower
         var tower = new THREE.Mesh(new THREE.SphereGeometry(0.08), material);
         tower.position.y = 0.1;
         this.node.add(tower);
+
         // create the barrel
         this.barrelRoot = new THREE.Object3D();
         this.node.add(this.barrelRoot);
@@ -40,7 +43,6 @@ var Tank = Class.create(Entity, {
         this.barrellight = new THREE.SpotLight(0xFFFFFF, 1, 5);
         this.barrellight.angle = Math.PI/8;
         this.barrellight.castShadow = true;
-        this.barrellight.shadowCameraVisible = true;
         this.barrellight.shadowCameraNear = 0.1;
         this.barrellight.shadowCameraFov = 45;
         this.node.add(this.barrellight);
@@ -77,6 +79,8 @@ var Tank = Class.create(Entity, {
 
         // update box
         this.setBox(this.node.position, new THREE.Vector3(0.3, 0.1, 0.3));
+
+        this.barrellight.shadowCameraVisible = debug;
     },
 
     getBarrelDirection: function() {

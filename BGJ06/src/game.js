@@ -43,10 +43,10 @@ var Game = Class.create({
 
         // setup grid
         this.grid = new THREE.GridHelper(100, 1);
+        this.grid.name = "grid";
         this.grid.position.y = 0.01;
         this.grid.position.x = 0.5;
         this.grid.position.z = 0.5;
-        //this.scene.add(this.grid);
 
         // and the camera
         this.scene.add(this.camera);
@@ -57,7 +57,6 @@ var Game = Class.create({
         this.sun.position.set(300, 500, 100);
         this.sun.target.position.set(0, 0, 0);
         this.sun.castShadow = true;
-        this.sun.shadowCameraVisible = true;
         this.sun.shadowCameraNear = 0.1;
         this.scene.add(this.sun);
     },
@@ -78,6 +77,13 @@ var Game = Class.create({
         this.entities.forEach(function(entity) {
             entity.update(dt);
         });
+
+        this.sun.shadowCameraVisible = debug;
+
+        if (debug)
+            this.scene.add(this.grid);
+        else
+            this.removeEntity(this.scene.getObjectByName("grid"));
     },
 
     addEntity: function(entity) {

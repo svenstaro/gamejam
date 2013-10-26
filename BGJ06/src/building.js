@@ -25,8 +25,5 @@ var Building = Class.create(Entity, {
         scene.add(this.mesh);
     },
 
-    update: function(dt) {
-        //this.sphere.rotation.x += 1 * delta;
-        //this.sphere.rotation.y += 1 * delta;
-    }
+    update: function(dt) {}
 });
