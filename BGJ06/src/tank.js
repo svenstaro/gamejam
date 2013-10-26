@@ -16,6 +16,7 @@ var Tank = Class.create(Entity, {
         var material = new THREE.MeshLambertMaterial({color: 0x555555});
         // create the body
         this.body = new THREE.Mesh(new THREE.CubeGeometry(0.3, 0.1, 0.2), material);
+        this.body.castShadow = true;
         this.node.add(this.body);
         // tower
         var tower = new THREE.Mesh(new THREE.SphereGeometry(0.08), material);
@@ -31,9 +32,18 @@ var Tank = Class.create(Entity, {
 
         // create a point light
         this.light = new THREE.PointLight(0xFFFFFF);
-        this.light.position.set(0, 2, 0);
-        this.light.distance = 5;
+        this.light.position.set(0, 1, 0);
+        this.light.distance = 3;
         this.node.add(this.light);
+
+        // create barrel light
+        this.barrellight = new THREE.SpotLight(0xFFFFFF, 1, 5);
+        this.barrellight.angle = Math.PI/8;
+        this.barrellight.castShadow = true;
+        this.barrellight.shadowCameraVisible = true;
+        this.barrellight.shadowCameraNear = 0.1;
+        this.barrellight.shadowCameraFov = 45;
+        this.node.add(this.barrellight);
     },
 
     update: function(dt) {
@@ -51,7 +61,14 @@ var Tank = Class.create(Entity, {
         this.node.position.add(this.velocity.clone().multiplyScalar(dt));
 
         var bd = this.getBarrelDirection();
-        this.barrelRoot.rotation.y = -Math.atan2(bd.z, bd.x);
+        var br = -Math.atan2(bd.z, bd.x);
+        this.barrelRoot.rotation.y = br;
+
+        // barrel light
+        var light_vec = new THREE.Vector3(1, 0, 0);
+        light_vec.applyAxisAngle(new THREE.Vector3(0, 1, 0), br);
+        this.barrellight.target.position.addVectors(this.node.position, light_vec);
+        this.barrellight.position.y = 0.2;
 
         // move camera
         var target = this.node.position.clone();

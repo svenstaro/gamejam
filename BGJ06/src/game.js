@@ -16,12 +16,16 @@ var Game = Class.create({
         // and a scene
         this.renderer = new THREE.WebGLRenderer({antialias: true});
         this.scene = new THREE.Scene();
+        this.scene.fog = new THREE.Fog(0x222222, 1, 10);
         this.camera = new THREE.PerspectiveCamera(this.view_angle, this.aspect, this.near, this.far);
         this.camera.position.y = 3.5;
         this.camera.rotation.x = -Math.PI/2;
 
         // start the renderer
         this.renderer.setSize(this.width, this.height);
+
+        this.renderer.shadowMapEnabled = true;
+        this.renderer.shadowMapSoft = true;
 
         // attach the render-supplied DOM element
         document.body.appendChild(this.renderer.domElement);
@@ -31,9 +35,10 @@ var Game = Class.create({
         this.addEntity(this.tank);
 
         // setup ground
-        var material = new THREE.MeshLambertMaterial({color: 0x333333});
+        var material = new THREE.MeshPhongMaterial({color: 0x333333});
         this.ground = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), material);
         this.ground.rotation.x = -Math.PI/2;
+        this.ground.receiveShadow = true;
         this.scene.add(this.ground);
 
         // setup grid
@@ -48,8 +53,12 @@ var Game = Class.create({
 
         this.keyboard = new THREEx.KeyboardState();
 
-        this.sun = new THREE.DirectionalLight( 0xCCDDFF, 0.3 );
-        this.sun.position.set(0, 1, 0);
+        this.sun = new THREE.DirectionalLight(0xDDAAAA, 1);
+        this.sun.position.set(300, 500, 100);
+        this.sun.target.position.set(0, 0, 0);
+        this.sun.castShadow = true;
+        this.sun.shadowCameraVisible = true;
+        this.sun.shadowCameraNear = 0.1;
         this.scene.add(this.sun);
     },
 

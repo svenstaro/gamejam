@@ -9,15 +9,12 @@ var Enemy = Class.create(Entity, {
         this.mesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
         this.mesh.position.x = posX;
         this.mesh.position.z = posZ;
-
-        // create a point light
-        this.light = new THREE.PointLight(0xFF0000);
-        this.light.position.set(posX, 2, posZ);
+        this.mesh.castShadow = true;
+        this.mesh.receiveShadow = true;
     },
 
     onAdd: function(scene) {
         scene.add(this.mesh);
-        //scene.add(this.light);
     },
 
     onRemove: function(scene) {

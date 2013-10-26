@@ -10,7 +10,8 @@ function mainloop () {
 }
 
 document.addEventListener('mousemove', function(event) {
-    App.mouse.set(( event.clientX / window.innerWidth ) * 2 - 1, App.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1);
+    App.mouse.set((event.clientX / window.innerWidth) * 2 - 1,
+                  App.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1);
 }, false);
 
 document.addEventListener('mousedown', function(event) {
