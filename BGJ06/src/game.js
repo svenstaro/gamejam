@@ -45,11 +45,11 @@ var Game = Class.create({
 
         // add to the scene
         this.scene.add(this.pointLight);
+
+        this.keyboard = new THREEx.KeyboardState();
     },
 
     update: function(dt) {
-        this.keyboard = new THREEx.KeyboardState();
-
         this.entities.forEach(function(entity) {
             entity.update(dt);
         });
