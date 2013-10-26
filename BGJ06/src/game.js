@@ -30,6 +30,8 @@ var Game = Class.create({
 
         // setup grid
         this.grid = new THREE.GridHelper(100, 1);
+        this.grid.position.x = 0.5;
+        this.grid.position.z = 0.5;
         this.scene.add(this.grid);
 
         // and the camera
@@ -45,11 +47,11 @@ var Game = Class.create({
 
         // add to the scene
         this.scene.add(this.pointLight);
+
+        this.keyboard = new THREEx.KeyboardState();
     },
 
     update: function(dt) {
-        this.keyboard = new THREEx.KeyboardState();
-
         this.entities.forEach(function(entity) {
             entity.update(dt);
         });
