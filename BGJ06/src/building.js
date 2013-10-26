@@ -1,6 +1,6 @@
 var Building = Class.create(Entity, {
     initialize: function(posX, posZ) {
-        this.height = THREE.Math.randInt(1,8);
+        this.height = THREE.Math.randInt(1,5);
         //shape
         this.geometry = new THREE.CubeGeometry(1, this.height, 1);
         //color
