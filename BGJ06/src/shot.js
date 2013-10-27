@@ -9,6 +9,10 @@ var Shot = Class.create(Entity, {
         this.node.position.y = 0.01;
 
         this.timeLeft = 5;
+
+        //sound of shooting
+        this.shootingSound = new Sound("simpleShot");
+        this.shootingSound.play();
     },
 
     onAdd: function(scene) {

@@ -59,7 +59,12 @@ var Game = Class.create({
         this.sun.castShadow = true;
         this.sun.shadowCameraNear = 0.1;
         this.scene.add(this.sun);
+
+        //add audio-element
+        
+        
     },
+
 
     worldMouse: function() {
         // var projector = new THREE.Projector();
