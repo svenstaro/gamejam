@@ -5,9 +5,12 @@ var Enemy = Class.create(Entity, {
         this.velocity = new THREE.Vector3(0, 0, 0);
         this.acceleration = 20;
         this.damping = 20;
+        this.health = 3;
+        this.health_blink = 0.0;
 
         // create the mesh
-        var material = new THREE.MeshLambertMaterial({color: 0x0FF0000});
+        this.color = new THREE.Color("red");
+        var material = new THREE.MeshLambertMaterial({color: this.color});
         this.mesh = new THREE.Mesh(new THREE.CubeGeometry(0.2, 0.3, 0.2), material);
         this.mesh.position.x = posX;
         this.mesh.position.z = posZ;
@@ -23,8 +26,21 @@ var Enemy = Class.create(Entity, {
         scene.remove(this.mesh);
     },
 
+    onTakeHit: function() {
+        this.mesh.material.color = new THREE.Color("white");
+    },
+
     update: function(dt) {
         this.setBox(this.mesh.position, new THREE.Vector3(0.2, 1, 0.2));
+        this.mesh.material.color.lerp(this.color, this.health_blink)
+
+        if(!this.color.equals(this.mesh.material.color) && this.health_blink < 1.0) {
+            this.health_blink += dt;
+        }
+        else {
+            this.health_blink = 0.0;
+            this.mesh.material.color = this.color;
+        }
 
         var tank = this.game.scene.getObjectByName("tank");
 
@@ -32,7 +48,7 @@ var Enemy = Class.create(Entity, {
         var angle = -Math.atan2(vec.z, vec.x);
 
         vec.normalize();
-        
+
         this.velocity.add(vec.multiplyScalar(dt * this.acceleration));
 
         this.velocity.multiplyScalar(Math.max(0, 1 - this.damping * dt));

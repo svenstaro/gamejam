@@ -31,8 +31,18 @@ var City = Class.create(Entity, {
 
         var chance = THREE.Math.randInt(0, 50);
         if (chance == 0) {
-            var enemy = new Enemy(tank.position.x + THREE.Math.randInt(-5, 5),
-                                  tank.position.z + THREE.Math.randInt(-5, 5));
+            var x = 0;
+            var z = 0;
+            if(THREE.Math.randInt(0, 1) == 0)
+                x = -5;
+            else
+                x = 5;
+            if(THREE.Math.randInt(0, 1) == 0)
+                z = -5;
+            else
+                z = 5;
+            var enemy = new Enemy(tank.position.x + x,
+                                  tank.position.z + z);
             this.game.addEntity(enemy);
             this.listOfEnemies.push(enemy);
         }

@@ -80,7 +80,7 @@ var Shot = Class.create(Entity, {
             }
             if(e.className == "Enemy") {
                 self.die();
-                e.die();
+                e.takeHit();
             }
         });
 

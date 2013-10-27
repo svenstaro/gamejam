@@ -71,7 +71,7 @@ var Tank = Class.create(Entity, {
         // update box
         this.setBox(this.node.position, new THREE.Vector3(0.2, 0.1, 0.2));
 
-        //going through buildings prohibited
+        // going through buildings prohibited
         var self = this;
         this.game.entities.forEach(function(e) {
             if(e.className == "Building") {
@@ -81,13 +81,8 @@ var Tank = Class.create(Entity, {
             } 
             if(e.className == "Enemy") { 
                 if(self.collidesWith(e)) {
-                    if(self.health >= 1) {
-                        self.health -= 1;
-                        e.die();
-                        if(self.health == 0) {
-                            self.die();
-                        }
-                    }
+                    e.die();
+                    self.takeHit();
                 }
             }
         });

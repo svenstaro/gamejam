@@ -3,6 +3,7 @@ var Entity = Class.create({
     initialize: function() {
         this.game = null;
         this.box = new THREE.Box3();
+        this.health = 0;
     },
 
     setBox: function(position, size) {
@@ -18,7 +19,18 @@ var Entity = Class.create({
         this.game.removeEntity(this);
     },
 
+    takeHit: function() {
+        if(this.health >= 1) {
+            this.health -= 1;
+            this.onTakeHit();
+        }
+        else {
+            this.die();
+        }
+    },
+
     onAdd: function(scene) {},
     onRemove: function(scene) {},
+    onTakeHit: function() {},
     update: function(dt) {}
 });
