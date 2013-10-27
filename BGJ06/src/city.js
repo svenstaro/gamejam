@@ -6,6 +6,7 @@ var City = Class.create(Entity, {
 
         //background sound
         this.backgroundMusic = new Sound("backgroundSound");
+        this.backgroundMusic.loop(); 
         this.backgroundMusic.play();
         this.backgroundMusic.volume(0.45);
     },
@@ -29,7 +30,7 @@ var City = Class.create(Entity, {
     	var newListOfEnemies = [];
 
         var chance = THREE.Math.randInt(0, 50);
-        if (chance == 0 && this.listOfEnemies.length < 20) {
+        if (chance == 0) {
             var enemy = new Enemy(tank.position.x + THREE.Math.randInt(-5, 5),
                                   tank.position.z + THREE.Math.randInt(-5, 5));
         	this.game.addEntity(enemy);

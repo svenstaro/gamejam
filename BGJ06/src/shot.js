@@ -49,7 +49,6 @@ var Shot = Class.create(Entity, {
             if(e.className == "Building") {
                 self.die();
             }
-            console.log(e.className);
             if(e.className == "Enemy") {
                 self.die();
                 e.die();

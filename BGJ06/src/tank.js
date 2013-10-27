@@ -26,7 +26,7 @@ var Tank = Class.create(Entity, {
         this.node.add(tower);
 
         // create the barrel
-        this.barrelRoot = new THREE.Object3D();
+         this.barrelRoot = new THREE.Object3D();
         this.node.add(this.barrelRoot);
         this.barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.2), material);
         this.barrel.rotation.z = Math.PI/2;
@@ -66,6 +66,22 @@ var Tank = Class.create(Entity, {
         var br = -Math.atan2(bd.z, bd.x);
         this.barrelRoot.rotation.y = br;
 
+        // update box
+        this.setBox(this.node.position, new THREE.Vector3(0.2, 0.1, 0.2));
+
+        //going through buildings prohibited
+        var self = this;
+        this.game.entities.forEach(function(e) {
+            if(e.className == "Building") {
+                if(self.collidesWith(e)) {
+                    self.node.position.sub(self.velocity.clone().multiplyScalar(dt));
+                }
+            } 
+            if(e.className == "Enemy") {
+
+            }
+        });
+
         // barrel light
         var light_vec = new THREE.Vector3(1, 0, 0);
         light_vec.applyAxisAngle(new THREE.Vector3(0, 1, 0), br);
@@ -76,9 +92,6 @@ var Tank = Class.create(Entity, {
         var target = this.node.position.clone();
         target.y = this.game.camera.position.y;
         this.game.camera.position.lerp(target, dt*6);
-
-        // update box
-        this.setBox(this.node.position, new THREE.Vector3(0.3, 0.1, 0.3));
 
         this.barrellight.shadowCameraVisible = debug;
     },

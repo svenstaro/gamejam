@@ -18,7 +18,7 @@ var Building = Class.create(Entity, {
         this.mesh.receiveShadow = true;
 
         // update box
-        this.setBox(this.mesh.position, new THREE.Vector3(1, 1, 1));
+        this.setBox(this.mesh.position, new THREE.Vector3(1, this.height, 1));
     },
 
     onAdd: function(scene) {

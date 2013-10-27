@@ -23,6 +23,19 @@ var Sound = Class.create(Entity, {
 
     volume: function(volume) {
     	this.audio.volume = volume;
+    },
+
+    loop: function() {
+    	if (typeof this.audio.loop == 'boolean') {
+    		this.audio.loop = true;
+    	} 
+    	else {
+    		this.audio.addEventListener('ended', function() {
+    			this.currentTime = 0;
+    			this.play();
+    		}, false);
+		}
+		this.audio.play();
     }
 
 });
