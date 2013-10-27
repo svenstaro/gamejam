@@ -5,9 +5,9 @@ var City = Class.create(Entity, {
         this.listOfEnemies = [];
 
         //background sound
-        this.backgroundMusic = new Sound("GoCarMix");
+        this.backgroundMusic = new Sound("backgroundSound");
         this.backgroundMusic.play();
-        this.backgroundMusic.volume(0.3);
+        this.backgroundMusic.volume(0.45);
     },
 
     onAdd: function(scene) {
