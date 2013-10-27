@@ -13,6 +13,7 @@ var Shot = Class.create(Entity, {
         //sound of shooting
         this.shootingSound = new Sound("simpleShot");
         this.shootingSound.play();
+        this.shootingSound.volume(0.2);
     },
 
     onAdd: function(scene) {

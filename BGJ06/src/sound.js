@@ -6,8 +6,8 @@ var Sound = Class.create(Entity, {
     	this.source = document.createElement('source');
     	this.source.src = 'data/' + name + '.ogg';
 	    this.audio.appendChild(this.source);
-	    this.audio.volume = 1.0;
-    },
+	    
+	},
 
     onAdd: function(scene) {
         scene.add(this.mesh);
@@ -20,5 +20,9 @@ var Sound = Class.create(Entity, {
     play: function() {
     	this.audio.play();
     },
+
+    volume: function(volume) {
+    	this.audio.volume = volume;
+    }
 
 });
