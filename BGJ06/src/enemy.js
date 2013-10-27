@@ -9,7 +9,8 @@ var Enemy = Class.create(Entity, {
         this.health_blink = 0.0;
 
         // create the mesh
-        this.color = new THREE.Color("red");
+        var color = rainbow_color[THREE.Math.randInt(0, 6)];
+        this.color = color;
         var material = new THREE.MeshLambertMaterial({color: this.color});
         this.mesh = new THREE.Mesh(new THREE.CubeGeometry(0.2, 0.3, 0.2), material);
         this.mesh.position.x = posX;
