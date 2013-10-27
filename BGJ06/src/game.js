@@ -30,7 +30,6 @@ var Game = Class.create({
         // attach the render-supplied DOM element
         document.body.appendChild(this.renderer.domElement);
 
-
         this.tank = new Tank();
         this.addEntity(this.tank);
 
@@ -59,9 +58,7 @@ var Game = Class.create({
         this.sun.castShadow = true;
         this.sun.shadowCameraNear = 0.1;
         this.scene.add(this.sun);
-       
     },
-
 
     worldMouse: function() {
         // var projector = new THREE.Projector();
