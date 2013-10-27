@@ -5,6 +5,8 @@ var Tank = Class.create(Entity, {
         this.velocity = new THREE.Vector3(0, 0, 0);
         this.acceleration = 50;
         this.damping = 15;
+        this.health = 7;
+        this.score = 0;
     },
 
     onAdd: function(scene) {
@@ -77,8 +79,16 @@ var Tank = Class.create(Entity, {
                     self.node.position.sub(self.velocity.clone().multiplyScalar(dt));
                 }
             } 
-            if(e.className == "Enemy") {
-
+            if(e.className == "Enemy") { 
+                if(self.collidesWith(e)) {
+                    if(self.health >= 1) {
+                        self.health -= 1;
+                        e.die();
+                        if(self.health == 0) {
+                            self.die();
+                        }
+                    }
+                }
             }
         });
 
