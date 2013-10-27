@@ -8,8 +8,8 @@ var Building = Class.create(Entity, {
         this.geometry = new THREE.CubeGeometry(1, this.height, 1);
         
         // color
-        var material = new THREE.MeshPhongMaterial({color: "white"});
-        this.mesh = new THREE.Mesh(this.geometry, material);
+        this.material = new THREE.MeshPhongMaterial({color: "white"});
+        this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.position.x = posX;
         this.mesh.position.y += this.height / 2
         this.mesh.position.z = posZ;
@@ -18,6 +18,11 @@ var Building = Class.create(Entity, {
 
         // update box
         this.setBox(this.mesh.position, new THREE.Vector3(1, this.height, 1));
+    },
+
+    randomColor: function() {
+        this.mesh.material.color = rainbow_color[THREE.Math.randInt(0, 6)];
+        this.material.color = rainbow_color[THREE.Math.randInt(0, 6)];
     },
 
     onAdd: function(scene) {

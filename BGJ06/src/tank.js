@@ -6,7 +6,7 @@ var Tank = Class.create(Entity, {
         this.acceleration = 50;
         this.damping = 15;
         this.health = 7;
-        this.score = 0;
+        
     },
 
     onAdd: function(scene) {
@@ -23,12 +23,12 @@ var Tank = Class.create(Entity, {
         this.node.add(this.body);
 
         // tower
-        var tower = new THREE.Mesh(new THREE.SphereGeometry(0.08), material);
-        tower.position.y = 0.1;
-        this.node.add(tower);
+        this.tower = new THREE.Mesh(new THREE.SphereGeometry(0.08), material);
+        this.tower.position.y = 0.1;
+        this.node.add(this.tower);
 
         // create the barrel
-         this.barrelRoot = new THREE.Object3D();
+        this.barrelRoot = new THREE.Object3D();
         this.node.add(this.barrelRoot);
         this.barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.2), material);
         this.barrel.rotation.z = Math.PI/2;
@@ -64,6 +64,9 @@ var Tank = Class.create(Entity, {
         this.velocity.multiplyScalar(Math.max(0, 1 - this.damping * dt));
         this.node.position.add(this.velocity.clone().multiplyScalar(dt));
 
+        this.game.healthSphere.position = this.node.position.clone();
+        this.game.healthSphere.position.sub(new THREE.Vector3(0.5, 0, 0));
+
         var bd = this.getBarrelDirection();
         var br = -Math.atan2(bd.z, bd.x);
         this.barrelRoot.rotation.y = br;
@@ -78,8 +81,9 @@ var Tank = Class.create(Entity, {
                 if(self.collidesWith(e)) {
                     self.node.position.sub(self.velocity.clone().multiplyScalar(dt));
                 }
-            } 
-            if(e.className == "Enemy") { 
+            }
+
+            if(e.className == "Enemy") {
                 if(self.collidesWith(e)) {
                     e.die();
                     self.takeHit();
@@ -107,5 +111,19 @@ var Tank = Class.create(Entity, {
 
     shoot: function(dt) {
         this.game.addEntity(new Shot(this));
+    },
+
+    randomColor: function() {
+        this.body.material.color = rainbow_color[THREE.Math.randInt(0, 6)];;
+        this.barrel.material.color = rainbow_color[THREE.Math.randInt(0, 6)];;
+        this.tower.material.color = rainbow_color[THREE.Math.randInt(0, 6)];;
+    },
+
+    onDeath: function() {
+        console.log("You died!");
+    },
+
+    onTakeHit: function() {
+        this.game.healthSphere.material.color = rainbow_color[this.health - 1];
     }
 });

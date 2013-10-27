@@ -16,21 +16,26 @@ var Entity = Class.create({
     },
 
     die: function() {
+        this.onDeath();
         this.game.removeEntity(this);
     },
 
     takeHit: function() {
-        if(this.health >= 1) {
+        if(this.health > 0) {
             this.health -= 1;
             this.onTakeHit();
         }
         else {
-            this.die();
+            if(this.className != "Tank")
+                this.die();
         }
     },
 
+    randomColor: function() {},
+    
     onAdd: function(scene) {},
     onRemove: function(scene) {},
     onTakeHit: function() {},
+    onDeath: function() {},
     update: function(dt) {}
 });

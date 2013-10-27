@@ -5,6 +5,10 @@ var Game = Class.create({
         this.height = window.innerHeight;
         this.entities = [];
         this.mouse = new THREE.Vector2();
+        
+        this.score = 0;
+
+        this.lastParty = 0.0;
 
         // set some camera attributes
         this.view_angle = 80;
@@ -58,6 +62,16 @@ var Game = Class.create({
         this.sun.castShadow = true;
         this.sun.shadowCameraNear = 0.1;
         this.scene.add(this.sun);
+
+        //health sphere
+        this.radius = 0.1;
+        this.segments = 16;
+        this.rings = 16;
+        this.sphereMaterial = new THREE.MeshLambertMaterial({color: rainbow_color[6]});
+        this.geometry = new THREE.SphereGeometry(this.radius, this.segments, this.rings);
+        this.healthSphere = new THREE.Mesh(this.geometry, this.sphereMaterial);
+        this.healthSphere.position.y = 1;
+        this.scene.add(this.healthSphere);
     },
 
     worldMouse: function() {
@@ -73,8 +87,22 @@ var Game = Class.create({
     },
 
     update: function(dt) {
+        this.lastParty += dt;
+        var self = this;
         this.entities.forEach(function(entity) {
             entity.update(dt);
+
+            // party mode on death
+            if(self.tank.health <= 0) {
+                if(self.lastParty > 0.2) {                
+                    var color = rainbow_color[THREE.Math.randInt(0, 6)];
+                    entity.randomColor();
+                    self.healthSphere.material.color = color;
+                    self.sun.color = color;
+                    self.ground.material.color = color;
+                    self.lastParty = 0;
+                }
+            }
         });
 
         this.sun.shadowCameraVisible = debug;

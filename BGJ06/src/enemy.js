@@ -27,8 +27,18 @@ var Enemy = Class.create(Entity, {
         scene.remove(this.mesh);
     },
 
+    onDeath: function() {
+        this.game.score += 1;
+        console.log(this.game.score);
+    },
+
+    randomColor: function() {
+        this.mesh.material.color = rainbow_color[THREE.Math.randInt(0, 6)];;
+    },
+
     onTakeHit: function() {
         this.mesh.material.color = new THREE.Color("white");
+        this.mesh.position.sub(this.velocity.clone().multiplyScalar(0.4));
     },
 
     update: function(dt) {
@@ -54,5 +64,20 @@ var Enemy = Class.create(Entity, {
 
         this.velocity.multiplyScalar(Math.max(0, 1 - this.damping * dt));
         this.mesh.position.add(this.velocity.clone().multiplyScalar(dt));
+
+        var self = this;
+        this.game.entities.forEach(function(e) {
+            if(e.className == "Building") {
+                if(self.collidesWith(e)) {
+                    self.mesh.position.sub(self.velocity.clone().multiplyScalar(dt*5));
+                }
+            } 
+            if(e.className == "Enemy") {
+                if(self.collidesWith(e) && self != e) {
+                    self.mesh.position.sub(self.velocity.clone().multiplyScalar(dt*5));
+                }
+            }
+        })
+
     }
 });
