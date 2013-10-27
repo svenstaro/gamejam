@@ -12,28 +12,28 @@ var City = Class.create(Entity, {
     },
 
     onAdd: function(scene) {
-    	for (var x = -this.width; x < this.width; x++) {
-    		for (var y = -this.height; y < this.height; y++) {
-    			if (x % 2 == 0 && y % 2 == 0 && x != 0 && y != 0) {
-    				var chance = THREE.Math.randInt(0, 1);
-    				if (chance == 0) {
+        for (var x = -this.width; x < this.width; x++) {
+            for (var y = -this.height; y < this.height; y++) {
+                if (x % 2 == 0 && y % 2 == 0 && x != 0 && y != 0) {
+                    var chance = THREE.Math.randInt(0, 1);
+                    if (chance == 0) {
                         var building = new Building(x, y);
-    	   				this.game.addEntity(building);
-    				}
-    	   		}
-    	    }
-    	}
+                        this.game.addEntity(building);
+                    }
+                }
+            }
+        }
     },
 
     update: function(dt) {
         var tank = this.game.scene.getObjectByName("tank");
-    	var newListOfEnemies = [];
+        var newListOfEnemies = [];
 
         var chance = THREE.Math.randInt(0, 50);
         if (chance == 0) {
             var enemy = new Enemy(tank.position.x + THREE.Math.randInt(-5, 5),
                                   tank.position.z + THREE.Math.randInt(-5, 5));
-        	this.game.addEntity(enemy);
+            this.game.addEntity(enemy);
             this.listOfEnemies.push(enemy);
         }
 
