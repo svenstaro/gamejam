@@ -8,7 +8,7 @@ var Enemy = Class.create(Entity, {
 
         // create the mesh
         var material = new THREE.MeshLambertMaterial({color: 0x0FF0000});
-        this.mesh = new THREE.Mesh(new THREE.CubeGeometry(0.1, 0.3, 0.1), material);
+        this.mesh = new THREE.Mesh(new THREE.CubeGeometry(0.2, 0.3, 0.2), material);
         this.mesh.position.x = posX;
         this.mesh.position.z = posZ;
         this.mesh.castShadow = true;

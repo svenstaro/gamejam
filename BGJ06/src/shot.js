@@ -24,6 +24,35 @@ var Shot = Class.create(Entity, {
         this.body = new THREE.Mesh(new THREE.SphereGeometry(0.02), material);
         this.node.add(this.body);
 
+        // this.engine = new ParticleEngine();
+        var smoke =
+        {
+            positionStyle    : Type.CUBE,
+            positionBase     : this.node.position,
+            positionSpread   : new THREE.Vector3(0, 0, 0),
+
+            velocityStyle    : Type.CUBE,
+            velocityBase     : this.velocity,
+            velocitySpread   : new THREE.Vector3(0, 0, 0), 
+            accelerationBase : new THREE.Vector3(0, 0, 0),
+
+            particleTexture : THREE.ImageUtils.loadTexture('data/smokeparticle.png'),
+
+            angleBase               : 0,
+            angleSpread             : 720,
+            angleVelocityBase       : 0,
+            angleVelocitySpread     : 720,
+            
+            sizeTween    : new Tween([0.0, 0.0], [0.1, 0.1]),
+            opacityTween : new Tween([0.8, 2], [0.5, 0]),
+            colorTween   : new Tween([0.4, 1], [new THREE.Vector3(0,0,0.2), new THREE.Vector3(0, 0, 0.5)]),
+
+            particlesPerSecond : 100,
+            particleDeathAge   : 2,
+            emitterDeathAge    : 20
+        }
+        // this.engine.setValues(smoke);
+        // this.engine.initialize(scene);
     },
 
     onRemove: function(scene) {
@@ -54,5 +83,7 @@ var Shot = Class.create(Entity, {
                 e.die();
             }
         });
+
+        // this.engine.update(dt);
     }
 });
