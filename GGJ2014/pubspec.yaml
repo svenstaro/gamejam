@@ -1,0 +1,9 @@
+name: newtify
+version: 1.2.3
+description: >
+    stuff
+author: people
+homepage: github
+documentation: no
+dependencies:
+      stagexl: 'any'
