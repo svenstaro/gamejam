@@ -1,6 +1,20 @@
 import 'dart:html' as html;
 import 'package:stagexl/stagexl.dart';
+import 'package:dartemis/dartemis.dart';
 import 'global.dart';
+
+class Branch extends Sprite {
+    Branch() {
+        // this.graphics.beginPath();
+
+        // this.graphics.
+
+        // this.graphics.closePath();
+        this.graphics.circle(100, 100, 20);
+        this.graphics.fillColor(0xAA000000);
+        this.graphics.strokeColor(0xFF000000, 2);
+    }
+}
 
 void main() {
     // setup the Stage and RenderLoop
@@ -9,9 +23,6 @@ void main() {
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
 
-    // draw a red circle
-    var shape = new Shape();
-    shape.graphics.circle(100, 100, 60);
-    shape.graphics.fillColor(Color.Red);
-    stage.addChild(shape);
+    var b = new Branch();
+    stage.addChild(b);
 }
