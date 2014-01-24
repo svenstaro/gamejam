@@ -7,4 +7,5 @@ homepage: github
 documentation: no
 dependencies:
     stagexl: 'any'
-    dartemis: 'any'
+    stagexl_particle: 'any'
+    box2d: 'any'
