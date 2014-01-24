@@ -1,3 +1,3 @@
 library global;
 
-var stage, canvas, view;
+var stage, canvas, view, random;
