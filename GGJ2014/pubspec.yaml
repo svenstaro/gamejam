@@ -6,4 +6,5 @@ author: people
 homepage: github
 documentation: no
 dependencies:
-      stagexl: 'any'
+    stagexl: 'any'
+    dartemis: 'any'
