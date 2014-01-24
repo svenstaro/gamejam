@@ -13,7 +13,7 @@ class Branch extends Sprite {
     Branch() {
         this.graphics.rect(-0.1, -1, 0.2, 1);
         this.graphics.circle(0, -1, 0.1);
-        this.graphics.fillColor(0xAAFF9900);
+        this.graphics.fillColor(0xFFFF9900);
         this.graphics.strokeColor(0xFF884400, 0.01);
 
         this.y = -1;
@@ -45,6 +45,11 @@ void main() {
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
 
+    var background = new Shape();
+    background.graphics.rect(0, 0, stage.stageWidth, stage.stageHeight);
+    background.graphics.fillColor(0xFF133742);
+    stage.addChild(background);
+
     stage.juggler.add(new Clock());
 
     view = new Sprite();
@@ -71,7 +76,6 @@ void main() {
     var particleEmitter = new ParticleEmitter(particleConfig);
     particleEmitter.setEmitterLocation(200, 200);
     particleEmitter.filters = [new GlowFilter(Color.Yellow, 1.0, 20, 20)];
-
     stage.addChild(particleEmitter);
     stage.juggler.add(particleEmitter);
 
