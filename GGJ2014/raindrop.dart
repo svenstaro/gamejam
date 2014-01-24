@@ -2,22 +2,17 @@ part of game;
 
 class RainDrop extends Sprite {
     
-    num time = 0;
-    
-    RainDrop(rand_x, rand_y) {
-        this.onEnterFrame.listen(_update);
-        
+    RainDrop(randX, randY) {
         var radius = random.nextInt(10);
-        this.graphics.circle(rand_x, rand_y, radius);
-        var gradient = new GraphicsGradient.radial(rand_x, rand_y, 0, rand_x, rand_y, radius);
+        this.graphics.circle(randX, randY, radius);
+        var gradient = new GraphicsGradient.radial(randX, randY, 5, randX, randY, radius);
         gradient.addColorStop(0, 0x506666AA);
         gradient.addColorStop(1, 0x006666AA);
         this.graphics.fillGradient(gradient);
 
-        stage.juggler.transition(1.0, 0.0, 1, TransitionFunction.linear, (value) => this.alpha = value);
-    }
-    
-    _update(EnterFrameEvent e) {
-        time += e.passedTime;
+        var transition = new Transition(1.0, 0.0, 2, TransitionFunction.easeInExponential);
+        transition.onUpdate = (value) => this.alpha = value;
+        transition.onComplete = () => this.removeFromParent();
+        stage.juggler.add(transition);
     }
 }

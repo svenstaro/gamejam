@@ -61,12 +61,16 @@ void main() {
 
     // Rain
     view.onEnterFrame.listen((e) {
-        var rand_x = random.nextInt(stage.stageWidth);
-        var rand_y = random.nextInt(stage.stageHeight);
-        var obj = stage.hitTestInput(rand_x, rand_y);
-        if(["view", "ground", "branch"].contains(obj.name)) {
-            var raindrop = new RainDrop(rand_x, rand_y);
-            stage.addChild(raindrop);
+        var amountOfRain = 50;
+
+        for (var i = 0; i < amountOfRain; i++) {
+            var randX = random.nextInt(stage.stageWidth);
+            var randY = random.nextInt(stage.stageHeight);
+            var obj = stage.hitTestInput(randX, randY);
+            if(["view", "ground", "branch"].contains(obj.name)) {
+                var raindrop = new RainDrop(randX, randY);
+                stage.addChild(raindrop);
+            }
         }
     });
     stage.addChild(view);
