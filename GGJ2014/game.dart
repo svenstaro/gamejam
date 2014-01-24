@@ -47,8 +47,6 @@ void main() {
     
     stage.juggler.add(new Clock());
 
-    stage.addChild(new Clock());
-
     view = new Sprite();
     view.x = stage.stageWidth / 2;
     view.y = stage.stageHeight - 100;
