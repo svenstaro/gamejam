@@ -10,11 +10,14 @@ import 'global.dart';
 part 'clock.dart';
 part 'human_event.dart';
 part 'wind.dart';
+part 'raindrop.dart';
 
 class Branch extends Sprite {
     num baseRotation = 0.0;
 
     Branch() {
+        this.name = "branch";
+
         this.graphics.rect(-0.1, -1, 0.2, 1);
         this.graphics.circle(0, -1, 0.1);
         this.graphics.fillColor(0xFFFF9900);
@@ -67,11 +70,12 @@ void main() {
 
     // setup the Stage and RenderLoop
     canvas = html.querySelector('#stage');
-    stage = new Stage('myStage', canvas);
+    stage = new Stage('stage', canvas);
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
 
     var background = new Shape();
+    background.name = "background";
     background.graphics.rect(0, 0, stage.stageWidth, stage.stageHeight);
     background.graphics.fillColor(0xFF133742);
     stage.addChild(background);
@@ -80,10 +84,21 @@ void main() {
     stage.juggler.add(new Wind());
 
     view = new Sprite();
+    view.name = "view";
     view.x = stage.stageWidth / 2;
     view.y = stage.stageHeight - 100;
     view.scaleX = 100;
     view.scaleY = 100;
+    view.onEnterFrame.listen((e) {
+        var rand_x = random.nextInt(stage.stageWidth);
+        var rand_y = random.nextInt(stage.stageHeight);
+        var obj = stage.hitTestInput(rand_x, rand_y);
+        if(["view", "ground", "branch"].contains(obj.name)) {
+            var raindrop = new RainDrop(rand_x, rand_y);
+            stage.addChild(raindrop);
+            print("k");
+        }
+    });
     stage.addChild(view);
 
     Branch root = new Branch();
