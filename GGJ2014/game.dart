@@ -41,6 +41,11 @@ void main() {
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
 
+    var background = new Shape();
+    background.graphics.fillColor(Color.Red);
+    background.graphics.rect(0, 0, stage.width, stage.height);
+    stage.addChild(background);
+
     stage.addChild(new Clock());
 
     view = new Sprite();
@@ -59,6 +64,6 @@ void main() {
     var particleEmitter = new ParticleEmitter(particleConfig);
     particleEmitter.setEmitterLocation(200, 200);
     particleEmitter.filters = [new GlowFilter(Color.Yellow, 1.0, 20, 20)];
-    view.addChild(particleEmitter);
-    view.juggler.add(particleEmitter);
+    stage.addChild(particleEmitter);
+    stage.juggler.add(particleEmitter);
 }
