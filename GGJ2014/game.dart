@@ -1,9 +1,13 @@
+library game;
+
 import 'dart:html' as html;
 import 'dart:math';
 import 'package:stagexl/stagexl.dart';
 import 'package:stagexl_particle/stagexl_particle.dart';
 import 'global.dart';
-import 'clock.dart';
+
+part 'clock.dart';
+part 'human_event.dart';
 
 class Branch extends Sprite {
     Branch() {
@@ -18,7 +22,7 @@ class Branch extends Sprite {
         this.onEnterFrame.listen(this._onEnterFrame);
     }
 
-    void _onEnterFrame(RenderEvent e) {
+    void _onEnterFrame(EnterFrameEvent e) {
     }
 }
 
@@ -46,7 +50,7 @@ void main() {
     background.graphics.rect(0, 0, stage.width, stage.height);
     stage.addChild(background);
 
-    stage.addChild(new Clock());
+    stage.juggler.add(new Clock());
 
     view = new Sprite();
     view.x = stage.stageWidth / 2;
@@ -66,4 +70,6 @@ void main() {
     particleEmitter.filters = [new GlowFilter(Color.Yellow, 1.0, 20, 20)];
     stage.addChild(particleEmitter);
     stage.juggler.add(particleEmitter);
+    
+    stage.addChild(new HumanEvent());
 }
