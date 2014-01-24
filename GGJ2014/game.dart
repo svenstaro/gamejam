@@ -22,7 +22,7 @@ class Branch extends Sprite {
         this.onEnterFrame.listen(this._onEnterFrame);
     }
 
-    void _onEnterFrame(RenderEvent e) {
+    void _onEnterFrame(EnterFrameEvent e) {
     }
 }
 
@@ -66,6 +66,4 @@ void main() {
 
     stage.addChild(particleEmitter);
     stage.juggler.add(particleEmitter);
-    
-    stage.addChild(new HumanEvent());
 }
