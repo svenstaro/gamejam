@@ -68,4 +68,6 @@ void main() {
 
     stage.addChild(particleEmitter);
     stage.juggler.add(particleEmitter);
+    
+    stage.addChild(new HumanEvent());
 }
