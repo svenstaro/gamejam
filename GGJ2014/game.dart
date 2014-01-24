@@ -58,6 +58,8 @@ void main() {
     view.y = stage.stageHeight - 100;
     view.scaleX = 100;
     view.scaleY = 100;
+
+    // Rain
     view.onEnterFrame.listen((e) {
         var rand_x = random.nextInt(stage.stageWidth);
         var rand_y = random.nextInt(stage.stageHeight);
@@ -84,8 +86,8 @@ void main() {
     var particleEmitter = new ParticleEmitter(particleConfig);
     particleEmitter.setEmitterLocation(200, 200);
     particleEmitter.filters = [new GlowFilter(Color.Yellow, 1.0, 20, 20)];
-    stage.addChild(particleEmitter);
-    stage.juggler.add(particleEmitter);
+    /*stage.addChild(particleEmitter);*/
+    /*stage.juggler.add(particleEmitter);*/
 
     stage.addChild(new HumanEvent());
 }
