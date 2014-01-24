@@ -1,5 +1,4 @@
-
-import 'package:stagexl/stagexl.dart';
+part of game;
 
 class Clock implements Animatable {
     static num secondsPerDay = 3;

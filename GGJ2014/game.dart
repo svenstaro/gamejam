@@ -1,8 +1,12 @@
+library game;
+
 import 'dart:html' as html;
 import 'package:stagexl/stagexl.dart';
 import 'package:stagexl_particle/stagexl_particle.dart';
 import 'global.dart';
-import 'clock.dart';
+
+part 'clock.dart';
+part 'human_event.dart';
 
 class Branch extends Sprite {
     Branch() {
@@ -52,4 +56,6 @@ void main() {
     particleEmitter.filters = [new GlowFilter(Color.Yellow, 1.0, 20, 20)];
     stage.addChild(particleEmitter);
     stage.juggler.add(particleEmitter);
+    
+    stage.addChild(new HumanEvent());
 }
