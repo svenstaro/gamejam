@@ -24,7 +24,7 @@ void main() {
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
     
-    stage.addChild(new Clock());
+    stage.juggler.add(new Clock());
 
     // draw a red circle
     var parent = new Sprite();
