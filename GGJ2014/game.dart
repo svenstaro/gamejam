@@ -11,39 +11,8 @@ part 'clock.dart';
 part 'human_event.dart';
 part 'wind.dart';
 part 'raindrop.dart';
-
-class Branch extends Sprite {
-    num baseRotation = 0.0;
-
-    Branch() {
-        this.name = "branch";
-
-        this.graphics.rect(-0.1, -1, 0.2, 1);
-        this.graphics.circle(0, -1, 0.1);
-        this.graphics.fillColor(0xFFFF9900);
-        this.graphics.strokeColor(0xFF884400, 0.01);
-
-        this.y = -1;
-
-        this.onEnterFrame.listen(this._onEnterFrame);
-    }
-
-    void _onEnterFrame(EnterFrameEvent e) {
-        this.rotation = this.baseRotation + (PI * .5 - this.baseRotation) * Wind.power * 0.01;
-    }
-}
-
-void debugTree(int depth, var parent) {
-    int count = depth~/2 + 1;
-    for(int i = 0; i < count; ++i) {
-        Branch b = new Branch();
-        b.baseRotation = (i*1.0/(count-1) - 0.5) * 1 * log(depth+1);
-        parent.addChild(b);
-        if(depth > 1) {
-            debugTree(depth - 1, b);
-        }
-    }
-}
+part 'branch.dart';
+part 'debug.dart';
 
 Shape makeGround(double seed) {
     var gen = makeOctave2(simplex2, 3, 0.01);
@@ -96,7 +65,6 @@ void main() {
         if(["view", "ground", "branch"].contains(obj.name)) {
             var raindrop = new RainDrop(rand_x, rand_y);
             stage.addChild(raindrop);
-            print("k");
         }
     });
     stage.addChild(view);
