@@ -46,8 +46,8 @@ void main() {
     renderLoop.addStage(stage);
 
     var background = new Shape();
-    background.graphics.fillColor(Color.Red);
-    background.graphics.rect(0, 0, stage.width, stage.height);
+    background.graphics.rect(0, 0, stage.stageWidth, stage.stageHeight);
+    background.graphics.fillColor(Color.Black);
     stage.addChild(background);
 
     stage.juggler.add(new Clock());
