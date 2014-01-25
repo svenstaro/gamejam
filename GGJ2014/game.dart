@@ -43,6 +43,15 @@ Shape makeGround(double seed) {
 }
 
 void main() {
+    resourceManager = new ResourceManager()
+        ..addSound('noise','data/noise.ogg');
+
+    resourceManager.load().then((_) {
+        run();
+    }).catchError((e) => print(e));
+}
+
+void run() {
     random = new Random();
 
     // setup the Stage and RenderLoop
@@ -53,10 +62,17 @@ void main() {
     renderLoop.addStage(stage);
 
     var background = new Shape();
-    background.name = "background";
     background.graphics.rect(0, 0, stage.stageWidth, stage.stageHeight);
-    background.graphics.fillColor(0xFF101010);
     stage.addChild(background);
+
+    if(relaxMode) {
+        var g = new GraphicsGradient.linear(0, 0, 0, stage.stageHeight);
+        g.addColorStop(0, 0xFF446688);
+        g.addColorStop(1, 0xFFAACCFF);
+        background.graphics.fillGradient(g);
+    } else {
+        background.graphics.fillColor(0xFF000000);
+    }
 
     stage.juggler.add(new Environment());
     stage.juggler.add(new Clock());
@@ -75,15 +91,25 @@ void main() {
     Branch root = new Branch(0.6);
     root.y = 0;
     view.addChild(root);
-    /*debugTree(3, root);*/
-    retardTree(3, root);
+
+    /*debugTree(0, root);*/
+    retardTree(0, root);
+
+    Branch rootRoot = new Branch(0.6);
+    rootRoot.y = 0;
+    rootRoot.isRoot = true;
+    rootRoot.baseRotation = PI;
+    rootRoot.length = 0.1;
+    view.addChild(rootRoot);
+    debugRoots(0, rootRoot);
+
 
     var particleConfig = {
         "maxParticles":323, "duration":0, "lifeSpan":3.09, "lifespanVariance":0.4, "startSize":10, "startSizeVariance":14, "finishSize":10, "finishSizeVariance":9, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":100, "y":0}, "speed":100, "speedVariance":52, "angle":90, "angleVariance":0, "gravity":{"x":0, "y":100}, "radialAcceleration":20, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":221, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"lighter", "startColor":{"red":0.2, "green":0.2, "blue":0.5, "alpha":1}, "finishColor":{"red":0.2, "green":0.2, "blue":1, "alpha":0}
     };
 
     var ground = makeGround(random.nextDouble() * 100.0);
-    view.addChild(ground);
+    // view.addChild(ground);
 
     var particleEmitter = new ParticleEmitter(particleConfig);
     particleEmitter.setEmitterLocation(200, 200);
@@ -101,7 +127,9 @@ void main() {
             var obj = stage.hitTestInput(randX, randY);
             if(obj is GlassPlate || identical(obj, ground)) {
                 var raindrop = new RainDrop(randX, randY);
-                stage.addChild(raindrop);
+                if(!debug) {
+                    stage.addChild(raindrop);
+                }
             }
         }
     });
@@ -157,7 +185,17 @@ void main() {
         }
     });
 
+    var sound = resourceManager.getSound('noise');
+    var t = sound.play(true);
+
     view.onEnterFrame.listen((e) {
+        if(debug) {
+            t.soundTransform = new SoundTransform.mute();
+        } else {
+            t.soundTransform = new SoundTransform(pow(Wind.windPower, 1.5) * 2, 0);
+        }
+        debugMessage = Wind.power;
+
         num mx = stage.mouseX;
         num my = stage.mouseY;
         debugText.text = "Mode: $mode";
@@ -168,4 +206,5 @@ void main() {
 
         debugText.visible = debug;
     });
+
 }

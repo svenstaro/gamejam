@@ -23,8 +23,8 @@ class Environment extends Animatable {
 
 
         var wp = _windGen(_seed, _time * 0.002);
-        Wind.windPower = (wp * .2);
-        Wind.secondsPerWave = ((wp + 1) / 2) * 4 + 1;
+        Wind.windPower = wp * 0.5 + 0.5;
+        Wind.secondsPerWave = 10 - Wind.windPower * 8;
         //print("${Wind.secondsPerWave} und ${Wind.windPower}");
 
         amountOfRain = (_rainGen(_seed, _time * 0.01)).clamp(0,1) * 100;

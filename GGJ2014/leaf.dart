@@ -48,13 +48,13 @@ class Leaf extends Sprite {
             graphics.clear();
             if(!debug) {
                 this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
-                
+
                 graphics.beginPath();
                 graphics.moveTo(0, 0);
                 graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
                 graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
                 graphics.closePath();
-                
+
                 graphics.fillColor(leafBranch.branch.branchColor);
             }
         });
