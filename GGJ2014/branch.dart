@@ -49,10 +49,6 @@ class Branch extends Sprite {
     }
 
     void _updateShape() {
-        shape.onMouseMove.listen(this.dragInProgress);
-        shape.onMouseDown.listen(this.dragStart);
-        shape.onMouseUp.listen(this.dragStop);
-        shape.onMouseOut.listen(this.dragStop);
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
@@ -139,7 +135,7 @@ class Branch extends Sprite {
 
     void dragStart(MouseEvent event) {
         isDragging = true;
-        dragStartPoint = new Point(mouseX, mouseY);
+        dragStartPoint = new Vector(mouseX, mouseY);
 
         print("Drag start");
     }

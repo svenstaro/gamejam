@@ -113,19 +113,36 @@ void main() {
     debugShape = new Sprite();
     view.addChild(debugShape);
 
+    var currentBranch = null;
     stage.onMouseDown.listen((MouseEvent e) {
         var p = root.globalToLocal(new Point(e.stageX, e.stageY));
         var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
         var obj = root.hitTestInput(p.x, p.y);
-        if(obj is GlassPlate) obj = obj.parent;
+        if(obj is GlassPlate && mode == "valve") {
+            obj = obj.parent;
 
-        if(obj is Branch && mode == "branch") {
+            obj.dragStart(e);
+            currentBranch = obj;
+        } else if(obj is Branch && mode == "branch") {
             debugShape.graphics.clear();
             debugShape.graphics.circle(pv.x, pv.y, 0.1);
             debugShape.graphics.fillColor(0xAA00FF00);
 
             obj.growChild(1);
         }
+    });
+
+    stage.onMouseMove.listen((MouseEvent e) {
+        if(currentBranch is Branch) {
+            currentBranch.dragInProgress(e);
+        }
+    });
+
+    stage.onMouseUp.listen((MouseEvent e) {
+        if(currentBranch is Branch) {
+            currentBranch.dragStop(e);
+        }
+        currentBranch = null;
     });
 
     view.onEnterFrame.listen((e) {
