@@ -4,6 +4,8 @@ num lerp(num a, num b, num t) {
     return a + ((b - a) * t);
 }
 
+int randSign() => random.nextInt(2) == 0 ? -1 : 1;
+
 num sinwave(num a) {
     return 0.5 - cos(a / PI *20)/2;
 }

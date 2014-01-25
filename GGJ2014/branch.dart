@@ -1,6 +1,7 @@
 part of game;
 
 class Branch extends Sprite {
+    bool isRoot = false;
     num water;
     num energy;
 
@@ -86,7 +87,7 @@ class Branch extends Sprite {
 
     int get depth => parent is Branch ? parent.depth + 1 : 0;
 
-    bool get isRoot => !(parent is Branch);
+    bool get isBase => !(parent is Branch);
 
     bool get isEndBranch => branches.length == 0;
 
@@ -128,14 +129,18 @@ class Branch extends Sprite {
         branchText.text += "\nV${valve.toStringAsFixed(2)}";
         branchText.visible = debug;
 
-        this.rotation = baseRotation + Wind.power * 0.2;
+        if(isRoot) {
+            this.rotation = baseRotation;
+        } else {
+            this.rotation = baseRotation + Wind.power * 0.2;
+        }
 
-        num st = getStartThickness();
+        num st = startThickness;
         num et = thickness;
 
         this.graphics.clear();
 
-        if(isRoot) {
+        if(isBase) {
             Spline spline = new Spline();
             addPoints(spline, this);
             spline.generatePath(graphics);
@@ -151,18 +156,17 @@ class Branch extends Sprite {
         branchColor = (new AwesomeColor.fromHex(0x22DDFFDD) * Environment.getLightColorFor(this)).hex;
     }
 
-    void addPoints(Spline spline, Branch root) {
-        num st = getStartThickness();
+    void addPoints(Spline spline, Branch base) {
+        num st = startThickness;
         num et = thickness;
 
         num tangentLength = isEndBranch ? 0.0 : 0.2 * length;
 
         // going up on the left
-        if(isRoot) {
-            spline.add(root.globalToLocal(localToGlobal(new Point(-st/2 * 1.5, 0.2))), 0.1);
-            spline.add(root.globalToLocal(localToGlobal(new Point(-st/2,  0))), 0.1);
+        if(isBase) {
+            spline.add(base.globalToLocal(localToGlobal(new Point(-st/2,  0))), 0.1);
         }
-        spline.add(root.globalToLocal(localToGlobal(new Point(-et/2, -length))), tangentLength);
+        spline.add(base.globalToLocal(localToGlobal(new Point(-et/2, -length))), tangentLength);
 
         // sort children
         sortChildren((var l, var r) {
@@ -177,17 +181,16 @@ class Branch extends Sprite {
         int branchNumber = 0;
         for(Branch branch in branches) {
             if(branchNumber > 0) {
-                spline.add(root.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -length-0.2))), 0.0);
+                spline.add(base.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -length-0.1))), 0.0);
             }
-            branch.addPoints(spline, root);
+            branch.addPoints(spline, base);
             branchNumber++;
         }
 
         // going down on the right
-        spline.add(root.globalToLocal(localToGlobal(new Point(et/2, -length))), tangentLength);
-        if(isRoot) {
-            spline.add(root.globalToLocal(localToGlobal(new Point(st/2, 0))), 0.1);
-            spline.add(root.globalToLocal(localToGlobal(new Point(st/2 * 1.5, 0.2))), 0.1);
+        spline.add(base.globalToLocal(localToGlobal(new Point(et/2, -length))), tangentLength);
+        if(isBase) {
+            spline.add(base.globalToLocal(localToGlobal(new Point(st/2, 0))), 0.1);
         }
     }
 
@@ -200,20 +203,16 @@ class Branch extends Sprite {
             debugMessage = "$offset";
         }
         spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -length))), tangentLength);
-        if(!isRoot) {
+        if(!isBase) {
             this.parent.addVeinPoints(spline, end_branch, this, offset);
         } else {
-        spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset * 0.5, 0))), tangentLength);
+            spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset * 0.5, 0))), tangentLength);
         }
     }
 
-    num getStartThickness() {
-        return isRoot ? thickness : parent.thickness;
-    }
+    num get startThickness => isBase ? thickness : parent.thickness;
 
-    num getAbsoluteAngle() {
-        return isRoot ? rotation : parent.rotation + rotation;
-    }
+    num get absoluteAngle => isBase ? rotation : parent.rotation + rotation;
 
     void dragStart(MouseEvent event) {
         isDragging = true;
@@ -247,7 +246,7 @@ class Branch extends Sprite {
 
     void growChild(num absolute_angle) {
         Branch b = new Branch(thickness * 0.5);
-        b.rotation = absolute_angle - getAbsoluteAngle();
+        b.rotation = absolute_angle - this.absoluteAngle;
         addChild(b);
     }
 
