@@ -40,12 +40,12 @@ class Branch extends Sprite {
 
     bool get isRoot => !(parent is Branch);
 
-    bool get isEndBranch => () {
+    bool get isEndBranch {
         for(int i = 0; i < numChildren; i++) {
             if(getChildAt(i) is Branch) return false;
         }
         return true;
-    };
+    }
 
     void _updateShape() {
         shape.onMouseMove.listen(this.dragInProgress);
