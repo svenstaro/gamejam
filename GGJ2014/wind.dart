@@ -6,7 +6,7 @@ class Wind implements Animatable{
     static num _time = 0;
     static num get power => sinwave(_time);
     
-    Wind({secondsPerWave: 4});
+    Wind([this.secondsPerWave = 8]);
     
     bool advanceTime(num time) {
         _time += time / secondsPerWave;

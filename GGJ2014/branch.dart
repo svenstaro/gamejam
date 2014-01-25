@@ -11,7 +11,7 @@ class Branch extends Sprite {
     bool isDragging = false;
     Vector dragStartPoint = null;
 
-    Shape shape;
+    GlassPlate shape;
     TextField branchText = new TextField();
 
     Branch(this.thickness) {
@@ -62,7 +62,7 @@ class Branch extends Sprite {
         branchText.text += "\nE${energy.toStringAsFixed(2)}";
         branchText.text += "\nV${valve.toStringAsFixed(2)}";
 
-        this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.01);
+        this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.003);
 
         num st = getStartThickness();
         num et = thickness;
@@ -75,9 +75,10 @@ class Branch extends Sprite {
             spline.generatePath(this.graphics);
         }
 
+        //this.graphics.fillColor(Environment.getLightColorFor(this).hex);
+
         var obj = stage.hitTestInput(stage.mouseX, stage.mouseY);
         this.graphics.fillColor(0xFF000000);
-
         this.graphics.strokeColor(0, 0);
     }
 
