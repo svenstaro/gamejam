@@ -136,7 +136,7 @@ class Branch extends Sprite {
         if(from != null) {
             int index = this.branches.indexOf(from) + 1;
             offset += ((index/(this.branches.length+1))-0.5)*thickness;
-            debugMessage = offset;
+            debugMessage = "$offset";
         }
         spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -1))), tangentLength);
         if(!isRoot) {

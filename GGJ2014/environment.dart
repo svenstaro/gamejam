@@ -15,17 +15,18 @@ class Environment extends Animatable {
     
     Environment() {
         _rainGen = makeOctave2(simplex2, 3, 0.01);
-        _windGen = makeOctave2(simplex2, 1, 0.0);
+        _windGen = makeOctave2(simplex2, 3, 0.01);
     }
     
     bool advanceTime(num time) {
         _time += time;
         
-        /*
-        Wind.windPower = _windGen(_seed, time * 0.2) * -2;
+        
+        //Wind.windPower = (_windGen(_seed, time * 0.00002) * -2);
         Wind.secondsPerWave = _windGen(_seed, time * 0.2) * 220;
-        print(Wind.windPower);
-        */
+        //print(_windGen(_seed, time * 0.00002));
+        
+        amountOfRain = (_rainGen(_seed, _time * 0.01)).clamp(0,1) * 100;
     }
     
     static AwesomeColor getLightColorFor(Branch b) {
