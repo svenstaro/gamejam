@@ -6,7 +6,7 @@ class Branch extends Sprite {
 
     num valve = .5;
     bool isDragging = false;
-    num startMouseY = 0;
+    Vector dragStartPoint = null;
 
     Sprite shape;
 
@@ -31,7 +31,7 @@ class Branch extends Sprite {
         shape.graphics.clear();
         shape.graphics.rect(-0.1, -1, 0.2, 1);
         shape.graphics.fillColor(0);
-        // shape.graphics.strokeColor(0xFF00FF00, 0.01);
+        shape.graphics.strokeColor(0x0000FF00, 0.001);
 
         shape.onMouseMove.listen(this.dragInProgress);
         shape.onMouseDown.listen(this.dragStart);
@@ -69,7 +69,10 @@ class Branch extends Sprite {
         }
 
         this.graphics.fillColor(0x44FFFFFF);
-        this.graphics.strokeColor(0xFFFFFFFF, 0.01);
+        // this.graphics.strokeColor(0xFFFFFFFF, 0.01);
+
+        this.graphics.fillColor(0xFF000000);
+        this.graphics.strokeColor(0, 0);
     }
 
     void addPoints(List<Point> points, Branch root) {
@@ -119,23 +122,44 @@ class Branch extends Sprite {
         return isRoot() ? thickness : parent.thickness;
     }
 
+    num getAbsoluteAngle() {
+        return isRoot() ? rotation : parent.rotation + rotation;
+    }
+
     void dragStart(MouseEvent event) {
-        print("Dragging on depth ${this.getDepth()}");
         isDragging = true;
-        startMouseY = mouseY;
+        dragStartPoint = new Point(mouseX, mouseY);
     }
 
     void dragInProgress(MouseEvent event) {
         event.stopPropagation();
 
         if(isDragging) {
-            valve = (valve - (mouseY - startMouseY)).clamp(0, 1);
-            startMouseY = mouseY;
+            if(mode == "valve") {
+                valve = (valve - (mouseY - dragStartPoint.y)).clamp(0, 1);
+                dragStartPoint = new Vector(mouseX, mouseY);
+            }
         }
     }
 
     void dragStop(MouseEvent event) {
         isDragging = false;
-        startMouseY = 0;
+
+        print("Drag stop");
+
+        if(mode == "branch") {
+            var mouse = new Vector(mouseX, mouseY);
+            num angle = mouse.rads;
+
+            Branch b = new Branch();
+            b.rotation = angle - getAbsoluteAngle();
+            b.thickness = thickness;
+            addChild(b);
+        }
+    }
+
+    Vector getTipPosition() {
+        var p = view.globalToLocal(localToGlobal(new Point(0, 0)));
+        return new Vector(p.x, p.y);
     }
 }
