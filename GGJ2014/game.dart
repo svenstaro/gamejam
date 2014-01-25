@@ -62,7 +62,7 @@ void main() {
 
     stage.addChild(view);
 
-    Branch root = new Branch(0.35);
+    Branch root = new Branch(0.6);
     root.y = 0;
     view.addChild(root);
     debugTree(3, root);

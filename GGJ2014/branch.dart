@@ -17,6 +17,9 @@ class Branch extends Sprite {
     Shape shape;
 
     Branch(this.thickness) {
+        this.water = this.thickness;
+        this.energy = this.thickness;
+
         shape = new Sprite();
         addChild(shape);
         _updateShape();
@@ -67,7 +70,8 @@ class Branch extends Sprite {
     void _onEnterFrame(EnterFrameEvent e) {
         // Update debug info
         branchText.text = "D${getDepth()}";
-        branchText.text += "\nW${water}E${energy}";
+        branchText.text += "\nW${water.toStringAsFixed(2)}";
+        branchText.text += "\nE${energy.toStringAsFixed(2)}";
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.01);
 
