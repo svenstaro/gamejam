@@ -193,7 +193,7 @@ void run() {
         } else {
             t.soundTransform = new SoundTransform(pow(Wind.windPower, 1.5) * 2, 0);
         }
-        debugMessage = Wind.power;
+        debugMessage = "${Wind.power}";
 
         num mx = stage.mouseX;
         num my = stage.mouseY;

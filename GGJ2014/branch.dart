@@ -44,6 +44,8 @@ class Branch extends Sprite {
 
     GlassPlate shape = null;
     Shape debugShape = null;
+    ParticleEmitter waterEmitter;
+    ParticleEmitter energyEmitter;
     TextField branchText = new TextField();
 
     num _length = 1;
@@ -76,26 +78,6 @@ class Branch extends Sprite {
         branchText.mouseEnabled = false;
         this.mouseEnabled = false;
         addChild(branchText);
-
-        var waterConfig = {"maxParticles":100, "duration":0, "lifeSpan":5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}, "finishColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}};
-
-        var waterEmitter = new ParticleEmitter(waterConfig);
-        waterEmitter.setEmitterLocation(0, 3);
-        waterEmitter.scaleX = 0.002;
-        waterEmitter.scaleY = 0.002;
-        waterEmitter.rotation = -PI/2;
-        addChild(waterEmitter);
-        stage.juggler.add(waterEmitter);
-
-        var energyConfig = {"maxParticles":100, "duration":0, "lifeSpan":5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}, "finishColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}};
-
-        var energyEmitter = new ParticleEmitter(energyConfig);
-        energyEmitter.setEmitterLocation(-500, -3);
-        energyEmitter.scaleX = 0.002;
-        energyEmitter.scaleY = 0.002;
-        energyEmitter.rotation = PI/2;
-        addChild(energyEmitter);
-        stage.juggler.add(energyEmitter);
     }
 
     void reset() {
@@ -114,6 +96,36 @@ class Branch extends Sprite {
         // addChild(debugShape);
 
         y = parent is Branch ? -parent.length : 0;
+        
+        
+        if(waterEmitter != null) {
+            removeChild(waterEmitter);
+            stage.juggler.remove(waterEmitter);
+        }
+        var waterConfig = {"maxParticles":10, "duration":0, "lifeSpan":length * 5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}, "finishColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}};
+
+        waterEmitter = new ParticleEmitter(waterConfig);
+        waterEmitter.setEmitterLocation(0, 3);
+        waterEmitter.scaleX = 0.002;
+        waterEmitter.scaleY = 0.002;
+        waterEmitter.rotation = -PI/2;
+        addChild(waterEmitter);
+        stage.juggler.add(waterEmitter);
+
+        
+        if(energyEmitter != null) {
+            removeChild(energyEmitter);
+            stage.juggler.remove(energyEmitter);
+        }
+        var energyConfig = {"maxParticles":10, "duration":0, "lifeSpan":length * 5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}, "finishColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}};
+
+        energyEmitter = new ParticleEmitter(energyConfig);
+        energyEmitter.setEmitterLocation(length * -540, -3);
+        energyEmitter.scaleX = 0.002;
+        energyEmitter.scaleY = 0.002;
+        energyEmitter.rotation = PI/2;
+        addChild(energyEmitter);
+        stage.juggler.add(energyEmitter);
 
         for(var b in branches) {
             b.reset();
