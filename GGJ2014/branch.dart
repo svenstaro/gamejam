@@ -22,7 +22,6 @@ class Branch extends Sprite {
         shape.pivotX = thickness/2;
         shape.pivotY = 1;
         addChild(shape);
-        _updateShape();
 
         y = -1;
         onEnterFrame.listen(_onEnterFrame);
@@ -44,14 +43,25 @@ class Branch extends Sprite {
     bool get isEndBranch => branches.length == 0;
 
     List<Branch> get branches {
-        List<Branch> b = new List<Branch>();
+        List<Branch> result = new List<Branch>();
         for(int i = 0; i < numChildren; i++) {
-            if(getChildAt(i) is Branch) b.add(getChildAt(i));
+            if(getChildAt(i) is Branch) result.add(getChildAt(i));
         }
-        return b;
+        return result;
     }
 
-    void _updateShape() {
+    List<Leaf> get leaves {
+        List<Leaf> result = new List<Leaf>();
+        for(int i = 0; i < numChildren; i++) {
+            if(getChildAt(i) is Leaf) result.add(getChildAt(i));
+        }
+        return result;
+    }
+
+    void growLeaves([int num = 30]) {
+        for(int i = 0; i < num; ++i) {
+            addChild(new LeafBranch(this));
+        }
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
@@ -60,6 +70,7 @@ class Branch extends Sprite {
         branchText.text += "\nW${water.toStringAsFixed(2)}";
         branchText.text += "\nE${energy.toStringAsFixed(2)}";
         branchText.text += "\nV${valve.toStringAsFixed(2)}";
+        branchText.visible = debug;
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.003);
 
@@ -78,7 +89,6 @@ class Branch extends Sprite {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
             spline.generatePath(graphics);
-            graphics.fillColor(0);
             graphics.strokeColor(Color.White, 0.01);
         }
     }

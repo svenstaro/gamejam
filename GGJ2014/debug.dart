@@ -13,6 +13,7 @@ void debugTree(int depth, var parent) {
                 debugTree(depth - 1, b);
             }
         }
+        b.growLeaves(b.depth * 3);
     }
 }
 
