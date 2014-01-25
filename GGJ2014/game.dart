@@ -54,7 +54,7 @@ void main() {
     var background = new Shape();
     background.name = "background";
     background.graphics.rect(0, 0, stage.stageWidth, stage.stageHeight);
-    background.graphics.fillColor(0xFF133742);
+    background.graphics.fillColor(0xFF101010);
     stage.addChild(background);
 
     stage.juggler.add(new Environment());

@@ -12,5 +12,7 @@ class Clock implements Animatable {
     bool advanceTime(num time) {
         day += time / secondsPerDay;
         year += time / secondsPerYear;
+        
+        //print(daytime);
     }
 }

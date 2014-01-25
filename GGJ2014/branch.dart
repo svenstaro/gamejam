@@ -10,6 +10,8 @@ class Branch extends Sprite {
     num valve = 0.5;
     bool isDragging = false;
     Vector dragStartPoint = null;
+    
+    int branchColor = 0;
 
     GlassPlate shape;
     TextField branchText = new TextField();
@@ -98,6 +100,8 @@ class Branch extends Sprite {
             spline.generatePath(graphics);
             graphics.strokeColor(Color.White, 0.01);
         }
+        
+        branchColor = (new AwesomeColor.fromHex(0xEEDDFFDD) * Environment.getLightColorFor(this)).hex;
     }
 
     void addPoints(Spline spline, Branch root) {

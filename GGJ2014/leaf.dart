@@ -32,21 +32,26 @@ class Leaf extends Sprite {
     num baseRotation;
 
     Leaf(this.leafBranch) {
-        graphics.beginPath();
-        graphics.moveTo(0, 0);
-        graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
-        graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
-        graphics.closePath();
         // graphics.fillColor(0xFF00CC00);
-        graphics.fillColor(0x44FFFFFF);
+        //graphics.fillColor(0x44FFFFFF);
+        //graphics.fillColor((new AwesomeColor.fromHex(0x44FFFFFF) * Environment.getLightColorFor(leafBranch.branch)).hex);
         x = 0;
         y = - random.nextDouble() * leafBranch.length;
-        scaleX = 0.5;
-        scaleY = 0.5;
+        scaleX = 1.5;
+        scaleY = 1.5;
         baseRotation = random.nextDouble() * 2 - 1;
 
         onEnterFrame.listen((EnterFrameEvent e) {
             this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
+            
+            graphics.clear();
+            graphics.beginPath();
+            graphics.moveTo(0, 0);
+            graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
+            graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
+            graphics.closePath();
+            
+            graphics.fillColor(leafBranch.branch.branchColor);
         });
     }
 }
