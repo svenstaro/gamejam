@@ -8,7 +8,7 @@ class Branch extends Sprite {
     bool isDragging = false;
     num startMouseY = 0;
 
-    Shape shape;
+    Sprite shape;
 
     Branch() {
         shape = new Sprite();
@@ -44,7 +44,7 @@ class Branch extends Sprite {
         // shape.graphics.rect(-thickness/2, -1, thickness, 1);
         // shape.graphics.strokeColor(0xFF00FF00, 0.01);
 
-        this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.01);
+        this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.003);
 
         num st = getStartThickness();
         num et = thickness;
