@@ -9,6 +9,7 @@ import 'global.dart';
 
 part 'math.dart';
 part 'clock.dart';
+part 'spline.dart';
 part 'human_event.dart';
 part 'wind.dart';
 part 'raindrop.dart';
@@ -106,6 +107,24 @@ void main() {
     stage.addChild(debugText);
 
     mode = "branch";
+
+    debugShape = new Sprite();
+    view.addChild(debugShape);
+
+    stage.onMouseDown.listen((MouseEvent e) {
+        var p = root.globalToLocal(new Point(e.stageX, e.stageY));
+        var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
+        var obj = root.hitTestInput(p.x, p.y);
+        if(obj is GlassPlate) obj = obj.parent;
+
+        if(obj is Branch && mode == "branch") {
+            debugShape.graphics.clear();
+            debugShape.graphics.circle(pv.x, pv.y, 0.1);
+            debugShape.graphics.fillColor(0xAA00FF00);
+
+            obj.growChild(1);
+        }
+    });
 
     view.onEnterFrame.listen((e) {
         num mx = stage.mouseX;
