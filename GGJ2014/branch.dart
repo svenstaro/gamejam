@@ -33,6 +33,7 @@ class Branch extends Sprite {
         branchText.y = -0.5;
         branchText.text = "branchText";
         branchText.mouseEnabled = false;
+        this.mouseEnabled = false;
         addChild(branchText);
     }
 
@@ -59,6 +60,7 @@ class Branch extends Sprite {
         branchText.text = "D${depth}";
         branchText.text += "\nW${water.toStringAsFixed(2)}";
         branchText.text += "\nE${energy.toStringAsFixed(2)}";
+        branchText.text += "\nV${valve.toStringAsFixed(2)}";
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.003);
 
@@ -76,12 +78,7 @@ class Branch extends Sprite {
         //this.graphics.fillColor(Environment.getLightColorFor(this).hex);
 
         var obj = stage.hitTestInput(stage.mouseX, stage.mouseY);
-        print(obj);
-        if(obj == this) {
-            this.graphics.fillColor(0xFFAAAAAA);
-        } else {
-            this.graphics.fillColor(0xFF000000);
-        }
+        this.graphics.fillColor(0xFF000000);
         this.graphics.strokeColor(0, 0);
     }
 
@@ -166,6 +163,8 @@ class Branch extends Sprite {
             var mouse = new Vector(mouseX, mouseY);
             growChild(mouse.rads);
         }
+
+        print("Drag stop");
     }
 
     void growChild(num absolute_angle) {
