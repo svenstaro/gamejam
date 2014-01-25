@@ -106,7 +106,7 @@ void main() {
     debugText.width = 300;
     stage.addChild(debugText);
 
-    mode = "branch";
+    mode = "valve";
 
     debugShape = new Sprite();
     view.addChild(debugShape);
