@@ -68,10 +68,11 @@ class Branch extends Sprite {
             this.graphics.closePath();
         }
 
-        this.graphics.fillColor(0x44FFFFFF);
+        //this.graphics.fillColor(0x44FFFFFF);
         // this.graphics.strokeColor(0xFFFFFFFF, 0.01);
-
-        this.graphics.fillColor(0xFF000000);
+        //this.graphics.fillColor(0xFF000000);
+        
+        this.graphics.fillColor(Environment.getLightColorFor(this).hex);
         this.graphics.strokeColor(0, 0);
     }
 

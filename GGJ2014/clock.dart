@@ -1,8 +1,8 @@
 part of game;
 
 class Clock implements Animatable {
-    static num secondsPerDay = 3;
-    static num secondsPerYear = 60 * 5;
+    static num secondsPerDay = 60 * 2;
+    static num secondsPerYear = 60 * 20;
 
     static num day = 0;
     static num year = 0;

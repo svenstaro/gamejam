@@ -8,7 +8,9 @@ import 'package:noise/noise.dart';
 import 'global.dart';
 
 part 'math.dart';
+part 'awesome_color.dart';
 part 'clock.dart';
+part 'environment.dart';
 part 'human_event.dart';
 part 'wind.dart';
 part 'raindrop.dart';
