@@ -37,11 +37,11 @@ class Environment extends Animatable {
         //print(angle);
         
         var light = sinwave(Clock.daytime * 2);
-        var sunColor = AwesomeColor.lerpColor(sunColor1, sunColor2, light);
-        //var moonColor = AwesomeColor.lerpColor(moonColor1, moonColor2, light);
+        var sunColor = AwesomeColor.lerpColor(sunColor1, sunColor2, 1-light);
+        //var moonColor = AwesomeColor.lerpColor(moonColor1, moonColor2, 1-light);
         var moonColor = moonColor2;
         
-        var dayLight = sinwave(Clock.daytime - .5);
+        var dayLight = sinwave(Clock.daytime - .25);
         sunColor = sunColor * (dayLight + .3);
         moonColor = moonColor * (1-dayLight + .3);
         
