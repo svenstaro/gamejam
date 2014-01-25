@@ -99,7 +99,7 @@ void main() {
     });
 
     debugText = new TextField();
-    debugText.defaultTextFormat = new TextFormat('Tamsyn', 12, Color.White);
+    debugText.defaultTextFormat = new TextFormat('monospace', 10, Color.White);
     debugText.text = "Debug text";
     debugText.x = 10;
     debugText.y = 10;

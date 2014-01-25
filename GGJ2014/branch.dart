@@ -28,7 +28,7 @@ class Branch extends Sprite {
         this.y = -1;
         onEnterFrame.listen(_onEnterFrame);
 
-        branchText.defaultTextFormat = new TextFormat('Tamsyn', 12, Color.White);
+        branchText.defaultTextFormat = new TextFormat('monospace', 10, Color.White);
         branchText.scaleX = 0.01;
         branchText.scaleY = 0.01;
         branchText.y = -0.5;
