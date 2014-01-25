@@ -2,15 +2,30 @@ part of game;
 
 class Environment extends Animatable {
     
-    static num _time = 0;
+    static num _time = 0.0;
     static AwesomeColor sunColor1 = new AwesomeColor.fromHex(0xffffc48f); //sun at zenith
     static AwesomeColor sunColor2 = new AwesomeColor.fromHex(0xffb84e43); //sun at horizon
     
     static AwesomeColor moonColor1 = new AwesomeColor.fromHex(0xff082e4e); //moon at zenith
     static AwesomeColor moonColor2 = new AwesomeColor.fromHex(0xff031f37); //moon at horizon
     
+    var _seed = 1337.22;
+    var _rainGen;
+    var _windGen;
+    
+    Environment() {
+        _rainGen = makeOctave2(simplex2, 3, 0.01);
+        _windGen = makeOctave2(simplex2, 1, 0.0);
+    }
+    
     bool advanceTime(num time) {
         _time += time;
+        
+        /*
+        Wind.windPower = _windGen(_seed, time * 0.2) * -2;
+        Wind.secondsPerWave = _windGen(_seed, time * 0.2) * 220;
+        print(Wind.windPower);
+        */
     }
     
     static AwesomeColor getLightColorFor(Branch b) {

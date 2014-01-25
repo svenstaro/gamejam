@@ -54,8 +54,11 @@ void main() {
     background.graphics.fillColor(0xFF133742);
     stage.addChild(background);
 
+    stage.juggler.add(new Environment());
     stage.juggler.add(new Clock());
     stage.juggler.add(new Wind());
+    Wind.windPower = 0.07;
+    Wind.secondsPerWave = 9.2;
 
     view = new Sprite();
     view.x = stage.stageWidth / 2;

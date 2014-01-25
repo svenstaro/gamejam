@@ -62,7 +62,7 @@ class Branch extends Sprite {
         branchText.text += "\nE${energy.toStringAsFixed(2)}";
         branchText.text += "\nV${valve.toStringAsFixed(2)}";
 
-        this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.003);
+        this.rotation = lerp(baseRotation, PI * .5, Wind.power);
 
         num st = getStartThickness();
         num et = thickness;
