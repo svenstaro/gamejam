@@ -24,6 +24,8 @@ Shape makeGround(double seed) {
     var shape = new Shape();
     var ref = gen(seed, 0.0);
 
+    amountOfRain = 2;
+
     shape.graphics.beginPath();
     shape.graphics.moveTo(-100, 100);
     for(num x = -100; x < 100; x += 0.1) {
@@ -90,13 +92,11 @@ void main() {
 
     // Rain
     view.onEnterFrame.listen((e) {
-        var amountOfRain = 2;
-
         for (var i = 0; i < amountOfRain; i++) {
             var randX = random.nextInt(stage.stageWidth);
             var randY = random.nextInt(stage.stageHeight);
             var obj = stage.hitTestInput(randX, randY);
-            if(obj is Branch || identical(obj, view) || identical(obj, ground)) {
+            if(obj is GlassPlate || identical(obj, ground)) {
                 var raindrop = new RainDrop(randX, randY);
                 stage.addChild(raindrop);
             }
@@ -116,19 +116,36 @@ void main() {
     debugShape = new Sprite();
     view.addChild(debugShape);
 
+    var currentBranch = null;
     stage.onMouseDown.listen((MouseEvent e) {
         var p = root.globalToLocal(new Point(e.stageX, e.stageY));
         var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
         var obj = root.hitTestInput(p.x, p.y);
-        if(obj is GlassPlate) obj = obj.parent;
+        if(obj is GlassPlate && mode == "valve") {
+            obj = obj.parent;
 
-        if(obj is Branch && mode == "branch") {
+            obj.dragStart(e);
+            currentBranch = obj;
+        } else if(obj is Branch && mode == "branch") {
             debugShape.graphics.clear();
             debugShape.graphics.circle(pv.x, pv.y, 0.1);
             debugShape.graphics.fillColor(0xAA00FF00);
 
             obj.growChild(1);
         }
+    });
+
+    stage.onMouseMove.listen((MouseEvent e) {
+        if(currentBranch is Branch) {
+            currentBranch.dragInProgress(e);
+        }
+    });
+
+    stage.onMouseUp.listen((MouseEvent e) {
+        if(currentBranch is Branch) {
+            currentBranch.dragStop(e);
+        }
+        currentBranch = null;
     });
 
     view.onEnterFrame.listen((e) {
@@ -138,5 +155,6 @@ void main() {
         debugText.text += "\nFPS: ${(1.0 / e.passedTime).round()}";
         debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my)}";
         debugText.text += "\nMouse Pos: ${mx.round()} / ${my.round()}";
+        if(debugMessage != "") debugText.text += "\nDebug message: ${debugMessage}";
     });
 }
