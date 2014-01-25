@@ -4,9 +4,9 @@ class RainDrop extends Sprite {
     
     RainDrop(randX, randY) {
         var radius = random.nextInt(10);
-        this.graphics.circle(randX, randY, radius);
-        var gradient = new GraphicsGradient.radial(randX, randY, 5, randX, randY, radius);
-        gradient.addColorStop(0, 0x506666AA);
+        this.graphics.circle(randX, randY, 5 + radius);
+        var gradient = new GraphicsGradient.radial(randX, randY, 0, randX, randY, 5 + radius);
+        gradient.addColorStop(0, 0x50AAAAAA);
         gradient.addColorStop(1, 0x006666AA);
         this.graphics.fillGradient(gradient);
 

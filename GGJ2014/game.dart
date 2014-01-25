@@ -61,7 +61,7 @@ void main() {
 
     // Rain
     view.onEnterFrame.listen((e) {
-        var amountOfRain = 50;
+        var amountOfRain = 2;
 
         for (var i = 0; i < amountOfRain; i++) {
             var randX = random.nextInt(stage.stageWidth);
