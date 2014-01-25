@@ -12,6 +12,8 @@ class Branch extends Sprite {
     bool isDragging = false;
     Vector dragStartPoint = null;
 
+    var branchText = new TextField();
+
     Shape shape;
 
     Branch() {
@@ -21,6 +23,13 @@ class Branch extends Sprite {
 
         this.y = -1;
         onEnterFrame.listen(_onEnterFrame);
+
+        branchText.defaultTextFormat = new TextFormat('Tamsyn', 12, Color.White);
+        branchText.scaleX = 0.01;
+        branchText.scaleY = 0.01;
+        branchText.y = -0.5;
+        branchText.text = "branchText";
+        shape.addChild(branchText);
     }
 
     int getDepth() {
@@ -56,6 +65,9 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
+        // Update debug info
+        branchText.text = "D${getDepth()}";
+        branchText.text += "\nW${water}E${energy}";
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.01);
 
