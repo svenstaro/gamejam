@@ -8,7 +8,7 @@ class SplinePoint {
 
     int get index           => spline.points.indexOf(this);
     SplinePoint get prev         => index > 0 ? spline.points[index-1] : this;
-    SplinePoint get next         => index < spline.points.length - 1 ? spline.points[index+1] : this;
+    SplinePoint get next         => index < spline.points.length - 1 ? spline.points[index+1] : this; 
     Vector get tangent      => (next.point - prev.point).normalize();
     Vector get inHandle     => point - tangent.scale(length);
     Vector get outHandle    => point + tangent.scale(length);

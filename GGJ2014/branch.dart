@@ -142,7 +142,7 @@ class Branch extends Sprite {
 
     void dragStart(MouseEvent event) {
         isDragging = true;
-        dragStartPoint = new Point(mouseX, mouseY);
+        dragStartPoint = new Vector(mouseX, mouseY);
 
         print("Drag start");
     }
