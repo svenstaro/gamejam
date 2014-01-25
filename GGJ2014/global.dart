@@ -7,6 +7,7 @@ var random;
 var debugText;
 var debugShape;
 var amountOfRain;
+var resourceManager;
 bool debug = false;
 String mode;
 String debugMessage;

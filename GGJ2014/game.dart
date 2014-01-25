@@ -43,6 +43,15 @@ Shape makeGround(double seed) {
 }
 
 void main() {
+    resourceManager = new ResourceManager()
+        ..addSound('noise','data/noise.ogg');
+
+    resourceManager.load().then((_) {
+        run();
+    }).catchError((e) => print(e));
+}
+
+void run() {
     random = new Random();
 
     // setup the Stage and RenderLoop
@@ -151,7 +160,14 @@ void main() {
 
     stage.onKeyDown.listen((e) => print("lol"));
 
+    var sound = resourceManager.getSound('noise');
+    var t = sound.play(true);
+
     view.onEnterFrame.listen((e) {
+        t.soundTransform = new SoundTransform(pow(Wind.windPower, 1.5) * 2, 0);
+        debug = true;
+        debugMessage = Wind.power;
+
         num mx = stage.mouseX;
         num my = stage.mouseY;
         debugText.text = "Mode: $mode";
@@ -162,4 +178,5 @@ void main() {
 
         debugText.visible = debug;
     });
+
 }

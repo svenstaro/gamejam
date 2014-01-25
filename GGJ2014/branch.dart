@@ -7,7 +7,20 @@ class Branch extends Sprite {
 
     num baseRotation = 0.0;
 
-    num valve = 1;
+    num _valve = 1;
+    num set valve(num value) {
+        num diff = value - _valve;
+        _valve = value;
+        if(parent is Branch) {
+            for(var b in parent.branches) {
+                if(!identical(b, this)) {
+                    b._valve -= diff / (parent.branches.length - 1);
+                }
+            }
+        }
+    }
+    num get valve => _valve;
+
     bool isDragging = false;
     Vector dragStartPoint = null;
 
@@ -81,9 +94,7 @@ class Branch extends Sprite {
         branchText.text += "\nV${valve.toStringAsFixed(2)}";
         branchText.visible = debug;
 
-        var p = localToGlobal(new Point(x, y));
-        var w = Environment._windGen(p.x*0.002, p.y*0.002)*2;
-        this.rotation = lerp(baseRotation, PI * .5, Wind.power * w);
+        this.rotation = baseRotation + Wind.power * 0.2;
 
         num st = getStartThickness();
         num et = thickness;
