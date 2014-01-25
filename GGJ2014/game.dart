@@ -103,6 +103,7 @@ void main() {
     debugText.text = "Debug text";
     debugText.x = 10;
     debugText.y = 10;
+    debugText.width = 300;
     stage.addChild(debugText);
 
     mode = "branch";
@@ -112,7 +113,7 @@ void main() {
         num my = stage.mouseY;
         debugText.text = "Mode: $mode";
         debugText.text += "\nFPS: ${(1.0 / e.passedTime).round()}";
-        debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my).toString()}";
+        debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my)}";
         debugText.text += "\nMouse Pos: ${mx} / ${my}";
     });
 }
