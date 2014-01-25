@@ -106,5 +106,13 @@ void main() {
     stage.addChild(debugText);
 
     mode = "branch";
-    debugText.text = "Mode: " + mode;
+
+    view.onEnterFrame.listen((e) {
+        num mx = stage.mouseX;
+        num my = stage.mouseY;
+        debugText.text = "Mode: $mode";
+        debugText.text += "\nFPS: ${(1.0 / e.passedTime).round()}";
+        debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my).toString()}";
+        debugText.text += "\nMouse Pos: ${mx} / ${my}";
+    });
 }

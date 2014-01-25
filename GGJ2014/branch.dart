@@ -1,7 +1,11 @@
 part of game;
 
 class Branch extends Sprite {
+    num water = 0.1;
+    num energy = 0.1;
+
     num thickness = 0.1;
+
     num baseRotation = 0.0;
 
     num valve = .5;
@@ -27,6 +31,18 @@ class Branch extends Sprite {
         return !(parent is Branch);
     }
 
+    void growLeaves() {
+        if(isRoot()) {
+            this.graphics.circle(this.x, this.y, 5);
+            this.graphics.fillColor(Color.Green);
+            print("lol");
+        }
+
+        for(int i = 0; i < numChildren; i++) {
+            if(getChildAt(i) is Branch) getChildAt(i).growLeaves();
+        }
+    }
+
     void _updateShape() {
         shape.graphics.clear();
         shape.graphics.rect(-0.1, -1, 0.2, 1);
@@ -40,9 +56,6 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        // shape.graphics.clear();
-        // shape.graphics.rect(-thickness/2, -1, thickness, 1);
-        // shape.graphics.strokeColor(0xFF00FF00, 0.01);
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.01);
 
@@ -50,11 +63,6 @@ class Branch extends Sprite {
         num et = thickness;
 
         this.graphics.clear();
-        // this.graphics.moveTo(-et/2, -1);
-        // this.graphics.lineTo(-st/2, 0);
-        // this.graphics.lineTo( st/2, 0);
-        // this.graphics.lineTo( et/2, -1);
-        // this.graphics.closePath();
 
         if(isRoot()) {
             List<Point> points = new List<Point>();
@@ -84,15 +92,6 @@ class Branch extends Sprite {
             points.add(root.globalToLocal(localToGlobal(new Point(-st/2,  0))));
         }
         points.add(root.globalToLocal(localToGlobal(new Point(-et/2, -1))));
-
-        // sort children
-        // sortChildren((var l, var r) {
-        //     if(l is Branch && r is Branch) {
-        //         return l.baseRotation < r.baseRotation;
-        //     } else {
-        //         return 1;
-        //     }
-        // });
 
         int numBranches = 0;
         for(int i = 0; i < numChildren; i++) {
