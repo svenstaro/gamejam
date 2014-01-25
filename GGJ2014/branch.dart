@@ -8,7 +8,7 @@ class Branch extends Sprite {
 
     num baseRotation = 0.0;
 
-    num valve = .5;
+    num valve = 0.5;
     bool isDragging = false;
     Vector dragStartPoint = null;
 
@@ -16,7 +16,7 @@ class Branch extends Sprite {
 
     Shape shape;
 
-    Branch() {
+    Branch(this.thickness) {
         shape = new Sprite();
         addChild(shape);
         _updateShape();
@@ -162,9 +162,8 @@ class Branch extends Sprite {
             var mouse = new Vector(mouseX, mouseY);
             num angle = mouse.rads;
 
-            Branch b = new Branch();
+            Branch b = new Branch(thickness);
             b.rotation = angle - getAbsoluteAngle();
-            b.thickness = thickness;
             addChild(b);
         }
     }

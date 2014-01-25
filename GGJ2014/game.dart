@@ -62,9 +62,8 @@ void main() {
 
     stage.addChild(view);
 
-    Branch root = new Branch();
+    Branch root = new Branch(0.35);
     root.y = 0;
-    root.thickness = 0.35;
     view.addChild(root);
     debugTree(3, root);
 
