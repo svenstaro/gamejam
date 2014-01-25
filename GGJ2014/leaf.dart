@@ -45,16 +45,18 @@ class Leaf extends Sprite {
         baseRotation = random.nextDouble() * 2 - 1;
 
         onEnterFrame.listen((EnterFrameEvent e) {
-            this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
-            
             graphics.clear();
-            graphics.beginPath();
-            graphics.moveTo(0, 0);
-            graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
-            graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
-            graphics.closePath();
-            
-            graphics.fillColor(leafBranch.branch.branchColor);
+            if(!debug) {
+                this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
+                
+                graphics.beginPath();
+                graphics.moveTo(0, 0);
+                graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
+                graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
+                graphics.closePath();
+                
+                graphics.fillColor(leafBranch.branch.branchColor);
+            }
         });
     }
 }
