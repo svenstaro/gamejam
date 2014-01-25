@@ -9,3 +9,4 @@ dependencies:
     stagexl: 'any'
     stagexl_particle: 'any'
     box2d: 'any'
+    noise: 'any'
