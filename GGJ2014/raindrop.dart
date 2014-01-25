@@ -1,7 +1,7 @@
 part of game;
 
 class RainDrop extends Sprite {
-    
+
     RainDrop(randX, randY) {
         var radius = random.nextInt(10);
         this.graphics.circle(randX, randY, 5 + radius);
@@ -14,5 +14,7 @@ class RainDrop extends Sprite {
         transition.onUpdate = (value) => this.alpha = value;
         transition.onComplete = () => this.removeFromParent();
         stage.juggler.add(transition);
+
+        mouseEnabled = false;
     }
 }

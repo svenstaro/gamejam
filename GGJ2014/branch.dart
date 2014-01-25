@@ -33,6 +33,7 @@ class Branch extends Sprite {
         branchText.scaleY = 0.01;
         branchText.y = -0.5;
         branchText.text = "branchText";
+        branchText.mouseEnabled = false;
         addChild(branchText);
     }
 
