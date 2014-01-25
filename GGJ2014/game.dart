@@ -97,4 +97,14 @@ void main() {
             }
         }
     });
+
+    debugText = new TextField();
+    debugText.defaultTextFormat = new TextFormat('Tamsyn', 12, Color.White);
+    debugText.text = "Debug text";
+    debugText.x = 10;
+    debugText.y = 10;
+    stage.addChild(debugText);
+
+    mode = "branch";
+    debugText.text = "Mode: " + mode;
 }
