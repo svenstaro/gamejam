@@ -1,4 +1,12 @@
 library global;
 
-var stage, canvas, view, random, debugText, debugShape, amountOfRain;
-String mode, debugMessage;
+var stage;
+var canvas;
+var view;
+var random;
+var debugText;
+var debugShape;
+var amountOfRain;
+bool debug = false;
+String mode;
+String debugMessage;

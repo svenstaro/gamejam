@@ -13,6 +13,7 @@ part 'clock.dart';
 part 'environment.dart';
 part 'spline.dart';
 part 'human_event.dart';
+part 'leaf.dart';
 part 'wind.dart';
 part 'raindrop.dart';
 part 'branch.dart';
@@ -158,5 +159,7 @@ void main() {
         debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my)}";
         debugText.text += "\nMouse Pos: ${mx.round()} / ${my.round()}";
         if(debugMessage != "") debugText.text += "\nDebug message: ${debugMessage}";
+
+        debugText.visible = debug;
     });
 }
