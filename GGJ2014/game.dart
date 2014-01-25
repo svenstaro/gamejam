@@ -25,6 +25,8 @@ Shape makeGround(double seed) {
     var shape = new Shape();
     var ref = gen(seed, 0.0);
 
+    amountOfRain = 2;
+
     shape.graphics.beginPath();
     shape.graphics.moveTo(-100, 100);
     for(num x = -100; x < 100; x += 0.1) {
@@ -55,8 +57,11 @@ void main() {
     background.graphics.fillColor(0xFF133742);
     stage.addChild(background);
 
+    stage.juggler.add(new Environment());
     stage.juggler.add(new Clock());
     stage.juggler.add(new Wind());
+    Wind.windPower = 0.07;
+    Wind.secondsPerWave = 9.2;
 
     view = new Sprite();
     view.x = stage.stageWidth / 2;
@@ -88,13 +93,11 @@ void main() {
 
     // Rain
     view.onEnterFrame.listen((e) {
-        var amountOfRain = 2;
-
         for (var i = 0; i < amountOfRain; i++) {
             var randX = random.nextInt(stage.stageWidth);
             var randY = random.nextInt(stage.stageHeight);
             var obj = stage.hitTestInput(randX, randY);
-            if(obj is Branch || identical(obj, view) || identical(obj, ground)) {
+            if(obj is GlassPlate || identical(obj, ground)) {
                 var raindrop = new RainDrop(randX, randY);
                 stage.addChild(raindrop);
             }
