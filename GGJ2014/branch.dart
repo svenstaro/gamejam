@@ -1,10 +1,9 @@
 part of game;
 
 class Branch extends Sprite {
-    num water = 0.1;
-    num energy = 0.1;
-
-    num thickness = 0.1;
+    num water;
+    num energy;
+    num thickness;
 
     num baseRotation = 0.0;
 
@@ -16,8 +15,8 @@ class Branch extends Sprite {
     TextField branchText = new TextField();
 
     Branch(this.thickness) {
-        this.water = this.thickness;
-        this.energy = this.thickness;
+        water = this.thickness;
+        energy = this.thickness;
 
         shape = new GlassPlate(thickness, 1);
         shape.pivotX = thickness/2;
@@ -25,7 +24,7 @@ class Branch extends Sprite {
         addChild(shape);
         _updateShape();
 
-        this.y = -1;
+        y = -1;
         onEnterFrame.listen(_onEnterFrame);
 
         branchText.defaultTextFormat = new TextFormat('monospace', 10, Color.White);
@@ -74,7 +73,14 @@ class Branch extends Sprite {
             spline.generatePath(this.graphics);
         }
 
-        this.graphics.fillColor(0xFF000000);
+        var obj = stage.hitTestInput(stage.mouseX, stage.mouseY);
+        print(obj);
+        if(obj == this) {
+            this.graphics.fillColor(0xFFAAAAAA);
+        } else {
+            this.graphics.fillColor(0xFF000000);
+        }
+
         this.graphics.strokeColor(0, 0);
     }
 
