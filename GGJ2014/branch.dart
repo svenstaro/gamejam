@@ -79,7 +79,9 @@ class Branch extends Sprite {
         branchText.text += "\nV${valve.toStringAsFixed(2)}";
         branchText.visible = debug;
 
-        this.rotation = lerp(baseRotation, PI * .5, Wind.power);
+        var p = localToGlobal(new Point(x, y));
+        var w = Environment._windGen(p.x*0.002, p.y*0.002)*2;
+        this.rotation = lerp(baseRotation, PI * .5, Wind.power * w);
 
         num st = getStartThickness();
         num et = thickness;
