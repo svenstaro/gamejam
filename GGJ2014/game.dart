@@ -152,5 +152,6 @@ void main() {
         debugText.text += "\nFPS: ${(1.0 / e.passedTime).round()}";
         debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my)}";
         debugText.text += "\nMouse Pos: ${mx.round()} / ${my.round()}";
+        if(debugMessage != "") debugText.text += "\nDebug message: ${debugMessage}";
     });
 }

@@ -41,11 +41,14 @@ class Branch extends Sprite {
 
     bool get isRoot => !(parent is Branch);
 
-    bool get isEndBranch {
+    bool get isEndBranch => branches.length == 0;
+
+    List<Branch> get branches {
+        List<Branch> b = new List<Branch>();
         for(int i = 0; i < numChildren; i++) {
-            if(getChildAt(i) is Branch) return false;
+            if(getChildAt(i) is Branch) b.add(getChildAt(i));
         }
-        return true;
+        return b;
     }
 
     void _updateShape() {
@@ -68,11 +71,16 @@ class Branch extends Sprite {
         if(isRoot) {
             Spline spline = new Spline();
             addPoints(spline, this);
-            spline.generatePath(this.graphics);
+            spline.generatePath(graphics);
+            graphics.fillColor(0xFF000000);
+            graphics.strokeColor(0, 0);
+        } else if(isEndBranch) {
+            Spline spline = new Spline();
+            addVeinPoints(spline, this, null, 0);
+            spline.generatePath(graphics);
+            graphics.fillColor(0);
+            graphics.strokeColor(Color.White, 0.01);
         }
-
-        this.graphics.fillColor(0xFF000000);
-        this.graphics.strokeColor(0, 0);
     }
 
     void addPoints(Spline spline, Branch root) {
@@ -97,21 +105,14 @@ class Branch extends Sprite {
             }
         });
 
-        int numBranches = 0;
-        for(int i = 0; i < numChildren; i++) {
-            if(getChildAt(i) is Branch) numBranches++;
-        }
-
+        int numBranches = branches.length;
         int branchNumber = 0;
-        for(int i = 0; i < numChildren; i++) {
-            var child = getChildAt(i);
+        for(Branch branch in branches) {
             if(branchNumber > 0) {
                 spline.add(root.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -1.2))), 0.0);
             }
-            if(child is Branch) {
-                child.addPoints(spline, root);
-                branchNumber++;
-            }
+            branch.addPoints(spline, root);
+            branchNumber++;
         }
 
         // going down on the right
@@ -119,6 +120,22 @@ class Branch extends Sprite {
         if(isRoot) {
             spline.add(root.globalToLocal(localToGlobal(new Point(st/2, 0))), 0.1);
             spline.add(root.globalToLocal(localToGlobal(new Point(st/2 * 1.5, 0.2))), 0.1);
+        }
+    }
+
+    void addVeinPoints(Spline spline, Branch end_branch, Branch from, num offset) {
+        num tangentLength = 0.3;
+
+        if(from != null) {
+            int index = this.branches.indexOf(from) + 1;
+            offset += ((index/(this.branches.length+1))-0.5)*thickness;
+            debugMessage = offset;
+        }
+        spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -1))), tangentLength);
+        if(!isRoot) {
+            this.parent.addVeinPoints(spline, end_branch, this, offset);
+        } else {
+        spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset * 0.5, 0))), tangentLength);
         }
     }
 
