@@ -11,6 +11,7 @@ part 'math.dart';
 part 'awesome_color.dart';
 part 'clock.dart';
 part 'environment.dart';
+part 'spline.dart';
 part 'human_event.dart';
 part 'wind.dart';
 part 'raindrop.dart';
@@ -64,9 +65,8 @@ void main() {
 
     stage.addChild(view);
 
-    Branch root = new Branch();
+    Branch root = new Branch(0.6);
     root.y = 0;
-    root.thickness = 0.35;
     view.addChild(root);
     debugTree(3, root);
 
@@ -101,12 +101,39 @@ void main() {
     });
 
     debugText = new TextField();
-    debugText.defaultTextFormat = new TextFormat('Tamsyn', 12, Color.White);
+    debugText.defaultTextFormat = new TextFormat('monospace', 10, Color.White);
     debugText.text = "Debug text";
     debugText.x = 10;
     debugText.y = 10;
+    debugText.width = 300;
     stage.addChild(debugText);
 
     mode = "branch";
-    debugText.text = "Mode: " + mode;
+
+    debugShape = new Sprite();
+    view.addChild(debugShape);
+
+    stage.onMouseDown.listen((MouseEvent e) {
+        var p = root.globalToLocal(new Point(e.stageX, e.stageY));
+        var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
+        var obj = root.hitTestInput(p.x, p.y);
+        if(obj is GlassPlate) obj = obj.parent;
+
+        if(obj is Branch && mode == "branch") {
+            debugShape.graphics.clear();
+            debugShape.graphics.circle(pv.x, pv.y, 0.1);
+            debugShape.graphics.fillColor(0xAA00FF00);
+
+            obj.growChild(1);
+        }
+    });
+
+    view.onEnterFrame.listen((e) {
+        num mx = stage.mouseX;
+        num my = stage.mouseY;
+        debugText.text = "Mode: $mode";
+        debugText.text += "\nFPS: ${(1.0 / e.passedTime).round()}";
+        debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my)}";
+        debugText.text += "\nMouse Pos: ${mx.round()} / ${my.round()}";
+    });
 }

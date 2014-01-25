@@ -1,38 +1,53 @@
 part of game;
 
 class Branch extends Sprite {
-    num thickness = 0.1;
+    num water;
+    num energy;
+    num thickness;
+
     num baseRotation = 0.0;
 
-    num valve = .5;
+    num valve = 0.5;
     bool isDragging = false;
     Vector dragStartPoint = null;
 
-    Sprite shape;
+    GlassPlate shape;
+    TextField branchText = new TextField();
 
-    Branch() {
-        shape = new Sprite();
+    Branch(this.thickness) {
+        water = this.thickness;
+        energy = this.thickness;
+
+        shape = new GlassPlate(thickness, 1);
+        shape.pivotX = thickness/2;
+        shape.pivotY = 1;
         addChild(shape);
         _updateShape();
 
-        this.y = -1;
+        y = -1;
         onEnterFrame.listen(_onEnterFrame);
+
+        branchText.defaultTextFormat = new TextFormat('monospace', 10, Color.White);
+        branchText.scaleX = 0.01;
+        branchText.scaleY = 0.01;
+        branchText.y = -0.5;
+        branchText.text = "branchText";
+        branchText.mouseEnabled = false;
+        addChild(branchText);
     }
 
-    int getDepth() {
-        return parent is Branch ? parent.getDepth() + 1 : 0;
-    }
+    int get depth => parent is Branch ? parent.depth + 1 : 0;
 
-    bool isRoot() {
-        return !(parent is Branch);
+    bool get isRoot => !(parent is Branch);
+
+    bool get isEndBranch {
+        for(int i = 0; i < numChildren; i++) {
+            if(getChildAt(i) is Branch) return false;
+        }
+        return true;
     }
 
     void _updateShape() {
-        shape.graphics.clear();
-        shape.graphics.rect(-0.1, -1, 0.2, 1);
-        shape.graphics.fillColor(0);
-        shape.graphics.strokeColor(0x0000FF00, 0.001);
-
         shape.onMouseMove.listen(this.dragInProgress);
         shape.onMouseDown.listen(this.dragStart);
         shape.onMouseUp.listen(this.dragStop);
@@ -40,9 +55,10 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        // shape.graphics.clear();
-        // shape.graphics.rect(-thickness/2, -1, thickness, 1);
-        // shape.graphics.strokeColor(0xFF00FF00, 0.01);
+        // Update debug info
+        branchText.text = "D${depth}";
+        branchText.text += "\nW${water.toStringAsFixed(2)}";
+        branchText.text += "\nE${energy.toStringAsFixed(2)}";
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.003);
 
@@ -50,50 +66,46 @@ class Branch extends Sprite {
         num et = thickness;
 
         this.graphics.clear();
-        // this.graphics.moveTo(-et/2, -1);
-        // this.graphics.lineTo(-st/2, 0);
-        // this.graphics.lineTo( st/2, 0);
-        // this.graphics.lineTo( et/2, -1);
-        // this.graphics.closePath();
 
-        if(isRoot()) {
-            List<Point> points = new List<Point>();
-            addPoints(points, this);
-
-            this.graphics.beginPath();
-            this.graphics.moveTo(points[0].x, points[0].y);
-            for(var point in points) {
-                this.graphics.lineTo(point.x, point.y);
-            }
-            this.graphics.closePath();
+        if(isRoot) {
+            Spline spline = new Spline();
+            addPoints(spline, this);
+            spline.generatePath(this.graphics);
         }
 
-        //this.graphics.fillColor(0x44FFFFFF);
-        // this.graphics.strokeColor(0xFFFFFFFF, 0.01);
-        //this.graphics.fillColor(0xFF000000);
-        
-        this.graphics.fillColor(Environment.getLightColorFor(this).hex);
+        //this.graphics.fillColor(Environment.getLightColorFor(this).hex);
+
+        var obj = stage.hitTestInput(stage.mouseX, stage.mouseY);
+        print(obj);
+        if(obj == this) {
+            this.graphics.fillColor(0xFFAAAAAA);
+        } else {
+            this.graphics.fillColor(0xFF000000);
+        }
         this.graphics.strokeColor(0, 0);
     }
 
-    void addPoints(List<Point> points, Branch root) {
+    void addPoints(Spline spline, Branch root) {
         num st = getStartThickness();
         num et = thickness;
 
+        num tangentLength = isEndBranch ? 0.0 : 0.3;
+
         // going up on the left
-        if(identical(root, this)) {
-            points.add(root.globalToLocal(localToGlobal(new Point(-st/2,  0))));
+        if(isRoot) {
+            spline.add(root.globalToLocal(localToGlobal(new Point(-st/2 * 1.5, 0.2))), 0.1);
+            spline.add(root.globalToLocal(localToGlobal(new Point(-st/2,  0))), 0.1);
         }
-        points.add(root.globalToLocal(localToGlobal(new Point(-et/2, -1))));
+        spline.add(root.globalToLocal(localToGlobal(new Point(-et/2, -1))), tangentLength);
 
         // sort children
-        // sortChildren((var l, var r) {
-        //     if(l is Branch && r is Branch) {
-        //         return l.baseRotation < r.baseRotation;
-        //     } else {
-        //         return 1;
-        //     }
-        // });
+        sortChildren((var l, var r) {
+            if(l is Branch && r is Branch) {
+                return l.baseRotation.compareTo(r.baseRotation);
+            } else {
+                return 0;
+            }
+        });
 
         int numBranches = 0;
         for(int i = 0; i < numChildren; i++) {
@@ -104,32 +116,35 @@ class Branch extends Sprite {
         for(int i = 0; i < numChildren; i++) {
             var child = getChildAt(i);
             if(branchNumber > 0) {
-                points.add(root.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -1.2))));
+                spline.add(root.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -1.2))), 0.0);
             }
             if(child is Branch) {
-                child.addPoints(points, root);
+                child.addPoints(spline, root);
                 branchNumber++;
             }
         }
 
         // going down on the right
-        points.add(root.globalToLocal(localToGlobal(new Point( et/2, -1))));
-        if(identical(root, this)) {
-            points.add(root.globalToLocal(localToGlobal(new Point( st/2,  0))));
+        spline.add(root.globalToLocal(localToGlobal(new Point(et/2, -1))), tangentLength);
+        if(isRoot) {
+            spline.add(root.globalToLocal(localToGlobal(new Point(st/2, 0))), 0.1);
+            spline.add(root.globalToLocal(localToGlobal(new Point(st/2 * 1.5, 0.2))), 0.1);
         }
     }
 
     num getStartThickness() {
-        return isRoot() ? thickness : parent.thickness;
+        return isRoot ? thickness : parent.thickness;
     }
 
     num getAbsoluteAngle() {
-        return isRoot() ? rotation : parent.rotation + rotation;
+        return isRoot ? rotation : parent.rotation + rotation;
     }
 
     void dragStart(MouseEvent event) {
         isDragging = true;
         dragStartPoint = new Point(mouseX, mouseY);
+
+        print("Drag start");
     }
 
     void dragInProgress(MouseEvent event) {
@@ -144,19 +159,19 @@ class Branch extends Sprite {
     }
 
     void dragStop(MouseEvent event) {
+        if(!isDragging) return;
         isDragging = false;
-
-        print("Drag stop");
 
         if(mode == "branch") {
             var mouse = new Vector(mouseX, mouseY);
-            num angle = mouse.rads;
-
-            Branch b = new Branch();
-            b.rotation = angle - getAbsoluteAngle();
-            b.thickness = thickness;
-            addChild(b);
+            growChild(mouse.rads);
         }
+    }
+
+    void growChild(num absolute_angle) {
+        Branch b = new Branch(thickness * 0.5);
+        b.rotation = absolute_angle - getAbsoluteAngle();
+        addChild(b);
     }
 
     Vector getTipPosition() {
