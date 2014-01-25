@@ -13,6 +13,7 @@ part 'clock.dart';
 part 'environment.dart';
 part 'spline.dart';
 part 'human_event.dart';
+part 'leaf.dart';
 part 'wind.dart';
 part 'raindrop.dart';
 part 'branch.dart';
@@ -46,7 +47,7 @@ void main() {
 
     // setup the Stage and RenderLoop
     canvas = html.querySelector('#stage');
-    stage = new Stage('stage', canvas);
+    stage = new Stage(canvas);
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
 
@@ -148,6 +149,8 @@ void main() {
         currentBranch = null;
     });
 
+    stage.onKeyDown.listen((e) => print("lol"));
+
     view.onEnterFrame.listen((e) {
         num mx = stage.mouseX;
         num my = stage.mouseY;
@@ -156,5 +159,7 @@ void main() {
         debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my)}";
         debugText.text += "\nMouse Pos: ${mx.round()} / ${my.round()}";
         if(debugMessage != "") debugText.text += "\nDebug message: ${debugMessage}";
+
+        debugText.visible = debug;
     });
 }
