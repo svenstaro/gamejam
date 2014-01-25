@@ -24,6 +24,18 @@ class Branch extends Sprite {
         this.onMouseOut.listen(this.dragStop);
     }
 
+    void growLeaves() {
+        for (var i = 0; i < this.numChildren; i++) {
+            this.getChildAt(i).growLeaves();
+        }
+
+        if(this.numChildren == 0) {
+            this.graphics.circle(0, 0, 0.1);
+            this.graphics.fillColor(Color.Green);
+            print("lol");
+        }
+    }
+
     void _onEnterFrame(EnterFrameEvent e) {
         this.rotation = this.baseRotation + (PI * .5 - this.baseRotation) * Wind.power * 0.01;
     }
