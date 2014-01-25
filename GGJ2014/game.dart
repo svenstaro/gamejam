@@ -6,6 +6,7 @@ import 'package:stagexl/stagexl.dart';
 import 'package:stagexl_particle/stagexl_particle.dart';
 import 'global.dart';
 
+part 'math.dart';
 part 'clock.dart';
 part 'human_event.dart';
 part 'wind.dart';
@@ -25,7 +26,7 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        this.rotation = this.baseRotation + (PI * .5 - this.baseRotation) * Wind.power * 0.01;
+        this.rotation = lerp(this.baseRotation, PI * .5 - this.baseRotation, Wind.power * 0.01);
     }
 }
 
@@ -83,5 +84,5 @@ void main() {
     stage.addChild(particleEmitter);
     stage.juggler.add(particleEmitter);
 
-    stage.addChild(new HumanEvent());
+    view.addChild(new HumanEvent());
 }
