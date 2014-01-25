@@ -59,6 +59,7 @@ void main() {
 
     Branch root = new Branch();
     root.y = 0;
+    root.thickness = 0.35;
     view.addChild(root);
     debugTree(3, root);
 
