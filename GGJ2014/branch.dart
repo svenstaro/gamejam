@@ -10,6 +10,8 @@ class Branch extends Sprite {
         _water = water;
     }
     num get water => _water;
+    num get waterDelta => max(0, _old_water - _water);
+    Map waterConfig;
 
     num _energy = 0;
     num _old_energy = 0;
@@ -18,6 +20,8 @@ class Branch extends Sprite {
         _energy = energy;
     }
     num get energy => _energy;
+    num get energyDelta => max(0, _energy - _old_energy);
+    Map energyConfig;
 
     num wither = 0;
 
@@ -102,7 +106,7 @@ class Branch extends Sprite {
             removeChild(waterEmitter);
             stage.juggler.remove(waterEmitter);
         }
-        var waterConfig = {"maxParticles":10, "duration":0, "lifeSpan":length * 5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}, "finishColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}};
+        waterConfig = {"maxParticles":10, "duration":0, "lifeSpan":length * 5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}, "finishColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}};
 
         waterEmitter = new ParticleEmitter(waterConfig);
         waterEmitter.setEmitterLocation(0, 3);
@@ -117,7 +121,7 @@ class Branch extends Sprite {
             removeChild(energyEmitter);
             stage.juggler.remove(energyEmitter);
         }
-        var energyConfig = {"maxParticles":10, "duration":0, "lifeSpan":length * 5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}, "finishColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}};
+        energyConfig = {"maxParticles":10, "duration":0, "lifeSpan":length * 5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}, "finishColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}};
 
         energyEmitter = new ParticleEmitter(energyConfig);
         energyEmitter.setEmitterLocation(length * -540, -3);
