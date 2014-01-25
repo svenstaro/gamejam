@@ -7,7 +7,7 @@ class Branch extends Sprite {
 
     num baseRotation = 0.0;
 
-    num valve = 0.5;
+    num valve = 1;
     bool isDragging = false;
     Vector dragStartPoint = null;
     
@@ -37,6 +37,8 @@ class Branch extends Sprite {
         this.mouseEnabled = false;
         addChild(branchText);
     }
+
+    num get totalValve => parent is Branch ? parent.totalValve * valve : valve;
 
     int get depth => parent is Branch ? parent.depth + 1 : 0;
 
@@ -81,7 +83,9 @@ class Branch extends Sprite {
         branchText.text += "\nV${valve.toStringAsFixed(2)}";
         branchText.visible = debug;
 
-        this.rotation = lerp(baseRotation, PI * .5, Wind.power);
+        var p = localToGlobal(new Point(x, y));
+        var w = Environment._windGen(p.x*0.002, p.y*0.002)*2;
+        this.rotation = lerp(baseRotation, PI * .5, Wind.power * w);
 
         num st = getStartThickness();
         num et = thickness;
@@ -98,7 +102,7 @@ class Branch extends Sprite {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
             spline.generatePath(graphics);
-            graphics.strokeColor(Color.White, 0.01);
+            graphics.strokeColor(new AwesomeColor(1, 1, 1, totalValve).hex, 0.01);
         }
         
         branchColor = (new AwesomeColor.fromHex(0xEEDDFFDD) * Environment.getLightColorFor(this)).hex;

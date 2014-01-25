@@ -48,6 +48,7 @@ void main() {
     // setup the Stage and RenderLoop
     canvas = html.querySelector('#stage');
     stage = new Stage(canvas);
+    stage.focus = stage;
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
 
@@ -149,7 +150,11 @@ void main() {
         currentBranch = null;
     });
 
-    stage.onKeyDown.listen((e) => print("lol"));
+    stage.onKeyDown.listen((e) {
+        if(e.keyCode == 68) {
+            debug = !debug;
+        }
+    });
 
     view.onEnterFrame.listen((e) {
         num mx = stage.mouseX;

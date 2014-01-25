@@ -5,14 +5,15 @@ class LeafBranch extends Sprite {
     num length;
 
     LeafBranch(this.branch) {
-        length = random.nextDouble() * 1.5;
+        length = random.nextDouble() * 2;
 
         graphics.beginPath();
         graphics.moveTo(0, 0);
         graphics.lineTo(0, -length);
         graphics.closePath();
-        graphics.strokeColor(0xAAFFFFFF, 0.05);
+        graphics.strokeColor(0x88000000, 0.05);
         x = (random.nextDouble() * 2 - 1) * branch.thickness;
+        x = 0;
         y = -random.nextDouble();
         scaleX = 0.3;
         scaleY = 0.3;
@@ -21,8 +22,10 @@ class LeafBranch extends Sprite {
             rotation *= -1;
         }
 
-        for(int i = 0; i < 6; ++i) {
-            addChild(new Leaf(this));
+        for(int i = 0; i < length * 7; ++i) {
+            var l = new Leaf(this);
+            if(i == 0) l.y = -length;
+            addChild(l);
         }
     }
 }
