@@ -9,5 +9,6 @@ var debugShape;
 var amountOfRain;
 var resourceManager;
 bool debug = false;
+bool relaxMode = false;
 String mode;
 String debugMessage;

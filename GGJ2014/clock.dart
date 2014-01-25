@@ -1,7 +1,7 @@
 part of game;
 
 class Clock implements Animatable {
-    static num secondsPerDay = 60 * 2;
+    static num secondsPerDay = 10;//60 * 2;
     static num secondsPerYear = 60 * 20;
 
     static num day = 0;
@@ -12,5 +12,7 @@ class Clock implements Animatable {
     bool advanceTime(num time) {
         day += time / secondsPerDay;
         year += time / secondsPerYear;
+        
+        //print(daytime);
     }
 }

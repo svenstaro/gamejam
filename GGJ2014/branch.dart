@@ -3,7 +3,6 @@ part of game;
 class Branch extends Sprite {
     num water;
     num energy;
-    num thickness;
 
     num baseRotation = 0.0;
 
@@ -24,19 +23,31 @@ class Branch extends Sprite {
     bool isDragging = false;
     Vector dragStartPoint = null;
 
-    GlassPlate shape;
+    int branchColor = 0;
+
+    GlassPlate shape = null;
+    Shape debugShape = null;
     TextField branchText = new TextField();
 
-    Branch(this.thickness) {
+    num _length = 1;
+    num set length(num value) {
+        _length = value;
+        reset();
+    }
+    num get length => _length;
+
+    num _thickness = 1;
+    num set thickness(num value) {
+        _thickness = value;
+        reset();
+    }
+    num get thickness => _thickness;
+
+    Branch(this._thickness) {
         water = this.thickness;
         energy = this.thickness;
+        reset();
 
-        shape = new GlassPlate(thickness, 1);
-        shape.pivotX = thickness/2;
-        shape.pivotY = 1;
-        addChild(shape);
-
-        y = -1;
         onEnterFrame.listen(_onEnterFrame);
 
         branchText.defaultTextFormat = new TextFormat('monospace', 10, Color.White);
@@ -47,6 +58,28 @@ class Branch extends Sprite {
         branchText.mouseEnabled = false;
         this.mouseEnabled = false;
         addChild(branchText);
+    }
+
+    void reset() {
+        // click shape
+        if(shape != null) removeChild(shape);
+        shape = new GlassPlate(thickness, length);
+        shape.pivotX = thickness/2;
+        shape.pivotY = length;
+        addChild(shape);
+
+        // debug shape
+        // if(debugShape != null) removeChild(debugShape);
+        // debugShape = new Shape();
+        // debugShape.graphics.rect(-thickness/2, -length, thickness, length);
+        // debugShape.graphics.strokeColor(0xFF00FF00, 0.01);
+        // addChild(debugShape);
+
+        y = parent is Branch ? -parent.length : 0;
+
+        for(var b in branches) {
+            b.reset();
+        }
     }
 
     num get totalValve => parent is Branch ? parent.totalValve * valve : valve;
@@ -87,6 +120,7 @@ class Branch extends Sprite {
             energy += e.passedTime * 0.01;
         }
 
+
         // Update debug info
         branchText.text = "D${depth}";
         branchText.text += "\nW${water.toStringAsFixed(2)}";
@@ -106,27 +140,29 @@ class Branch extends Sprite {
             addPoints(spline, this);
             spline.generatePath(graphics);
             graphics.fillColor(0xFF000000);
-            graphics.strokeColor(0, 0);
+            graphics.strokeColor(0x55FFFFFF, 0.01);
         } else if(isEndBranch) {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
             spline.generatePath(graphics);
             graphics.strokeColor(new AwesomeColor(1, 1, 1, totalValve).hex, 0.01);
         }
+
+        branchColor = (new AwesomeColor.fromHex(0x22DDFFDD) * Environment.getLightColorFor(this)).hex;
     }
 
     void addPoints(Spline spline, Branch root) {
         num st = getStartThickness();
         num et = thickness;
 
-        num tangentLength = isEndBranch ? 0.0 : 0.3;
+        num tangentLength = isEndBranch ? 0.0 : 0.2 * length;
 
         // going up on the left
         if(isRoot) {
             spline.add(root.globalToLocal(localToGlobal(new Point(-st/2 * 1.5, 0.2))), 0.1);
             spline.add(root.globalToLocal(localToGlobal(new Point(-st/2,  0))), 0.1);
         }
-        spline.add(root.globalToLocal(localToGlobal(new Point(-et/2, -1))), tangentLength);
+        spline.add(root.globalToLocal(localToGlobal(new Point(-et/2, -length))), tangentLength);
 
         // sort children
         sortChildren((var l, var r) {
@@ -141,14 +177,14 @@ class Branch extends Sprite {
         int branchNumber = 0;
         for(Branch branch in branches) {
             if(branchNumber > 0) {
-                spline.add(root.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -1.2))), 0.0);
+                spline.add(root.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -length-0.2))), 0.0);
             }
             branch.addPoints(spline, root);
             branchNumber++;
         }
 
         // going down on the right
-        spline.add(root.globalToLocal(localToGlobal(new Point(et/2, -1))), tangentLength);
+        spline.add(root.globalToLocal(localToGlobal(new Point(et/2, -length))), tangentLength);
         if(isRoot) {
             spline.add(root.globalToLocal(localToGlobal(new Point(st/2, 0))), 0.1);
             spline.add(root.globalToLocal(localToGlobal(new Point(st/2 * 1.5, 0.2))), 0.1);
@@ -156,14 +192,14 @@ class Branch extends Sprite {
     }
 
     void addVeinPoints(Spline spline, Branch end_branch, Branch from, num offset) {
-        num tangentLength = 0.3;
+        num tangentLength = 0.2*length;
 
         if(from != null) {
             int index = this.branches.indexOf(from) + 1;
             offset += ((index/(this.branches.length+1))-0.5)*thickness;
             debugMessage = "$offset";
         }
-        spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -1))), tangentLength);
+        spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -length))), tangentLength);
         if(!isRoot) {
             this.parent.addVeinPoints(spline, end_branch, this, offset);
         } else {

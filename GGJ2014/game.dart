@@ -57,14 +57,22 @@ void run() {
     // setup the Stage and RenderLoop
     canvas = html.querySelector('#stage');
     stage = new Stage(canvas);
+    stage.focus = stage;
     var renderLoop = new RenderLoop();
     renderLoop.addStage(stage);
 
     var background = new Shape();
-    background.name = "background";
     background.graphics.rect(0, 0, stage.stageWidth, stage.stageHeight);
-    background.graphics.fillColor(0xFF133742);
     stage.addChild(background);
+
+    if(relaxMode) {
+        var g = new GraphicsGradient.linear(0, 0, 0, stage.stageHeight);
+        g.addColorStop(0, 0xFF446688);
+        g.addColorStop(1, 0xFFAACCFF);
+        background.graphics.fillGradient(g);
+    } else {
+        background.graphics.fillColor(0xFF000000);
+    }
 
     stage.juggler.add(new Environment());
     stage.juggler.add(new Clock());
@@ -158,14 +166,17 @@ void run() {
         currentBranch = null;
     });
 
-    stage.onKeyDown.listen((e) => print("lol"));
+    stage.onKeyDown.listen((e) {
+        if(e.keyCode == 68) {
+            debug = !debug;
+        }
+    });
 
     var sound = resourceManager.getSound('noise');
     var t = sound.play(true);
 
     view.onEnterFrame.listen((e) {
         t.soundTransform = new SoundTransform(pow(Wind.windPower, 1.5) * 2, 0);
-        debug = true;
         debugMessage = Wind.power;
 
         num mx = stage.mouseX;

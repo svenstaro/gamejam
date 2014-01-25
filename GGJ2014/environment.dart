@@ -3,7 +3,7 @@ part of game;
 class Environment extends Animatable {
 
     static num _time = 0.0;
-    static AwesomeColor sunColor1 = new AwesomeColor.fromHex(0xffffc48f); //sun at zenith
+    static AwesomeColor sunColor1 = new AwesomeColor.fromHex(0xfff1d4ba); //sun at zenith
     static AwesomeColor sunColor2 = new AwesomeColor.fromHex(0xffb84e43); //sun at horizon
 
     static AwesomeColor moonColor1 = new AwesomeColor.fromHex(0xff082e4e); //moon at zenith
@@ -31,19 +31,20 @@ class Environment extends Animatable {
     }
 
     static AwesomeColor getLightColorFor(Branch b) {
-        var angle = 1 - (b.getTipPosition().rads + PI) / (2 * PI);
-
+        var angle = (b.getTipPosition().rads + PI) / (2 * PI);
+        
         //print(Clock.daytime);
-
+        //print(angle);
+        
         var light = sinwave(Clock.daytime * 2);
-        var sunColor = AwesomeColor.lerpColor(sunColor1, sunColor2, light);
-        var moonColor = AwesomeColor.lerpColor(moonColor1, moonColor2, light);
-
-        var dayLight = sinwave(Clock.daytime - .5);
-        sunColor = sunColor * dayLight;
-        moonColor = moonColor * (1-dayLight);
-
-
+        var sunColor = AwesomeColor.lerpColor(sunColor1, sunColor2, 1-light);
+        //var moonColor = AwesomeColor.lerpColor(moonColor1, moonColor2, 1-light);
+        var moonColor = moonColor2;
+        
+        var dayLight = sinwave(Clock.daytime - .25);
+        sunColor = sunColor * (dayLight + .3);
+        moonColor = moonColor * (1-dayLight + .3);
+        
         var sunAngle = Clock.daytime;
         var moonAngle = (Clock.daytime + .5) % 1;
         var sunPower = angle01(angle, sunAngle);
