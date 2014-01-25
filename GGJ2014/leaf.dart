@@ -40,8 +40,8 @@ class Leaf extends Sprite {
         //graphics.fillColor((new AwesomeColor.fromHex(0x44FFFFFF) * Environment.getLightColorFor(leafBranch.branch)).hex);
         x = 0;
         y = - random.nextDouble() * leafBranch.length;
-        scaleX = 1.5;
-        scaleY = 1.5;
+        scaleX = 1;
+        scaleY = 1;
         baseRotation = random.nextDouble() * 2 - 1;
 
         onEnterFrame.listen((EnterFrameEvent e) {
