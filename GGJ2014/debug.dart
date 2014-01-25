@@ -65,7 +65,7 @@ void debugRoots(int depth, var parent) {
             b.baseRotation = b.parent.absoluteAngle;
         }
 
-        b.length = random.nextDouble() * 0.5 + 0.5;
+        b.length = random.nextDouble() * 0.3 + 0.3;
         parent.addChild(b);
         if(depth < 2) {
             debugRoots(depth + 1, b);

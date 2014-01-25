@@ -117,10 +117,10 @@ class Branch extends Sprite {
 
     void _onEnterFrame(EnterFrameEvent e) {
         e = new EnterFrameEvent(e.passedTime * 5);
-        
+
         // Update gameplay values
         num energyFactor = 0.05;
-        num energyToWater = 1; 
+        num energyToWater = 1;
         num thirstiness = 0.001;
         num witherFactor = 0.5;
         num energyConversionRate = 0.01;
@@ -190,7 +190,7 @@ class Branch extends Sprite {
             graphics.strokeColor(new AwesomeColor(1, 1, 1, totalValve).hex, 0.01);
         }
 
-        branchColor = (new AwesomeColor.fromHex(0x22DDFFDD) * Environment.getLightColorFor(this)).hex;
+        branchColor = (new AwesomeColor.fromHex(0x55DDFFDD) * Environment.getLightColorFor(this)).hex;
     }
 
     void addPoints(Spline spline, Branch base) {
