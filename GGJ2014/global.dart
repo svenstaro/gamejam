@@ -8,7 +8,7 @@ var debugText;
 var debugShape;
 var amountOfRain;
 var resourceManager;
-bool debug = false;
+bool debug = true;
 bool relaxMode = false;
 String mode;
 String debugMessage;

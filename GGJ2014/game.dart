@@ -92,8 +92,8 @@ void run() {
     root.y = 0;
     view.addChild(root);
 
-    /*debugTree(0, root);*/
-    retardTree(0, root);
+    debugTree(0, root);
+    /*retardTree(0, root);*/
 
     Branch rootRoot = new Branch(0.6);
     rootRoot.y = 0;

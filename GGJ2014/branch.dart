@@ -24,6 +24,7 @@ class Branch extends Sprite {
     Map energyConfig;
 
     num wither = 0;
+    bool deleteSoon = false;
 
     num baseRotation = 0.0;
 
@@ -167,13 +168,13 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        e = new EnterFrameEvent(e.passedTime * 5);
+        e = new EnterFrameEvent(e.passedTime * 10);
         
         // Update gameplay values
         num energyFactor = 0.05;
         num energyToWater = 1; 
         num thirstiness = 0.001;
-        num witherFactor = 0.5;
+        num witherFactor = 5;
         num energyConversionRate = 0.01;
         num transferRate = 0.01;
         num transferFactor = 1;
@@ -198,7 +199,7 @@ class Branch extends Sprite {
 
         for(var child in branches) {
             num de = child.energy * valve * e.passedTime * transferRate;
-            energy += de;
+            energy = (energy + de).clamp(0, 1);
             child.energy -= de;
 
             num dw = (valve * e.passedTime * transferRate) / branches.length;
@@ -242,6 +243,16 @@ class Branch extends Sprite {
         }
 
         branchColor = (new AwesomeColor.fromHex(0x22DDFFDD) * Environment.getLightColorFor(this)).hex;
+
+        if(wither >= 1.0) {
+            deleteSoon = true;
+        }
+
+        for(var child in branches) {
+            if(child.deleteSoon) {
+                child.delete();
+            }
+        }
     }
 
     void addPoints(Spline spline, Branch base) {
