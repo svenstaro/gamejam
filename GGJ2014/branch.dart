@@ -338,6 +338,11 @@ class Branch extends Sprite {
         addChild(b);
     }
 
+    void delete() {
+        if(shape != null) removeChild(shape);
+        removeFromParent();
+    }
+
     Vector getTipPosition() {
         var p = view.globalToLocal(localToGlobal(new Point(0, 0)));
         return new Vector(p.x, p.y);
