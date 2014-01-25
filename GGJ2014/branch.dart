@@ -71,9 +71,6 @@ class Branch extends Sprite {
             spline.generatePath(this.graphics);
         }
 
-        //this.graphics.fillColor(Environment.getLightColorFor(this).hex);
-
-        var obj = stage.hitTestInput(stage.mouseX, stage.mouseY);
         this.graphics.fillColor(0xFF000000);
         this.graphics.strokeColor(0, 0);
     }
