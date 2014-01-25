@@ -166,7 +166,7 @@ class Branch extends Sprite {
         branchText.text += "\nW: ${wither.toStringAsFixed(3)}";
         branchText.visible = debug;
 
-        if(isRoot) {
+        if(isRoot || isBase) {
             this.rotation = baseRotation;
         } else {
             this.rotation = baseRotation + Wind.power * 0.2;
