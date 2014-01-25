@@ -33,20 +33,16 @@ class Branch extends Sprite {
         addChild(branchText);
     }
 
-    int getDepth() {
-        return parent is Branch ? parent.getDepth() + 1 : 0;
-    }
+    int get depth => parent is Branch ? parent.depth + 1 : 0;
 
-    bool isRoot() {
-        return !(parent is Branch);
-    }
+    bool get isRoot => !(parent is Branch);
 
-    bool isEndBranch() {
+    bool get isEndBranch => () {
         for(int i = 0; i < numChildren; i++) {
             if(getChildAt(i) is Branch) return false;
         }
         return true;
-    }
+    };
 
     void _updateShape() {
         shape.onMouseMove.listen(this.dragInProgress);
@@ -57,7 +53,7 @@ class Branch extends Sprite {
 
     void _onEnterFrame(EnterFrameEvent e) {
         // Update debug info
-        branchText.text = "D${getDepth()}";
+        branchText.text = "D${depth}";
         branchText.text += "\nW${water}E${energy}";
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.01);
@@ -67,7 +63,7 @@ class Branch extends Sprite {
 
         this.graphics.clear();
 
-        if(isRoot()) {
+        if(isRoot) {
             Spline spline = new Spline();
             addPoints(spline, this);
             spline.generatePath(this.graphics);
@@ -84,10 +80,10 @@ class Branch extends Sprite {
         num st = getStartThickness();
         num et = thickness;
 
-        num tangentLength = isEndBranch() ? 0.0 : 0.3;
+        num tangentLength = isEndBranch ? 0.0 : 0.3;
 
         // going up on the left
-        if(isRoot()) {
+        if(isRoot) {
             spline.add(root.globalToLocal(localToGlobal(new Point(-st/2 * 1.5, 0.2))), 0.1);
             spline.add(root.globalToLocal(localToGlobal(new Point(-st/2,  0))), 0.1);
         }
@@ -121,18 +117,18 @@ class Branch extends Sprite {
 
         // going down on the right
         spline.add(root.globalToLocal(localToGlobal(new Point(et/2, -1))), tangentLength);
-        if(isRoot()) {
+        if(isRoot) {
             spline.add(root.globalToLocal(localToGlobal(new Point(st/2, 0))), 0.1);
             spline.add(root.globalToLocal(localToGlobal(new Point(st/2 * 1.5, 0.2))), 0.1);
         }
     }
 
     num getStartThickness() {
-        return isRoot() ? thickness : parent.thickness;
+        return isRoot ? thickness : parent.thickness;
     }
 
     num getAbsoluteAngle() {
-        return isRoot() ? rotation : parent.rotation + rotation;
+        return isRoot ? rotation : parent.rotation + rotation;
     }
 
     void dragStart(MouseEvent event) {
