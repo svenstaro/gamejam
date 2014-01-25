@@ -63,9 +63,8 @@ void main() {
 
     stage.addChild(view);
 
-    Branch root = new Branch();
+    Branch root = new Branch(0.35);
     root.y = 0;
-    root.thickness = 0.35;
     view.addChild(root);
     debugTree(3, root);
 
@@ -104,10 +103,10 @@ void main() {
     debugText.text = "Debug text";
     debugText.x = 10;
     debugText.y = 10;
+    debugText.width = 300;
     stage.addChild(debugText);
 
     mode = "branch";
-    debugText.text = "Mode: " + mode;
 
     debugShape = new Sprite();
     view.addChild(debugShape);
@@ -127,16 +126,12 @@ void main() {
         }
     });
 
-    var s = new Sprite();
-    s.x = -2;
-    var spline = new Spline();
-    spline.add(new Vector(0, 0),    0.4);
-    spline.add(new Vector(1, -1),   0.4);
-    spline.add(new Vector(2, 0),    0.4);
-    spline.add(new Vector(3, -2),   0.4);
-    spline.add(new Vector(4, -2.5), 0.4);
-    spline.add(new Vector(5, -2),   0.4);
-    spline.generatePath(s.graphics);
-    s.graphics.strokeColor(0xFFFFFFFF, 0.01);
-    view.addChild(s);
+    view.onEnterFrame.listen((e) {
+        num mx = stage.mouseX;
+        num my = stage.mouseY;
+        debugText.text = "Mode: $mode";
+        debugText.text += "\nFPS: ${(1.0 / e.passedTime).round()}";
+        debugText.text += "\nUnder mouse: ${stage.hitTestInput(mx, my)}";
+        debugText.text += "\nMouse Pos: ${mx.round()} / ${my.round()}";
+    });
 }

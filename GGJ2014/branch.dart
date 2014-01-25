@@ -1,16 +1,21 @@
 part of game;
 
 class Branch extends Sprite {
+    num water = 0.1;
+    num energy = 0.1;
+
     num thickness = 0.1;
+
     num baseRotation = 0.0;
 
-    num valve = .5;
+    num valve = 0.5;
     bool isDragging = false;
     Vector dragStartPoint = null;
 
-    var shape;
+    Shape shape;
+    TextField branchText = new TextField();
 
-    Branch() {
+    Branch(this.thickness) {
         shape = new GlassPlate(thickness, 1);
         shape.pivotX = thickness/2;
         shape.pivotY = 1;
@@ -19,6 +24,13 @@ class Branch extends Sprite {
 
         this.y = -1;
         onEnterFrame.listen(_onEnterFrame);
+
+        branchText.defaultTextFormat = new TextFormat('Tamsyn', 12, Color.White);
+        branchText.scaleX = 0.01;
+        branchText.scaleY = 0.01;
+        branchText.y = -0.5;
+        branchText.text = "branchText";
+        addChild(branchText);
     }
 
     int getDepth() {
@@ -44,11 +56,9 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        shape.width = thickness;
-        shape.pivotX = thickness/2;
-        // shape.graphics.clear();
-        // shape.graphics.rect(-thickness/2, -1, thickness, 1);
-        // shape.graphics.strokeColor(0xFF00FF00, 0.01);
+        // Update debug info
+        branchText.text = "D${getDepth()}";
+        branchText.text += "\nW${water}E${energy}";
 
         this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.01);
 
@@ -56,11 +66,6 @@ class Branch extends Sprite {
         num et = thickness;
 
         this.graphics.clear();
-        // this.graphics.moveTo(-et/2, -1);
-        // this.graphics.lineTo(-st/2, 0);
-        // this.graphics.lineTo( st/2, 0);
-        // this.graphics.lineTo( et/2, -1);
-        // this.graphics.closePath();
 
         if(isRoot()) {
             Spline spline = new Spline();
@@ -159,9 +164,8 @@ class Branch extends Sprite {
     }
 
     void growChild(num absolute_angle) {
-        Branch b = new Branch();
+        Branch b = new Branch(thickness * 0.5);
         b.rotation = absolute_angle - getAbsoluteAngle();
-        b.thickness = thickness * 0.5;
         addChild(b);
     }
 
@@ -169,8 +173,4 @@ class Branch extends Sprite {
         var p = view.globalToLocal(localToGlobal(new Point(0, 0)));
         return new Vector(p.x, p.y);
     }
-
-    // DisplayObject hitTestInput(num localX, num localY) {
-    //     return (shape.hitTestInput(localX, localY) != null) ? this : null;
-    // }
 }
