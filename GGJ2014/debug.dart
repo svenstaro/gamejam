@@ -33,7 +33,7 @@ void debugTree(int depth, var parent) {
             }
         }
         b.reset();
-        
+
         if(colorLeaves) {
             b.growLeaves((5 - b.depth) * 1);
         }
@@ -77,13 +77,6 @@ void debugRoots(int depth, var parent) {
         if(count > 1)
             b.baseRotation = (i*1.0/(count-1) - 0.5) * spread;
         b.baseRotation += (random.nextDouble() - 0.5) * 0.5;
-
-        if(b.absoluteAngle > PI) {
-            b.baseRotation = (PI - b.parent.absoluteAngle);
-        }
-        if(b.absoluteAngle < 0) {
-            b.baseRotation = b.parent.absoluteAngle;
-        }
 
         b.length = random.nextDouble() * 0.3 + 0.3;
         parent.addChild(b);

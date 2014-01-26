@@ -14,7 +14,7 @@ class LeafBranch extends Sprite {
         graphics.strokeColor(0x88000000, 0.05);
         x = (random.nextDouble() * 2 - 1) * branch.thickness;
         x = 0;
-        y = -random.nextDouble();
+        y = -random.nextDouble() * branch.length;
         scaleX = 0.3;
         scaleY = 0.3;
         rotation = PI/4 + (random.nextDouble() * 2 - 1) * 0.5;
@@ -51,7 +51,7 @@ class Leaf extends Sprite {
 
         onEnterFrame.listen((EnterFrameEvent e) {
             this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
-            
+
             if(alpha < 1) {
                 alpha = (alpha + e.passedTime * 0.4).clamp(0,1);
             }

@@ -111,11 +111,12 @@ void run() {
     treeBase = new Branch(0.4);
     treeBase.y = 0;
     view.addChild(treeBase);
-    if(debug)
+    if(debug) {
         debugTree(0, treeBase);
-    else
+    } else {
+        treeBase.thickness = 0.01;
         gameTree(0, treeBase);
-        
+    }
 
     rootBase = new Branch(0.4);
     rootBase.y = 0;
