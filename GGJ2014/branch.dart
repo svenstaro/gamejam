@@ -31,7 +31,7 @@ class Branch extends Sprite {
     }
     num get wither => _wither;
     num get witherDelta => max(0, _wither - _old_wither);
-    
+
     bool deleteSoon = false;
 
     num baseRotation = 0.0;
@@ -60,6 +60,7 @@ class Branch extends Sprite {
 
     GlassPlate shape = null;
     Shape debugShape = null;
+    Sprite hurtSprite = null;
     TextField branchText = new TextField();
 
     num veinAlpha = 0;
@@ -97,6 +98,16 @@ class Branch extends Sprite {
         branchText.visible = false;
         this.mouseEnabled = false;
         addChild(branchText);
+
+        hurtSprite = new Sprite();
+        hurtSprite.graphics.circle(0, 0, 1);
+        GraphicsGradient g = new GraphicsGradient.radial(0, 0, 0, 0, 0, 1);
+        g.addColorStop(0, 0xFFFF0000);
+        g.addColorStop(1, 0x00FF0000);
+        hurtSprite.graphics.fillGradient(g);
+        hurtSprite.mouseEnabled = false;
+        hurtSprite.alpha = 0;
+        addChild(hurtSprite);
 
         stage.onMouseOver.listen((e) {
             if(!isRoot) {
@@ -198,7 +209,9 @@ class Branch extends Sprite {
                 energy = (energy + e.passedTime * energyFactor * depth / 3).clamp(0, 1);
                 water -= e.passedTime * thirstiness;
                 if(water < 0) {
-                    wither -= water * witherFactor;
+                    if(!isRoot) {
+                        wither -= water * witherFactor;
+                    }
                     water = 0;
                 }
 
@@ -313,6 +326,13 @@ class Branch extends Sprite {
             valve += frameTime * 2;
             debugMessage = "Valve: " + valve.toString();
         }
+
+        if(!isRoot && witherDelta>0) {
+            hurtSprite.scaleX = thickness*4;
+            hurtSprite.scaleY = length*0.7;
+            hurtSprite.alpha = (witherDelta*5000).clamp(0, 1) * wither;
+            hurtSprite.y = -length/2;
+        }
     }
 
     void addPoints(Spline spline, Branch base) {
@@ -389,6 +409,11 @@ class Branch extends Sprite {
         b._valve = 0.5;
         addChild(b);
         b.reset();
+        
+        if(branchesToDie > 0) {
+            --branchesToDie;
+        }
+        
         return b;
     }
 

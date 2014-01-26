@@ -149,7 +149,8 @@ void run() {
 
     // Death
     view.onEnterFrame.listen((e) {
-        //if(!canDie) return;
+        //print(canDie);
+        if(branchesToDie > 0) return;
         if(treeBase.branches.every((e) => e.isEndBranch) && !isDead) {
             gameText.visible = true;
             gameText.text = "Your tree has died. :(\nPlease take better care of it next time.";
