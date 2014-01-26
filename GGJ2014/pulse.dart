@@ -71,7 +71,7 @@ class Pulse extends Sprite {
             }
             // return b[random.nextInt(b.length)];
         } else {
-            return !currentBranch.isBase ? currentBranch.parent : (type == WATER ? treeBase : rootBase);
+            return !currentBranch.isBase ? currentBranch.parent : treeBase;
         }
     }
 }
