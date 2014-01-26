@@ -232,7 +232,7 @@ class Branch extends Sprite {
             _waterCreated += waterDelta;
 
             num pulse_threshold = 0.05;
-            if(_energyCreated >= pulse_threshold) {
+            if(_energyCreated >= pulse_threshold && !isRoot) {
                 view.addChild(new Pulse(Pulse.ENERGY, this));
                 _energyCreated -= pulse_threshold;
             }
