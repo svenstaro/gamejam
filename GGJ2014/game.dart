@@ -140,8 +140,6 @@ void run() {
     // FrameTime
     view.onEnterFrame.listen((e) {
         frameTime = e.passedTime;
-        //also, root thicknesses. y not
-        rootBase.thickness = treeBase.thickness;
     });
 
     // Death
@@ -183,6 +181,13 @@ void run() {
                 }
             }
         }
+    });
+    
+    //roots
+    view.onEnterFrame.listen((e) {
+        var scale = treeBase.thickness * 2.5;
+        rootBase.scaleX = scale;
+        rootBase.scaleY = scale;
     });
 
     debugText = new TextField();

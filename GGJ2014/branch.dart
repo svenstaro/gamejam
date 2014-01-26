@@ -165,7 +165,7 @@ class Branch extends Sprite {
     void _onEnterFrame(EnterFrameEvent e) {
         if(isDead) return;
 
-        e = new EnterFrameEvent(e.passedTime * 1);
+        e = new EnterFrameEvent(e.passedTime * 10);
 
         // Update gameplay values
         num energyFactor = 0.05;
