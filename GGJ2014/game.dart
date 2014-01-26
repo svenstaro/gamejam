@@ -139,6 +139,8 @@ void run() {
     // FrameTime
     view.onEnterFrame.listen((e) {
         frameTime = e.passedTime;
+        //also, root thicknesses. y not
+        rootBase.thickness = treeBase.thickness;
     });
 
     // Death

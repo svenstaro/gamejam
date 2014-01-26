@@ -318,7 +318,7 @@ class Branch extends Sprite {
 
         int numBranches = branches.length;
         int branchNumber = 0;
-        num totalThickness = branches.length > 0 ? branches.reduce((t, b) => (t is Branch ? t.thickness : t) + b.thickness) : 0;
+        num totalThickness = branches.length > 0 ? branches.fold(0, (prev, elem) => (prev is Branch ? prev.thickness : prev) + (elem is Branch ? elem.thickness : elem)) : 0;
         num akkuThickness = 0;
         for(Branch branch in branches) {
             if(branchNumber > 0) {
