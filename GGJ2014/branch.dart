@@ -185,6 +185,10 @@ class Branch extends Sprite {
                     growChild(0.5, 0.2);
                 }
             }
+
+            if(length >= 1) {
+                growLeaves(depth);
+            }
         }
 
         // Generate water in root
