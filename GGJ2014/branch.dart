@@ -51,6 +51,8 @@ class Branch extends Sprite {
     Shape debugShape = null;
     TextField branchText = new TextField();
 
+    num veinAlpha = 0;
+
     num maxLength = 1;
     num _length = 1;
     num set length(num value) {
@@ -265,7 +267,10 @@ class Branch extends Sprite {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
             spline.generatePath(graphics);
-            graphics.strokeColor(new AwesomeColor(1, 1, 1, (totalValve * 4).clamp(0,1)).hex, 0.01);
+            num alpha = relaxMode ? 0 : totalValve;
+            num alphaSpeed = 5;
+            veinAlpha = lerp(veinAlpha, alpha, alphaSpeed*e.passedTime).clamp(0, 1);
+            graphics.strokeColor(new AwesomeColor(1, 1, 1, veinAlpha).hex, 0.01);
         }
 
         branchColor = (new AwesomeColor.fromHex(0x55DDFFDD) * Environment.getLightColorFor(this)).hex;
@@ -336,7 +341,7 @@ class Branch extends Sprite {
             debugMessage = "$offset";
         }
 
-        num lenFac = isEndBranch ? 1 : 0.5;
+        num lenFac = isEndBranch ? 1 : 0.8;
         spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -length*lenFac))), tangentLength);
 
         if(!isBase) {
@@ -407,13 +412,17 @@ class Branch extends Sprite {
     }
 
     void splitAt(Point p) {
-        var ratio = -p.y/length;
+        if(length < 0.4) {
+            print("I do not split small branches");
+        }
+
+        var ratio = (-p.y/length).clamp(0.2, 0.8);
 
         var childBranches = branches;
         for(var b in childBranches) removeChild(b);
 
         var secondPart = growChild(0, length * (1-ratio));
-        var newBranch = growChild(sign(p.x), thickness/2);
+        var newBranch = growChild(sign(p.x), thickness*0.8);
 
         length *= ratio;
         secondPart.thickness = thickness;
