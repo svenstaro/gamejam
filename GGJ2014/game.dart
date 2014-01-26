@@ -135,6 +135,11 @@ void run() {
     gameText.visible = false;
     stage.addChild(gameText);
 
+    // FrameTime
+    view.onEnterFrame.listen((e) {
+        frameTime = e.passedTime;
+    });
+
     // Death
     view.onEnterFrame.listen((e) {
         if(!canDie) return;
