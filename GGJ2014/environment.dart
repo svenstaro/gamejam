@@ -19,11 +19,11 @@ class Environment extends Animatable {
     }
 
     bool advanceTime(num time) {
-        if(!relaxMode) {
+        //if(!relaxMode) {
             _time += time;
-        }
+        //}
 
-        var wp = _windGen(_seed, _time * 0.002);
+        var wp = _windGen(_seed, _time * 0.05);
         Wind.windPower = wp * 0.5 + 0.5;
         Wind.secondsPerWave = 10 - Wind.windPower * 8;
         //print("${Wind.secondsPerWave} und ${Wind.windPower}");
