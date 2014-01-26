@@ -25,7 +25,7 @@ Shape makeGround(double seed) {
     var gen = makeOctave2(simplex2, 3, 0.01);
 
     var shape = new Shape();
-    var ref = gen(seed, 0.0);
+    var ref = gen(seed, 0.0) + 0.05;
 
     amountOfRain = 2;
 
