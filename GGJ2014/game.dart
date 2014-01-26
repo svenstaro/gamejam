@@ -129,8 +129,8 @@ void run() {
     debugRoots(0, rootBase);
 
     gameText = new TextField();
-    gameText.defaultTextFormat = new TextFormat('monospace', 24, Color.White);
-    gameText.width = 600;
+    gameText.defaultTextFormat = new TextFormat('helvecita', 24, Color.White);
+    gameText.width = 700;
     gameText.height = 150;
     gameText.autoSize = "CENTER";
     gameText.x = stage.stageWidth / 2 - gameText.width / 2;
@@ -206,7 +206,7 @@ void run() {
     var intro2 = new Transition(1, 0, 5, TransitionFunction.linear);
     intro2.onUpdate = (value) => gameText.alpha = value;
     intro2.onComplete = () {
-        gameText.text = "Use right click to split branches.\nIf a branch is too thirsty, it will wither\nand glow red.";
+        gameText.text = "Use left click to control branch energy/water flow.\nUse right click to split branches.\nIf a branch is too thirsty, it will wither and glow red.";
         stage.juggler.add(intro3);
     };
 
