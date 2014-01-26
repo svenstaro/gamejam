@@ -23,6 +23,8 @@ class Pulse extends Sprite {
         graphics.fillGradient(g);
         alpha = 0;
 
+        mouseEnabled = false;
+
         var s = new Shape();
         s.graphics.circle(0, 0, 0.01);
         if(type == WATER) {
