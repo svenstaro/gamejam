@@ -204,8 +204,8 @@ class Branch extends Sprite {
                 water = (water + de * energyToWater).clamp(0, 1);
             }
 
-            _waterCreated += waterDelta;
             _energyCreated += energyDelta;
+            _waterCreated += waterDelta;
 
             num pulse_threshold = 0.05;
             if(_energyCreated >= pulse_threshold) {
@@ -218,9 +218,11 @@ class Branch extends Sprite {
             }
 
             // Aging -> thickness grows
-            num maxThickness = 0.8;
+            num maxThickness = isBase ? 0.8 : parent.thickness * 0.9;
             num thicknessGrowth = 0.01;
-            thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
+            if(!isRoot) {
+                thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
+            }
 
             for(var child in branches) {
                 num de = child.energy * valve * e.passedTime * transferRate;
@@ -245,7 +247,7 @@ class Branch extends Sprite {
         if(isRoot || isBase) {
             this.rotation = baseRotation;
         } else {
-            this.rotation = baseRotation + Wind.power * 0.2;
+            this.rotation = baseRotation + Wind.power * 0.2 * length;
         }
 
         num st = startThickness;
@@ -306,12 +308,15 @@ class Branch extends Sprite {
 
         int numBranches = branches.length;
         int branchNumber = 0;
+        num totalThickness = branches.length > 0 ? branches.reduce((t, b) => (t is Branch ? t.thickness : t) + b.thickness) : 0;
+        num akkuThickness = 0;
         for(Branch branch in branches) {
             if(branchNumber > 0) {
-                spline.add(base.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -length-off))), 0.0);
+                spline.add(base.globalToLocal(localToGlobal(new Point( et*(akkuThickness/totalThickness-0.5), -length-off))), 0.0);
             }
             branch.addPoints(spline, base);
             branchNumber++;
+            akkuThickness += branch.thickness;
         }
 
         // going down on the right
@@ -323,14 +328,17 @@ class Branch extends Sprite {
 
     void addVeinPoints(Spline spline, Branch end_branch, Branch from, num offset) {
         num off = branches.length > 0 ? min(0.1, branches.map((b) => b.length).reduce(max) * 0.5) : 0;
-        num tangentLength = off*length;
+        num tangentLength = off*length*2;
 
         if(from != null) {
             int index = this.branches.indexOf(from) + 1;
             offset += ((index/(this.branches.length+1))-0.5)*thickness;
             debugMessage = "$offset";
         }
-        spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -length))), tangentLength);
+
+        num lenFac = isEndBranch ? 1 : 0.5;
+        spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -length*lenFac))), tangentLength);
+
         if(!isBase) {
             this.parent.addVeinPoints(spline, end_branch, this, offset);
         } else {
@@ -372,13 +380,14 @@ class Branch extends Sprite {
         print("Drag stop");
     }
 
-    void growChild(num angle, [num length = 1]) {
+    Branch growChild(num angle, [num length = 1]) {
         Branch b = new Branch(0.001);
         b.baseRotation = angle;
         b.length = length;
         b._valve = 0.5;
         addChild(b);
         b.reset();
+        return b;
     }
 
     void delete() {
@@ -395,5 +404,23 @@ class Branch extends Sprite {
     Vector get basePosition {
         var p = view.globalToLocal(localToGlobal(new Point(0, -length)));
         return new Vector(p.x, p.y);
+    }
+
+    void splitAt(Point p) {
+        var ratio = -p.y/length;
+
+        var childBranches = branches;
+        for(var b in childBranches) removeChild(b);
+
+        var secondPart = growChild(0, length * (1-ratio));
+        var newBranch = growChild(sign(p.x), thickness/2);
+
+        length *= ratio;
+        secondPart.thickness = thickness;
+        newBranch.thickness = 0;
+        // newBranch.x = sign(p.x) * thickness/2;
+        thickness = lerp(startThickness, thickness, ratio);
+
+        for(var b in childBranches) secondPart.addChild(b);
     }
 }
