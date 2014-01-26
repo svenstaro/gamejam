@@ -447,7 +447,7 @@ class Branch extends Sprite {
         for(var b in childBranches) removeChild(b);
 
         var secondPart = growChild(0, length * (1-ratio));
-        var newBranch = growChild(sign(p.x), thickness*0.8);
+        var newBranch = growChild(sign(p.x), startThickness*0.8);
 
         length *= ratio;
         secondPart.thickness = thickness;
