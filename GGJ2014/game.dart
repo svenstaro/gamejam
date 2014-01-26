@@ -218,7 +218,10 @@ void run() {
         var obj = treeBase.hitTestInput(p.x, p.y);
         if(obj is GlassPlate) {
             obj = obj.parent;
-            obj.deleteSoon = true;
+            // obj.deleteSoon = true;
+            if(obj is Branch) {
+                obj.splitAt(obj.globalToLocal(new Point(e.stageX, e.stageY)));
+            }
         }
     });
 
