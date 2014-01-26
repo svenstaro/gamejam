@@ -235,7 +235,7 @@ class Branch extends Sprite {
 
             // Aging -> thickness grows
             num maxThickness = isBase ? 0.8 : (parent as Branch).thickness * 0.9 / (parent as Branch).branches.length;
-            num thicknessGrowth = 0.001;
+            num thicknessGrowth = 0.003;
             if(!isRoot) {
                 thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
             }
