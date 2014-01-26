@@ -93,6 +93,7 @@ class Branch extends Sprite {
         shape.pivotX = thickness/2;
         shape.pivotY = length;
         addChild(shape);
+        shape = null;
 
         // debug shape
         // if(debugShape != null) removeChild(debugShape);
