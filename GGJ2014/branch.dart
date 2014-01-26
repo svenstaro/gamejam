@@ -239,6 +239,7 @@ class Branch extends Sprite {
                 num de = min(energy, energyConversionRate);
                 energy -= de;
                 water = (water + de * energyToWater).clamp(0, 1);
+                _waterCreated += de*energyToWater;
             }
 
             _energyCreated += energyDelta;
@@ -249,7 +250,8 @@ class Branch extends Sprite {
                 view.addChild(new Pulse(Pulse.ENERGY, this));
                 _energyCreated -= pulse_threshold;
             }
-            if(_waterCreated >= pulse_threshold) {
+            pulse_threshold = 0.005;
+            if(_waterCreated >= pulse_threshold && !isRoot) {
                 view.addChild(new Pulse(Pulse.WATER, this));
                 _waterCreated -= pulse_threshold;
             }
