@@ -73,8 +73,6 @@ class Branch extends Sprite {
         reset();
 
         onEnterFrame.listen(_onEnterFrame);
-        onMouseOver.listen((e){ branchText.visible = debug; });
-        onMouseOut.listen((e){ branchText.visible = false; });
 
         branchText.defaultTextFormat = new TextFormat('monospace', 10, Color.White);
         branchText.scaleX = 0.01;
@@ -86,6 +84,15 @@ class Branch extends Sprite {
         branchText.visible = false;
         this.mouseEnabled = false;
         addChild(branchText);
+
+        stage.onMouseOver.listen((e) {
+            if(!isRoot) {
+                branchText.visible = debug;
+            }
+            else {
+                branchText.visible = false;
+            }
+        });
     }
 
     void reset() {
@@ -156,7 +163,7 @@ class Branch extends Sprite {
     void _onEnterFrame(EnterFrameEvent e) {
         if(isDead) return;
         
-        e = new EnterFrameEvent(e.passedTime * 10);
+        e = new EnterFrameEvent(e.passedTime * 1);
 
         // Update gameplay values
         num energyFactor = 0.05;
