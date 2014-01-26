@@ -10,6 +10,7 @@ var amountOfRain;
 var resourceManager;
 var gameText;
 var background;
+var frameTime;
 bool debug = false;
 bool relaxMode = false;
 bool canDie = false;

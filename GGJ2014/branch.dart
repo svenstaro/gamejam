@@ -221,7 +221,7 @@ class Branch extends Sprite {
             }
 
             // Aging -> thickness grows
-            num maxThickness = 0.8;
+            num maxThickness = isRoot ? 0.1 : 0.5;
             num thicknessGrowth = 0.01;
             thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
 
