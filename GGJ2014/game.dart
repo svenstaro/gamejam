@@ -173,6 +173,52 @@ void run() {
     //doesn't even
     //view.addChild(new HumanEvent());
 
+    //////////
+    // Introductory text
+    gameText.visible = true;
+
+    // Fade in scene
+    stage.juggler.transition(0, 1, 20, TransitionFunction.linear, (value) => view.alpha = value);
+
+    // First text
+    gameText.text = "This is your TamagotchTree.";
+
+    var intro5 = new Transition(0, 1, 5, TransitionFunction.linear);
+    intro5.onUpdate = (value) => gameText.alpha = value;
+    intro5.onComplete = () {
+        stage.juggler.transition(1, 0, 5, TransitionFunction.linear, (value) => gameText.alpha = value);
+    };
+
+    var intro4 = new Transition(1, 0, 5, TransitionFunction.linear);
+    intro4.onUpdate = (value) => gameText.alpha = value;
+    intro4.onComplete = () {
+        gameText.text = "Take good care of your tree or it will die!\nGood luck.";
+        stage.juggler.add(intro5);
+    };
+
+    var intro3 = new Transition(0, 1, 5, TransitionFunction.linear);
+    intro3.onUpdate = (value) => gameText.alpha = value;
+    intro3.onComplete = () {
+        stage.juggler.add(intro4);
+    };
+
+    var intro2 = new Transition(1, 0, 5, TransitionFunction.linear);
+    intro2.onUpdate = (value) => gameText.alpha = value;
+    intro2.onComplete = () {
+        gameText.text = "Use right click to split branches.\nIf a branch is too thirsty, it will wither\nand glow red.";
+        stage.juggler.add(intro3);
+    };
+
+    var intro1 = new Transition(0, 1, 5, TransitionFunction.linear);
+    intro1.onUpdate = (value) => gameText.alpha = value;
+    intro1.onComplete = () {
+        stage.juggler.add(intro2);
+    };
+
+    stage.juggler.add(intro1);
+
+    ///////////
+
     // Rain
     view.onEnterFrame.listen((e) {
         for (var i = 0; i < amountOfRain; i++) {
