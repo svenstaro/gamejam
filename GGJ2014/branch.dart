@@ -409,6 +409,11 @@ class Branch extends Sprite {
         b._valve = 0.5;
         addChild(b);
         b.reset();
+        
+        if(branchesToDie > 0) {
+            --branchesToDie;
+        }
+        
         return b;
     }
 
