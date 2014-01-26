@@ -10,6 +10,8 @@ class Branch extends Sprite {
         _water = water;
     }
     num get water => _water;
+    num get waterDelta => max(0, _old_water - _water);
+    Map waterConfig;
 
     num _energy = 0;
     num _old_energy = 0;
@@ -18,8 +20,11 @@ class Branch extends Sprite {
         _energy = energy;
     }
     num get energy => _energy;
+    num get energyDelta => max(0, _energy - _old_energy);
+    Map energyConfig;
 
     num wither = 0;
+    bool deleteSoon = false;
 
     num baseRotation = 0.0;
 
@@ -149,8 +154,8 @@ class Branch extends Sprite {
         num energyFactor = 0.05;
         num energyToWater = 1;
         num thirstiness = 0.001;
-        num witherFactor = 0.5;
-        num energyConversionRate = 0.1;
+        num witherFactor = 5;
+        num energyConversionRate = 0.01;
         num transferRate = 0.01;
         num transferFactor = 1;
 
@@ -174,7 +179,7 @@ class Branch extends Sprite {
 
         for(var child in branches) {
             num de = child.energy * valve * e.passedTime * transferRate;
-            energy += de;
+            energy = (energy + de).clamp(0, 1);
             child.energy -= de;
 
             num dw = (valve * e.passedTime * transferRate) / branches.length;
@@ -218,6 +223,16 @@ class Branch extends Sprite {
         }
 
         branchColor = (new AwesomeColor.fromHex(0x55DDFFDD) * Environment.getLightColorFor(this)).hex;
+
+        if(wither >= 1.0) {
+            deleteSoon = true;
+        }
+
+        for(var child in branches) {
+            if(child.deleteSoon) {
+                child.delete();
+            }
+        }
     }
 
     void addPoints(Spline spline, Branch base) {
@@ -312,6 +327,11 @@ class Branch extends Sprite {
         Branch b = new Branch(thickness * 0.5);
         b.rotation = absolute_angle - this.absoluteAngle;
         addChild(b);
+    }
+
+    void delete() {
+        if(shape != null) removeChild(shape);
+        removeFromParent();
     }
 
     Vector get tipPosition {

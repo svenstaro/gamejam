@@ -41,11 +41,9 @@ void retardTree(int depth, var parent) {
 
 void debugRoots(int depth, var parent) {
     int count = 2;
-    if(depth == 0) count = 5;
+    if(depth == 0) count = 4;
 
     for(int i = 0; i < count; ++i) {
-        if(depth == 0 && i == 2) continue;
-
         Branch b = new Branch(parent.thickness * 0.3);
 
         num spread = 0.2;
@@ -54,6 +52,7 @@ void debugRoots(int depth, var parent) {
         }
 
         b.baseRotation = (1 - pow(random.nextDouble(), 2)) * randSign() * spread;
+        b._valve = 1/count;
 
         if(count > 1)
             b.baseRotation = (i*1.0/(count-1) - 0.5) * spread;
