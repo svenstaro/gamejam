@@ -172,10 +172,10 @@ class Branch extends Sprite {
         num energyToWater = 1;
         num thirstiness = 0.001;
         num witherFactor = 5;
-        num energyConversionRate = 0.01;
+        num energyConversionRate = 0.1;
         num transferRate = 0.01;
         num transferFactor = 1;
-        num growthRate = 0.01; // length per second at full water
+        num growthRate = 0.05; // length per second at full water
         num waterGrowthConversion = 0.2;
 
         // THIS IS THE RESOURCE SIMULATION PART
@@ -211,7 +211,7 @@ class Branch extends Sprite {
 
             // Generate water in root
             if(isRoot) {
-                num de = min(energy, energyConversionRate);
+                num de = min(energy, energyConversionRate) * thickness;
                 energy -= de;
                 water = (water + de * energyToWater).clamp(0, 1);
             }
