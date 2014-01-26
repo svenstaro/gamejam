@@ -47,7 +47,7 @@ class Branch extends Sprite {
 
     int branchColor = 0;
 
-    int get treeSize => length + (branches.length == 0 ? 0 : branches.fold(0, (v, b) => max(v, b.treeSize)));
+    num get treeSize => length + (branches.length == 0 ? 0 : branches.fold(0, (v, b) => max(v, b.treeSize)));
 
     GlassPlate shape = null;
     Shape debugShape = null;

@@ -142,9 +142,6 @@ void run() {
     view.onEnterFrame.listen((e) {
         frameTime = e.passedTime;
 
-        //also, root thicknesses. y not
-        rootBase.thickness = treeBase.thickness;
-
         view.scaleX = view.scaleY = (stage.stageHeight / treeBase.treeSize) * 0.5;
     });
 
@@ -191,9 +188,10 @@ void run() {
 
     //roots
     view.onEnterFrame.listen((e) {
-        var scale = treeBase.thickness * 2.5;
-        rootBase.scaleX = scale;
-        rootBase.scaleY = scale;
+        var scale = treeBase.thickness;
+        rootBase.scaleX = scale * 2.5;
+        rootBase.scaleY = scale * 2.5;
+        //rootBase.thickness = treeBase.thickness;
     });
 
     debugText = new TextField();
