@@ -41,12 +41,12 @@ class Leaf extends Sprite {
         //graphics.fillColor((new AwesomeColor.fromHex(0x44FFFFFF) * Environment.getLightColorFor(leafBranch.branch)).hex);
         x = 0;
         y = - random.nextDouble() * leafBranch.length;
-        var scale = colorLeaves ? 1.6 : 0.6; 
+        var scale = colorLeaves ? 1.6 : 0.6;
         scaleX = scale;
         scaleY = scale;
         baseRotation = random.nextDouble() * 2 - 1;
         alpha = 0;
-        
+
         drawLeaf(leafBranch);
 
         onEnterFrame.listen((EnterFrameEvent e) {
@@ -55,11 +55,11 @@ class Leaf extends Sprite {
             if(alpha < 1) {
                 alpha = (alpha + e.passedTime * 0.4).clamp(0,1);
             }
-            
+
             if(colorLeaves) drawLeaf(leafBranch);
         });
     }
-     
+
     void drawLeaf(leafBranch) {
         graphics.clear();
         graphics.beginPath();
@@ -67,7 +67,7 @@ class Leaf extends Sprite {
         graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
         graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
         graphics.closePath();
-        
+
         if(colorLeaves) {
             graphics.fillColor(leafBranch.branch.branchColor);
         }

@@ -3,8 +3,6 @@ part of game;
 class EyeToggle extends Sprite {
     EyeToggle() {
         scaleX = scaleY = 10;
-        x = stage.stageWidth - 20;
-        y = stage.stageHeight - 20;
         _update();
         onMouseDown.listen((e) {
             relaxMode = !relaxMode;
@@ -21,6 +19,8 @@ class EyeToggle extends Sprite {
     }
 
     void _update() {
+        x = stage.stageWidth - 20;
+        y = stage.stageHeight - 20;
         graphics.clear();
         graphics.beginPath();
         graphics.moveTo(-1.5, 0);

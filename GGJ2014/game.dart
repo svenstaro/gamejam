@@ -82,6 +82,7 @@ void run() {
     stage.align = StageAlign.TOP_LEFT;
     stage.onResize.listen((e) {
         updateBackground();
+        eyeToggle._update();
         view.x = stage.stageWidth * 0.5;
         view.y = stage.stageHeight * 0.7;
     });
@@ -142,6 +143,8 @@ void run() {
         frameTime = e.passedTime;
         //also, root thicknesses. y not
         rootBase.thickness = treeBase.thickness;
+
+        view.scaleX = view.scaleY = (stage.stageHeight / treeBase.treeSize) * 0.5;
     });
 
     // Death
@@ -283,5 +286,6 @@ void run() {
     var b = rootBase;
     while(!b.isEndBranch) b = b.branches[0];
 
-    stage.addChild(new EyeToggle());
+    eyeToggle = new EyeToggle();
+    stage.addChild(eyeToggle);
 }

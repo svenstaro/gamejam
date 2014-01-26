@@ -47,6 +47,8 @@ class Branch extends Sprite {
 
     int branchColor = 0;
 
+    int get treeSize => length + (branches.length == 0 ? 0 : branches.fold(0, (v, b) => max(v, b.treeSize)));
+
     GlassPlate shape = null;
     Shape debugShape = null;
     TextField branchText = new TextField();
@@ -100,8 +102,9 @@ class Branch extends Sprite {
     void reset() {
         // click shape
         if(shape != null) removeChild(shape);
-        shape = new GlassPlate(thickness, length);
-        shape.pivotX = thickness/2;
+        num shapeWidth = max(thickness, 0.05);
+        shape = new GlassPlate(shapeWidth, length);
+        shape.pivotX = shapeWidth/2;
         shape.pivotY = length;
         addChild(shape);
 
@@ -109,7 +112,7 @@ class Branch extends Sprite {
         // debug shape
         // if(debugShape != null) removeChild(debugShape);
         // debugShape = new Shape();
-        // debugShape.graphics.rect(-thickness/2, -length, thickness, length);
+        // debugShape.graphics.rect(-shapeWidth/2, -length, shapeWidth, length);
         // debugShape.graphics.strokeColor(0xFF00FF00, 0.01);
         // addChild(debugShape);
 
@@ -272,7 +275,7 @@ class Branch extends Sprite {
             addPoints(spline, this);
             spline.generatePath(graphics);
             graphics.fillColor(0xFF000000);
-            graphics.strokeColor(relaxMode ? 0xFF000000 : 0x55FFFFFF, 0.01);
+            graphics.strokeColor(relaxMode ? 0xFF000000 : 0x55FFFFFF, 1/view.scaleX);
         } else if(isEndBranch) {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
@@ -280,7 +283,7 @@ class Branch extends Sprite {
             num alpha = relaxMode ? 0 : totalValve;
             num alphaSpeed = 5;
             veinAlpha = lerp(veinAlpha, alpha, alphaSpeed*e.passedTime).clamp(0, 1);
-            graphics.strokeColor(new AwesomeColor(1, 1, 1, veinAlpha).hex, 0.01);
+            graphics.strokeColor(new AwesomeColor(1, 1, 1, veinAlpha).hex, 1/view.scaleX);
         }
 
         if(colorLeaves) {
@@ -397,8 +400,9 @@ class Branch extends Sprite {
     }
 
     void splitAt(Point p) {
-        if(length < 0.4) {
+        if(length < 0.2) {
             print("I do not split small branches");
+            return;
         }
 
         var ratio = (-p.y/length).clamp(0.2, 0.8);
@@ -410,7 +414,6 @@ class Branch extends Sprite {
         var newBranch = growChild(sign(p.x), thickness*0.8);
 
         length *= ratio;
-        baseRotation *= ratio;
         secondPart.thickness = thickness;
         newBranch.thickness = 0;
         // newBranch.x = sign(p.x) * thickness/2;
