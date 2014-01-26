@@ -69,6 +69,7 @@ void updateBackground() {
 
 void updateRelaxMode() {
     updateBackground();
+    eyeToggle._update();
 }
 
 void run() {
@@ -265,6 +266,9 @@ void run() {
     stage.onKeyDown.listen((e) {
         if(e.keyCode == 68) {
             debug = !debug;
+        } else if(e.keyCode == 0x20) {
+            relaxMode = !relaxMode;
+            updateRelaxMode();
         }
     });
 
