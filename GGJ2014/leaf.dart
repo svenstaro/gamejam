@@ -44,9 +44,14 @@ class Leaf extends Sprite {
         scaleX = 0.6;
         scaleY = 0.6;
         baseRotation = random.nextDouble() * 2 - 1;
+        alpha = 0;
 
         onEnterFrame.listen((EnterFrameEvent e) {
             this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
+            
+            if(alpha < 1) {
+                alpha = (alpha + e.passedTime * 0.4).clamp(0,1);
+            }
         });
         //     graphics.clear();
         //     if(!debug) {
