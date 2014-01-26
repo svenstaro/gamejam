@@ -31,11 +31,12 @@ class Branch extends Sprite {
     num _valve = 1;
     void set valve(num value) {
         num diff = value - _valve;
-        _valve = value.clamp(0.0,1.0);
+        _valve = value.clamp(0.0, 1.0);
         if(parent is Branch) {
             for(var b in (parent as Branch).branches) {
                 if(!identical(b, this)) {
                     b._valve -= diff / ((parent as Branch).branches.length - 1);
+                    b._valve = b._valve.clamp(0, 1);
                 }
             }
         }
@@ -244,7 +245,7 @@ class Branch extends Sprite {
                 energy = (energy + de).clamp(0, 1);
                 child.energy -= de;
 
-                num dw = (valve * e.passedTime * transferRate) / branches.length;
+                num dw = (child.valve * e.passedTime * transferRate) / branches.length;
                 dw = min(dw, water);
                 dw = min(dw, 1 - child.water);
                 water -= dw;
@@ -281,9 +282,8 @@ class Branch extends Sprite {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
             spline.generatePath(graphics);
-            num alpha = relaxMode ? 0 : totalValve;
-            num alphaSpeed = 5;
-            veinAlpha = lerp(veinAlpha, alpha, 1/alphaSpeed/e.passedTime).clamp(0, 1);
+            veinAlpha = relaxMode ? 0 : totalValve;
+            // veinAlpha = lerp(veinAlpha, alpha, 1/alphaSpeed/e.passedTime).clamp(0, 1);
             graphics.strokeColor(new AwesomeColor(1, 1, 1, veinAlpha).hex, 1/view.scaleX);
         }
 
