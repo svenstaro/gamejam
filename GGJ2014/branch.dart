@@ -198,7 +198,9 @@ class Branch extends Sprite {
                 energy = (energy + e.passedTime * energyFactor * depth / 3).clamp(0, 1);
                 water -= e.passedTime * thirstiness;
                 if(water < 0) {
-                    wither -= water * witherFactor;
+                    if(!isRoot) {
+                        wither -= water * witherFactor;
+                    }
                     water = 0;
                 }
 
