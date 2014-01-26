@@ -23,7 +23,15 @@ class Branch extends Sprite {
     num get energyDelta => max(0, _energy - _old_energy);
     num _energyCreated = 0;
 
-    num wither = 0;
+    num _wither = 0;
+    num _old_wither = 0;
+    void set wither(num wither) {
+        _old_wither = _wither;
+        _wither = wither;
+    }
+    num get wither => _wither;
+    num get witherDelta => max(0, _wither - _old_wither);
+    
     bool deleteSoon = false;
 
     num baseRotation = 0.0;
@@ -224,7 +232,7 @@ class Branch extends Sprite {
             _waterCreated += waterDelta;
 
             num pulse_threshold = 0.05;
-            if(_energyCreated >= pulse_threshold) {
+            if(_energyCreated >= pulse_threshold && !isRoot) {
                 view.addChild(new Pulse(Pulse.ENERGY, this));
                 _energyCreated -= pulse_threshold;
             }
@@ -235,7 +243,7 @@ class Branch extends Sprite {
 
             // Aging -> thickness grows
             num maxThickness = isBase ? 0.8 : (parent as Branch).thickness * 0.9 / (parent as Branch).branches.length;
-            num thicknessGrowth = 0.001;
+            num thicknessGrowth = 0.003;
             if(!isRoot) {
                 thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
             }

@@ -69,6 +69,7 @@ void updateBackground() {
 
 void updateRelaxMode() {
     updateBackground();
+    eyeToggle._update();
 }
 
 void run() {
@@ -148,7 +149,7 @@ void run() {
 
     // Death
     view.onEnterFrame.listen((e) {
-        if(!canDie) return;
+        //if(!canDie) return;
         if(treeBase.branches.every((e) => e.isEndBranch) && !isDead) {
             gameText.visible = true;
             gameText.text = "Your tree has died. :(\nPlease take better care of it next time.";
@@ -267,6 +268,9 @@ void run() {
     stage.onKeyDown.listen((e) {
         if(e.keyCode == 68) {
             debug = !debug;
+        } else if(e.keyCode == 0x20) {
+            relaxMode = !relaxMode;
+            updateRelaxMode();
         }
     });
 
