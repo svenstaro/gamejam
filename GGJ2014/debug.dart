@@ -15,7 +15,7 @@ void debugTree(int depth, var parent) {
                 debugTree(depth + 1, b);
             }
         }
-        // b.growLeaves((5 - b.depth) * 3);
+        b.growLeaves(b.depth);
         b.reset();
     }
 }

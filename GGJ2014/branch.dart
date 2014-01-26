@@ -219,7 +219,7 @@ class Branch extends Sprite {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
             spline.generatePath(graphics);
-            graphics.strokeColor(new AwesomeColor(1, 1, 1, totalValve).hex, 0.01);
+            graphics.strokeColor(new AwesomeColor(1, 1, 1, (totalValve * 4).clamp(0,1)).hex, 0.01);
         }
 
         branchColor = (new AwesomeColor.fromHex(0x55DDFFDD) * Environment.getLightColorFor(this)).hex;
