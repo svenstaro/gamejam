@@ -31,20 +31,20 @@ class Environment extends Animatable {
     }
 
     static AwesomeColor getLightColorFor(Branch b) {
-        var angle = (b.getTipPosition().rads + PI) / (2 * PI);
-        
+        var angle = (b.tipPosition.rads + PI) / (2 * PI);
+
         //print(Clock.daytime);
         //print(angle);
-        
+
         var light = sinwave(Clock.daytime * 2);
         var sunColor = AwesomeColor.lerpColor(sunColor1, sunColor2, 1-light);
         //var moonColor = AwesomeColor.lerpColor(moonColor1, moonColor2, 1-light);
         var moonColor = moonColor2;
-        
+
         var dayLight = sinwave(Clock.daytime - .25);
         sunColor = sunColor * (dayLight + .3);
         moonColor = moonColor * (1-dayLight + .3);
-        
+
         var sunAngle = Clock.daytime;
         var moonAngle = (Clock.daytime + .5) % 1;
         var sunPower = angle01(angle, sunAngle);

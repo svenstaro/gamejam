@@ -33,6 +33,7 @@ class LeafBranch extends Sprite {
 class Leaf extends Sprite {
     LeafBranch leafBranch;
     num baseRotation;
+    num rotationSpeed = 0;
 
     Leaf(this.leafBranch) {
         // graphics.fillColor(0xFF00CC00);
@@ -40,23 +41,26 @@ class Leaf extends Sprite {
         //graphics.fillColor((new AwesomeColor.fromHex(0x44FFFFFF) * Environment.getLightColorFor(leafBranch.branch)).hex);
         x = 0;
         y = - random.nextDouble() * leafBranch.length;
-        scaleX = 1;
-        scaleY = 1;
+        scaleX = 0.6;
+        scaleY = 0.6;
         baseRotation = random.nextDouble() * 2 - 1;
 
         onEnterFrame.listen((EnterFrameEvent e) {
-            graphics.clear();
-            if(!debug) {
-                this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
+            this.rotation = lerp(baseRotation, PI * .5, Wind.power * 0.02);
+        });
+        //     graphics.clear();
+        //     if(!debug) {
 
                 graphics.beginPath();
                 graphics.moveTo(0, 0);
                 graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
                 graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
                 graphics.closePath();
+                graphics.fillColor(0xAAFFFFFF);
 
-                graphics.fillColor(leafBranch.branch.branchColor);
-            }
-        });
+                // graphics.fillColor(leafBranch.branch.branchColor);
+        //     }
+        // });
     }
+
 }

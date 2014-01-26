@@ -14,6 +14,7 @@ part 'environment.dart';
 part 'spline.dart';
 part 'human_event.dart';
 part 'leaf.dart';
+part 'pulse.dart';
 part 'wind.dart';
 part 'raindrop.dart';
 part 'branch.dart';
@@ -51,19 +52,9 @@ void main() {
     }).catchError((e) => print(e));
 }
 
-void run() {
-    random = new Random();
-
-    // setup the Stage and RenderLoop
-    canvas = html.querySelector('#stage');
-    stage = new Stage(canvas);
-    stage.focus = stage;
-    var renderLoop = new RenderLoop();
-    renderLoop.addStage(stage);
-
-    var background = new Shape();
+void updateBackground() {
+    background.graphics.clear();
     background.graphics.rect(0, 0, stage.stageWidth, stage.stageHeight);
-    stage.addChild(background);
 
     if(relaxMode) {
         var g = new GraphicsGradient.linear(0, 0, 0, stage.stageHeight);
@@ -73,6 +64,28 @@ void run() {
     } else {
         background.graphics.fillColor(0xFF000000);
     }
+}
+
+void run() {
+    random = new Random();
+
+    // setup the Stage and RenderLoop
+    canvas = html.querySelector('#stage');
+    stage = new Stage(canvas);
+    stage.focus = stage;
+    stage.scaleMode = StageScaleMode.NO_SCALE;
+    stage.align = StageAlign.TOP_LEFT;
+    stage.onResize.listen((e) {
+        updateBackground();
+        view.x = stage.stageWidth * 0.5;
+        view.y = stage.stageHeight * 0.7;
+    });
+    var renderLoop = new RenderLoop();
+    renderLoop.addStage(stage);
+
+    background = new Shape();
+    stage.addChild(background);
+    updateBackground();
 
     stage.juggler.add(new Environment());
     stage.juggler.add(new Clock());
@@ -81,27 +94,27 @@ void run() {
     Wind.secondsPerWave = 9.2;
 
     view = new Sprite();
-    view.x = stage.stageWidth / 2;
-    view.y = stage.stageHeight - 100;
+    view.x = stage.stageWidth * 0.5;
+    view.y = stage.stageHeight * 0.7;
     view.scaleX = 100;
     view.scaleY = 100;
-
     stage.addChild(view);
 
-    Branch root = new Branch(0.6);
-    root.y = 0;
-    view.addChild(root);
+    var ground = makeGround(random.nextDouble() * 100.0);
+    view.addChild(ground);
 
-    debugTree(0, root);
-    /*retardTree(0, root);*/
+    treeBase = new Branch(0.4);
+    treeBase.y = 0;
+    view.addChild(treeBase);
+    debugTree(0, treeBase);
 
-    Branch rootRoot = new Branch(0.6);
-    rootRoot.y = 0;
-    rootRoot.isRoot = true;
-    rootRoot.baseRotation = PI;
-    rootRoot.length = 0.1;
-    view.addChild(rootRoot);
-    debugRoots(0, rootRoot);
+    rootBase = new Branch(0.4);
+    rootBase.y = 0;
+    rootBase.isRoot = true;
+    rootBase.baseRotation = PI;
+    rootBase.length = 0.1;
+    view.addChild(rootBase);
+    debugRoots(0, rootBase);
 
     gameText = new TextField();
     gameText.defaultTextFormat = new TextFormat('monospace', 24, Color.White);
@@ -116,7 +129,7 @@ void run() {
 
     // Death
     view.onEnterFrame.listen((e) {
-        if(root.branches.every((e) => e.isEndBranch) && !isDead) {
+        if(treeBase.branches.every((e) => e.isEndBranch) && !isDead) {
             gameText.visible = true;
             isDead = true;
 
@@ -124,13 +137,10 @@ void run() {
             stage.juggler.transition(0, 1, 20, TransitionFunction.linear, (value) => gameText.alpha = value);
         }
     });
-    
+
     var particleConfig = {
         "maxParticles":323, "duration":0, "lifeSpan":3.09, "lifespanVariance":0.4, "startSize":10, "startSizeVariance":14, "finishSize":10, "finishSizeVariance":9, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":100, "y":0}, "speed":100, "speedVariance":52, "angle":90, "angleVariance":0, "gravity":{"x":0, "y":100}, "radialAcceleration":20, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":221, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"lighter", "startColor":{"red":0.2, "green":0.2, "blue":0.5, "alpha":1}, "finishColor":{"red":0.2, "green":0.2, "blue":1, "alpha":0}
     };
-
-    var ground = makeGround(random.nextDouble() * 100.0);
-    // view.addChild(ground);
 
     var particleEmitter = new ParticleEmitter(particleConfig);
     particleEmitter.setEmitterLocation(200, 200);
@@ -171,9 +181,9 @@ void run() {
 
     var currentBranch = null;
     stage.onMouseDown.listen((MouseEvent e) {
-        var p = root.globalToLocal(new Point(e.stageX, e.stageY));
+        var p = treeBase.globalToLocal(new Point(e.stageX, e.stageY));
         var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
-        var obj = view.hitTestInput(p.x, p.y);
+        var obj = treeBase.hitTestInput(p.x, p.y);
         if(obj is GlassPlate && mode == "valve") {
             obj = obj.parent;
 
@@ -189,8 +199,8 @@ void run() {
     });
 
     stage.onMouseRightDown.listen((MouseEvent e) {
-        var p = root.globalToLocal(new Point(e.stageX, e.stageY));
-        var obj = root.hitTestInput(p.x, p.y);
+        var p = treeBase.globalToLocal(new Point(e.stageX, e.stageY));
+        var obj = treeBase.hitTestInput(p.x, p.y);
         if(obj is GlassPlate) {
             obj = obj.parent;
             obj.delete();
@@ -219,6 +229,8 @@ void run() {
     var sound = resourceManager.getSound('noise');
     var t = sound.play(true);
 
+    var pulseAkku = 0;
+
     view.onEnterFrame.listen((e) {
         if(debug) {
             t.soundTransform = new SoundTransform.mute();
@@ -236,6 +248,19 @@ void run() {
         if(debugMessage != "") debugText.text += "\nDebug message: ${debugMessage}";
 
         debugText.visible = debug;
+
+        pulseAkku += e.passedTime;
+        if(pulseAkku > 2) {
+            pulseAkku -= 2;
+            for(var branch in rootBase.allEndBranches) {
+                view.addChild(new Pulse(Pulse.WATER, branch));
+            }
+            for(var branch in treeBase.allEndBranches) {
+                view.addChild(new Pulse(Pulse.ENERGY, branch));
+            }
+        }
     });
 
+    var b = rootBase;
+    while(!b.isEndBranch) b = b.branches[0];
 }
