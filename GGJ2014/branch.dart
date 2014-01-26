@@ -343,7 +343,7 @@ class Branch extends Sprite {
 
         num off = branches.length > 0 ? min(0.3 * thickness, branches.map((b) => b.length).reduce(max) * 0.5) : 0;
 
-        num tangentLength = isEndBranch ? 0.0 : off * length;
+        num tangentLength = isEndBranch ? 0.0 : 0.1*length;
 
         // going up on the left
         if(isBase) {
@@ -390,7 +390,7 @@ class Branch extends Sprite {
             //debugMessage = "$offset";
         }
 
-        num lenFac = isEndBranch ? 1 : 0.8;
+        num lenFac = isEndBranch ? 1 : 0.98;
         spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -length*lenFac))), tangentLength);
 
         if(!isBase) {
@@ -409,11 +409,11 @@ class Branch extends Sprite {
         b._valve = 0.5;
         addChild(b);
         b.reset();
-        
+
         if(branchesToDie > 0) {
             --branchesToDie;
         }
-        
+
         return b;
     }
 

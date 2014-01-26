@@ -1,18 +1,14 @@
 part of game;
 
-void gameTree(int depth, var parent){
-    int count = 1;
+void gameTree(var parent){
+    int count = 2;
     for(int i = 0; i < count; ++i) {
-        Branch b = new Branch(parent.thickness * 0.6);
-        if(count > 1)
-            b.baseRotation = (i*0.2/(count-1) - 0.5);
+        Branch b = new Branch(0);
+        b.baseRotation = (i*1.0/(count-1) - 0.5);
         b.baseRotation += (random.nextDouble() - 0.5) * 0.5;
-        b.length = random.nextDouble() * 0.2 + 0.3;
+        b.length = random.nextDouble() * 0.5 + 0.5;
+        b._valve = 0.5;
         parent.addChild(b);
-        if(depth < 1) {
-            gameTree(depth + 1, b);
-        }
-        //b.growLeaves((1 - b.depth) * 3);
         b.reset();
     }
 }

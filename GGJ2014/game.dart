@@ -116,8 +116,9 @@ void run() {
     if(debug) {
         debugTree(0, treeBase);
     } else {
-        treeBase.thickness = 0.01;
-        gameTree(0, treeBase);
+        treeBase.length = random.nextDouble() * 0.5 + 0.3;
+        treeBase.thickness = 0.05;
+        gameTree(treeBase);
     }
 
     rootBase = new Branch(0.4);
