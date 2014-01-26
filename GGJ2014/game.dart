@@ -116,15 +116,25 @@ void run() {
     view.addChild(rootBase);
     debugRoots(0, rootBase);
 
-    // Root
-    view.onEnterFrame.listen((e) {
-        bool lost = false;
-        if(treeBase.branches.every((e) => e.isEndBranch)) {
-            lost = true;
-        }
+    gameText = new TextField();
+    gameText.defaultTextFormat = new TextFormat('monospace', 24, Color.White);
+    gameText.width = 300;
+    gameText.autoSize = "CENTER";
+    gameText.x = stage.stageWidth / 2 - gameText.width / 2;
+    gameText.y = stage.stageHeight / 2;
+    gameText.text = "Your tree died. :(";
+    gameText.mouseEnabled = false;
+    gameText.visible = false;
+    stage.addChild(gameText);
 
-        if(lost) {
-            print("lol");
+    // Death
+    view.onEnterFrame.listen((e) {
+        if(treeBase.branches.every((e) => e.isEndBranch) && !isDead) {
+            gameText.visible = true;
+            isDead = true;
+
+            stage.juggler.transition(1, 0, 10, TransitionFunction.linear, (value) => view.alpha = value);
+            stage.juggler.transition(0, 1, 20, TransitionFunction.linear, (value) => gameText.alpha = value);
         }
     });
 
@@ -146,10 +156,11 @@ void run() {
             var randX = random.nextInt(stage.stageWidth);
             var randY = random.nextInt(stage.stageHeight);
             var obj = stage.hitTestInput(randX, randY);
-            if(obj is GlassPlate && !obj.parent.isRoot) {
-                var raindrop = new RainDrop(randX, randY);
+            var p = view.globalToLocal(new Point(randX, randY));
+            if(obj is GlassPlate || identical(obj, ground)) {
+                var raindrop = new RainDrop(p.x, p.y);
                 if(!debug) {
-                    stage.addChild(raindrop);
+                    view.addChild(raindrop);
                 }
             }
         }
@@ -192,7 +203,7 @@ void run() {
         var obj = treeBase.hitTestInput(p.x, p.y);
         if(obj is GlassPlate) {
             obj = obj.parent;
-            obj.delete();
+            obj.deleteSoon = true;
         }
     });
 

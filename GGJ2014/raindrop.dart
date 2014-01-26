@@ -3,8 +3,12 @@ part of game;
 class RainDrop extends Sprite {
 
     RainDrop(randX, randY) {
+        randX *= 100;
+        randY *= 100;
         var radius = random.nextInt(10);
-        this.graphics.circle(randX, randY, 5 + radius);
+        graphics.circle(randX, randY, 5 + radius);
+        scaleX = 0.01;
+        scaleY = 0.01;
         var gradient = new GraphicsGradient.radial(randX, randY, 0, randX, randY, 5 + radius);
         gradient.addColorStop(0, 0x50AAAAAA);
         gradient.addColorStop(1, 0x006666AA);
