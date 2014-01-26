@@ -283,7 +283,7 @@ class Branch extends Sprite {
             spline.generatePath(graphics);
             num alpha = relaxMode ? 0 : totalValve;
             num alphaSpeed = 5;
-            veinAlpha = lerp(veinAlpha, alpha, alphaSpeed*e.passedTime).clamp(0, 1);
+            veinAlpha = lerp(veinAlpha, alpha, 1/alphaSpeed/e.passedTime).clamp(0, 1);
             graphics.strokeColor(new AwesomeColor(1, 1, 1, veinAlpha).hex, 1/view.scaleX);
         }
 
