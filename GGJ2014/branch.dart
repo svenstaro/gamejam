@@ -175,8 +175,8 @@ class Branch extends Sprite {
         num energyConversionRate = 0.01;
         num transferRate = 0.01;
         num transferFactor = 1;
-        num growthRate = 0.1; // length per second at full water
-        num waterGrowthConversion = 0.008;
+        num growthRate = 0.01; // length per second at full water
+        num waterGrowthConversion = 0.2;
 
         // THIS IS THE RESOURCE SIMULATION PART
         if(!relaxMode) {
@@ -255,6 +255,7 @@ class Branch extends Sprite {
         branchText.text += "\nNRG: ${energy.toStringAsFixed(3)}";
         branchText.text += "\nVAL: ${valve.toStringAsFixed(3)}";
         branchText.text += "\nWIT: ${wither.toStringAsFixed(3)}";
+        if(!debug) { branchText.visible = false; }
 
         if(isRoot || isBase) {
             this.rotation = baseRotation;
