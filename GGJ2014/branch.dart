@@ -31,7 +31,7 @@ class Branch extends Sprite {
     num _valve = 1;
     num set valve(num value) {
         num diff = value - _valve;
-        _valve = value;
+        _valve = value.clamp(0.0,1.0);
         if(parent is Branch) {
             for(var b in parent.branches) {
                 if(!identical(b, this)) {
@@ -42,7 +42,7 @@ class Branch extends Sprite {
     }
     num get valve => _valve;
 
-    bool isDragging = false;
+    bool isClicked = false;
     Vector dragStartPoint = null;
 
     int branchColor = 0;
@@ -287,6 +287,11 @@ class Branch extends Sprite {
                 child.delete();
             }
         }
+
+        if(isClicked) {
+            valve += frameTime * 2;
+            debugMessage = "Valve: " + valve.toString();
+        }
     }
 
     void addPoints(Spline spline, Branch base) {
@@ -341,7 +346,7 @@ class Branch extends Sprite {
         if(from != null) {
             int index = this.branches.indexOf(from) + 1;
             offset += ((index/(this.branches.length+1))-0.5)*thickness;
-            debugMessage = "$offset";
+            //debugMessage = "$offset";
         }
 
         num lenFac = isEndBranch ? 1 : 0.8;
@@ -357,36 +362,6 @@ class Branch extends Sprite {
     num get startThickness => isBase ? thickness : parent.thickness;
 
     num get absoluteAngle => isBase ? rotation : parent.rotation + rotation;
-
-    void dragStart(MouseEvent event) {
-        isDragging = true;
-        dragStartPoint = new Vector(mouseX, mouseY);
-
-        print("Drag start");
-    }
-
-    void dragInProgress(MouseEvent event) {
-        event.stopPropagation();
-
-        if(isDragging) {
-            if(mode == "valve") {
-                valve = (valve - (mouseY - dragStartPoint.y)).clamp(0, 1);
-                dragStartPoint = new Vector(mouseX, mouseY);
-            }
-        }
-    }
-
-    void dragStop(MouseEvent event) {
-        if(!isDragging) return;
-        isDragging = false;
-
-        if(mode == "branch") {
-            var mouse = new Vector(mouseX, mouseY);
-            growChild(mouse.rads);
-        }
-
-        print("Drag stop");
-    }
 
     Branch growChild(num angle, [num length = 1]) {
         Branch b = new Branch(0.001);
