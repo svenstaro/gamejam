@@ -33,21 +33,21 @@ class Pulse extends Sprite {
         addChild(s);
 
         this.onEnterFrame.listen((e) {
-            if(currentBranch != null) {
-                alpha = (alpha + e.passedTime).clamp(0, 1);
+            alpha = (alpha + e.passedTime).clamp(0, 1);
 
-                currentBranchPosition += e.passedTime / currentBranch.length * 0.5; // speed
-                while(currentBranchPosition > 1) {
-                    if(currentBranch.isEndBranch && movingToTip) {
-                        parent.removeChild(this);
-                        this.onEnterFrame.cancelSubscriptions();
-                        currentBranchPosition = 0;
-                    } else {
-                        currentBranchPosition -= 1;
-                        currentBranch = nextBranch;
-                    }
+            currentBranchPosition += e.passedTime / currentBranch.length * 0.5; // speed
+            while(currentBranchPosition > 1) {
+                if(currentBranch.isEndBranch && movingToTip) {
+                    parent.removeChild(this);
+                    this.onEnterFrame.cancelSubscriptions();
+                    currentBranchPosition = 0;
+                } else {
+                    currentBranchPosition -= 1;
+                    currentBranch = nextBranch;
                 }
+            }
 
+            if(currentBranch != null) {
                 // Vector s = lerp(currentBranch.basePosition, currentBranch.tipPosition, currentBranchPosition);
                 var s = currentBranch.basePosition + (currentBranch.tipPosition - currentBranch.basePosition).scale(
                     movingToTip ? 1 - currentBranchPosition : currentBranchPosition);
@@ -74,7 +74,7 @@ class Pulse extends Sprite {
                 }
                 akku += branch.valve;
             }
-            // return b[random.nextInt(b.length)];
+            return b[b.length - 1];
         } else {
             return !currentBranch.isBase ? currentBranch.parent : (type == WATER ? treeBase : rootBase);
         }
