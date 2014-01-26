@@ -129,11 +129,12 @@ void run() {
 
     gameText = new TextField();
     gameText.defaultTextFormat = new TextFormat('monospace', 24, Color.White);
-    gameText.width = 300;
+    gameText.width = 600;
+    gameText.height = 150;
     gameText.autoSize = "CENTER";
     gameText.x = stage.stageWidth / 2 - gameText.width / 2;
-    gameText.y = stage.stageHeight / 2;
-    gameText.text = "Your tree died. :(";
+    gameText.y = stage.stageHeight / 2 - gameText.height * 2;
+    gameText.text = "gameText";
     gameText.mouseEnabled = false;
     gameText.visible = false;
     stage.addChild(gameText);
@@ -150,6 +151,7 @@ void run() {
         if(!canDie) return;
         if(treeBase.branches.every((e) => e.isEndBranch) && !isDead) {
             gameText.visible = true;
+            gameText.text = "Your tree has died. :(\nPlease take better care of it next time.";
             isDead = true;
 
             stage.juggler.transition(1, 0, 10, TransitionFunction.linear, (value) => view.alpha = value);
