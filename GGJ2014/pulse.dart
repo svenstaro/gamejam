@@ -33,26 +33,31 @@ class Pulse extends Sprite {
         addChild(s);
 
         this.onEnterFrame.listen((e) {
-            alpha = (alpha + e.passedTime).clamp(0, 1);
+            if(currentBranch != null) {
+                alpha = (alpha + e.passedTime).clamp(0, 1);
 
-            currentBranchPosition += e.passedTime / currentBranch.length * 0.5; // speed
-            while(currentBranchPosition > 1) {
-                if(currentBranch.isEndBranch && movingToTip) {
-                    parent.removeChild(this);
-                    this.onEnterFrame.cancelSubscriptions();
-                    currentBranchPosition = 0;
-                } else {
-                    currentBranchPosition -= 1;
-                    currentBranch = nextBranch;
+                currentBranchPosition += e.passedTime / currentBranch.length * 0.5; // speed
+                while(currentBranchPosition > 1) {
+                    if(currentBranch.isEndBranch && movingToTip) {
+                        parent.removeChild(this);
+                        this.onEnterFrame.cancelSubscriptions();
+                        currentBranchPosition = 0;
+                    } else {
+                        currentBranchPosition -= 1;
+                        currentBranch = nextBranch;
+                    }
                 }
-            }
 
-            // Vector s = lerp(currentBranch.basePosition, currentBranch.tipPosition, currentBranchPosition);
-            var s = currentBranch.basePosition + (currentBranch.tipPosition - currentBranch.basePosition).scale(
-                movingToTip ? 1 - currentBranchPosition : currentBranchPosition);
-            // var s = new Vector(0, 0);
-            x = s.x;
-            y = s.y;
+                // Vector s = lerp(currentBranch.basePosition, currentBranch.tipPosition, currentBranchPosition);
+                var s = currentBranch.basePosition + (currentBranch.tipPosition - currentBranch.basePosition).scale(
+                    movingToTip ? 1 - currentBranchPosition : currentBranchPosition);
+                // var s = new Vector(0, 0);
+                x = s.x;
+                y = s.y;
+            } else {
+                parent.removeChild(this);
+                this.onEnterFrame.cancelSubscriptions();
+            }
         });
     }
 

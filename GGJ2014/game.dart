@@ -203,7 +203,7 @@ void run() {
         var obj = treeBase.hitTestInput(p.x, p.y);
         if(obj is GlassPlate) {
             obj = obj.parent;
-            obj.delete();
+            obj.deleteSoon = true;
         }
     });
 
