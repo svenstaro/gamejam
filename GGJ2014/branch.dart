@@ -51,6 +51,7 @@ class Branch extends Sprite {
     Shape debugShape = null;
     TextField branchText = new TextField();
 
+    num maxLength = 1;
     num _length = 1;
     num set length(num value) {
         _length = value;
@@ -68,6 +69,7 @@ class Branch extends Sprite {
     Branch(this._thickness) {
         water = parent != null ? parent.water : thickness;
         energy = parent != null ? parent.energy : thickness;
+        maxLength = random.nextDouble() * 0.8 + 0.2;
         reset();
 
         onEnterFrame.listen(_onEnterFrame);
@@ -161,8 +163,7 @@ class Branch extends Sprite {
         num energyConversionRate = 0.01;
         num transferRate = 0.01;
         num transferFactor = 1;
-        num waterThreshold = 0.1;
-        num growthRate = 0.1; // length per second
+        num growthRate = 0.1; // length per second at full water
         num waterGrowthConversion = 0.008;
 
         // THIS IS THE RESOURCE SIMULATION PART
@@ -177,14 +178,14 @@ class Branch extends Sprite {
                     water = 0;
                 }
 
-                if(!isRoot && water > waterThreshold) {
-                    num growth = growthRate * e.passedTime;
+                if(!isRoot && water > 0) {
+                    num growth = growthRate * e.passedTime * water;
                     water -= growth * waterGrowthConversion;
                     length += growth;
-                    if(length > 1) {
-                        length = 1;
-                        growChild(-0.5, 0.2);
-                        growChild(0.5, 0.2);
+                    if(length > maxLength) {
+                        length = maxLength;
+                        growChild(-0.8 * random.nextDouble(), 0);
+                        growChild( 0.8 * random.nextDouble(), 0);
                     }
                 }
             }
@@ -220,6 +221,11 @@ class Branch extends Sprite {
                 view.addChild(new Pulse(Pulse.WATER, this));
                 _waterCreated -= pulse_threshold;
             }
+
+            // Aging -> thickness grows
+            num maxThickness = 0.8;
+            num thicknessGrowth = 0.01;
+            thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
         }
 
         // Update debug info
@@ -270,7 +276,11 @@ class Branch extends Sprite {
         num st = startThickness;
         num et = thickness;
 
-        num tangentLength = isEndBranch ? 0.0 : 0.2 * length;
+        var branches = this.branches;
+
+        num off = branches.length > 0 ? min(0.1, branches.map((b) => b.length).reduce(max) * 0.5) : 0;
+
+        num tangentLength = isEndBranch ? 0.0 : off * length;
 
         // going up on the left
         if(isBase) {
@@ -291,7 +301,7 @@ class Branch extends Sprite {
         int branchNumber = 0;
         for(Branch branch in branches) {
             if(branchNumber > 0) {
-                spline.add(base.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -length-0.1))), 0.0);
+                spline.add(base.globalToLocal(localToGlobal(new Point(et*(branchNumber*1.0/numBranches - 0.5), -length-off))), 0.0);
             }
             branch.addPoints(spline, base);
             branchNumber++;
@@ -305,7 +315,8 @@ class Branch extends Sprite {
     }
 
     void addVeinPoints(Spline spline, Branch end_branch, Branch from, num offset) {
-        num tangentLength = 0.2*length;
+        num off = branches.length > 0 ? min(0.1, branches.map((b) => b.length).reduce(max) * 0.5) : 0;
+        num tangentLength = off*length;
 
         if(from != null) {
             int index = this.branches.indexOf(from) + 1;
@@ -355,7 +366,7 @@ class Branch extends Sprite {
     }
 
     void growChild(num angle, [num length = 1]) {
-        Branch b = new Branch(thickness * 0.5);
+        Branch b = new Branch(0.001);
         b.baseRotation = angle;
         b.length = length;
         b._valve = 0.5;
