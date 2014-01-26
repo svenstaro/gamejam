@@ -62,11 +62,11 @@ class Leaf extends Sprite {
      
     void drawLeaf(leafBranch) {
         graphics.clear();
-            graphics.beginPath();
-            graphics.moveTo(0, 0);
-            graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
-            graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
-            graphics.closePath();
+        graphics.beginPath();
+        graphics.moveTo(0, 0);
+        graphics.bezierCurveTo(-0.3, -0.3, -0.3, -0.3, 0, -1);
+        graphics.bezierCurveTo( 0.3, -0.3,  0.3, -0.3, 0,  0);
+        graphics.closePath();
         
         if(colorLeaves) {
             graphics.fillColor(leafBranch.branch.branchColor);
