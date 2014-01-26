@@ -168,14 +168,14 @@ class Branch extends Sprite {
     void _onEnterFrame(EnterFrameEvent e) {
         if(isDead) return;
 
-        e = new EnterFrameEvent(e.passedTime * 10);
+        e = new EnterFrameEvent(e.passedTime * 1);
 
         // Update gameplay values
         num energyFactor = 0.05;
         num energyToWater = 1;
         num thirstiness = 0.001;
         num witherFactor = 5;
-        num energyConversionRate = 0.1;
+        num energyConversionRate = 0.0001;
         num transferRate = 0.01;
         num transferFactor = 1;
         num growthRate = 0.05; // length per second at full water
@@ -213,8 +213,8 @@ class Branch extends Sprite {
             }
 
             // Generate water in root
-            if(isRoot) {
-                num de = min(energy, energyConversionRate) * thickness;
+            if(isBase && !isRoot) {
+                num de = min(energy, energyConversionRate);
                 energy -= de;
                 water = (water + de * energyToWater).clamp(0, 1);
             }
