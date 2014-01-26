@@ -74,7 +74,7 @@ class Pulse extends Sprite {
                 }
                 akku += branch.valve;
             }
-            // return b[random.nextInt(b.length)];
+            return b[b.length - 1];
         } else {
             return !currentBranch.isBase ? currentBranch.parent : (type == WATER ? treeBase : rootBase);
         }
