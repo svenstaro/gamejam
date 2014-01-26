@@ -11,5 +11,6 @@ var resourceManager;
 var gameText;
 bool debug = true;
 bool relaxMode = false;
+bool isDead = false;
 String mode;
 String debugMessage;

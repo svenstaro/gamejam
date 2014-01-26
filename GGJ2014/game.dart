@@ -104,10 +104,10 @@ void run() {
     debugRoots(0, rootRoot);
 
     gameText = new TextField();
-    gameText.defaultTextFormat = new TextFormat('monospace', 16, Color.White);
-    gameText.width = 200;
+    gameText.defaultTextFormat = new TextFormat('monospace', 24, Color.White);
+    gameText.width = 300;
     gameText.autoSize = "CENTER";
-    gameText.x = stage.stageWidth / 2;
+    gameText.x = stage.stageWidth / 2 - gameText.width / 2;
     gameText.y = stage.stageHeight / 2;
     gameText.text = "Your tree died. :(";
     gameText.mouseEnabled = false;
@@ -116,8 +116,12 @@ void run() {
 
     // Death
     view.onEnterFrame.listen((e) {
-        if(root.branches.every((e) => e.isEndBranch)) {
+        if(root.branches.every((e) => e.isEndBranch) && !isDead) {
             gameText.visible = true;
+            isDead = true;
+
+            stage.juggler.transition(1, 0, 10, TransitionFunction.linear, (value) => view.alpha = value);
+            stage.juggler.transition(0, 1, 20, TransitionFunction.linear, (value) => gameText.alpha = value);
         }
     });
     
@@ -142,10 +146,11 @@ void run() {
             var randX = random.nextInt(stage.stageWidth);
             var randY = random.nextInt(stage.stageHeight);
             var obj = stage.hitTestInput(randX, randY);
+            var p = view.globalToLocal(new Point(randX, randY));
             if(obj is GlassPlate || identical(obj, ground)) {
-                var raindrop = new RainDrop(randX, randY);
+                var raindrop = new RainDrop(p.x, p.y);
                 if(!debug) {
-                    stage.addChild(raindrop);
+                    view.addChild(raindrop);
                 }
             }
         }
@@ -168,7 +173,7 @@ void run() {
     stage.onMouseDown.listen((MouseEvent e) {
         var p = root.globalToLocal(new Point(e.stageX, e.stageY));
         var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
-        var obj = root.hitTestInput(p.x, p.y);
+        var obj = view.hitTestInput(p.x, p.y);
         if(obj is GlassPlate && mode == "valve") {
             obj = obj.parent;
 
