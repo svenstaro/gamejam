@@ -103,15 +103,21 @@ void run() {
     view.addChild(rootRoot);
     debugRoots(0, rootRoot);
 
-    // Root
-    view.onEnterFrame.listen((e) {
-        bool lost = false;
-        if(root.branches.every((e) => e.isEndBranch)) {
-            lost = true;
-        }
+    gameText = new TextField();
+    gameText.defaultTextFormat = new TextFormat('monospace', 16, Color.White);
+    gameText.width = 200;
+    gameText.autoSize = "CENTER";
+    gameText.x = stage.stageWidth / 2;
+    gameText.y = stage.stageHeight / 2;
+    gameText.text = "Your tree died. :(";
+    gameText.mouseEnabled = false;
+    gameText.visible = false;
+    stage.addChild(gameText);
 
-        if(lost) {
-            print("lol");
+    // Death
+    view.onEnterFrame.listen((e) {
+        if(root.branches.every((e) => e.isEndBranch)) {
+            gameText.visible = true;
         }
     });
     
