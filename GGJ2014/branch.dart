@@ -4,24 +4,24 @@ class Branch extends Sprite {
     bool isRoot = false;
 
     num _water = 0;
-    num _oldWater = 0;
-    num _waterCreated = 0;
+    num _old_water = 0;
     void set water(num water) {
-        _oldWater = _water;
+        _old_water = _water;
         _water = water;
     }
     num get water => _water;
-    num get waterDelta => max(0, _oldWater - _water);
+    num get waterDelta => max(0, _old_water - _water);
+    num _waterCreated = 0;
 
     num _energy = 0;
-    num _oldEnergy = 0;
-    num _energyCreated = 0;
+    num _old_energy = 0;
     void set energy(num energy) {
-        _oldEnergy = _energy;
+        _old_energy = _energy;
         _energy = energy;
     }
     num get energy => _energy;
-    num get energyDelta => max(0, _energy - _oldEnergy);
+    num get energyDelta => max(0, _energy - _old_energy);
+    num _energyCreated = 0;
 
     num wither = 0;
     bool deleteSoon = false;
@@ -96,6 +96,7 @@ class Branch extends Sprite {
         shape.pivotY = length;
         addChild(shape);
 
+
         // debug shape
         // if(debugShape != null) removeChild(debugShape);
         // debugShape = new Shape();
@@ -138,10 +139,10 @@ class Branch extends Sprite {
         return result;
     }
 
-    List<Leaf> get leaves {
-        List<Leaf> result = new List<Leaf>();
+    List<LeafBranch> get leaves {
+        List<LeafBranch> result = new List<LeafBranch>();
         for(int i = 0; i < numChildren; i++) {
-            if(getChildAt(i) is Leaf) result.add(getChildAt(i));
+            if(getChildAt(i) is LeafBranch) result.add(getChildAt(i));
         }
         return result;
     }
@@ -153,7 +154,9 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        e = new EnterFrameEvent(e.passedTime * 1);
+        if(isDead) return;
+
+        //e = new EnterFrameEvent(e.passedTime * 1);
 
         // Update gameplay values
         num energyFactor = 0.05;
@@ -188,6 +191,10 @@ class Branch extends Sprite {
                         growChild( 0.8 * random.nextDouble(), 0);
                     }
                 }
+
+                if(length > maxLength && !isRoot && leaves.length == 0) {
+                    growLeaves(depth);
+                }
             }
 
             // Generate water in root
@@ -197,20 +204,8 @@ class Branch extends Sprite {
                 water = (water + de * energyToWater).clamp(0, 1);
             }
 
-            for(var child in branches) {
-                num de = child.energy * valve * e.passedTime * transferRate;
-                energy = (energy + de).clamp(0, 1);
-                child.energy -= de;
-
-                num dw = (valve * e.passedTime * transferRate) / branches.length;
-                dw = min(dw, water);
-                dw = min(dw, 1 - child.water);
-                water -= dw;
-                child.water = (child.water + dw * transferFactor);
-            }
-
-            _energyCreated += energyDelta;
             _waterCreated += waterDelta;
+            _energyCreated += energyDelta;
 
             num pulse_threshold = 0.05;
             if(_energyCreated >= pulse_threshold) {
@@ -226,6 +221,18 @@ class Branch extends Sprite {
             num maxThickness = 0.8;
             num thicknessGrowth = 0.01;
             thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
+
+            for(var child in branches) {
+                num de = child.energy * valve * e.passedTime * transferRate;
+                energy = (energy + de).clamp(0, 1);
+                child.energy -= de;
+
+                num dw = (valve * e.passedTime * transferRate) / branches.length;
+                dw = min(dw, water);
+                dw = min(dw, 1 - child.water);
+                water -= dw;
+                child.water = (child.water + dw * transferFactor);
+            }
         }
 
         // Update debug info
@@ -376,6 +383,7 @@ class Branch extends Sprite {
 
     void delete() {
         if(shape != null) removeChild(shape);
+        shape = null;
         removeFromParent();
     }
 
