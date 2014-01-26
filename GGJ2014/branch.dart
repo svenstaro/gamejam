@@ -330,7 +330,7 @@ class Branch extends Sprite {
         if(!isRoot && witherDelta>0) {
             hurtSprite.scaleX = thickness*4;
             hurtSprite.scaleY = length*0.7;
-            hurtSprite.alpha = (witherDelta*5000).clamp(0, 1);
+            hurtSprite.alpha = (witherDelta*5000).clamp(0, 1) * wither;
             hurtSprite.y = -length/2;
         }
     }
