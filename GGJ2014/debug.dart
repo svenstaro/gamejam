@@ -1,5 +1,24 @@
 part of game;
 
+void gameTree(int depth, var parent){
+    int count = 1;
+    for(int i = 0; i < count; ++i) {
+        Branch b = new Branch(parent.thickness * 0.6);
+        if(count > 1)
+            b.baseRotation = (i*0.2/(count-1) - 0.5);
+        b.baseRotation += (random.nextDouble() - 0.5) * 0.5;
+        b.length = random.nextDouble() * 0.2 + 0.3;
+        parent.addChild(b);
+        if(depth < 1) {
+            if(random.nextInt(10) > 0) {
+                gameTree(depth + 1, b);
+            }
+        }
+        //b.growLeaves((1 - b.depth) * 3);
+        b.reset();
+    }
+}
+
 void debugTree(int depth, var parent) {
     int count = random.nextInt(4) == 0 ? 1 : 2;
     for(int i = 0; i < count; ++i) {

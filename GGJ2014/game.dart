@@ -18,6 +18,7 @@ part 'pulse.dart';
 part 'wind.dart';
 part 'raindrop.dart';
 part 'branch.dart';
+part 'eye_toggle.dart';
 part 'debug.dart';
 
 Shape makeGround(double seed) {
@@ -66,6 +67,10 @@ void updateBackground() {
     }
 }
 
+void updateRelaxMode() {
+    updateBackground();
+}
+
 void run() {
     random = new Random();
 
@@ -106,7 +111,10 @@ void run() {
     treeBase = new Branch(0.4);
     treeBase.y = 0;
     view.addChild(treeBase);
-    debugTree(0, treeBase);
+    if(debug)
+        debugTree(0, treeBase);
+    else
+        gameTree(0, treeBase);
 
     rootBase = new Branch(0.4);
     rootBase.y = 0;
@@ -229,8 +237,6 @@ void run() {
     var sound = resourceManager.getSound('noise');
     var t = sound.play(true);
 
-    var pulseAkku = 0;
-
     view.onEnterFrame.listen((e) {
         if(debug) {
             t.soundTransform = new SoundTransform.mute();
@@ -248,19 +254,10 @@ void run() {
         if(debugMessage != "") debugText.text += "\nDebug message: ${debugMessage}";
 
         debugText.visible = debug;
-
-        pulseAkku += e.passedTime;
-        if(pulseAkku > 2) {
-            pulseAkku -= 2;
-            for(var branch in rootBase.allEndBranches) {
-                view.addChild(new Pulse(Pulse.WATER, branch));
-            }
-            for(var branch in treeBase.allEndBranches) {
-                view.addChild(new Pulse(Pulse.ENERGY, branch));
-            }
-        }
     });
 
     var b = rootBase;
     while(!b.isEndBranch) b = b.branches[0];
+
+    stage.addChild(new EyeToggle());
 }

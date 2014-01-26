@@ -19,8 +19,9 @@ class Environment extends Animatable {
     }
 
     bool advanceTime(num time) {
-        _time += time;
-
+        if(!relaxMode) {
+            _time += time;
+        }
 
         var wp = _windGen(_seed, _time * 0.002);
         Wind.windPower = wp * 0.5 + 0.5;

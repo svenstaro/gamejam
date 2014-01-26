@@ -93,6 +93,7 @@ class Branch extends Sprite {
         shape.pivotX = thickness/2;
         shape.pivotY = length;
         addChild(shape);
+        
 
         // debug shape
         // if(debugShape != null) removeChild(debugShape);
@@ -151,7 +152,9 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        e = new EnterFrameEvent(e.passedTime * 1);
+        if(isDead) return;
+        
+        //e = new EnterFrameEvent(e.passedTime * 1);
 
         // Update gameplay values
         num energyFactor = 0.05;
@@ -353,6 +356,7 @@ class Branch extends Sprite {
 
     void delete() {
         if(shape != null) removeChild(shape);
+        shape = null;
         removeFromParent();
     }
 
