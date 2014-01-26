@@ -13,3 +13,4 @@ bool debug = false;
 bool relaxMode = false;
 String mode;
 String debugMessage;
+var treeBase, rootBase;

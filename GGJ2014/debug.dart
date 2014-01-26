@@ -8,13 +8,14 @@ void debugTree(int depth, var parent) {
             b.baseRotation = (i*1.0/(count-1) - 0.5);
         b.baseRotation += (random.nextDouble() - 0.5) * 0.5;
         b.length = random.nextDouble() * 0.5 + 0.5;
+        b._valve = 1/count;
         parent.addChild(b);
         if(depth < 4) {
             if(random.nextInt(10) > 0) {
                 debugTree(depth + 1, b);
             }
         }
-        b.growLeaves((5 - b.depth) * 3);
+        // b.growLeaves((5 - b.depth) * 3);
         b.reset();
     }
 }

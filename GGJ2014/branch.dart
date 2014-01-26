@@ -76,26 +76,6 @@ class Branch extends Sprite {
         branchText.mouseEnabled = false;
         this.mouseEnabled = false;
         addChild(branchText);
-
-        var waterConfig = {"maxParticles":100, "duration":0, "lifeSpan":5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}, "finishColor":{"red":0, "green":0.4, "blue":0.9, "alpha":0.6}};
-
-        var waterEmitter = new ParticleEmitter(waterConfig);
-        waterEmitter.setEmitterLocation(0, 3);
-        waterEmitter.scaleX = 0.002;
-        waterEmitter.scaleY = 0.002;
-        waterEmitter.rotation = -PI/2;
-        addChild(waterEmitter);
-        stage.juggler.add(waterEmitter);
-
-        var energyConfig = {"maxParticles":100, "duration":0, "lifeSpan":5, "lifespanVariance":0, "startSize":0, "startSizeVariance":10, "finishSize":0, "finishSizeVariance":10, "shape":"circle", "emitterType":0, "location":{"x":0, "y":0}, "locationVariance":{"x":5, "y":5}, "speed":100, "speedVariance":0, "angle":0, "angleVariance":0, "gravity":{"x":0, "y":0}, "radialAcceleration":0, "radialAccelerationVariance":0, "tangentialAcceleration":0, "tangentialAccelerationVariance":0, "minRadius":0, "maxRadius":0, "maxRadiusVariance":0, "rotatePerSecond":0, "rotatePerSecondVariance":0, "compositeOperation":"source-over", "startColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}, "finishColor":{"red":0, "green":0.9, "blue":0.2, "alpha":0.6}};
-
-        var energyEmitter = new ParticleEmitter(energyConfig);
-        energyEmitter.setEmitterLocation(-500, -3);
-        energyEmitter.scaleX = 0.002;
-        energyEmitter.scaleY = 0.002;
-        energyEmitter.rotation = PI/2;
-        addChild(energyEmitter);
-        stage.juggler.add(energyEmitter);
     }
 
     void reset() {
@@ -128,6 +108,18 @@ class Branch extends Sprite {
 
     bool get isEndBranch => branches.length == 0;
 
+    List<Branch> get allEndBranches {
+        List<Branch> result = new List<Branch>();
+        for(var branch in branches) {
+            if(branch.isEndBranch) {
+                result.add(branch);
+            } else {
+                result.addAll(branch.allEndBranches);
+            }
+        }
+        return result;
+    }
+
     List<Branch> get branches {
         List<Branch> result = new List<Branch>();
         for(int i = 0; i < numChildren; i++) {
@@ -151,14 +143,14 @@ class Branch extends Sprite {
     }
 
     void _onEnterFrame(EnterFrameEvent e) {
-        e = new EnterFrameEvent(e.passedTime * 5);
+        e = new EnterFrameEvent(e.passedTime * 1);
 
         // Update gameplay values
         num energyFactor = 0.05;
         num energyToWater = 1;
         num thirstiness = 0.001;
         num witherFactor = 0.5;
-        num energyConversionRate = 0.01;
+        num energyConversionRate = 0.1;
         num transferRate = 0.01;
         num transferFactor = 1;
 
@@ -322,8 +314,13 @@ class Branch extends Sprite {
         addChild(b);
     }
 
-    Vector getTipPosition() {
+    Vector get tipPosition {
         var p = view.globalToLocal(localToGlobal(new Point(0, 0)));
+        return new Vector(p.x, p.y);
+    }
+
+    Vector get basePosition {
+        var p = view.globalToLocal(localToGlobal(new Point(0, -length)));
         return new Vector(p.x, p.y);
     }
 }
