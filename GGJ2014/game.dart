@@ -165,7 +165,8 @@ void run() {
     /*stage.addChild(particleEmitter);*/
     /*stage.juggler.add(particleEmitter);*/
 
-    view.addChild(new HumanEvent());
+    //doesn't even
+    //view.addChild(new HumanEvent());
 
     // Rain
     view.onEnterFrame.listen((e) {
