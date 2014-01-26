@@ -1,7 +1,7 @@
 part of game;
 
 void gameTree(int depth, var parent){
-    int count = 0;
+    int count = 1;
     for(int i = 0; i < count; ++i) {
         Branch b = new Branch(parent.thickness * 0.6);
         if(count > 1)

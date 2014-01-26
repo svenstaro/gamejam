@@ -148,7 +148,7 @@ void run() {
 
     // Death
     view.onEnterFrame.listen((e) {
-        if(!canDie) return;
+        //if(!canDie) return;
         if(treeBase.branches.every((e) => e.isEndBranch) && !isDead) {
             gameText.visible = true;
             isDead = true;

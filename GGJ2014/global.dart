@@ -14,7 +14,7 @@ var eyeToggle;
 var frameTime;
 bool debug = false;
 bool relaxMode = false;
-bool canDie = false;
+bool canDie = true;
 bool isDead = false;
 bool colorLeaves = false;
 String mode;
