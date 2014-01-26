@@ -23,7 +23,15 @@ class Branch extends Sprite {
     num get energyDelta => max(0, _energy - _old_energy);
     num _energyCreated = 0;
 
-    num wither = 0;
+    num _wither = 0;
+    num _old_wither = 0;
+    void set wither(num wither) {
+        _old_wither = _wither;
+        _wither = wither;
+    }
+    num get wither => _wither;
+    num get witherDelta => max(0, _wither - _old_wither);
+    
     bool deleteSoon = false;
 
     num baseRotation = 0.0;
