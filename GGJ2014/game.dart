@@ -198,46 +198,57 @@ void run() {
 
     var currentBranch = null;
     stage.onMouseDown.listen((MouseEvent e) {
-        var p = treeBase.globalToLocal(new Point(e.stageX, e.stageY));
-        var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
-        var obj = treeBase.hitTestInput(p.x, p.y);
-        if(obj is GlassPlate && mode == "valve") {
-            obj = obj.parent;
+        if(!debug) {
+            var p = treeBase.globalToLocal(new Point(e.stageX, e.stageY));
+            var pv = view.globalToLocal(new Point(e.stageX, e.stageY));
+            var obj = treeBase.hitTestInput(p.x, p.y);
+            if(obj is GlassPlate && mode == "valve") {
+                obj = obj.parent;
 
-            obj.dragStart(e);
-            currentBranch = obj;
-        } else if(obj is Branch && mode == "branch") {
-            debugShape.graphics.clear();
-            debugShape.graphics.circle(pv.x, pv.y, 0.1);
-            debugShape.graphics.fillColor(0xAA00FF00);
+                obj.isClicked = true;
+                currentBranch = obj;
+            } else if(obj is Branch && mode == "branch") {
+                debugShape.graphics.clear();
+                debugShape.graphics.circle(pv.x, pv.y, 0.1);
+                debugShape.graphics.fillColor(0xAA00FF00);
 
-            obj.growChild(1);
-        }
-    });
-
-    stage.onMouseRightDown.listen((MouseEvent e) {
-        var p = treeBase.globalToLocal(new Point(e.stageX, e.stageY));
-        var obj = treeBase.hitTestInput(p.x, p.y);
-        if(obj is GlassPlate) {
-            obj = obj.parent;
-            // obj.deleteSoon = true;
-            if(obj is Branch) {
-                obj.splitAt(obj.globalToLocal(new Point(e.stageX, e.stageY)));
+                obj.growChild(1);
             }
         }
     });
 
-    stage.onMouseMove.listen((MouseEvent e) {
-        if(currentBranch is Branch) {
-            currentBranch.dragInProgress(e);
+    stage.onMouseRightDown.listen((MouseEvent e) {
+        if(!debug) {
+            var p = treeBase.globalToLocal(new Point(e.stageX, e.stageY));
+            var obj = treeBase.hitTestInput(p.x, p.y);
+            if(obj is GlassPlate) {
+                obj = obj.parent;
+                // obj.deleteSoon = true;
+                if(obj is Branch) {
+                    obj.splitAt(obj.globalToLocal(new Point(e.stageX, e.stageY)));
+                }
+            }
         }
     });
 
     stage.onMouseUp.listen((MouseEvent e) {
-        if(currentBranch is Branch) {
-            currentBranch.dragStop(e);
+        if(!debug) {
+            if(currentBranch != null) {
+                currentBranch.isClicked = false;
+                currentBranch = null;
+            }
         }
-        currentBranch = null;
+    });
+
+    stage.onMouseRightDown.listen((MouseEvent e) {
+        if(debug) {
+            var p = treeBase.globalToLocal(new Point(e.stageX, e.stageY));
+            var obj = treeBase.hitTestInput(p.x, p.y);
+            if(obj is GlassPlate) {
+                obj = obj.parent;
+                obj.deleteSoon = true;
+            }
+        }
     });
 
     stage.onKeyDown.listen((e) {
@@ -255,7 +266,7 @@ void run() {
         } else {
             t.soundTransform = new SoundTransform(pow(Wind.windPower, 1.5) * 2, 0);
         }
-        debugMessage = "${Wind.power}";
+        //debugMessage = "${Wind.power}";
 
         num mx = stage.mouseX;
         num my = stage.mouseY;
