@@ -6,7 +6,6 @@ class EyeToggle extends Sprite {
         _update();
         onMouseDown.listen((e) {
             relaxMode = !relaxMode;
-            _update();
             updateRelaxMode();
         });
 
