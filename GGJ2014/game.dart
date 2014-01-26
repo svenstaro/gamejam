@@ -141,6 +141,7 @@ void run() {
     // FrameTime
     view.onEnterFrame.listen((e) {
         frameTime = e.passedTime;
+
         //also, root thicknesses. y not
         rootBase.thickness = treeBase.thickness;
 
@@ -169,7 +170,8 @@ void run() {
     /*stage.addChild(particleEmitter);*/
     /*stage.juggler.add(particleEmitter);*/
 
-    view.addChild(new HumanEvent());
+    //doesn't even
+    //view.addChild(new HumanEvent());
 
     // Rain
     view.onEnterFrame.listen((e) {
@@ -185,6 +187,13 @@ void run() {
                 }
             }
         }
+    });
+
+    //roots
+    view.onEnterFrame.listen((e) {
+        var scale = treeBase.thickness * 2.5;
+        rootBase.scaleX = scale;
+        rootBase.scaleY = scale;
     });
 
     debugText = new TextField();

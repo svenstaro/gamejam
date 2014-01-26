@@ -168,18 +168,18 @@ class Branch extends Sprite {
     void _onEnterFrame(EnterFrameEvent e) {
         if(isDead) return;
 
-        e = new EnterFrameEvent(e.passedTime * 1);
+        e = new EnterFrameEvent(e.passedTime * 10);
 
         // Update gameplay values
         num energyFactor = 0.05;
         num energyToWater = 1;
         num thirstiness = 0.001;
         num witherFactor = 5;
-        num energyConversionRate = 0.01;
+        num energyConversionRate = 0.1;
         num transferRate = 0.01;
         num transferFactor = 1;
-        num growthRate = 0.1; // length per second at full water
-        num waterGrowthConversion = 0.008;
+        num growthRate = 0.05; // length per second at full water
+        num waterGrowthConversion = 0.2;
 
         // THIS IS THE RESOURCE SIMULATION PART
         if(!relaxMode) {
@@ -214,7 +214,7 @@ class Branch extends Sprite {
 
             // Generate water in root
             if(isRoot) {
-                num de = min(energy, energyConversionRate);
+                num de = min(energy, energyConversionRate) * thickness;
                 energy -= de;
                 water = (water + de * energyToWater).clamp(0, 1);
             }
@@ -258,6 +258,7 @@ class Branch extends Sprite {
         branchText.text += "\nNRG: ${energy.toStringAsFixed(3)}";
         branchText.text += "\nVAL: ${valve.toStringAsFixed(3)}";
         branchText.text += "\nWIT: ${wither.toStringAsFixed(3)}";
+        if(!debug) { branchText.visible = false; }
 
         if(isRoot || isBase) {
             this.rotation = baseRotation;
