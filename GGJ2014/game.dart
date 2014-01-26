@@ -115,6 +115,7 @@ void run() {
         debugTree(0, treeBase);
     else
         gameTree(0, treeBase);
+        
 
     rootBase = new Branch(0.4);
     rootBase.y = 0;

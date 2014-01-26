@@ -33,6 +33,10 @@ void debugTree(int depth, var parent) {
             }
         }
         b.reset();
+        
+        if(colorLeaves) {
+            b.growLeaves((5 - b.depth) * 1);
+        }
     }
 }
 

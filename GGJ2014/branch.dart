@@ -269,7 +269,9 @@ class Branch extends Sprite {
             graphics.strokeColor(new AwesomeColor(1, 1, 1, (totalValve * 4).clamp(0,1)).hex, 0.01);
         }
 
-        branchColor = (new AwesomeColor.fromHex(0x55DDFFDD) * Environment.getLightColorFor(this)).hex;
+        if(colorLeaves) {
+            branchColor = (new AwesomeColor.fromHex(0x55DDFFDD) * Environment.getLightColorFor(this)).hex;
+        }
 
         if(wither >= 1.0) {
             deleteSoon = true;
