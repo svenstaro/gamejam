@@ -154,7 +154,7 @@ class Branch extends Sprite {
     void _onEnterFrame(EnterFrameEvent e) {
         if(isDead) return;
         
-        //e = new EnterFrameEvent(e.passedTime * 1);
+        e = new EnterFrameEvent(e.passedTime * 10);
 
         // Update gameplay values
         num energyFactor = 0.05;
@@ -186,6 +186,9 @@ class Branch extends Sprite {
                     length = 1;
                     growChild(-0.5, 0.2);
                     growChild(0.5, 0.2);
+                    if(!canDie && depth > 0) {
+                        canDie = true;
+                    }
                 }
             }
 

@@ -12,6 +12,7 @@ var gameText;
 var background;
 bool debug = false;
 bool relaxMode = false;
+bool canDie = false;
 bool isDead = false;
 String mode;
 String debugMessage;
