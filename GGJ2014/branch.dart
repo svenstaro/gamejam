@@ -29,13 +29,13 @@ class Branch extends Sprite {
     num baseRotation = 0.0;
 
     num _valve = 1;
-    num set valve(num value) {
+    void set valve(num value) {
         num diff = value - _valve;
         _valve = value.clamp(0.0,1.0);
         if(parent is Branch) {
-            for(var b in parent.branches) {
+            for(var b in (parent as Branch).branches) {
                 if(!identical(b, this)) {
-                    b._valve -= diff / (parent.branches.length - 1);
+                    b._valve -= diff / ((parent as Branch).branches.length - 1);
                 }
             }
         }
@@ -55,22 +55,22 @@ class Branch extends Sprite {
 
     num maxLength = 1;
     num _length = 1;
-    num set length(num value) {
+    void set length(num value) {
         _length = value;
         reset();
     }
     num get length => _length;
 
     num _thickness = 1;
-    num set thickness(num value) {
+    void set thickness(num value) {
         _thickness = value;
         reset();
     }
     num get thickness => _thickness;
 
     Branch(this._thickness) {
-        water = parent != null ? parent.water : thickness;
-        energy = parent != null ? parent.energy : thickness;
+        water = parent != null ? (parent as Branch).water : thickness;
+        energy = parent != null ? (parent as Branch).energy : thickness;
         maxLength = random.nextDouble() * 0.8 + 0.2;
         reset();
 
@@ -113,16 +113,16 @@ class Branch extends Sprite {
         // debugShape.graphics.strokeColor(0xFF00FF00, 0.01);
         // addChild(debugShape);
 
-        y = parent is Branch ? -parent.length : 0;
+        y = parent is Branch ? -(parent as Branch).length : 0;
 
         for(var b in branches) {
             b.reset();
         }
     }
 
-    num get totalValve => parent is Branch ? parent.totalValve * valve : valve;
+    num get totalValve => parent is Branch ? (parent as Branch).totalValve * valve : valve;
 
-    int get depth => parent is Branch ? parent.depth + 1 : 0;
+    int get depth => parent is Branch ? (parent as Branch).depth + 1 : 0;
 
     bool get isBase => !(parent is Branch);
 
@@ -164,7 +164,7 @@ class Branch extends Sprite {
 
     void _onEnterFrame(EnterFrameEvent e) {
         if(isDead) return;
-        
+
         e = new EnterFrameEvent(e.passedTime * 1);
 
         // Update gameplay values
@@ -230,8 +230,8 @@ class Branch extends Sprite {
             }
 
             // Aging -> thickness grows
-            num maxThickness = isBase ? 0.8 : parent.thickness * 0.9 / parent.branches.length;
-            num thicknessGrowth = 0.01;
+            num maxThickness = isBase ? 0.8 : (parent as Branch).thickness * 0.9 / (parent as Branch).branches.length;
+            num thicknessGrowth = 0.001;
             if(!isRoot) {
                 thickness += (maxThickness - thickness) * thicknessGrowth * e.passedTime * length;
             }
@@ -272,7 +272,7 @@ class Branch extends Sprite {
             addPoints(spline, this);
             spline.generatePath(graphics);
             graphics.fillColor(0xFF000000);
-            graphics.strokeColor(0x55FFFFFF, 0.01);
+            graphics.strokeColor(relaxMode ? 0xFF000000 : 0x55FFFFFF, 0.01);
         } else if(isEndBranch) {
             Spline spline = new Spline();
             addVeinPoints(spline, this, null, 0);
@@ -362,15 +362,13 @@ class Branch extends Sprite {
         spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset, -length*lenFac))), tangentLength);
 
         if(!isBase) {
-            this.parent.addVeinPoints(spline, end_branch, this, offset);
+            (parent as Branch).addVeinPoints(spline, end_branch, this, offset);
         } else {
             spline.add(end_branch.globalToLocal(localToGlobal(new Point(offset * 0.5, 0))), tangentLength);
         }
     }
 
-    num get startThickness => isBase ? thickness : parent.thickness;
-
-    num get absoluteAngle => isBase ? rotation : parent.rotation + rotation;
+    num get startThickness => isBase ? thickness * 1.3 : (parent as Branch).thickness;
 
     Branch growChild(num angle, [num length = 1]) {
         Branch b = new Branch(0.001);
@@ -412,6 +410,7 @@ class Branch extends Sprite {
         var newBranch = growChild(sign(p.x), thickness*0.8);
 
         length *= ratio;
+        baseRotation *= ratio;
         secondPart.thickness = thickness;
         newBranch.thickness = 0;
         // newBranch.x = sign(p.x) * thickness/2;
