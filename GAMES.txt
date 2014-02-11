@@ -1,0 +1,14 @@
+RGJ01       Asteroid Jam                    SFML
+RGJ02       Tower Of Opposites              Pygame
+RGJ04       Polymorphosis                   SFML
+RGJ05       Love Robot From Space.          SFML
+RGJ06       EnergyMaster                    SFML
+BGJ01       Airship Game                    Ducttape-Engine
+BGJ02       S.D.I.O.R.E.T.S.A               Löve2D
+BGJ03       Sir Victor Breeze               Gamvas
+BGJ05       The Little Wisp That Could      Löve2D
+BGJ06       Rainbow City                    THREE.js
+GGJ2011     AI And The Bomb                 SFML
+GGJ2013     7th sense                       Löve2D
+GGJ2014     Tamagochtree                    Dart/StageXL
+
