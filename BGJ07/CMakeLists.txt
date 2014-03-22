@@ -22,9 +22,10 @@ set(helper
     "src/renderHelper.cpp"
     "src/errorHelper.cpp"
     "src/game.cpp"
+    "src/world.cpp"
     "src/resources.cpp")
 
-include_directories(${BULLET_INCLUDE_DIRS})
+include_directories(SYSTEM ${BULLET_INCLUDE_DIRS})
 
 add_executable(noisyhunter "src/main.cpp" ${helper})
 

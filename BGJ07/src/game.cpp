@@ -1,5 +1,7 @@
 #include "game.hpp"
 
+#include <SDL_keycode.h>
+
 int Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logsSDLError(std::cout, "SDLInit");
@@ -28,6 +30,8 @@ int Game::init() {
         return 1; 
     }
 
+    m_previousTime = std::chrono::high_resolution_clock::now();
+
     return 0;
 }
 
@@ -41,26 +45,32 @@ void Game::destroy() {
 }
 
 void Game::run() {
-   bool quit = false;
-   Resources resources(m_Renderer);
-   
-   SDL_Event event;
-   SDL_Color color = {255, 255, 0, 0};
+    std::chrono::duration<float> difference = std::chrono::high_resolution_clock::now() - m_previousTime;
+    float dt = difference.count();
 
-   resources.loadTexture("submarine", "data/gfx/submarine1.png");
-   resources.loadFont("font", 64, "/usr/share/fonts/TTF/DejaVuSans.ttf");
-   SDL_Texture* text = RenderHelper::renderText("PENIS", resources.m_Fonts["font"], color, m_Renderer); 
+    bool quit = false;
+    Resources resources(m_Renderer);
 
-   while(!quit) {
-       while(SDL_PollEvent(&event)){
-           if (event.type == SDL_QUIT or event.type == SDL_KEYDOWN or event.type == SDL_MOUSEBUTTONDOWN)
-               quit = true;
-       }
-       SDL_RenderClear(m_Renderer);
-       RenderHelper::renderTexture(text, m_Renderer, 200, 200);
-       RenderHelper::renderTexture(resources.m_Textures["submarine"], m_Renderer, 0, 0);
-       SDL_RenderPresent(m_Renderer);
-   }
+    SDL_Event event;
 
-   SDL_DestroyTexture(text);
+    resources.loadTexture("submarine", "data/gfx/submarine1.png");
+    resources.loadFont("font", 64, "/usr/share/fonts/TTF/DejaVuSans.ttf");
+
+    while(!quit) {
+        // Handle input
+        while(SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT or (event.type == SDL_KEYDOWN and event.key.keysym.sym  == SDLK_ESCAPE))
+                quit = true;
+
+            m_World.event(event);
+        }
+
+        // Update
+        m_World.update(dt);
+
+        // Draw
+        SDL_RenderClear(m_Renderer);
+        m_World.draw(m_Renderer);
+        SDL_RenderPresent(m_Renderer);
+    }
 }
