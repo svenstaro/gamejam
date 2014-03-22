@@ -1,5 +1,7 @@
 #include "world.hpp"
 
+#include <iostream>
+
 #include "game.hpp"
 #include "player.hpp"
 
@@ -53,9 +55,9 @@ void World::init(Game* g) {
 
     m_DynamicsWorld->setWorldUserInfo(this);
     m_DynamicsWorld->setInternalTickCallback(bulletTickCallback, static_cast<void *>(this));
-    m_DynamicsWorld->setGravity(btVector3(0, 9.81, 0));
+    m_DynamicsWorld->setGravity(btVector3(0, 2, 0));
 
-    //addEntity(new Player());
+    addEntity(new Player());
 }
 
 void World::destroy() {
@@ -69,7 +71,6 @@ void World::destroy() {
 
 void World::addEntity(Entity* entity) {
     entity->init(this);
-    // If there is no physics shape set, the entity probably doesn't like physics so leave it alone
     if(entity->physicsShape != nullptr) {
         EntityMotionState* motionstate = new EntityMotionState(btTransform(btQuaternion(0, 0, entity->rotation), btVector3(entity->position.x(), entity->position.y(), 0)), entity);
         entity->motionState = motionstate;
@@ -85,7 +86,10 @@ void World::addEntity(Entity* entity) {
         // Store a pointer to the entity in there, maybe we'll need it
         entity->physicsBody->setUserPointer(static_cast<void*>(entity));
 
+        std::cout << "Adding rigid body" << std::endl;
         m_DynamicsWorld->addRigidBody(entity->physicsBody);
+    } else {
+        std::cerr << "*** WARNING: Entity has no physicsShape!" << std::endl;
     }
 
     entities.emplace_back(entity);
