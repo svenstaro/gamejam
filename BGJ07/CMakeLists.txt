@@ -17,9 +17,9 @@ execute_process(COMMAND ${SDL2_CONFIG} "--libs" OUTPUT_VARIABLE SDL_LIBRARIES OU
 add_definitions(${SDL_CFLAGS})
 
 set(helper
-    "src/helper/renderHelper.cpp"
-    "src/helper/errorHelper.cpp"
-    "src/helper/resources.cpp")
+    "src/renderHelper.cpp"
+    "src/errorHelper.cpp"
+    "src/resources.cpp")
 
 add_executable(noisyhunter "src/main.cpp" ${helper})
 

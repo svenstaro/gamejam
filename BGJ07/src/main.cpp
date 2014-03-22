@@ -5,9 +5,9 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "helper/renderHelper.hpp"
-#include "helper/errorHelper.hpp"
-#include "helper/resources.hpp"
+#include "renderHelper.hpp"
+#include "errorHelper.hpp"
+#include "resources.hpp"
 
 int main(int argc, char *argv[]) {
 
