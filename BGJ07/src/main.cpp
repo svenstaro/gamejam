@@ -14,6 +14,11 @@ int main(int argc, char *argv[]) {
         logsSDLError(std::cout, "TTFInit");
         return 1;
     }
+    if (IMG_Init() != 0){
+        logsSDLError(std::cout, "IMGInit");
+        return 1;
+    }
+
 
     SDL_Window *window = SDL_CreateWindow("Hello World!", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
     if (window == nullptr)
@@ -47,9 +52,12 @@ int main(int argc, char *argv[]) {
     }
 
     SDL_DestroyTexture(submarine);
+    SDL_DestroyTexture(text);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-
+    
+    IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
 
     return 0;
