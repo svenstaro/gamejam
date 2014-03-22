@@ -1,11 +1,11 @@
-default: build
+default: compile
 
-build:
+compile:
 	mkdir -p build
 	mkdir -p bin
 	cd build; cmake ..; make -j$(shell nproc)
 
-run: build
+run: compile
 	./bin/noisyhunter.bin
 
 package-win32:

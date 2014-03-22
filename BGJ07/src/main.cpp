@@ -1,37 +1,12 @@
 #include <iostream>
 #include <string>
+
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
-// General Error message
-void logsSDLError(std::ostream &os, const std::string &msg){
-    os << msg << " error: " << SDL_GetError() << std::endl;
-}
-// Texture rendering function 
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
-    SDL_Rect dst;
-    dst.x = x;
-    dst.y = y;
-
-    SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-    SDL_RenderCopy(ren, tex, NULL, &dst);
-}
-
-SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
-    SDL_Texture *texture = nullptr;
-    SDL_Surface *loadedImage = IMG_Load(file.c_str());
-
-    if (loadedImage != nullptr) {
-        texture = SDL_CreateTextureFromSurface(ren, loadedImage);
-        SDL_FreeSurface(loadedImage);
-        if (texture == nullptr){
-            logsSDLError(std::cout, "CreateTextureFromeSurface");
-        }
-    }
-    else
-        logsSDLError(std::cout, "LoadBMP");
-    return texture;
-}
+#include "helper/renderHelper.hpp"
+#include "helper/errorHelper.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -39,6 +14,15 @@ int main(int argc, char *argv[]) {
         logsSDLError(std::cout, "SDLInit");
         return 1;
     }
+    if (TTF_Init() != 0){
+        logsSDLError(std::cout, "TTFInit");
+        return 1;
+    }
+    if (IMG_Init(IMG_INIT_PNG) != 0){
+        logsSDLError(std::cout, "IMGInit");
+        return 1;
+    }
+
 
     SDL_Window *window = SDL_CreateWindow("Hello World!", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
     if (window == nullptr)
@@ -52,18 +36,32 @@ int main(int argc, char *argv[]) {
         logsSDLError(std::cout, "Create renderer");
         return 1; 
     }
+    
+    bool quit = false;
+    SDL_Event event;
+    SDL_Color color = {255, 255, 0, 0};
+    
+    SDL_Texture *submarine = IMG_LoadTexture(renderer, "data/gfx/submarine1.png");
+    SDL_Texture *text = RenderHelper::renderText("PENIS", "/usr/share/fonts/TTF/DejaVuSans.ttf", color, 64, renderer); 
 
-    SDL_Texture *submarine = loadTexture("data/gfx/submarine1.png", renderer);
-    renderTexture(submarine, renderer, 0, 0);
-
-    SDL_RenderPresent(renderer);
-
-    SDL_Delay(5000);
+    while(!quit){
+        while(SDL_PollEvent(&event)){
+            if (event.type == SDL_QUIT or event.type == SDL_KEYDOWN or event.type == SDL_MOUSEBUTTONDOWN)
+                quit = true;
+        }
+        SDL_RenderClear(renderer);
+        RenderHelper::renderTexture(text, renderer, 200, 200);
+        RenderHelper::renderTexture(submarine, renderer, 0, 0);
+        SDL_RenderPresent(renderer);
+    }
 
     SDL_DestroyTexture(submarine);
+    SDL_DestroyTexture(text);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-
+    
+    IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
 
     return 0;

@@ -18,4 +18,10 @@ add_definitions(${SDL_CFLAGS})
 
 add_executable(noisyhunter "src/main.cpp")
 
-target_link_libraries(noisyhunter ${SDL_LIBRARIES} -lSDL2_image)
+set(helper
+    "src/helper/renderHelper.cpp"
+    "src/helper/errorHelper.cpp")
+
+add_library(helper_lib ${helper})
+
+target_link_libraries(noisyhunter helper_lib ${SDL_LIBRARIES} -lSDL2_image -lSDL2_ttf)
