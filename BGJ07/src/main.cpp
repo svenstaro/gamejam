@@ -8,7 +8,20 @@ void logsSDLError(std::ostream &os, const std::string &msg){
     os << msg << " error: " << SDL_GetError() << std::endl;
 }
 // Texture rendering function 
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h){
+
+    SDL_Rect dst;
+    dst.x = x;
+    dst.y = y;
+    dst.w = w;
+    dst.h = h;
+
+    SDL_RenderCopy(ren, tex, NULL, &dst);
+}
+
+// Texture rendering function 
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
+
     SDL_Rect dst;
     dst.x = x;
     dst.y = y;
@@ -52,13 +65,21 @@ int main(int argc, char const *argv[]) {
         logsSDLError(std::cout, "Create renderer");
         return 1; 
     }
-
+    
     SDL_Texture *submarine = loadTexture("data/gfx/submarine1.png", renderer);
-    renderTexture(submarine, renderer, 0, 0);
 
-    SDL_RenderPresent(renderer);
+    bool quit = false;
+    SDL_Event event;
 
-    SDL_Delay(5000);
+    while(!quit){
+        while(SDL_PollEvent(&event)){
+            if (event.type == SDL_QUIT or event.type == SDL_KEYDOWN or event.type == SDL_MOUSEBUTTONDOWN)
+                quit = true;
+        }
+        SDL_RenderClear(renderer);
+        renderTexture(submarine, renderer, 0, 0);
+        SDL_RenderPresent(renderer);
+    }
 
     SDL_DestroyTexture(submarine);
     SDL_DestroyRenderer(renderer);
