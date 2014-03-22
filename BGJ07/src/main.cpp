@@ -15,11 +15,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     if (TTF_Init() != 0){
-        logsSDLError(std::cout, "TTFInit");
+        logsTTFError(std::cout, "TTFInit");
         return 1;
     }
-    if (IMG_Init(IMG_INIT_PNG) != 0){
-        logsSDLError(std::cout, "IMGInit");
+    if (IMG_Init(0) != 0){
+        logsIMGError(std::cout, "IMGInit");
         return 1;
     }
 
