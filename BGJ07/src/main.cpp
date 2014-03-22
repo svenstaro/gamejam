@@ -54,10 +54,8 @@ int main(int argc, char const *argv[]) {
     }
 
     SDL_Texture *submarine = loadTexture("data/gfx/submarine1.png", renderer);
-//    renderTexture(submarine, renderer, 0, 0);
+    renderTexture(submarine, renderer, 0, 0);
 
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, submarine, NULL, NULL);
     SDL_RenderPresent(renderer);
 
     SDL_Delay(5000);
