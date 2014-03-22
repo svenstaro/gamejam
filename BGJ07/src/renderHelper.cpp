@@ -41,4 +41,3 @@ SDL_Texture* RenderHelper::renderText(const std::string &message, TTF_Font* font
     return texture;
 }
 
-

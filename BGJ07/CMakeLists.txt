@@ -10,6 +10,8 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 add_definitions(-Wall -Wextra -Wshadow -g -pedantic -fPIC -std=c++11)
 set(CMAKE_BUILD_TYPE "Debug")
 
+find_package(Bullet REQUIRED)
+
 find_program(SDL2_CONFIG sdl2-config)
 execute_process(COMMAND ${SDL2_CONFIG} "--cflags" OUTPUT_VARIABLE SDL_CFLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
 execute_process(COMMAND ${SDL2_CONFIG} "--libs" OUTPUT_VARIABLE SDL_LIBRARIES OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -22,6 +24,9 @@ set(helper
     "src/game.cpp"
     "src/resources.cpp")
 
+include_directories(${BULLET_INCLUDE_DIRS})
+
 add_executable(noisyhunter "src/main.cpp" ${helper})
 
-target_link_libraries(noisyhunter ${SDL_LIBRARIES} -lSDL2_image -lSDL2_ttf)
+target_link_libraries(noisyhunter ${SDL_LIBRARIES} -lSDL2_image -lSDL2_ttf ${BULLET_LIBRARIES})
+
