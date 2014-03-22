@@ -23,6 +23,7 @@ set(helper
     "src/errorHelper.cpp"
     "src/game.cpp"
     "src/world.cpp"
+    "src/entity.cpp"
     "src/resources.cpp")
 
 include_directories(SYSTEM ${BULLET_INCLUDE_DIRS})

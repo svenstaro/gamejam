@@ -2,6 +2,7 @@
 #define ENTITY_HPP
 
 #include <btBulletDynamicsCommon.h>
+#include <SDL.h>
 
 class Entity {
     public:

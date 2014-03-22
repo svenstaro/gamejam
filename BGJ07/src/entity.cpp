@@ -9,5 +9,5 @@ void Entity::update(float dt) {
 }
 
 void Entity::draw(SDL_Renderer* renderer) {
-    RenderHelper::renderTexture(m_Texture, renderer, position.x, position.y);
+    RenderHelper::renderTexture(texture, renderer, position.x(), position.y());
 }
