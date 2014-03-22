@@ -92,6 +92,7 @@ void World::addEntity(Entity* entity) {
         std::cerr << "*** WARNING: Entity has no physicsShape!" << std::endl;
     }
 
+    entity->onAdd();
     entities.emplace_back(entity);
 }
 

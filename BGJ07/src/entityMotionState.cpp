@@ -9,10 +9,8 @@ EntityMotionState::EntityMotionState(const btTransform &initialpos, Entity* enti
 
 EntityMotionState::~EntityMotionState() {}
 
-#include <iostream>
 void EntityMotionState::getWorldTransform(btTransform &worldTrans) const {
     worldTrans = m_Transform;
-    std::cout << "lol " << std::endl;
 }
 
 void EntityMotionState::setWorldTransform(const btTransform &worldTrans) {
