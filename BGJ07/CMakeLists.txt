@@ -26,7 +26,16 @@ include_directories(${SDL2_INCLUDE_DIRS}
 
 add_executable(${EXECUTABLE_NAME} "src/main.cpp")
 
+set(helper
+    "src/helper/renderHelper.cpp"
+    "src/helper/renderHelper.hpp"
+    "src/helper/errorHelper.cpp")
+
+add_library(helper_lib
+            ${helper})
+
 target_link_libraries(${EXECUTABLE_NAME}
+                        ${helper_lib}
                         ${SDL2_LIBRARIES}
                         ${SDL2_gfx_LIBRARIES}
                         ${SDL2_ttf_LIBRARIES}

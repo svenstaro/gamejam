@@ -1,50 +1,9 @@
 #include <iostream>
 #include <string>
-#include <SDL.h>
-#include <SDL_image.h>
 
-// General Error message
-void logsSDLError(std::ostream &os, const std::string &msg){
-    os << msg << " error: " << SDL_GetError() << std::endl;
-}
-// Texture rendering function 
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h){
-
-    SDL_Rect dst;
-    dst.x = x;
-    dst.y = y;
-    dst.w = w;
-    dst.h = h;
-
-    SDL_RenderCopy(ren, tex, NULL, &dst);
-}
-
-// Texture rendering function 
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
-
-    SDL_Rect dst;
-    dst.x = x;
-    dst.y = y;
-
-    SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-    SDL_RenderCopy(ren, tex, NULL, &dst);
-}
-
-SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
-    SDL_Texture *texture = nullptr;
-    SDL_Surface *loadedImage = IMG_Load(file.c_str());
-
-    if (loadedImage != nullptr) {
-        texture = SDL_CreateTextureFromSurface(ren, loadedImage);
-        SDL_FreeSurface(loadedImage);
-        if (texture == nullptr){
-            logsSDLError(std::cout, "CreateTextureFromeSurface");
-        }
-    }
-    else
-        logsSDLError(std::cout, "LoadBMP");
-    return texture;
-}
+#include "helper/renderHelper.hpp"
+#include "helper/renderHelper.cpp"
+#include "helper/errorHelper.cpp"
 
 int main(int argc, char const *argv[]) {
 
@@ -66,7 +25,7 @@ int main(int argc, char const *argv[]) {
         return 1; 
     }
     
-    SDL_Texture *submarine = loadTexture("data/gfx/submarine1.png", renderer);
+    SDL_Texture *submarine = IMG_LoadTexture(renderer, "data/gfx/submarine1.png");
 
     bool quit = false;
     SDL_Event event;
@@ -77,7 +36,7 @@ int main(int argc, char const *argv[]) {
                 quit = true;
         }
         SDL_RenderClear(renderer);
-        renderTexture(submarine, renderer, 0, 0);
+        RenderHelper::renderTexture(submarine, renderer, 0, 0);
         SDL_RenderPresent(renderer);
     }
 
