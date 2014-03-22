@@ -6,7 +6,7 @@ compile:
 	cd build; cmake ..; make -j$(shell nproc)
 
 run: compile
-	./bin/noisyhunter.bin
+	./bin/noisyhunter
 
 package-win32:
 	rm -rf build-win32
