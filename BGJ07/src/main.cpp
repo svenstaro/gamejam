@@ -10,6 +10,10 @@ int main(int argc, char *argv[]) {
         logsSDLError(std::cout, "SDLInit");
         return 1;
     }
+    if (TTF_Init() != 0){
+        logsSDLError(std::cout, "TTFInit");
+        return 1;
+    }
 
     SDL_Window *window = SDL_CreateWindow("Hello World!", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
     if (window == nullptr)
@@ -24,10 +28,12 @@ int main(int argc, char *argv[]) {
         return 1; 
     }
     
-    SDL_Texture *submarine = IMG_LoadTexture(renderer, "data/gfx/submarine1.png");
-
     bool quit = false;
     SDL_Event event;
+    SDL_Color color = {255, 255, 0, 0};
+    
+    SDL_Texture *submarine = IMG_LoadTexture(renderer, "data/gfx/submarine1.png");
+    SDL_Texture *text = RenderHelper::renderText("PENIS", "/usr/share/fonts/TTF/DejaVuSans.ttf", color, 64, renderer); 
 
     while(!quit){
         while(SDL_PollEvent(&event)){
@@ -35,6 +41,7 @@ int main(int argc, char *argv[]) {
                 quit = true;
         }
         SDL_RenderClear(renderer);
+        RenderHelper::renderTexture(text, renderer, 200, 200);
         RenderHelper::renderTexture(submarine, renderer, 0, 0);
         SDL_RenderPresent(renderer);
     }

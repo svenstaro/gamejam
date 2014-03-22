@@ -24,7 +24,7 @@ void RenderHelper::renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int
     SDL_RenderCopy(ren, tex, NULL, &dst);
 }
 
-SDL_Texture* renderText(const std::string &message, const std::string &fontFile, SDL_Color color, int fontSize, SDL_Renderer *renderer){
+SDL_Texture* RenderHelper::renderText(const std::string &message, const std::string &fontFile, SDL_Color color, int fontSize, SDL_Renderer *renderer){
 
     TTF_Font *font = TTF_OpenFont(fontFile.c_str(), fontSize);
     if (font == nullptr){
