@@ -12,7 +12,7 @@ class RenderHelper{
     public:
         static void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h);
         static void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
-        static SDL_Texture* renderText(const std::string &message, const std::string &fontFile, SDL_Color color, int fontSize, SDL_Renderer *renderer);
+        static SDL_Texture* renderText(const std::string &message, TTF_Font* font, SDL_Color color, SDL_Renderer *renderer);
 };
 
 #endif

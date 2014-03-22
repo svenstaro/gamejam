@@ -18,7 +18,8 @@ add_definitions(${SDL_CFLAGS})
 
 set(helper
     "src/helper/renderHelper.cpp"
-    "src/helper/errorHelper.cpp")
+    "src/helper/errorHelper.cpp"
+    "src/helper/resources.cpp")
 
 add_executable(noisyhunter "src/main.cpp" ${helper})
 

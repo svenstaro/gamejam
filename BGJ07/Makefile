@@ -26,3 +26,6 @@ package-win32:
 clean:
 	rm -rf build
 	rm -rf bin
+
+clang:
+	cd build; rm -r *; CXX=clang++ cmake .. ; make 

@@ -7,6 +7,7 @@
 
 #include "helper/renderHelper.hpp"
 #include "helper/errorHelper.hpp"
+#include "helper/resources.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -36,13 +37,16 @@ int main(int argc, char *argv[]) {
         logsSDLError(std::cout, "Create renderer");
         return 1; 
     }
-    
+
     bool quit = false;
+    Resources resources(renderer);
+    
     SDL_Event event;
     SDL_Color color = {255, 255, 0, 0};
-    
-    SDL_Texture *submarine = IMG_LoadTexture(renderer, "data/gfx/submarine1.png");
-    SDL_Texture *text = RenderHelper::renderText("PENIS", "/usr/share/fonts/TTF/DejaVuSans.ttf", color, 64, renderer); 
+
+    resources.loadTexture("submarine", "data/gfx/submarine1.png");
+    resources.loadFont("font", 64, "/usr/share/fonts/TTF/DejaVuSans.ttf");
+    SDL_Texture* text = RenderHelper::renderText("PENIS", resources.m_Fonts["font"], color, renderer); 
 
     while(!quit){
         while(SDL_PollEvent(&event)){
@@ -51,11 +55,10 @@ int main(int argc, char *argv[]) {
         }
         SDL_RenderClear(renderer);
         RenderHelper::renderTexture(text, renderer, 200, 200);
-        RenderHelper::renderTexture(submarine, renderer, 0, 0);
+        RenderHelper::renderTexture(resources.m_Textures["submarine"], renderer, 0, 0);
         SDL_RenderPresent(renderer);
     }
 
-    SDL_DestroyTexture(submarine);
     SDL_DestroyTexture(text);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
