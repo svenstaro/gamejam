@@ -33,7 +33,7 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren){
     return texture;
 }
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logsSDLError(std::cout, "SDLInit");
