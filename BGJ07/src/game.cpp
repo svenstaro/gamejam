@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "player.hpp"
 
 #include <SDL_keycode.h>
 
@@ -32,11 +33,19 @@ int Game::init() {
 
     m_previousTime = std::chrono::high_resolution_clock::now();
 
+    m_Resources.init(m_Renderer);
+    m_Resources.loadTexture("submarine", "data/gfx/submarine1.png");
+    m_Resources.loadFont("font", 12, "/usr/share/fonts/TTF/DejaVuSans.ttf");
+
+    m_World.init();
+
     return 0;
 }
 
 void Game::destroy() {
+
     m_World.destroy();
+    m_Resources.destroy();
 
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
@@ -49,15 +58,13 @@ void Game::destroy() {
 void Game::run() {
     std::chrono::duration<float> difference = std::chrono::high_resolution_clock::now() - m_previousTime;
     float dt = difference.count();
-
     bool quit = false;
-    Resources resources(m_Renderer);
-    m_World.init();
-
     SDL_Event event;
 
-    resources.loadTexture("submarine", "data/gfx/submarine1.png");
-    resources.loadFont("font", 64, "/usr/share/fonts/TTF/DejaVuSans.ttf");
+    Player* player = new Player();
+    player->init(m_Resources.m_Textures["submarine"], btVector3(200, 100, 0));
+    m_World.addEntity(player);
+
 
     while(!quit) {
         // Handle input

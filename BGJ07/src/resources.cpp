@@ -2,11 +2,11 @@
 #include "resources.hpp"
 #include "errorHelper.hpp"
 
-Resources::Resources(SDL_Renderer* renderer) {
+void Resources::init(SDL_Renderer* renderer) {
     m_Renderer = renderer; 
 }
 
-Resources::~Resources() {
+void Resources::destroy() {
     for (auto texture : m_Textures ) { 
         std::cerr << "Destroying Texture " << texture.first << std::endl;
         SDL_DestroyTexture(texture.second);

@@ -91,3 +91,4 @@ void World::draw(SDL_Renderer* renderer) {
     for(auto& entity : entities)
         entity->draw(renderer);
 }
+

@@ -10,8 +10,8 @@
 
 class Resources{
     public:
-        Resources(SDL_Renderer *renderer);
-        ~Resources();
+        void init(SDL_Renderer *renderer);
+        void destroy();
 
         bool loadTexture(std::string name,const std::string &path);
         bool loadFont(std::string name, int fontSize, const std::string &path); 

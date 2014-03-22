@@ -8,8 +8,8 @@
 
 class Entity {
     public:
-        void event(SDL_Event& event);
-        void update(float dt);
+        virtual void event(SDL_Event& event);
+        virtual void update(float dt);
         void draw(SDL_Renderer* renderer);
 
         btVector3 position;
