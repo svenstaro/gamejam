@@ -7,14 +7,15 @@ void Resources::init(SDL_Renderer* renderer) {
 }
 
 void Resources::destroy() {
-    for (auto texture : m_Textures ) { 
+    for (auto texture : textures ) { 
         std::cerr << "Destroying Texture " << texture.first << std::endl;
         SDL_DestroyTexture(texture.second);
         texture.second = nullptr;
     }
-    for (auto font : m_Fonts) {
+
+    for (auto font : fonts) {
         std::cerr << "Closing Font " << font.first << std::endl;
-        //TTF_CloseFont(font.second);
+        TTF_CloseFont(font.second);
         font.second = nullptr;
     }
 }
@@ -25,7 +26,7 @@ bool Resources::loadTexture(std::string name, const std::string &path) {
         logsSDLError(std::cout, "Texture loading"); 
         return false;
     }
-    m_Textures[name] = picture; 
+    textures[name] = picture; 
     return true;
 }
 
@@ -35,7 +36,7 @@ bool Resources::loadFont(std::string name, int fontSize, const std::string &path
         logsSDLError(std::cout, "Font loading"); 
         return false;
     }
-    m_Fonts[name] = font;
+    fonts[name] = font;
     return true;
 }
 

@@ -1,6 +1,7 @@
 #include "world.hpp"
 
 #include "game.hpp"
+#include "player.hpp"
 
 void bulletTickCallback(btDynamicsWorld *world, btScalar timeStep) {
     auto w = static_cast<World*>(world->getWorldUserInfo());
@@ -42,7 +43,8 @@ void World::physicsTickCallback(btScalar timestep) {
     }
 }
 
-void World::init() {
+void World::init(Game* g) {
+    game = g;
     m_Broadphase = new btDbvtBroadphase();
     m_CollisionConfiguration = new btDefaultCollisionConfiguration();
     m_CollisionDispatcher = new btCollisionDispatcher(m_CollisionConfiguration);
@@ -52,6 +54,8 @@ void World::init() {
     m_DynamicsWorld->setWorldUserInfo(this);
     m_DynamicsWorld->setInternalTickCallback(bulletTickCallback, static_cast<void *>(this));
     m_DynamicsWorld->setGravity(btVector3(0, 9.81, 0));
+
+    //addEntity(new Player());
 }
 
 void World::destroy() {
@@ -64,6 +68,26 @@ void World::destroy() {
 }
 
 void World::addEntity(Entity* entity) {
+    entity->init(this);
+    // If there is no physics shape set, the entity probably doesn't like physics so leave it alone
+    if(entity->physicsShape != nullptr) {
+        EntityMotionState* motionstate = new EntityMotionState(btTransform(btQuaternion(0, 0, entity->rotation), btVector3(entity->position.x(), entity->position.y(), 0)), entity);
+        entity->motionState = motionstate;
+        btVector3 inertia(0, 0, 0);
+        entity->physicsShape->calculateLocalInertia(entity->mass, inertia);
+        btRigidBody::btRigidBodyConstructionInfo construction_info(entity->mass, motionstate, entity->physicsShape, inertia);
+        entity->physicsBody = new btRigidBody(construction_info);
+
+        // We're in 2D land so don't allow Z movement
+        entity->physicsBody->setLinearFactor(btVector3(1, 1, 0));
+        entity->physicsBody->setAngularFactor(btVector3(0, 0, 1));
+
+        // Store a pointer to the entity in there, maybe we'll need it
+        entity->physicsBody->setUserPointer(static_cast<void*>(entity));
+
+        m_DynamicsWorld->addRigidBody(entity->physicsBody);
+    }
+
     entities.emplace_back(entity);
 }
 

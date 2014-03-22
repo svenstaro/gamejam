@@ -1,26 +1,31 @@
 #include "player.hpp"
+
 #include <SDL_keyboard.h>
 #include <SDL_keycode.h>
+#include <btBulletDynamicsCommon.h>
 
-void Player::init(SDL_Texture* tex, btVector3 pos){
-    position = pos; 
-    texture = tex;
+#include "game.hpp"
+
+void Player::onInit() {
+    texture = m_World->game->resources.textures["submarine"];
+    position = btVector3(200, 100, 0);
 }
 
-void Player::update(float dt) {
+void Player::onUpdate(float dt) {
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
-/*    if (keystate[SDLK_LEFT])
-        physicsBody.applyLinearForce(btVector3(-1*dt, 0, 0));
+    if (keystate[SDLK_LEFT])
+        physicsBody->applyCentralForce(btVector3(-1, 0, 0));
     else if (keystate[SDLK_RIGHT])
-        physicsBody.applyLinearForce(btVector3(1*dt, 0, 0));
-    else if (keystate[SDLK_UP])
-        physicsBody.applyLinearForce(btVector3(0, 1*dt, 0));
+        physicsBody->applyCentralForce(btVector3(1, 0, 0));
+
+    if (keystate[SDLK_UP])
+        physicsBody->applyCentralForce(btVector3(0, 1, 0));
     else if (keystate[SDLK_DOWN])
-        physicsBody.applyLinearForce(btVector3(0, -1*dt, 0));
-*/
+        physicsBody->applyCentralForce(btVector3(0, -1, 0));
+
 }
 
-void Player::event(SDL_Event& event) {
+void Player::onEvent(SDL_Event& event) {
 
 }
 

@@ -16,8 +16,8 @@ class Resources{
         bool loadTexture(std::string name,const std::string &path);
         bool loadFont(std::string name, int fontSize, const std::string &path); 
 
-        std::unordered_map<std::string, SDL_Texture*> m_Textures;
-        std::unordered_map<std::string, TTF_Font*> m_Fonts;
+        std::unordered_map<std::string, SDL_Texture*> textures;
+        std::unordered_map<std::string, TTF_Font*> fonts;
 
 
     private:

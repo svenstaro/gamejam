@@ -5,9 +5,9 @@
 
 class Player : public Entity{
     public:
-        void init(SDL_Texture* tex, btVector3 pos);
-        void event(SDL_Event& event);
-        void update(float dt);
+        void onInit() override;
+        void onEvent(SDL_Event& event) override;
+        void onUpdate(float dt) override;
 };
 
 #endif 

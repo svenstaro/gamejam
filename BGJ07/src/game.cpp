@@ -33,19 +33,18 @@ int Game::init() {
 
     m_previousTime = std::chrono::high_resolution_clock::now();
 
-    m_Resources.init(m_Renderer);
-    m_Resources.loadTexture("submarine", "data/gfx/submarine1.png");
-    m_Resources.loadFont("font", 12, "/usr/share/fonts/TTF/DejaVuSans.ttf");
+    resources.init(m_Renderer);
+    resources.loadTexture("submarine", "data/gfx/submarine1.png");
+    resources.loadFont("font", 12, "/usr/share/fonts/TTF/DejaVuSans.ttf");
 
-    m_World.init();
+    m_World.init(this);
 
     return 0;
 }
 
 void Game::destroy() {
-
     m_World.destroy();
-    m_Resources.destroy();
+    resources.destroy();
 
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
@@ -60,11 +59,6 @@ void Game::run() {
     float dt = difference.count();
     bool quit = false;
     SDL_Event event;
-
-    Player* player = new Player();
-    player->init(m_Resources.m_Textures["submarine"], btVector3(200, 100, 0));
-    m_World.addEntity(player);
-
 
     while(!quit) {
         // Handle input

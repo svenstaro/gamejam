@@ -10,16 +10,19 @@
 #include "entity.hpp"
 #include "debugDraw.hpp"
 
+class Game;
 class World {
 public:
     void physicsTickCallback(btScalar timestep);
-    void init();
+    void init(Game* g);
     void destroy();
     void addEntity(Entity* entity);
     void event(SDL_Event& event);
     void update(float dt);
     void draw(SDL_Renderer* renderer);
     std::vector<std::unique_ptr<Entity>> entities;
+
+    Game* game = nullptr;
 
     // physics stuff
     btBroadphaseInterface* m_Broadphase = nullptr;

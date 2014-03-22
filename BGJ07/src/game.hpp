@@ -20,12 +20,12 @@ public:
     int init();
     void destroy();
     void run();
+    Resources resources;
 
 private:
     World m_World;
     SDL_Window* m_Window;
     SDL_Renderer* m_Renderer;
-    Resources m_Resources;
     std::chrono::high_resolution_clock::time_point m_previousTime;
 };
 
