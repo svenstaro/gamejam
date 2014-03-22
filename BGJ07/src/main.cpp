@@ -2,10 +2,9 @@
 #include <string>
 
 #include "helper/renderHelper.hpp"
-#include "helper/renderHelper.cpp"
-#include "helper/errorHelper.cpp"
+#include "helper/errorHelper.hpp"
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         logsSDLError(std::cout, "SDLInit");

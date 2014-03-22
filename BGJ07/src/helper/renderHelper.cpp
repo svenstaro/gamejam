@@ -24,3 +24,28 @@ void RenderHelper::renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int
     SDL_RenderCopy(ren, tex, NULL, &dst);
 }
 
+SDL_Texture* renderText(const std::string &message, const std::string &fontFile, SDL_Color color, int fontSize, SDL_Renderer *renderer){
+
+    TTF_Font *font = TTF_OpenFont(fontFile.c_str(), fontSize);
+    if (font == nullptr){
+        logsSDLError(std::cout, "TTF_OpenFont");
+        return nullptr;
+    }
+
+    SDL_Surface *surface = TTF_RenderText_Blended(font, message.c_str(), color);
+    if (surface == nullptr){
+        logsSDLError(std::cout, "TTF_RenderText");
+        return nullptr;
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (texture == nullptr){
+        logsSDLError(std::cout, "CreateTexture");
+    }
+
+    SDL_FreeSurface(surface);
+    TTF_CloseFont(font);
+    return texture;
+}
+
+

@@ -18,7 +18,8 @@ pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(SDL2_image REQUIRED SDL2_image)
 pkg_search_module(SDL2_mixer REQUIRED SDL2_mixer)
 pkg_search_module(SDL2_ttf REQUIRED SDL2_ttf)
-include_directories(${SDL2_INCLUDE_DIRS}
+include_directories("src/helper"
+                    ${SDL2_INCLUDE_DIRS}
                     ${SDL2_gfx_INCLUDE_DIRS}
                     ${SDL2_ttf_INCLUDE_DIRS}
                     ${SDL2_image_INCLUDE_DIRS}
@@ -28,14 +29,13 @@ add_executable(${EXECUTABLE_NAME} "src/main.cpp")
 
 set(helper
     "src/helper/renderHelper.cpp"
-    "src/helper/renderHelper.hpp"
     "src/helper/errorHelper.cpp")
 
 add_library(helper_lib
             ${helper})
 
 target_link_libraries(${EXECUTABLE_NAME}
-                        ${helper_lib}
+                        helper_lib
                         ${SDL2_LIBRARIES}
                         ${SDL2_gfx_LIBRARIES}
                         ${SDL2_ttf_LIBRARIES}
