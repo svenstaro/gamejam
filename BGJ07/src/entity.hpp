@@ -4,6 +4,8 @@
 #include <btBulletDynamicsCommon.h>
 #include <SDL.h>
 
+#include "entityMotionState.hpp"
+
 class Entity {
     public:
         void event(SDL_Event& event);
@@ -11,8 +13,12 @@ class Entity {
         void draw(SDL_Renderer* renderer);
 
         btVector3 position;
-        btCollisionShape* shape;
-        SDL_Texture* texture;
+        float rotation;
+        btCollisionShape* shape = nullptr;
+        EntityMotionState* motionState = nullptr;
+        btRigidBody* physicsBody = nullptr;
+
+        SDL_Texture* texture = nullptr;
 };
 
 

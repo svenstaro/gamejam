@@ -36,6 +36,8 @@ int Game::init() {
 }
 
 void Game::destroy() {
+    m_World.destroy();
+
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
 
@@ -50,6 +52,7 @@ void Game::run() {
 
     bool quit = false;
     Resources resources(m_Renderer);
+    m_World.init();
 
     SDL_Event event;
 

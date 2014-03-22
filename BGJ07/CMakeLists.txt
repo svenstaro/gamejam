@@ -18,17 +18,11 @@ execute_process(COMMAND ${SDL2_CONFIG} "--libs" OUTPUT_VARIABLE SDL_LIBRARIES OU
 
 add_definitions(${SDL_CFLAGS})
 
-set(helper
-    "src/renderHelper.cpp"
-    "src/errorHelper.cpp"
-    "src/game.cpp"
-    "src/world.cpp"
-    "src/entity.cpp"
-    "src/resources.cpp")
+aux_source_directory(src/ srcs)
 
 include_directories(SYSTEM ${BULLET_INCLUDE_DIRS})
 
-add_executable(noisyhunter "src/main.cpp" ${helper})
+add_executable(noisyhunter ${srcs})
 
-target_link_libraries(noisyhunter ${SDL_LIBRARIES} -lSDL2_image -lSDL2_ttf ${BULLET_LIBRARIES})
+target_link_libraries(noisyhunter ${SDL_LIBRARIES} -lSDL2_image -lSDL2_ttf -lSDL2_gfx ${BULLET_LIBRARIES})
 
