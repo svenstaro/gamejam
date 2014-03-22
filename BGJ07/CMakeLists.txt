@@ -16,12 +16,10 @@ execute_process(COMMAND ${SDL2_CONFIG} "--libs" OUTPUT_VARIABLE SDL_LIBRARIES OU
 
 add_definitions(${SDL_CFLAGS})
 
-add_executable(noisyhunter "src/main.cpp")
-
 set(helper
     "src/helper/renderHelper.cpp"
     "src/helper/errorHelper.cpp")
 
-add_library(helper_lib ${helper})
+add_executable(noisyhunter "src/main.cpp" ${helper})
 
-target_link_libraries(noisyhunter helper_lib ${SDL_LIBRARIES} -lSDL2_image -lSDL2_ttf)
+target_link_libraries(noisyhunter ${SDL_LIBRARIES} -lSDL2_image -lSDL2_ttf)

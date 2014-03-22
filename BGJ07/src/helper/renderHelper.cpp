@@ -1,5 +1,5 @@
 #include "renderHelper.hpp"
-#include "errorHelper.cpp"
+#include "errorHelper.hpp"
 
 // Texture rendering function 
 void RenderHelper::renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h){
