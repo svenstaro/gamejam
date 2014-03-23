@@ -9,7 +9,7 @@
 void Player::onInit() {
     texture = m_World->game->resources.textures["submarine"];
     position = btVector3(200, 100, 0);
-    physicsShape = new btBoxShape(btVector3(200, 200, 1));
+    physicsShape = new btBoxShape(btVector3(40, 20, 1));
     mass = 1;
 }
 
