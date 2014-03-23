@@ -104,7 +104,6 @@ void Game::run() {
         m_CameraViewport.h = m_MainViewport.h;
 
         SDL_RenderClear(m_Renderer);
-        arena->drawLevel(m_Renderer);
         m_World.draw(m_Renderer);
         SDL_SetRenderTarget(m_Renderer, 0);
         SDL_RenderCopy(m_Renderer, m_DrawTexture, &m_CameraViewport, NULL); 

@@ -4,11 +4,13 @@
 #include <btBulletDynamicsCommon.h>
 #include <vector>
 #include <SDL.h>
+#include "entity.hpp"
 
-class Map{
+class Map : public Entity{
     public:
         btBvhTriangleMeshShape* createMap();
-        void drawLevel(SDL_Renderer* renderer);
+        void onDraw(SDL_Renderer* renderer) override;
+        void onInit() override;
 
     private:
         std::vector<std::vector<btVector3>> m_Vector;
