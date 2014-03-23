@@ -80,9 +80,6 @@ void Game::run() {
     bool quit = false;
     SDL_Event event;
    
-    Map* arena = new Map();
-    btBvhTriangleMeshShape* meshShape = arena->createMap();
-
     while(!quit) {
         // Handle input
         while(SDL_PollEvent(&event)) {
