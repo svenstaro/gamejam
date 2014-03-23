@@ -4,6 +4,7 @@
 
 #include "game.hpp"
 #include "player.hpp"
+#include "box.hpp"
 
 void bulletTickCallback(btDynamicsWorld *world, btScalar timeStep) {
     auto w = static_cast<World*>(world->getWorldUserInfo());
@@ -57,6 +58,7 @@ void World::init(Game* g) {
     m_DynamicsWorld->setInternalTickCallback(bulletTickCallback, static_cast<void *>(this));
     m_DynamicsWorld->setGravity(btVector3(0, 10, 0));
 
+    addEntity(new Box());
     addEntity(new Player());
 }
 
@@ -102,7 +104,7 @@ void World::event(SDL_Event& event) {
 }
 
 void World::update(float dt) {
-    m_DynamicsWorld->stepSimulation(dt, 10);
+    m_DynamicsWorld->stepSimulation(dt, 1000, 1.f/200.f);
 
     for(auto& entity : entities)
         entity->update(dt);
