@@ -4,6 +4,7 @@
 
 #include "game.hpp"
 #include "player.hpp"
+#include "map.hpp"
 
 void bulletTickCallback(btDynamicsWorld *world, btScalar timeStep) {
     auto w = static_cast<World*>(world->getWorldUserInfo());
@@ -58,6 +59,7 @@ void World::init(Game* g) {
     m_DynamicsWorld->setGravity(btVector3(0, 2, 0));
 
     addEntity(new Player());
+    addEntity(new Map());
 }
 
 void World::destroy() {

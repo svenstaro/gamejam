@@ -1,6 +1,10 @@
 #include "map.hpp"
 #include <SDL2_gfxPrimitives.h>
 
+void Map::onInit(){
+    physicsShape = createMap();    
+}
+
 btBvhTriangleMeshShape* Map::createMap(){
     btTriangleMesh* triMesh = new btTriangleMesh();
 
@@ -24,7 +28,7 @@ btBvhTriangleMeshShape* Map::createMap(){
     return triMeshShape;
 }
 
-void Map::drawLevel(SDL_Renderer* renderer){
+void Map::onDraw(SDL_Renderer* renderer){
     SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255);
     for (std::size_t count = 0; count < m_Vector.size(); count ++){
         SDL_Point points[4];
