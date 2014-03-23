@@ -42,6 +42,12 @@ void Player::onUpdate(float dt) {
         physicsBody->applyTorque(btVector3(0, 0, 8000 * direction));
     }
 
+    if(keystate[SDL_SCANCODE_Q]) {
+        m_SonarRotation -= dt * 10;
+    } else if(keystate[SDL_SCANCODE_E]) {
+        m_SonarRotation += dt * 10;
+    }
+
     if(rotation <= 0.f)
         physicsBody->applyTorque(btVector3(0, 0, 1000));
     if(rotation > 0.f)
@@ -60,7 +66,15 @@ void Player::onUpdate(float dt) {
     }
 }
 
-void Player::onEvent(SDL_Event& event) {
+void Player::onDraw(SDL_Renderer* renderer) {
+    btVector3 direction(500, 0, 0);
+    btVector3 rotated_direction = direction.rotate(btVector3(0, 0, 1), m_SonarRotation);
+    btVector3 absolute_direction = position + rotated_direction;
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    SDL_RenderDrawLine(renderer, position.x(), position.y(), absolute_direction.x(), absolute_direction.y());
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+}
 
+void Player::onEvent(SDL_Event& event) {
 }
 
