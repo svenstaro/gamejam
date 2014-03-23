@@ -94,7 +94,7 @@ void Game::run() {
 
         // Draw
         int x, y;
-        if (m_World.getEntity("Player")){
+        if (m_World.getEntity("Player")) {
             x = m_World.getEntity("Player")->position.x();
             y = m_World.getEntity("Player")->position.y();
         }

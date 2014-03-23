@@ -3,6 +3,8 @@
 
 #include "entity.hpp"
 
+#include <BulletCollision/CollisionDispatch/btGhostObject.h>
+
 #include <vector>
 
 struct ClosestNonPlayerRayResultCallback : public btCollisionWorld::ClosestRayResultCallback {
@@ -25,6 +27,7 @@ struct ClosestNonPlayerRayResultCallback : public btCollisionWorld::ClosestRayRe
 class Player : public Entity{
     public:
         void onInit() override;
+        void onDestroy() override;
         void onAdd() override;
         void onEvent(SDL_Event& event) override;
         void onUpdate(float dt) override;
@@ -35,8 +38,11 @@ class Player : public Entity{
     private:
         float m_SonarRotation;
         btVector3 m_SonarLength = btVector3(500, 0, 0);
+        btVector3 m_SonarSpeed = btVector3(2, 0, 0);
         btVector3 m_SonarTarget;
-        std::vector<btVector3> m_RayHits;
+        btGhostObject* m_SonarGhost = nullptr;
+        bool m_SonarGhostTraveling = false;
+        //std::vector<btVector3> m_RayHits;
 };
 
 #endif 
