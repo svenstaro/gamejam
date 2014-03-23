@@ -14,14 +14,22 @@ void RenderHelper::renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int
 }
 
 // Texture rendering function 
-void RenderHelper::renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
-
+void RenderHelper::renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y) {
     SDL_Rect dst;
     dst.x = x;
     dst.y = y;
 
     SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
     SDL_RenderCopy(ren, tex, NULL, &dst);
+}
+
+void RenderHelper::renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, double angle, SDL_RendererFlip flip) {
+    SDL_Rect dst;
+    dst.x = x;
+    dst.y = y;
+
+    SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
+    SDL_RenderCopyEx(ren, tex, NULL, &dst, angle, NULL, flip);
 }
 
 SDL_Texture* RenderHelper::renderText(const std::string &message, TTF_Font* font, SDL_Color color, SDL_Renderer *renderer){

@@ -19,6 +19,7 @@ std::string Player::getId(){
 
 void Player::onAdd() {
     physicsBody->forceActivationState(DISABLE_DEACTIVATION);
+    physicsBody->setDamping(0.5, 0.5);
 }
 
 void Player::onUpdate(float dt) {
@@ -34,6 +35,9 @@ void Player::onUpdate(float dt) {
     } else if(keystate[SDL_SCANCODE_DOWN]) {
         physicsBody->applyCentralForce(btVector3(0, 1000, 0));
     }
+
+    std::cout << rotation << std::endl;
+    //physicsBody->applyTorque(0, 0, )
 }
 
 void Player::onEvent(SDL_Event& event) {
