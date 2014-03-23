@@ -1,6 +1,10 @@
 #include "map.hpp"
 #include <SDL2_gfxPrimitives.h>
 
+std::string Map::getId(){
+    return "Map";
+}
+
 void Map::onInit(){
     physicsShape = createMap();    
 }

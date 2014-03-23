@@ -9,6 +9,7 @@ class Player : public Entity{
         void onAdd() override;
         void onEvent(SDL_Event& event) override;
         void onUpdate(float dt) override;
+        std::string getId();
 };
 
 #endif 

@@ -97,9 +97,15 @@ void Game::run() {
 
         // Draw
         int x, y;
-        SDL_GetMouseState(&x, &y);
-        m_CameraViewport.x = x - m_MainViewport.x/2;
-        m_CameraViewport.y = y - m_MainViewport.y/2;
+        if (m_World.getEntity("Player")){
+            x = m_World.getEntity("Player")->position.x();
+            y = m_World.getEntity("Player")->position.y();
+        }
+        else
+            SDL_GetMouseState(&x, &y);
+
+        m_CameraViewport.x = x - m_MainViewport.w/2;
+        m_CameraViewport.y = y - m_MainViewport.h/2;
         m_CameraViewport.w = m_MainViewport.w;
         m_CameraViewport.h = m_MainViewport.h;
 

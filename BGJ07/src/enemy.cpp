@@ -5,6 +5,10 @@ void Enemy::init(SDL_Texture* tex, btVector3 pos){
     texture = tex;
 }
 
+std::string Enemy::getId(){
+    return "Enemy";
+}
+
 void Enemy::update(float dt) {
 
 }

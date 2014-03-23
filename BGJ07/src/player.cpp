@@ -13,6 +13,10 @@ void Player::onInit() {
     mass = 1;
 }
 
+std::string Player::getId(){
+    return "Player";
+}
+
 void Player::onAdd() {
     physicsBody->forceActivationState(DISABLE_DEACTIVATION);
 }

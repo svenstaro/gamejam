@@ -20,6 +20,7 @@ public:
     void event(SDL_Event& event);
     void update(float dt);
     void draw(SDL_Renderer* renderer);
+    Entity* getEntity(std::string str);
     std::vector<std::unique_ptr<Entity>> entities;
 
     Game* game = nullptr;

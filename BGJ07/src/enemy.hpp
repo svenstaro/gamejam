@@ -8,6 +8,7 @@ class Enemy : public Entity{
         void init(SDL_Texture* tex, btVector3 pos);
         void event(SDL_Event& event);
         void update(float dt);
+        std::string getId();
 };
 
 #endif 

@@ -98,6 +98,14 @@ void World::addEntity(Entity* entity) {
     entities.emplace_back(entity);
 }
 
+Entity* World::getEntity(std::string str){
+    for (std::size_t counter = 0; counter < entities.size() ; counter++){
+        if (entities[counter]->getId() == str)
+            return entities[counter].get();
+    }
+    return nullptr;
+}
+
 void World::event(SDL_Event& event) {
     for(auto& entity : entities)
         entity->event(event);

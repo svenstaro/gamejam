@@ -15,6 +15,7 @@ class Entity {
         void update(float dt);
         void draw(SDL_Renderer* renderer);
 
+        virtual std::string getId() = 0;
         virtual void onAdd() {}
         virtual void onInit() {}
         virtual void onDestroy() {}
