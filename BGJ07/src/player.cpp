@@ -73,37 +73,37 @@ void Player::onUpdate(float dt) {
 void Player::onDraw(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderDrawLine(renderer, position.x(), position.y(), m_SonarTarget.x(), m_SonarTarget.y());
+
+    SDL_SetRenderDrawColor(renderer, 200, 0, 200, 255);
+    for(int i = 0; i < (int)m_RayHits.size() - 1; i++) {
+        SDL_RenderDrawLine(renderer, m_RayHits[i].x(), m_RayHits[i].y(),
+                                     m_RayHits[i+1].x(), m_RayHits[i+1].y());
+    }
+
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 }
 
 void Player::onEvent(SDL_Event& event) {
-    if (event.type == SDL_KEYDOWN and event.key.keysym.sym == SDLK_SPACE){
+    if (event.type == SDL_KEYDOWN and event.key.keysym.sym == SDLK_SPACE) {
         // Go go power ray
-        
+        m_RayHits.clear();
+    
         m_RayHits.push_back(position);
         btVector3 lastOut = m_SonarTarget;
         for(size_t i = 0; i < 2; i++) {
             auto rayCallback = cast(m_RayHits[i], lastOut);
 
             if(rayCallback.hasHit()) {
-                m_RayHits.push_back(rayCallback.m_hitPointWorld);
-                std::cout << rayCallback.m_hitNormalWorld.x() << "/" << rayCallback.m_hitNormalWorld.y() << std::endl;
-                //lastOut = 
+                btVector3 hitPoint = rayCallback.m_hitPointWorld;
+                btVector3 incoming = hitPoint - m_RayHits[i];
+                btVector3 normal = rayCallback.m_hitNormalWorld;
+                normal.normalize();
+                btVector3 reflected = incoming - 2*(incoming.dot(normal)) * normal;
+                btVector3 sonar = reflected.normalize() * btVector3(500, 500, 0);
+                m_RayHits.push_back(hitPoint);
+                lastOut = sonar;
             }
         }
-        // Use current position as first from vector
-        /*m_RayHits.push_back(position);
-        for(size_t i = 0; i < 5; i++) {
-            if(i == 0) {
-                auto hit = cast(m_RayHits[0], m_SonarTarget);
-            } else {
-                auto hit = cast(m_RayHits[i], m_SonarTarget);
-            }
-            if(hit != btVector3(0,0,0)) {
-                m_RayHits.push_back(hit);
-            }
-        }
-        */
     }
 }
 
