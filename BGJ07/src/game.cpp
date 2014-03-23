@@ -80,9 +80,6 @@ void Game::run() {
     bool quit = false;
     SDL_Event event;
    
-    Map* arena = new Map();
-    btBvhTriangleMeshShape* meshShape = arena->createMap();
-
     while(!quit) {
         // Handle input
         while(SDL_PollEvent(&event)) {
@@ -108,6 +105,16 @@ void Game::run() {
         m_CameraViewport.y = y - m_MainViewport.h/2;
         m_CameraViewport.w = m_MainViewport.w;
         m_CameraViewport.h = m_MainViewport.h;
+
+        if (m_CameraViewport.x < 0)
+            m_CameraViewport.x = 0;
+        else if (m_CameraViewport.x + m_MainViewport.w > 1600)
+            m_CameraViewport.x = 1600 - m_MainViewport.w;
+
+        if (m_CameraViewport.y < 0)
+            m_CameraViewport.y = 0;
+        else if (m_CameraViewport.y + m_MainViewport.h > 1200)
+            m_CameraViewport.y = 1200 - m_MainViewport.h;
 
         SDL_RenderClear(m_Renderer);
         m_World.draw(m_Renderer);
