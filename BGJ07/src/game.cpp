@@ -1,5 +1,7 @@
 #include "game.hpp"
 #include "player.hpp"
+#include "map.hpp"
+#include <map>
 
 #include <SDL_keycode.h>
 
@@ -59,13 +61,16 @@ void Game::run() {
     float dt = difference.count();
     bool quit = false;
     SDL_Event event;
+   
+    Map* arena = new Map();
+    btBvhTriangleMeshShape* meshShape = arena->createMap();
 
     while(!quit) {
         // Handle input
         while(SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT or (event.type == SDL_KEYDOWN and event.key.keysym.sym  == SDLK_ESCAPE))
                 quit = true;
-
+              
             m_World.event(event);
         }
 
@@ -74,6 +79,7 @@ void Game::run() {
 
         // Draw
         SDL_RenderClear(m_Renderer);
+        arena->drawLevel(m_Renderer);
         m_World.draw(m_Renderer);
         SDL_RenderPresent(m_Renderer);
     }
