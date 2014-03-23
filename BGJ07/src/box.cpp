@@ -6,6 +6,10 @@
 
 #include "game.hpp"
 
+Box::Box(btVector3 vec){
+    position = vec;
+}
+
 void Box::onInit() {
     //texture = m_World->game->resources.textures["submarine"];
     position = btVector3(400, 200, 0);
@@ -17,7 +21,7 @@ void Box::onAdd() {
     physicsBody->forceActivationState(DISABLE_DEACTIVATION);
 }
 
-std::string Box::getId(){
+const std::string Box::getId() const {
     return "Box";
 }
 

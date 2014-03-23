@@ -11,7 +11,7 @@ class Map : public Entity{
         btBvhTriangleMeshShape* createMap();
         void onDraw(SDL_Renderer* renderer) override;
         void onInit() override;
-        std::string getId();
+        const std::string getId() const override;
 
     private:
         std::vector<std::vector<btVector3>> m_Vector;

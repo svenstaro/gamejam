@@ -5,7 +5,7 @@ void Enemy::init(SDL_Texture* tex, btVector3 pos){
     texture = tex;
 }
 
-std::string Enemy::getId(){
+const std::string Enemy::getId() const {
     return "Enemy";
 }
 

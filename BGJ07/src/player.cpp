@@ -5,6 +5,7 @@
 #include <btBulletDynamicsCommon.h>
 
 #include "game.hpp"
+#include "box.hpp"
 
 void Player::onInit() {
     texture = m_World->game->resources.textures["submarine"];
@@ -13,7 +14,7 @@ void Player::onInit() {
     mass = 1;
 }
 
-std::string Player::getId(){
+const std::string Player::getId() const {
     return "Player";
 }
 
@@ -69,12 +70,55 @@ void Player::onUpdate(float dt) {
 void Player::onDraw(SDL_Renderer* renderer) {
     btVector3 direction(500, 0, 0);
     btVector3 rotated_direction = direction.rotate(btVector3(0, 0, 1), m_SonarRotation);
-    btVector3 absolute_direction = position + rotated_direction;
+    m_SonarTarget = position + rotated_direction;
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    SDL_RenderDrawLine(renderer, position.x(), position.y(), absolute_direction.x(), absolute_direction.y());
+    SDL_RenderDrawLine(renderer, position.x(), position.y(), m_SonarTarget.x(), m_SonarTarget.y());
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 }
 
 void Player::onEvent(SDL_Event& event) {
+    if (event.type == SDL_KEYDOWN and event.key.keysym.sym == SDLK_SPACE){
+        std::cout << "Ray from " << position.x() << "/" << position.y() <<
+                     " to " << m_SonarTarget.x() << "/" << m_SonarTarget.y()  << std::endl;
+        auto hit = cast(position, m_SonarTarget);
+        std::cout << "Hit at " << hit.x() << "/" << hit.y() << std::endl;
+        if(hit != btVector3(0,0,0)) {
+            //m_World->addEntity(new Box(hit));
+        }
+    }
 }
+
+btVector3 Player::cast(btVector3 rayStart, btVector3 rayEnd){
+
+    class ClosestNonPlayerRayResultCallback : public btCollisionWorld::ClosestRayResultCallback
+    {
+        public:
+            explicit ClosestNonPlayerRayResultCallback(const btVector3 &rayFromWorld, const btVector3& rayToWorld) :
+                ClosestRayResultCallback(rayFromWorld, rayToWorld)
+            {}
+            virtual ~ClosestNonPlayerRayResultCallback() {}
+
+            virtual bool needsCollision(btBroadphaseProxy* proxy0) const {
+                const btCollisionObject* obj = static_cast<const btCollisionObject*>(proxy0->m_clientObject);
+                const Entity* ent = static_cast<const Entity*>(obj->getUserPointer());
+                if(ent != 0 && ent->getId() != "Player")
+                    return true;
+                else
+                    return false;
+            }
+    };
+    ClosestNonPlayerRayResultCallback rayCallback(rayStart, rayEnd);
+
+    m_World->m_DynamicsWorld->rayTest(rayStart, rayEnd, rayCallback);
+
+    btVector3 hitPoint;
+    if(rayCallback.hasHit()) {
+        std::cout << "HIT!" << std::endl;
+        hitPoint = rayCallback.m_hitPointWorld;
+        return hitPoint;
+    }
+    return btVector3(0,0,0);
+}
+
+
 

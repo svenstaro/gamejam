@@ -1,7 +1,7 @@
 #include "map.hpp"
 #include <SDL2_gfxPrimitives.h>
 
-std::string Map::getId(){
+const std::string Map::getId() const {
     return "Map";
 }
 
@@ -13,28 +13,28 @@ btBvhTriangleMeshShape* Map::createMap(){
     btTriangleMesh* triMesh = new btTriangleMesh();
     
     // Walls
-    std::vector<btVector3> triangle1 = {btVector3(-10, 0,0),btVector3(1610, 0, 0), btVector3(800, -10, 0)};
-    std::vector<btVector3> triangle2 = {btVector3(-10, 1200,0),btVector3(1610, 1200, 0), btVector3(800, 1210, 0)};
-    std::vector<btVector3> triangle3 = {btVector3(0, -10, 0),btVector3(0, 1210, 0), btVector3(-10, 600, 0)};
-    std::vector<btVector3> triangle4 = {btVector3(1600, -10, 0),btVector3(1600, 1210, 0), btVector3(1610, 600, 0)};
+    std::vector<btVector3> triangle1 = {btVector3(-10, 0,0),btVector3(1610, 0, 0), btVector3(800, -10, 66)};
+    std::vector<btVector3> triangle2 = {btVector3(-10, 1200,0),btVector3(1610, 1200, 0), btVector3(800, 1210, 66)};
+    std::vector<btVector3> triangle3 = {btVector3(0, -10, 0),btVector3(0, 1210, 0), btVector3(-10, 600, 66)};
+    std::vector<btVector3> triangle4 = {btVector3(1600, -10, 0),btVector3(1600, 1210, 0), btVector3(1610, 600, 66)};
 
-    std::vector<btVector3> triangle5 = {btVector3(150, 0, 0),btVector3(0, 150, 0), btVector3(-10, -10, 0)};
-    std::vector<btVector3> triangle6 = {btVector3(0, 80, 0),btVector3(500, -10, 0), btVector3(-10, -10, 0)};
-    std::vector<btVector3> triangle7 = {btVector3(300, 0, 0),btVector3(800, 110, 0), btVector3(850, -10, 0)};
-    std::vector<btVector3> triangle8 = {btVector3(700, -10, 0),btVector3(850, 250, 0), btVector3(1400, -10, 0)};
-    std::vector<btVector3> triangle9 = {btVector3(1100, -10, 0),btVector3(1300, 200, 0), btVector3(1550, -10, 0)};
-    std::vector<btVector3> triangle10 = {btVector3(1400, -10, 0),btVector3(1610, 600, 0), btVector3(1600, 0, 0)};
-    std::vector<btVector3> triangle11 = {btVector3(1610, 800, 0),btVector3(1400, 1210, 0), btVector3(1610, 1210, 0)};
-    std::vector<btVector3> triangle12 = {btVector3(1610, 950, 0),btVector3(1000, 1210, 0), btVector3(1610, 1210, 0)};
-    std::vector<btVector3> triangle13 = {btVector3(1000, 1000, 0),btVector3(750, 1210, 0), btVector3(1200, 1210, 0)};
-    std::vector<btVector3> triangle14 = {btVector3(750, 1100, 0),btVector3(750, 1210, 0), btVector3(450, 1210, 0)};
-    std::vector<btVector3> triangle15 = {btVector3(-10, 1100, 0),btVector3(200, 1210, 0), btVector3(-10, 1200, 0)};
-    std::vector<btVector3> triangle16 = {btVector3(-10, 600, 0),btVector3(350, 900, 0), btVector3(-10, 800, 0)};
-    std::vector<btVector3> triangle17 = {btVector3(100, 800, 0),btVector3(-10, 500, 0), btVector3(-10, 1210, 0)};
-    std::vector<btVector3> triangle18 = {btVector3(350, 350, 0),btVector3(450, 600, 0), btVector3(600, 480, 0)};
-    std::vector<btVector3> triangle19 = {btVector3(450, 550, 0),btVector3(900, 550, 0), btVector3(850, 480, 0)};
-    std::vector<btVector3> triangle20 = {btVector3(800, 500, 0),btVector3(1200, 500, 0), btVector3(1250, 700, 0)};
-    std::vector<btVector3> triangle21 = {btVector3(800, 1000, 0),btVector3(1100, 800, 0), btVector3(750, 730, 0)};
+    std::vector<btVector3> triangle5 = {btVector3(150, 0, 0),btVector3(0, 150, 0), btVector3(-10, -10, 66)};
+    std::vector<btVector3> triangle6 = {btVector3(0, 80, 0),btVector3(500, -10, 0), btVector3(-10, -10, 66)};
+    std::vector<btVector3> triangle7 = {btVector3(300, 0, 0),btVector3(800, 110, 0), btVector3(850, -10, 66)};
+    std::vector<btVector3> triangle8 = {btVector3(700, -10, 0),btVector3(850, 250, 0), btVector3(1400, -10, 66)};
+    std::vector<btVector3> triangle9 = {btVector3(1100, -10, 0),btVector3(1300, 200, 0), btVector3(1550, -10, 66)};
+    std::vector<btVector3> triangle10 = {btVector3(1400, -10, 0),btVector3(1610, 600, 0), btVector3(1600, 0, 66)};
+    std::vector<btVector3> triangle11 = {btVector3(1610, 800, 0),btVector3(1400, 1210, 0), btVector3(1610, 1210, 66)};
+    std::vector<btVector3> triangle12 = {btVector3(1610, 950, 0),btVector3(1000, 1210, 0), btVector3(1610, 1210, 66)};
+    std::vector<btVector3> triangle13 = {btVector3(1000, 1000, 0),btVector3(750, 1210, 0), btVector3(1200, 1210, 66)};
+    std::vector<btVector3> triangle14 = {btVector3(750, 1100, 0),btVector3(750, 1210, 0), btVector3(450, 1210, 66)};
+    std::vector<btVector3> triangle15 = {btVector3(-10, 1100, 0),btVector3(200, 1210, 0), btVector3(-10, 1200, 66)};
+    std::vector<btVector3> triangle16 = {btVector3(-10, 600, 0),btVector3(350, 900, 0), btVector3(-10, 800, 66)};
+    std::vector<btVector3> triangle17 = {btVector3(100, 800, 0),btVector3(-10, 500, 0), btVector3(-10, 1210, 66)};
+    std::vector<btVector3> triangle18 = {btVector3(350, 350, 0),btVector3(450, 600, 0), btVector3(600, 480, 66)};
+    std::vector<btVector3> triangle19 = {btVector3(450, 550, 0),btVector3(900, 550, 0), btVector3(850, 480, 66)};
+    std::vector<btVector3> triangle20 = {btVector3(800, 500, 0),btVector3(1200, 500, 0), btVector3(1250, 700, 66)};
+    std::vector<btVector3> triangle21 = {btVector3(800, 1000, 0),btVector3(1100, 800, 0), btVector3(750, 730, 66)};
     
     triMesh->addTriangle(triangle1[0],triangle1[1],triangle1[2]);
     triMesh->addTriangle(triangle2[0],triangle2[1],triangle2[2]);
