@@ -9,7 +9,7 @@
 
 void Player::onInit() {
     texture = m_World->game->resources.textures["submarine"];
-    position = btVector3(400, 300, 0);
+    position = btVector3(400, 300, 1);
     physicsShape = new btBoxShape(btVector3(30, 10, 1));
     mass = 1;
 }
@@ -65,12 +65,12 @@ void Player::onUpdate(float dt) {
     } else {
         m_Flip = SDL_FLIP_NONE;
     }
+
+    btVector3 rotated_direction = m_SonarLength.rotate(btVector3(0, 0, 1), m_SonarRotation);
+    m_SonarTarget = position + rotated_direction;
 }
 
 void Player::onDraw(SDL_Renderer* renderer) {
-    btVector3 direction(500, 0, 0);
-    btVector3 rotated_direction = direction.rotate(btVector3(0, 0, 1), m_SonarRotation);
-    m_SonarTarget = position + rotated_direction;
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderDrawLine(renderer, position.x(), position.y(), m_SonarTarget.x(), m_SonarTarget.y());
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -78,47 +78,38 @@ void Player::onDraw(SDL_Renderer* renderer) {
 
 void Player::onEvent(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN and event.key.keysym.sym == SDLK_SPACE){
-        std::cout << "Ray from " << position.x() << "/" << position.y() <<
-                     " to " << m_SonarTarget.x() << "/" << m_SonarTarget.y()  << std::endl;
-        auto hit = cast(position, m_SonarTarget);
-        std::cout << "Hit at " << hit.x() << "/" << hit.y() << std::endl;
-        if(hit != btVector3(0,0,0)) {
-            //m_World->addEntity(new Box(hit));
-        }
-    }
-}
+        // Go go power ray
+        
+        m_RayHits.push_back(position);
+        btVector3 lastOut = m_SonarTarget;
+        for(size_t i = 0; i < 2; i++) {
+            auto rayCallback = cast(m_RayHits[i], lastOut);
 
-btVector3 Player::cast(btVector3 rayStart, btVector3 rayEnd){
-
-    class ClosestNonPlayerRayResultCallback : public btCollisionWorld::ClosestRayResultCallback
-    {
-        public:
-            explicit ClosestNonPlayerRayResultCallback(const btVector3 &rayFromWorld, const btVector3& rayToWorld) :
-                ClosestRayResultCallback(rayFromWorld, rayToWorld)
-            {}
-            virtual ~ClosestNonPlayerRayResultCallback() {}
-
-            virtual bool needsCollision(btBroadphaseProxy* proxy0) const {
-                const btCollisionObject* obj = static_cast<const btCollisionObject*>(proxy0->m_clientObject);
-                const Entity* ent = static_cast<const Entity*>(obj->getUserPointer());
-                if(ent != 0 && ent->getId() != "Player")
-                    return true;
-                else
-                    return false;
+            if(rayCallback.hasHit()) {
+                m_RayHits.push_back(rayCallback.m_hitPointWorld);
+                std::cout << rayCallback.m_hitNormalWorld.x() << "/" << rayCallback.m_hitNormalWorld.y() << std::endl;
+                //lastOut = 
             }
-    };
-    ClosestNonPlayerRayResultCallback rayCallback(rayStart, rayEnd);
-
-    m_World->m_DynamicsWorld->rayTest(rayStart, rayEnd, rayCallback);
-
-    btVector3 hitPoint;
-    if(rayCallback.hasHit()) {
-        std::cout << "HIT!" << std::endl;
-        hitPoint = rayCallback.m_hitPointWorld;
-        return hitPoint;
+        }
+        // Use current position as first from vector
+        /*m_RayHits.push_back(position);
+        for(size_t i = 0; i < 5; i++) {
+            if(i == 0) {
+                auto hit = cast(m_RayHits[0], m_SonarTarget);
+            } else {
+                auto hit = cast(m_RayHits[i], m_SonarTarget);
+            }
+            if(hit != btVector3(0,0,0)) {
+                m_RayHits.push_back(hit);
+            }
+        }
+        */
     }
-    return btVector3(0,0,0);
 }
 
-
+ClosestNonPlayerRayResultCallback Player::cast(btVector3 rayStart, btVector3 rayEnd) {
+    ClosestNonPlayerRayResultCallback rayCallback(rayStart, rayEnd);
+    m_World->m_DynamicsWorld->rayTest(rayStart, rayEnd, rayCallback);
+    return rayCallback;
+}
 
