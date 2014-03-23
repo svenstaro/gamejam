@@ -21,7 +21,12 @@ int Game::init() {
         return 1;
     }
 
-    m_Window = SDL_CreateWindow("Hello World!", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
+    m_MainViewport.x = 0;
+    m_MainViewport.y = 0;
+    m_MainViewport.w = 800;
+    m_MainViewport.h = 600;
+
+    m_Window = SDL_CreateWindow("Hello World!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_MainViewport.w, m_MainViewport.h, SDL_WINDOW_SHOWN);
     if (m_Window == nullptr) {
         logsSDLError(std::cout, "Create window");
         return 1;
@@ -32,6 +37,18 @@ int Game::init() {
         logsSDLError(std::cout, "Create renderer");
         return 1; 
     }
+
+    m_DrawTexture = SDL_CreateTexture(m_Renderer, SDL_PIXELTYPE_UNKNOWN, SDL_TEXTUREACCESS_TARGET, 1600, 1200);
+    SDL_SetRenderTarget(m_Renderer, m_DrawTexture);
+
+    //SDL_Rect viewport;
+    //viewport.x = 400;
+    //viewport.y = 300;
+    //viewport.w = 400;
+    //viewport.h = 300;
+    //SDL_RenderSetViewport(m_Renderer, &viewport);
+    //SDL_RenderSetScale(m_Renderer, 2.f, 2.f);
+    //SDL_RenderSetLogicalSize(m_Renderer, 300, 200);
 
     m_previousTime = std::chrono::high_resolution_clock::now();
 
@@ -45,6 +62,8 @@ int Game::init() {
 }
 
 void Game::destroy() {
+    SDL_DestroyTexture(m_DrawTexture);
+
     m_World.destroy();
     resources.destroy();
 
@@ -78,9 +97,19 @@ void Game::run() {
         m_World.update(dt);
 
         // Draw
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+        m_CameraViewport.x = x - m_MainViewport.x/2;
+        m_CameraViewport.y = y - m_MainViewport.y/2;
+        m_CameraViewport.w = m_MainViewport.w;
+        m_CameraViewport.h = m_MainViewport.h;
+
         SDL_RenderClear(m_Renderer);
         arena->drawLevel(m_Renderer);
         m_World.draw(m_Renderer);
+        SDL_SetRenderTarget(m_Renderer, 0);
+        SDL_RenderCopy(m_Renderer, m_DrawTexture, &m_CameraViewport, NULL); 
+        SDL_SetRenderTarget(m_Renderer, m_DrawTexture);
         SDL_RenderPresent(m_Renderer);
     }
 }

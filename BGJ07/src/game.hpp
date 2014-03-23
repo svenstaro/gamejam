@@ -24,8 +24,11 @@ public:
 
 private:
     World m_World;
+    SDL_Rect m_MainViewport;
+    SDL_Rect m_CameraViewport;
     SDL_Window* m_Window;
     SDL_Renderer* m_Renderer;
+    SDL_Texture* m_DrawTexture;
     std::chrono::high_resolution_clock::time_point m_previousTime;
 };
 
