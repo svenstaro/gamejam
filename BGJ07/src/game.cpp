@@ -47,9 +47,8 @@ int Game::init() {
     //viewport.w = 400;
     //viewport.h = 300;
     //SDL_RenderSetViewport(m_Renderer, &viewport);
-    //SDL_RenderSetScale(m_Renderer, 2.f, 2.f);
     //SDL_RenderSetLogicalSize(m_Renderer, 300, 200);
-
+    //SDL_RenderSetScale(m_Renderer, 3.f, 3.f);
     m_previousTime = std::chrono::high_resolution_clock::now();
 
     resources.init(m_Renderer);

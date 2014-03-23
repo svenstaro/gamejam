@@ -55,7 +55,7 @@ void World::init(Game* g) {
 
     m_DynamicsWorld->setWorldUserInfo(this);
     m_DynamicsWorld->setInternalTickCallback(bulletTickCallback, static_cast<void *>(this));
-    m_DynamicsWorld->setGravity(btVector3(0, 2, 0));
+    m_DynamicsWorld->setGravity(btVector3(0, 10, 0));
 
     addEntity(new Player());
 }
