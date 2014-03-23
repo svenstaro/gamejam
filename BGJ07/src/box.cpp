@@ -17,6 +17,10 @@ void Box::onAdd() {
     physicsBody->forceActivationState(DISABLE_DEACTIVATION);
 }
 
+std::string Box::getId(){
+    return "Box";
+}
+
 void Box::onDraw(SDL_Renderer* renderer) {
     SDL_Rect rect;
     rect.x = position.x();

@@ -8,6 +8,7 @@ class Box : public Entity {
         void onInit() override;
         void onAdd() override;
         void onDraw(SDL_Renderer* renderer) override;
+        std::string getId();
 };
 
 #endif 
