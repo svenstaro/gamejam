@@ -35,6 +35,7 @@ class Entity {
 
     protected:
         World* m_World = nullptr;
+        SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 };
 
 

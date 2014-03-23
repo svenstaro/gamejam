@@ -26,7 +26,7 @@ void Entity::update(float dt) {
 void Entity::draw(SDL_Renderer* renderer) {
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-    RenderHelper::renderTexture(texture, renderer, position.x() - w/2, position.y() - h/2, rotation, SDL_FLIP_NONE);
+    RenderHelper::renderTexture(texture, renderer, position.x() - w/2, position.y() - h/2, rotation, m_Flip);
     onDraw(renderer);
 }
 
