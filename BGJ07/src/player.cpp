@@ -9,7 +9,7 @@
 void Player::onInit() {
     texture = m_World->game->resources.textures["submarine"];
     position = btVector3(400, 300, 0);
-    physicsShape = new btBoxShape(btVector3(20, 10, 1));
+    physicsShape = new btBoxShape(btVector3(30, 10, 1));
     mass = 1;
 }
 
@@ -32,12 +32,19 @@ void Player::onUpdate(float dt) {
 
     if(keystate[SDL_SCANCODE_UP]) {
         physicsBody->applyCentralForce(btVector3(0, -1000, 0));
+        physicsBody->applyTorque(btVector3(0, 0, -5000));
     } else if(keystate[SDL_SCANCODE_DOWN]) {
         physicsBody->applyCentralForce(btVector3(0, 1000, 0));
+        physicsBody->applyTorque(btVector3(0, 0, 5000));
     }
 
-    std::cout << rotation << std::endl;
-    //physicsBody->applyTorque(0, 0, )
+    if(rotation <= -0.f)
+        physicsBody->applyTorque(btVector3(0, 0, 1000));
+    if(rotation > 0.f)
+        physicsBody->applyTorque(btVector3(0, 0, -1000));
+
+    if(rotation <= -30.f || rotation > 30.f)
+        physicsBody->setAngularVelocity(btVector3(0, 0, 0));
 }
 
 void Player::onEvent(SDL_Event& event) {
