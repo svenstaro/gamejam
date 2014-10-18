@@ -3,10 +3,18 @@ extern crate piston;
 extern crate sdl2_game_window;
 extern crate opengl_graphics;
 extern crate shader_version;
+extern crate "nalgebra" as na;
+extern crate "ncollide2df64" as nc;
 
 use sdl2_game_window::WindowSDL2;
 use opengl_graphics::Gl;
 use shader_version::opengl::OpenGL_2_1;
+use na::{Iso2,Vec2};
+use nc::geom::Cuboid;
+use nc::bounding_volume::AABB;
+use nc::bounding_volume::HasAABB;
+use nc::bounding_volume::HasBoundingVolume;
+use nc::bounding_volume::BoundingVolume;
 
 use piston::{
     Window,
@@ -24,13 +32,24 @@ use graphics::{
     RelativeTransform2d,
 };
 
+struct Player {
+    shape: Cuboid,
+    position: Iso2<f64>
+}
+
+impl HasBoundingVolume<AABB> for Player {
+    fn bounding_volume(&self) -> AABB {
+        self.shape.aabb(&self.position)
+    }
+}
+
 pub struct App {
     gl: Gl,       // OpenGL drawing backend.
     rotation: f64 // Rotation for the square.
 }
 
-impl<W: Window> App {
-    fn render(&mut self, _: &mut W, args: &RenderArgs) {
+impl App {
+    fn render<W: Window>(&mut self, _: &mut W, args: &RenderArgs) {
         // Set up a context to draw into.
         let context = &Context::abs(args.width as f64, args.height as f64);
         // Clear the screen.
@@ -46,7 +65,7 @@ impl<W: Window> App {
             .draw(&mut self.gl);
     }
 
-    fn update(&mut self, _: &mut W, args: &UpdateArgs) {
+    fn update<W: Window>(&mut self, _: &mut W, args: &UpdateArgs) {
         // Rotate 2 radians per second.
         self.rotation += 2.0 * args.dt;
     }
