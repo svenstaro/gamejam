@@ -5,13 +5,13 @@ use nc::bounding_volume::HasAABB;
 use nc::bounding_volume::HasBoundingVolume;
 use nc::bounding_volume::BoundingVolume;
 
-struct Player {
+pub struct Player {
     shape: Cuboid,
     position: Iso2<f64>
 }
 
 impl HasBoundingVolume<AABB> for Player {
-    fn bounding_volume(&self) -> AABB {
+    pub fn bounding_volume(&self) -> AABB {
         self.shape.aabb(&self.position)
     }
 }
