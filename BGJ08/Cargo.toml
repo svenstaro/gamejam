@@ -1,0 +1,5 @@
+[package]
+
+name = "BGJ08"
+version = "0.0.1"
+authors = ["Sven-Hendrik Haase <sh@lutzhaase.com>"]
