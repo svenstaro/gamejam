@@ -9,12 +9,6 @@ extern crate "ncollide2df64" as nc;
 use sdl2_game_window::WindowSDL2;
 use opengl_graphics::Gl;
 use shader_version::opengl::OpenGL_2_1;
-use na::{Iso2,Vec2};
-use nc::geom::Cuboid;
-use nc::bounding_volume::AABB;
-use nc::bounding_volume::HasAABB;
-use nc::bounding_volume::HasBoundingVolume;
-use nc::bounding_volume::BoundingVolume;
 
 use piston::{
     Window,
@@ -32,16 +26,7 @@ use graphics::{
     RelativeTransform2d,
 };
 
-struct Player {
-    shape: Cuboid,
-    position: Iso2<f64>
-}
-
-impl HasBoundingVolume<AABB> for Player {
-    fn bounding_volume(&self) -> AABB {
-        self.shape.aabb(&self.position)
-    }
-}
+mod player;
 
 pub struct App {
     gl: Gl,       // OpenGL drawing backend.
