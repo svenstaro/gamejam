@@ -11,7 +11,7 @@ pub struct Player {
 }
 
 impl HasBoundingVolume<AABB> for Player {
-    pub fn bounding_volume(&self) -> AABB {
+    fn bounding_volume(&self) -> AABB {
         self.shape.aabb(&self.position)
     }
 }
