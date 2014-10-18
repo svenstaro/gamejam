@@ -2,4 +2,22 @@
 
 name = "BGJ08"
 version = "0.0.1"
-authors = ["Sven-Hendrik Haase <sh@lutzhaase.com>"]
+authors = [
+    "Arne Beer <arne@twobeer.de>",
+    "Sven-Hendrik Haase <sh@lutzhaase.com>"
+]
+
+[dependencies.piston]
+git = "https://github.com/PistonDevelopers/piston.git"
+
+[dependencies.sdl2_game_window]
+git = "https://github.com/PistonDevelopers/sdl2_game_window.git"
+
+[dependencies.graphics]
+git = "https://github.com/PistonDevelopers/graphics.git"
+
+[dependencies.opengl_graphics]
+git = "https://github.com/PistonDevelopers/opengl_graphics.git"
+
+[dependencies.ncollide2df64]
+git = "https://github.com/sebcrozet/ncollide"
