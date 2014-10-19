@@ -26,7 +26,12 @@ use graphics::{
     RelativeTransform2d,
 };
 
+use entity::Entity;
+
 mod player;
+mod component;
+mod entity;
+
 
 pub struct App {
     gl: Gl,       // OpenGL drawing backend.
@@ -57,6 +62,8 @@ impl App {
 }
 
 fn main() {
+
+    let ent = entity::Entity::new(12i);
     // Create an SDL window.
     let mut window = WindowSDL2::new(
         piston::shader_version::opengl::OpenGL_2_1,
