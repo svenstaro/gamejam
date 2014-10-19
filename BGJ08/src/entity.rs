@@ -13,7 +13,7 @@ enum ComponentName {
 }
 
 pub struct Entity {
-    components: HashMap<ComponentName, &Box<IsComponent>>,
+    components: HashMap<ComponentName, Box<IsComponent+'static>>,
     id : int
 }
 
@@ -22,7 +22,7 @@ impl Entity {
         Entity { components: HashMap::new(), id: id }
     }
 
-    pub fn add<T : IsComponent> (&mut self, name: ComponentName, cmpt: T) {
+    pub fn add (&mut self, name: ComponentName, cmpt: Box<IsComponent+'static>) {
         self.components.insert(name, cmpt);
     }
 }

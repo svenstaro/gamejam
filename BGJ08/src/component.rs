@@ -6,18 +6,18 @@ pub struct Component2 {
     name : String
 }
 
-trait IsComponent {
-    pub fn getName(&self) -> String;
+pub trait IsComponent {
+    fn get_name(self) -> String;
 }
 
 impl IsComponent for Component {
-    pub fn getName(&self) -> String {
+    fn get_name(self) -> String {
         self.name
     }
 }
 
 impl IsComponent for Component2 {
-    pub fn getName(&self) -> String {
+    fn get_name(self) -> String {
         self.name
     }
 }
