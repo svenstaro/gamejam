@@ -1,12 +1,15 @@
 extern crate "nalgebra" as na;
 extern crate "ncollide2df64" as nc;
+extern crate opengl_graphics;
 
-use na::{Iso2,Vec2};
+use na::{Pnt2,Iso2,Vec2,Transform,Translation,Translate};
 use nc::geom::Cuboid;
 use nc::bounding_volume::AABB;
 use nc::bounding_volume::HasAABB;
 use nc::bounding_volume::HasBoundingVolume;
 use nc::bounding_volume::BoundingVolume;
+
+use opengl_graphics::Gl;
 
 use piston::{
     RenderArgs,
@@ -15,8 +18,9 @@ use piston::{
 
 use graphics::{
     Context,
+    Draw,
     AddRectangle,
-    AddColor,
+    AddColor
 };
 
 pub struct Enemies {
@@ -25,20 +29,30 @@ pub struct Enemies {
 }
 
 impl Enemies {
-    pub fn spawn_enemy(&self, initial_position: Vec2<f64>) {
+    pub fn new(shape: Cuboid) -> Enemies {
+        Enemies {
+            shape: shape,
+            positions: Vec::new()
+        }
+    }
+
+    pub fn spawn_enemy(&mut self, initial_position: Vec2<f64>) {
         self.positions.push(Iso2::new(initial_position, na::zero()))
     }
 
-    pub fn render(&mut self, &mut context: &Context) {
-        //for enemy in self.positions
+    pub fn render(&mut self, context: &Context, gl: &mut Gl) {
+        for pos in self.positions.iter() {
+            let size = self.shape.half_extents() * Vec2 {x: 2.0, y: 2.0};
+            context
+                .rect(pos.translation().x, pos.translation().y, size.x, size.y)
+                .rgba(0.9, 0.9, 0.95, 1.0)
+                .draw(gl);
+        }
     }
 
     pub fn update(&mut self, args: &UpdateArgs) {
-    }
-}
-
-impl HasBoundingVolume<AABB> for Enemies {
-    fn bounding_volume(&self, i: uint) -> AABB {
-        self.shape.aabb(&self.positions[i])
+        for &mut position in self.positions.iter() {
+            position.append_translation(&Vec2::new(50f64, 0.0));
+        }
     }
 }

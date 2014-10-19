@@ -37,7 +37,7 @@ mod enemy;
 pub struct App {
     gl: Gl,       // OpenGL drawing backend.
     player: Player,
-    enemies: Enemies,
+    enemies: Enemies
 }
 
 impl App {
@@ -55,7 +55,7 @@ impl App {
             .trans(-50.0, -25.0)
             .draw(&mut self.gl);
 
-        self.enemies.render(context)
+        self.enemies.render(context, &mut self.gl)
     }
 
     fn update<W: Window>(&mut self, _: &mut W, args: &UpdateArgs) {
@@ -79,9 +79,13 @@ fn main() {
     };
 
     // Create a new game and run it.
-    let mut app = App { gl: Gl::new(OpenGL_2_1),
+    let mut app = App { 
+        gl: Gl::new(OpenGL_2_1),
         player: Player::new(Cuboid::new(Vec2::new(3.0, 1.0)), Vec2::new(0.0, 0.0)),
-        enemies: Enemies { shape: Cuboid::new(Vec2::new(3.0, 1.0)), positions: Vec::new() }};
+        enemies: Enemies::new(Cuboid::new(Vec2::new(3.0, 1.0)))
+    };
+
+    app.enemies.spawn_enemy(Vec2 {x: 15.0, y: 30.0});
 
     // TODO: Change this back to a for loop after rust is fixed.
     let mut event_iter = piston::EventIterator::new(&mut window, &event_settings);
