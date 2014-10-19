@@ -9,6 +9,8 @@ extern crate "ncollide2df64" as nc;
 use sdl2_game_window::WindowSDL2;
 use opengl_graphics::Gl;
 use shader_version::opengl::OpenGL_2_1;
+use na::{Iso2,Vec2};
+use nc::geom::Cuboid;
 
 use piston::{
     Window,
@@ -27,29 +29,28 @@ use graphics::{
 };
 
 use entity::Entity;
+use player::Player;
 
 mod player;
 mod component;
 mod entity;
 
-
 pub struct App {
     gl: Gl,       // OpenGL drawing backend.
-    rotation: f64 // Rotation for the square.
+    player: Player
 }
 
 impl App {
     fn render<W: Window>(&mut self, _: &mut W, args: &RenderArgs) {
         // Set up a context to draw into.
         let context = &Context::abs(args.width as f64, args.height as f64);
+
         // Clear the screen.
         context.rgba(0.0,1.0,0.0,1.0).draw(&mut self.gl);
 
-        // Draw a box rotating around the middle of the screen.
         context
             .trans((args.width / 2) as f64, (args.height / 2) as f64)
-            .rot_rad(self.rotation)
-            .rect(0.0, 0.0, 50.0, 50.0)
+            .rect(0.0, 0.0, 100.0, 50.0)
             .rgba(1.0, 0.0, 0.0,1.0)
             .trans(-25.0, -25.0)
             .draw(&mut self.gl);
@@ -57,7 +58,7 @@ impl App {
 
     fn update<W: Window>(&mut self, _: &mut W, args: &UpdateArgs) {
         // Rotate 2 radians per second.
-        self.rotation += 2.0 * args.dt;
+        //self.rotation += 2.0 * args.dt;
     }
 }
 
@@ -77,7 +78,8 @@ fn main() {
     };
 
     // Create a new game and run it.
-    let mut app = App { gl: Gl::new(OpenGL_2_1), rotation: 0.0 };
+    let mut app = App { gl: Gl::new(OpenGL_2_1), player:
+        Player::new(Cuboid::new(Vec2::new(3.0, 1.0)), Vec2::new(0.0, 0.0)) };
 
     // TODO: Change this back to a for loop after rust is fixed.
     let mut event_iter = piston::EventIterator::new(&mut window, &event_settings);
