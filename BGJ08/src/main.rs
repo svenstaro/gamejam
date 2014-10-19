@@ -28,16 +28,16 @@ use graphics::{
     RelativeTransform2d,
 };
 
-use entity::Entity;
 use player::Player;
+use enemy::Enemies;
 
 mod player;
-mod component;
-mod entity;
+mod enemy;
 
 pub struct App {
     gl: Gl,       // OpenGL drawing backend.
-    player: Player
+    player: Player,
+    enemies: Enemies,
 }
 
 impl App {
@@ -46,25 +46,26 @@ impl App {
         let context = &Context::abs(args.width as f64, args.height as f64);
 
         // Clear the screen.
-        context.rgba(0.0,1.0,0.0,1.0).draw(&mut self.gl);
+        context.rgba(0.1,0.1,0.1,1.0).draw(&mut self.gl);
 
         context
             .trans((args.width / 2) as f64, (args.height / 2) as f64)
             .rect(0.0, 0.0, 100.0, 50.0)
             .rgba(1.0, 0.0, 0.0,1.0)
-            .trans(-25.0, -25.0)
+            .trans(-50.0, -25.0)
             .draw(&mut self.gl);
+
+        self.enemies.render(context)
     }
 
     fn update<W: Window>(&mut self, _: &mut W, args: &UpdateArgs) {
-        // Rotate 2 radians per second.
+        self.enemies.update(args)
         //self.rotation += 2.0 * args.dt;
     }
 }
 
 fn main() {
 
-    let ent = entity::Entity::new(12i);
     // Create an SDL window.
     let mut window = WindowSDL2::new(
         piston::shader_version::opengl::OpenGL_2_1,
@@ -78,8 +79,9 @@ fn main() {
     };
 
     // Create a new game and run it.
-    let mut app = App { gl: Gl::new(OpenGL_2_1), player:
-        Player::new(Cuboid::new(Vec2::new(3.0, 1.0)), Vec2::new(0.0, 0.0)) };
+    let mut app = App { gl: Gl::new(OpenGL_2_1),
+        player: Player::new(Cuboid::new(Vec2::new(3.0, 1.0)), Vec2::new(0.0, 0.0)),
+        enemies: Enemies { shape: Cuboid::new(Vec2::new(3.0, 1.0)), positions: Vec::new() }};
 
     // TODO: Change this back to a for loop after rust is fixed.
     let mut event_iter = piston::EventIterator::new(&mut window, &event_settings);
