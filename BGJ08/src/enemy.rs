@@ -51,8 +51,9 @@ impl Enemies {
     }
 
     pub fn update(&mut self, args: &UpdateArgs) {
-        for &mut position in self.positions.iter() {
-            position.append_translation(&Vec2::new(50f64, 0.0));
+        for position in self.positions.iter_mut() {
+            let new_position = position.translation().x * args.dt + 1.0;
+            position.append_translation(&Vec2::new(new_position, 0.0));
         }
     }
 }
