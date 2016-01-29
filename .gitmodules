@@ -7,3 +7,18 @@
 [submodule "BGJ02/src/externals/tween"]
 	path = BGJ02/src/externals/tween
 	url = https://github.com/kikito/tween.lua
+[submodule "innojam8"]
+	path = innojam8
+	url = git@github.com:svenstaro/innojam8.git
+[submodule "ggj2016"]
+	path = ggj2016
+	url = git@github.com:svenstaro/ggj2016.git
+[submodule "ggj2015"]
+	path = ggj2015
+	url = git@github.com:svenstaro/ggj2015.git
+[submodule "innojam9"]
+	path = innojam9
+	url = git@github.com:svenstaro/innojam9.git
+[submodule "bgj09"]
+	path = bgj09
+	url = git@github.com:svenstaro/bgj09.git
