@@ -17,7 +17,7 @@ contract City {
 
     function claimCityblock(int xloc, int yloc) public returns (bool) {
         // Check that this block isn't claimed yet.
-        // Sadly we'll have to iterate over all the CityBlocks here because
+        // Sadly we'll have to iterate over all the Cityblocks here because
         // mappings are not powerful enough.
         for (uint i = 0; i < m_cityblocks.length; i++) {
             if (m_cityblocks[i].xloc == xloc && m_cityblocks[i].yloc == yloc) {

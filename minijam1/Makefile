@@ -12,3 +12,7 @@ build:
 .PHONY: test
 test:
 	node_modules/.bin/truffle test
+
+.PHONY: watch
+watch:
+	node_modules/.bin/truffle watch
