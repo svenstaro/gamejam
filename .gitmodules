@@ -9,25 +9,25 @@
 	url = https://github.com/kikito/tween.lua
 [submodule "innojam8"]
 	path = innojam8
-	url = git@github.com:svenstaro/innojam8.git
+	url = https://github.com/svenstaro/innojam8.git
 [submodule "ggj2016"]
 	path = ggj2016
-	url = git@github.com:svenstaro/ggj2016.git
+	url = https://github.com/svenstaro/ggj2016.git
 [submodule "ggj2015"]
 	path = ggj2015
-	url = git@github.com:svenstaro/ggj2015.git
+	url = https://github.com/svenstaro/ggj2015.git
 [submodule "innojam9"]
 	path = innojam9
-	url = git@github.com:svenstaro/innojam9.git
+	url = https://github.com/svenstaro/innojam9.git
 [submodule "bgj09"]
 	path = bgj09
-	url = git@github.com:svenstaro/bgj09.git
+	url = https://github.com/svenstaro/bgj09.git
 [submodule "igjam2016"]
 	path = igjam2016
-	url = git@github.com:alexd2580/igjam2016.git
+	url = https://github.com/alexd2580/igjam2016.git
 [submodule "ggj2017"]
 	path = ggj2017
-	url = git@github.com:svenstaro/ggj2017.git
-[submodule "BGJ05/fredjam2018"]
-	path = BGJ05/fredjam2018
+	url = https://github.com/svenstaro/ggj2017.git
+[submodule "fredjam2018"]
+	path = fredjam2018
 	url = https://github.com/svenstaro/fredjam2018
