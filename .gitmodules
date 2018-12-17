@@ -28,3 +28,6 @@
 [submodule "ggj2017"]
 	path = ggj2017
 	url = git@github.com:svenstaro/ggj2017.git
+[submodule "BGJ05/fredjam2018"]
+	path = BGJ05/fredjam2018
+	url = https://github.com/svenstaro/fredjam2018
