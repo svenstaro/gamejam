@@ -31,3 +31,6 @@
 [submodule "fredjam2018"]
 	path = fredjam2018
 	url = https://github.com/svenstaro/fredjam2018
+[submodule "svenjam01"]
+	path = svenjam01
+	url = git@github.com:svenstaro/svenjam01.git
